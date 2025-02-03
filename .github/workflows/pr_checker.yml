@@ -25,6 +25,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: set up JDK 18
         uses: actions/setup-java@v3
         with:
@@ -40,12 +41,18 @@ jobs:
       - name: Touch local properties
         run: touch local.properties
 
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+        run: echo $FIREBASE_SECRET | base64 --decode > app/google-services.json
+
       - name: Access local properties
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
         run: |
           echo "base.url=\"$BASE_URL\"" >> local.properties
-      - name: Lint Check
+
+      - name: ktLint Check
         run: ./gradlew ktlintCheck -PcompileSdkVersion=35
 
       - name: Build with Gradle
