@@ -25,9 +25,9 @@ class DummyLocalDataSourceImpl @Inject constructor(
     override fun clear() = sharedPreferences.edit { clear() }
 
     companion object {
-        const val PREFERENCES_NAME = "user_preferences"
-        const val TOKEN = "token"
-        const val NICKNAME = "nickname"
-        const val INITIAL_VALUE = ""
+        private const val PREFERENCES_NAME = "user_preferences"
+        private const val TOKEN = "token"
+        private const val NICKNAME = "nickname"
+        private const val INITIAL_VALUE = ""
     }
 }
