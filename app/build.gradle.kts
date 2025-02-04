@@ -1,14 +1,14 @@
 import java.util.Properties
 
-        plugins {
-            alias(libs.plugins.android.application)
-            alias(libs.plugins.kotlin.android)
-            alias(libs.plugins.kotlin.compose)
-            alias(libs.plugins.kotlin.serialization)
-            alias(libs.plugins.dagger.hilt)
-            alias(libs.plugins.ktlint)
-            id("org.jetbrains.kotlin.kapt")
-        }
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.ktlint)
+    id("org.jetbrains.kotlin.kapt")
+}
 
 val properties = Properties().apply {
     load(project.rootProject.file("local.properties").inputStream())
