@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos
+package com.konkuk.arabyte_aos.presentation.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
