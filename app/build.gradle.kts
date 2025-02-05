@@ -6,13 +6,14 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dagger.hilt)
-    alias(libs.plugins.ktlint)
     id("org.jetbrains.kotlin.kapt")
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
 }
 
-val properties = Properties().apply {
-    load(project.rootProject.file("local.properties").inputStream())
-}
+val properties =
+    Properties().apply {
+        load(project.rootProject.file("local.properties").inputStream())
+    }
 
 android {
     namespace = "com.konkuk.arabyte_aos"
@@ -34,7 +35,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -88,4 +89,11 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+}
+ktlint {
+    android = true
+    debug = true
+    coloredOutput = true
+    verbose = true
+    outputToConsole = true
 }

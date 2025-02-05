@@ -5,6 +5,6 @@ import com.konkuk.arabyte_aos.domain.model.DummyData
 
 fun DummyResponseDto.toDomainModel(): DummyData {
     return DummyData(
-        description = this.dummy + "입니다 "
+        description = this.dummy + "입니다 ",
     )
 }

@@ -32,7 +32,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             connectTimeout(10, TimeUnit.SECONDS)
@@ -40,9 +40,10 @@ object NetworkModule {
             readTimeout(10, TimeUnit.SECONDS)
             addInterceptor(loggingInterceptor)
             addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("Accept", "*/*")
-                    .build()
+                val request =
+                    chain.request().newBuilder()
+                        .addHeader("Accept", "*/*")
+                        .build()
                 chain.proceed(request)
             }
         }.build()
@@ -59,13 +60,13 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(
         okHttpClient: OkHttpClient,
-        json: Json
+        json: Json,
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(
-                json.asConverterFactory(requireNotNull("application/json".toMediaTypeOrNull()))
+                json.asConverterFactory(requireNotNull("application/json".toMediaTypeOrNull())),
             )
             .build()
 }
