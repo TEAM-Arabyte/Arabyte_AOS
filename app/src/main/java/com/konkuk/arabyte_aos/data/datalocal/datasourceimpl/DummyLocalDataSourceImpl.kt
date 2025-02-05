@@ -25,10 +25,10 @@ class DummyLocalDataSourceImpl
 
         override fun clear() = sharedPreferences.edit { clear() }
 
-        companion object {
-            const val PREFERENCES_NAME = "user_preferences"
-            const val TOKEN = "token"
-            const val NICKNAME = "nickname"
-            const val INITIAL_VALUE = ""
-        }
+    companion object {
+        private const val PREFERENCES_NAME = "user_preferences"
+        private const val TOKEN = "token"
+        private const val NICKNAME = "nickname"
+        private const val INITIAL_VALUE = ""
     }
+}
