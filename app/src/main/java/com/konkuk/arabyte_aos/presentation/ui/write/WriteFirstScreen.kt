@@ -5,5 +5,4 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun WriteFirstScreen(modifier: Modifier = Modifier) {
-    
 }
