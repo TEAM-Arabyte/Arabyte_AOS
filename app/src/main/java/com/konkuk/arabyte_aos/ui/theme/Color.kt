@@ -17,7 +17,6 @@ data class ArabyteColors(
     val gray03: Color,
     val gray02: Color,
     val gray01: Color,
-
     // Primary
     val mainBlue: Color,
     val subBlue: Color,
@@ -37,7 +36,6 @@ val arabyteColors =
         gray02 = Color(0xFFE6E6EB),
         gray01 = Color(0xFFF3F3F6),
         white = Color(0xFFFFFFFF),
-        
         // Primary
         mainBlue = Color(0xFF5E76ED),
         subBlue = Color(0xFF889CFC),
