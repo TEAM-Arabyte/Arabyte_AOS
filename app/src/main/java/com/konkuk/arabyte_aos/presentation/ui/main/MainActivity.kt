@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
+import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ fun Greeting(
     Text(
         text = "Hello $name!",
         modifier = modifier,
+        color = arabyteColors.mainBlue,
     )
 }
 
