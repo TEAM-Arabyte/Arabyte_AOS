@@ -10,7 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.konkuk.arabyte_aos.presentation.ui.login.LoginRoute
+import com.konkuk.arabyte_aos.presentation.ui.login.LoginScreen
+import com.konkuk.arabyte_aos.presentation.ui.login.setLayoutLoginKakaoClickListener
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
@@ -21,32 +25,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ArabyteAOSTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding),
-                    )
+                    LoginRoute(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-        color = arabyteColors.mainBlue,
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ArabyteAOSTheme {
-        Greeting("Android")
     }
 }
