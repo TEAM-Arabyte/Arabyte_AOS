@@ -14,20 +14,21 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 inline fun Modifier.noRippleClickable(
-    crossinline onClick: () -> Unit = {}
-): Modifier = composed {
-    this.clickable(
-        indication = null,
-        interactionSource = remember { MutableInteractionSource() }
-    ) {
-        onClick()
+    crossinline onClick: () -> Unit = {},
+): Modifier =
+    composed {
+        this.clickable(
+            indication = null,
+            interactionSource = remember { MutableInteractionSource() },
+        ) {
+            onClick()
+        }
     }
-}
 
 fun Modifier.roundedBackgroundWithPadding(
     backgroundColor: Color = Color.Unspecified,
     cornerRadius: Dp = 0.dp,
-    padding: PaddingValues = PaddingValues(0.dp)
+    padding: PaddingValues = PaddingValues(0.dp),
 ): Modifier {
     return this
         .background(color = backgroundColor, shape = RoundedCornerShape(cornerRadius))

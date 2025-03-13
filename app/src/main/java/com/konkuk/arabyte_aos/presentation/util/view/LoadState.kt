@@ -4,5 +4,5 @@ enum class LoadState {
     Idle,
     Loading,
     Success,
-    Error
+    Error,
 }

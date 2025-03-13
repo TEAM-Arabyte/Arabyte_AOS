@@ -4,9 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +23,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.konkuk.arabyte_aos.R
@@ -35,7 +32,7 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 fun setLayoutLoginKakaoClickListener(
     context: Context,
-    callback: (OAuthToken?, Throwable?) -> Unit
+    callback: (OAuthToken?, Throwable?) -> Unit,
 ) {
     if (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
         UserApiClient.instance.loginWithKakaoTalk(context, callback = callback)
@@ -43,7 +40,6 @@ fun setLayoutLoginKakaoClickListener(
         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
     }
 }
-
 
 @Composable
 fun LoginRoute(
@@ -66,37 +62,39 @@ fun LoginRoute(
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    loginButtonClicked: () -> Unit
+    loginButtonClicked: () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = arabyteColors.mainBlue),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(color = arabyteColors.mainBlue),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(207.dp))
         Text(
             text = "당신의 알바 선택을 더 똑똑하게,\n알바의 모든것을 알아보세요",
             color = arabyteColors.white,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.weight(1f))
         Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth()
-                .roundedBackgroundWithPadding(
-                    backgroundColor = arabyteColors.kakaoYellow,
-                    cornerRadius = 6.dp
-                )
-                .noRippleClickable { loginButtonClicked() },
+            modifier =
+                Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
+                    .roundedBackgroundWithPadding(
+                        backgroundColor = arabyteColors.kakaoYellow,
+                        cornerRadius = 6.dp,
+                    )
+                    .noRippleClickable { loginButtonClicked() },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_login_kakao_18),
                 contentDescription = null,
-                modifier = Modifier.padding(vertical = 18.dp)
+                modifier = Modifier.padding(vertical = 18.dp),
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(

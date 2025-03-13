@@ -13,7 +13,7 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 @HiltAndroidApp
-class ArabyteApp : Application(){
+class ArabyteApp : Application() {
     override fun onCreate() {
         super.onCreate()
         setDarkMode()
