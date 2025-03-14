@@ -17,7 +17,7 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 fun ArabyteLargeButton(
     buttonText: String,
     modifier: Modifier = Modifier,
-    clickable: Boolean = true,
+    enabled: Boolean = true,
     buttonClicked: () -> Unit = {},
 ) {
     Text(
@@ -25,14 +25,14 @@ fun ArabyteLargeButton(
             modifier
                 .fillMaxWidth()
                 .roundedBackgroundWithPadding(
-                    backgroundColor = if (clickable) arabyteColors.mainBlue else arabyteColors.gray01,
+                    backgroundColor = if (enabled) arabyteColors.mainBlue else arabyteColors.gray01,
                     padding = PaddingValues(vertical = 19.5.dp),
                 )
                 .noRippleClickable {
                     buttonClicked()
                 },
         text = buttonText,
-        color = if (clickable) arabyteColors.white else arabyteColors.gray05,
+        color = if (enabled) arabyteColors.white else arabyteColors.gray05,
         textAlign = TextAlign.Center,
     )
 }
@@ -42,6 +42,6 @@ fun ArabyteLargeButton(
 private fun ArabyteLargeButtonPreview() {
     Column {
         ArabyteLargeButton(buttonText = "Button")
-        ArabyteLargeButton(buttonText = "Button", clickable = false)
+        ArabyteLargeButton(buttonText = "Button", enabled = false)
     }
 }

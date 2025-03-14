@@ -2,10 +2,8 @@ package com.konkuk.arabyte_aos.presentation.ui.component.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,23 +32,23 @@ fun ArabyteCategoryButton(
 ) {
     Column(
         modifier = modifier.noRippleClickable { buttonClicked() },
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             modifier =
-            Modifier.border(width = 1.dp, color = arabyteColors.gray01, shape = RoundedCornerShape(9.dp))
-                .roundedBackgroundWithPadding(
-                    padding = PaddingValues(10.dp),
-                    cornerRadius = 9.dp,
-                ),
+                Modifier.border(width = 1.dp, color = arabyteColors.gray01, shape = RoundedCornerShape(9.dp))
+                    .roundedBackgroundWithPadding(
+                        padding = PaddingValues(10.dp),
+                        cornerRadius = 9.dp,
+                    ),
             imageVector = ImageVector.vectorResource(categoryType.imageDrawableRes),
             contentDescription = null,
-            tint = Color.Unspecified
+            tint = Color.Unspecified,
         )
         Spacer(modifier = Modifier.height(3.dp))
         Text(
             text = stringResource(categoryType.stringRes),
-            color = arabyteColors.gray07
+            color = arabyteColors.gray07,
         )
     }
 }

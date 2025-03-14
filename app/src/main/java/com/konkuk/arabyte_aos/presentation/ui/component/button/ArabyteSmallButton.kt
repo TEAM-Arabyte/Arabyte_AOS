@@ -17,7 +17,7 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 fun ArabyteSmallButton(
     buttonText: String,
     modifier: Modifier = Modifier,
-    clickable: Boolean = true,
+    enabled: Boolean = true,
     buttonClicked: () -> Unit = {},
 ) {
     Text(
@@ -25,7 +25,7 @@ fun ArabyteSmallButton(
             modifier
                 .fillMaxWidth()
                 .roundedBackgroundWithPadding(
-                    backgroundColor = if (clickable) arabyteColors.gray07 else arabyteColors.gray01,
+                    backgroundColor = if (enabled) arabyteColors.gray07 else arabyteColors.gray01,
                     padding = PaddingValues(vertical = 16.dp),
                     cornerRadius = 9.dp,
                 )
@@ -33,7 +33,7 @@ fun ArabyteSmallButton(
                     buttonClicked()
                 },
         text = buttonText,
-        color = if (clickable) arabyteColors.white else arabyteColors.gray05,
+        color = if (enabled) arabyteColors.white else arabyteColors.gray05,
         textAlign = TextAlign.Center,
     )
 }
@@ -43,6 +43,6 @@ fun ArabyteSmallButton(
 private fun ArabyteSmallButtonPreview() {
     Column {
         ArabyteSmallButton(buttonText = "Button")
-        ArabyteSmallButton(buttonText = "Button", clickable = false)
+        ArabyteSmallButton(buttonText = "Button", enabled = false)
     }
 }
