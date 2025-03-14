@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
+import com.konkuk.arabyte_aos.ui.theme.LocalArabyteTypography
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
-import com.konkuk.arabyte_aos.ui.theme.arabyteTypography
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,30 +38,32 @@ fun Greeting(
     name: String,
     modifier: Modifier = Modifier,
 ) {
+    val typography = LocalArabyteTypography.current
+
     Row {
         Text(
             text = "Hello $name!",
             modifier = modifier,
             color = arabyteColors.mainBlue,
-            style = arabyteTypography.capMed9,
+            style = typography.capMed9,
         )
         Text(
             text = "Hello $name!",
             modifier = modifier,
             color = arabyteColors.subBlue,
-            style = arabyteTypography.bodyMed13,
+            style = typography.bodyMed13,
         )
         Text(
             text = "Hello $name!",
             modifier = modifier,
             color = arabyteColors.gray04,
-            style = arabyteTypography.titleBold18,
+            style = typography.titleBold18,
         )
         Text(
             text = "Hello $name!",
             modifier = modifier,
             color = arabyteColors.gray08,
-            style = arabyteTypography.titleExtra24,
+            style = typography.titleExtra24,
         )
     }
 }

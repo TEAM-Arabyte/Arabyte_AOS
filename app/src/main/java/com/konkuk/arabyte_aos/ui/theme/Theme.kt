@@ -56,9 +56,11 @@ fun ArabyteAOSTheme(
             else -> LightColorScheme
         }
 
+    val typography = provideArabyteTypography()
+
     ProvideArabyteColorsAndTypography(
         colors = arabyteColors,
-        typography = arabyteTypography,
+        typography = typography,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
