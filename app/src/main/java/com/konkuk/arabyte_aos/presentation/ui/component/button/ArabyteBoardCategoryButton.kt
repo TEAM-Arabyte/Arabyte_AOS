@@ -32,34 +32,34 @@ fun ArabyteBoardCategoryButton(
     arabyteBoardCategoryType: ArabyteBoardCategoryType,
     enabled: Boolean,
     modifier: Modifier = Modifier,
-    buttonClicked: (Boolean) -> Unit
+    buttonClicked: (Boolean) -> Unit,
 ) {
     Row(
         modifier =
-        modifier
-            .then(
-                if (!enabled) {
-                    Modifier.border(
-                        width = 1.dp,
-                        color = ArabyteTheme.colors.gray01,
-                        shape = RoundedCornerShape(30.dp),
-                    )
-                } else {
-                    Modifier
-                },
-            )
-            .roundedBackgroundWithPadding(
-                padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
-                cornerRadius = 30.dp,
-                backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.white
-            )
-            .noRippleClickable { buttonClicked(!enabled) },
+            modifier
+                .then(
+                    if (!enabled) {
+                        Modifier.border(
+                            width = 1.dp,
+                            color = ArabyteTheme.colors.gray01,
+                            shape = RoundedCornerShape(30.dp),
+                        )
+                    } else {
+                        Modifier
+                    },
+                )
+                .roundedBackgroundWithPadding(
+                    padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
+                    cornerRadius = 30.dp,
+                    backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.white,
+                )
+                .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(arabyteBoardCategoryType.imageDrawableRes),
             tint = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray07,
-            contentDescription = null
+            contentDescription = null,
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(
@@ -80,13 +80,13 @@ private fun ArabyteSelectSmallButtonPreview() {
             ArabyteBoardCategoryButton(
                 arabyteBoardCategoryType = ArabyteBoardCategoryType.FREE,
                 enabled = isEnabled1,
-                buttonClicked = { isEnabled1 = it }
+                buttonClicked = { isEnabled1 = it },
             )
 
             ArabyteBoardCategoryButton(
                 arabyteBoardCategoryType = ArabyteBoardCategoryType.INFO,
                 enabled = isEnabled2,
-                buttonClicked = { isEnabled2 = it }
+                buttonClicked = { isEnabled2 = it },
             )
         }
     }

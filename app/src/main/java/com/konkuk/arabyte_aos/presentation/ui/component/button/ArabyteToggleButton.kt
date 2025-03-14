@@ -29,13 +29,13 @@ fun ArabyteToggleButton(
     buttonClicked: (Boolean) -> Unit = {},
 ) {
     val backgroundColor = if (enabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray03
-   Box(modifier = modifier.roundedBackgroundWithPadding(cornerRadius = 20.dp, backgroundColor = backgroundColor).noRippleClickable{buttonClicked(!enabled)}){
-       Row (modifier = Modifier.padding(2.5.dp)){
-           if (!enabled) Spacer(modifier = Modifier.width(15.dp))
-           Spacer(modifier = Modifier.background(shape = CircleShape, color = ArabyteTheme.colors.white).size(15.dp))
-           if (enabled) Spacer(modifier = Modifier.width(15.dp))
-       }
-   }
+    Box(modifier = modifier.roundedBackgroundWithPadding(cornerRadius = 20.dp, backgroundColor = backgroundColor).noRippleClickable { buttonClicked(!enabled) }) {
+        Row(modifier = Modifier.padding(2.5.dp)) {
+            if (!enabled) Spacer(modifier = Modifier.width(15.dp))
+            Spacer(modifier = Modifier.background(shape = CircleShape, color = ArabyteTheme.colors.white).size(15.dp))
+            if (enabled) Spacer(modifier = Modifier.width(15.dp))
+        }
+    }
 }
 
 @Preview

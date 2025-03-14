@@ -23,15 +23,15 @@ fun ArabyteLargeButton(
 ) {
     Text(
         modifier =
-        modifier
-            .fillMaxWidth()
-            .roundedBackgroundWithPadding(
-                backgroundColor = if (enabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray01,
-                padding = PaddingValues(vertical = 19.5.dp),
-            )
-            .noRippleClickable {
-                buttonClicked()
-            },
+            modifier
+                .fillMaxWidth()
+                .roundedBackgroundWithPadding(
+                    backgroundColor = if (enabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray01,
+                    padding = PaddingValues(vertical = 19.5.dp),
+                )
+                .noRippleClickable {
+                    buttonClicked()
+                },
         text = buttonText,
         color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray05,
         textAlign = TextAlign.Center,

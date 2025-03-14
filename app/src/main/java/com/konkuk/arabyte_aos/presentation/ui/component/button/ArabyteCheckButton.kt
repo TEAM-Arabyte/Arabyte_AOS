@@ -1,7 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.component.button
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,18 +38,18 @@ fun ArabyteCheckButton(
 ) {
     Row(
         modifier =
-        modifier
-            .fillMaxWidth()
-            .drawWithContent {
-                drawContent()
-                drawRoundRect(
-                    color = arabyteColors.mainBlue,
-                    style = Stroke(width = 1.dp.toPx(), pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)),
-                    cornerRadius = CornerRadius(9.dp.toPx())
-                )
-            }
-            .roundedBackgroundWithPadding(cornerRadius = 9.dp, backgroundColor = ArabyteTheme.colors.white, padding = PaddingValues(vertical = 18.dp))
-            .noRippleClickable { buttonClicked() },
+            modifier
+                .fillMaxWidth()
+                .drawWithContent {
+                    drawContent()
+                    drawRoundRect(
+                        color = arabyteColors.mainBlue,
+                        style = Stroke(width = 1.dp.toPx(), pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)),
+                        cornerRadius = CornerRadius(9.dp.toPx()),
+                    )
+                }
+                .roundedBackgroundWithPadding(cornerRadius = 9.dp, backgroundColor = ArabyteTheme.colors.white, padding = PaddingValues(vertical = 18.dp))
+                .noRippleClickable { buttonClicked() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -64,7 +63,7 @@ fun ArabyteCheckButton(
 @Composable
 private fun ArabyteCheckButtonPreview() {
     ArabyteAOSTheme {
-        Column (modifier = Modifier.background(color = ArabyteTheme.colors.white).padding(10.dp)){
+        Column(modifier = Modifier.background(color = ArabyteTheme.colors.white).padding(10.dp)) {
             ArabyteCheckButton()
         }
     }

@@ -24,16 +24,16 @@ fun ArabyteSmallButton(
 ) {
     Text(
         modifier =
-        modifier
-            .fillMaxWidth()
-            .roundedBackgroundWithPadding(
-                backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.gray01,
-                padding = PaddingValues(vertical = 16.dp),
-                cornerRadius = 9.dp,
-            )
-            .noRippleClickable {
-                buttonClicked()
-            },
+            modifier
+                .fillMaxWidth()
+                .roundedBackgroundWithPadding(
+                    backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.gray01,
+                    padding = PaddingValues(vertical = 16.dp),
+                    cornerRadius = 9.dp,
+                )
+                .noRippleClickable {
+                    buttonClicked()
+                },
         text = buttonText,
         color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray05,
         textAlign = TextAlign.Center,

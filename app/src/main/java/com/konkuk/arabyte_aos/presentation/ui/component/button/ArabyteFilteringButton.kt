@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -23,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.ArabyteFilteringType
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
@@ -37,32 +35,34 @@ fun ArabyteFilteringButton(
     modifier: Modifier = Modifier,
     buttonClicked: (Boolean) -> Unit = {},
 ) {
-    val (borderColor, backgroundColor, textColor) = when (enabled) {
-        true -> Triple(ArabyteTheme.colors.mainBlue, ArabyteTheme.colors.lightBlue, ArabyteTheme.colors.mainBlue)
-        false -> Triple(ArabyteTheme.colors.gray02, ArabyteTheme.colors.white, ArabyteTheme.colors.gray05)
-    }
+    val (borderColor, backgroundColor, textColor) =
+        when (enabled) {
+            true -> Triple(ArabyteTheme.colors.mainBlue, ArabyteTheme.colors.lightBlue, ArabyteTheme.colors.mainBlue)
+            false -> Triple(ArabyteTheme.colors.gray02, ArabyteTheme.colors.white, ArabyteTheme.colors.gray05)
+        }
 
     val iconTint = if (enabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray05
 
     Row(
         modifier =
-        modifier
-            .border(shape = RoundedCornerShape(30.dp), width = 1.dp, color = borderColor)
-            .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(start = 13.dp, top = 6.dp, end = 11.dp, bottom = 6.dp))
-            .noRippleClickable { buttonClicked(!enabled) },
+            modifier
+                .border(shape = RoundedCornerShape(30.dp), width = 1.dp, color = borderColor)
+                .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(start = 13.dp, top = 6.dp, end = 11.dp, bottom = 6.dp))
+                .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        if (arabyteFilteringType == ArabyteFilteringType.CHECK){
-            Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = Color.Unspecified, contentDescription = null)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
-        }
-        else{
-            Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
-            Spacer(modifier = Modifier.width(4.dp))
-            Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = iconTint, contentDescription = null)
-        }
+        if (arabyteFilteringType == ArabyteFilteringType.CHECK)
+            {
+                Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = Color.Unspecified, contentDescription = null)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
+            } else
+            {
+                Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = iconTint, contentDescription = null)
+            }
     }
 }
 
@@ -72,7 +72,6 @@ private fun ArabyteAddPhotoButtonPreview() {
     var isEnabled1 by remember { mutableStateOf(true) }
     var isEnabled2 by remember { mutableStateOf(true) }
     var isEnabled3 by remember { mutableStateOf(true) }
-
 
     ArabyteAOSTheme {
         Row {

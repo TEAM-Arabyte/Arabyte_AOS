@@ -58,7 +58,7 @@ fun ArabyteCategoryButton(
 @Preview
 @Composable
 private fun ArabyteCategoryButtonPreview() {
-    ArabyteAOSTheme{
+    ArabyteAOSTheme {
         Column(modifier = Modifier.background(color = ArabyteTheme.colors.white).padding(10.dp)) {
             ArabyteCategoryButton(categoryType = ArabyteCategoryType.FOOD)
             ArabyteCategoryButton(categoryType = ArabyteCategoryType.MANAGEMENT)

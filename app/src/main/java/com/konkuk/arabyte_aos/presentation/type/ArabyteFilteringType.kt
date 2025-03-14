@@ -19,5 +19,5 @@ enum class ArabyteFilteringType(
     CATEGORY(
         imageDrawableRes = R.drawable.ic_all_arrow_down_13,
         stringRes = R.string.all_category_service,
-    )
+    ),
 }

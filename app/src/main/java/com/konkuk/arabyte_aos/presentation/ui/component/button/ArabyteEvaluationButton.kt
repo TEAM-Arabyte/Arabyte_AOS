@@ -44,16 +44,16 @@ fun ArabyteEvaluationButton(
 
     Row(
         modifier =
-        modifier
-            .then(
-                if (!enabled) {
-                    Modifier.border(width = 1.dp, color = ArabyteTheme.colors.gray01, shape = RoundedCornerShape(50.dp))
-                } else {
-                    Modifier
-                },
-            )
-            .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
-            .noRippleClickable { buttonClicked(!enabled) },
+            modifier
+                .then(
+                    if (!enabled) {
+                        Modifier.border(width = 1.dp, color = ArabyteTheme.colors.gray01, shape = RoundedCornerShape(50.dp))
+                    } else {
+                        Modifier
+                    },
+                )
+                .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
+                .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
