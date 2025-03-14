@@ -18,4 +18,10 @@
     <!--  Button  -->
     <string name="button_add_photo">사진 첨부하기(최대 n장)</string>
     <string name="button_like">공감</string>
+
+    <!--  Filtering  -->
+    <string name="review_filtering_check">근로계약서 인증</string>
+    <string name="review_filtering_region">지역</string>
+    <string name="review_filtering_category">카테고리</string>
+
 </resources>
