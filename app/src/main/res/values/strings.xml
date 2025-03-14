@@ -11,4 +11,8 @@
     <string name="all_category_education">교육/강사</string>
     <string name="all_category_office">사무직</string>
 
+    <!--  Board Category  -->
+    <string name="board_category_free">자유게시판</string>
+    <string name="board_category_info">정보게시판</string>
+
 </resources>
