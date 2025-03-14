@@ -35,7 +35,7 @@ fun ArabyteAddPhotoButton(
                 .roundedBackgroundWithPadding(cornerRadius = 7.dp, backgroundColor = ArabyteTheme.colors.gray01, padding = PaddingValues(vertical = 18.dp))
                 .noRippleClickable { buttonClicked() },
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_camera_18), tint = Color.Unspecified, contentDescription = null)
         Spacer(modifier = Modifier.width(9.dp))
@@ -46,7 +46,7 @@ fun ArabyteAddPhotoButton(
 @Preview
 @Composable
 private fun ArabyteAddPhotoButtonPreview() {
-    ArabyteAOSTheme{
+    ArabyteAOSTheme {
         ArabyteAddPhotoButton()
     }
 }
