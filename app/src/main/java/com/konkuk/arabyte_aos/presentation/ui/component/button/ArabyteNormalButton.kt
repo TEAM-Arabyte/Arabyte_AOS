@@ -14,21 +14,27 @@ import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
-fun ArabyteNormalButton(buttonText: String, modifier: Modifier = Modifier, clickable: Boolean = true, buttonClicked: () -> Unit = {}) {
+fun ArabyteNormalButton(
+    buttonText: String,
+    modifier: Modifier = Modifier,
+    clickable: Boolean = true,
+    buttonClicked: () -> Unit = {},
+) {
     Text(
-        modifier = modifier
-            .fillMaxWidth()
-            .roundedBackgroundWithPadding(
-                backgroundColor = if (clickable) arabyteColors.mainBlue else arabyteColors.gray01,
-                padding = PaddingValues(vertical = 16.dp),
-                cornerRadius = 7.dp
-            )
-            .noRippleClickable {
-                 buttonClicked()
-            },
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .roundedBackgroundWithPadding(
+                    backgroundColor = if (clickable) arabyteColors.mainBlue else arabyteColors.gray01,
+                    padding = PaddingValues(vertical = 16.dp),
+                    cornerRadius = 7.dp,
+                )
+                .noRippleClickable {
+                    buttonClicked()
+                },
         text = buttonText,
         color = if (clickable) arabyteColors.white else arabyteColors.gray05,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 

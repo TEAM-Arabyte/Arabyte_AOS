@@ -28,7 +28,7 @@ inline fun Modifier.noRippleClickable(
 fun Modifier.roundedBackgroundWithPadding(
     backgroundColor: Color = Color.Unspecified,
     cornerRadius: Dp = 0.dp,
-    padding: PaddingValues = PaddingValues(0.dp)
+    padding: PaddingValues = PaddingValues(0.dp),
 ): Modifier {
     return this
         .background(color = backgroundColor, shape = RoundedCornerShape(cornerRadius))

@@ -2,7 +2,6 @@ package com.konkuk.arabyte_aos.presentation.ui.component.button
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,21 +14,27 @@ import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
-fun ArabyteSmallButton(buttonText: String, modifier: Modifier = Modifier, clickable: Boolean = true, buttonClicked: () -> Unit = {}) {
+fun ArabyteSmallButton(
+    buttonText: String,
+    modifier: Modifier = Modifier,
+    clickable: Boolean = true,
+    buttonClicked: () -> Unit = {},
+) {
     Text(
-        modifier = modifier
-            .fillMaxWidth()
-            .roundedBackgroundWithPadding(
-                backgroundColor = if (clickable) arabyteColors.gray07 else arabyteColors.gray01,
-                padding = PaddingValues(vertical = 16.dp),
-                cornerRadius = 9.dp
-            )
-            .noRippleClickable {
-               buttonClicked()
-            },
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .roundedBackgroundWithPadding(
+                    backgroundColor = if (clickable) arabyteColors.gray07 else arabyteColors.gray01,
+                    padding = PaddingValues(vertical = 16.dp),
+                    cornerRadius = 9.dp,
+                )
+                .noRippleClickable {
+                    buttonClicked()
+                },
         text = buttonText,
         color = if (clickable) arabyteColors.white else arabyteColors.gray05,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 
