@@ -15,6 +15,7 @@
     <string name="board_category_free">자유게시판</string>
     <string name="board_category_info">정보게시판</string>
 
-    <!--  Add Photo  -->
+    <!--  Button  -->
     <string name="button_add_photo">사진 첨부하기(최대 n장)</string>
+    <string name="button_like">공감</string>
 </resources>
