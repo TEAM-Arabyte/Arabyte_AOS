@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
-import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme.colors
 
 @Composable
 fun ArabyteChipButton(
