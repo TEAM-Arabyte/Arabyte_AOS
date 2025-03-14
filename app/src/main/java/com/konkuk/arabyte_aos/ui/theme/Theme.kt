@@ -3,14 +3,26 @@ package com.konkuk.arabyte_aos.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalContext
+
+object ArabyteTheme {
+    val colors: ArabyteColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalArabyteColors.current
+
+    val typography: ArabyteTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalArabyteTypography.current
+}
 
 private val DarkColorScheme =
     darkColorScheme(
@@ -29,12 +41,12 @@ private val LightColorScheme =
 @Composable
 fun ProvideArabyteColorsAndTypography(
     colors: ArabyteColors,
-    typography: Typography,
+    typography: ArabyteTypography,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
         LocalArabyteColors provides colors,
-//        Typography provides typography,
+        LocalArabyteTypography provides typography,
         content = content,
     )
 }
@@ -57,9 +69,11 @@ fun ArabyteAOSTheme(
             else -> LightColorScheme
         }
 
+    val typography = provideArabyteTypography()
+
     ProvideArabyteColorsAndTypography(
         colors = arabyteColors,
-        typography = Typography,
+        typography = typography,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
