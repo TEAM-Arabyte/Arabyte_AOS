@@ -9,11 +9,11 @@ enum class ArabyteBoardCategoryType(
     @StringRes val stringRes: Int,
 ) {
     FREE(
-        imageDrawableRes = R.drawable.ic_home_category_drink_45,
+        imageDrawableRes = R.drawable.ic_notice_board_type_free,
         stringRes = R.string.board_category_free,
     ),
     INFO(
-        imageDrawableRes = R.drawable.ic_home_category_store_management_45,
+        imageDrawableRes = R.drawable.ic_notice_board_type_info,
         stringRes = R.string.board_category_info,
     ),
 }

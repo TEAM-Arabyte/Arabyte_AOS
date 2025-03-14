@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
-import com.konkuk.arabyte_aos.ui.theme.arabyteColors
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun ArabyteCategoryButton(
@@ -36,7 +36,7 @@ fun ArabyteCategoryButton(
     ) {
         Icon(
             modifier =
-                Modifier.border(width = 1.dp, color = arabyteColors.gray01, shape = RoundedCornerShape(9.dp))
+                Modifier.border(width = 1.dp, color = ArabyteTheme.colors.gray01, shape = RoundedCornerShape(9.dp))
                     .roundedBackgroundWithPadding(
                         padding = PaddingValues(10.dp),
                         cornerRadius = 9.dp,
@@ -48,7 +48,8 @@ fun ArabyteCategoryButton(
         Spacer(modifier = Modifier.height(3.dp))
         Text(
             text = stringResource(categoryType.stringRes),
-            color = arabyteColors.gray07,
+            color = ArabyteTheme.colors.gray07,
+            style = ArabyteTheme.typography.capSemi11,
         )
     }
 }
@@ -56,7 +57,7 @@ fun ArabyteCategoryButton(
 @Preview
 @Composable
 private fun ArabyteCategoryButtonPreview() {
-    Column(modifier = Modifier.background(color = arabyteColors.white).padding(10.dp)) {
+    Column(modifier = Modifier.background(color = ArabyteTheme.colors.white).padding(10.dp)) {
         ArabyteCategoryButton(categoryType = ArabyteCategoryType.FOOD)
         ArabyteCategoryButton(categoryType = ArabyteCategoryType.MANAGEMENT)
         ArabyteCategoryButton(categoryType = ArabyteCategoryType.SERVICE)

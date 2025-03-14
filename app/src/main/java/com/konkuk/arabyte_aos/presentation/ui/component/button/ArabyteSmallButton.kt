@@ -11,7 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
-import com.konkuk.arabyte_aos.ui.theme.arabyteColors
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme.colors
 
 @Composable
 fun ArabyteSmallButton(
@@ -25,7 +26,7 @@ fun ArabyteSmallButton(
             modifier
                 .fillMaxWidth()
                 .roundedBackgroundWithPadding(
-                    backgroundColor = if (enabled) arabyteColors.gray07 else arabyteColors.gray01,
+                    backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.gray01,
                     padding = PaddingValues(vertical = 16.dp),
                     cornerRadius = 9.dp,
                 )
@@ -33,8 +34,9 @@ fun ArabyteSmallButton(
                     buttonClicked()
                 },
         text = buttonText,
-        color = if (enabled) arabyteColors.white else arabyteColors.gray05,
+        color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray05,
         textAlign = TextAlign.Center,
+        style = ArabyteTheme.typography.bodySemi15,
     )
 }
 

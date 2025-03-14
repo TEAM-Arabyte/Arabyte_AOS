@@ -1,7 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.component.button
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.type.ArabyteBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
-import com.konkuk.arabyte_aos.ui.theme.arabyteColors
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun ArabyteBoardCategoryButton(
@@ -30,22 +29,31 @@ fun ArabyteBoardCategoryButton(
     enabled: Boolean = true,
     buttonClicked: () -> Unit = {},
 ) {
-    Row(modifier = modifier
-        .then(
-            if (!enabled) Modifier.border(
-                width = 1.dp,
-                color = arabyteColors.gray01,
-                shape = RoundedCornerShape(30.dp)
-            ) else Modifier
-        )
-        .roundedBackgroundWithPadding(padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp), cornerRadius = 30.dp, backgroundColor = if (enabled) arabyteColors.gray07 else arabyteColors.white)
-        .noRippleClickable { buttonClicked() },
-        verticalAlignment = Alignment.CenterVertically
-    )
-    {
-        Icon(imageVector = ImageVector.vectorResource(arabyteBoardCategoryType.imageDrawableRes), tint = if (enabled) arabyteColors.white else arabyteColors.gray07, contentDescription = null)
+    Row(
+        modifier =
+            modifier
+                .then(
+                    if (!enabled) {
+                        Modifier.border(
+                            width = 1.dp,
+                            color = ArabyteTheme.colors.gray01,
+                            shape = RoundedCornerShape(30.dp),
+                        )
+                    } else {
+                        Modifier
+                    },
+                )
+                .roundedBackgroundWithPadding(padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp), cornerRadius = 30.dp, backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.white)
+                .noRippleClickable { buttonClicked() },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(imageVector = ImageVector.vectorResource(arabyteBoardCategoryType.imageDrawableRes), tint = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray07, contentDescription = null)
         Spacer(modifier = Modifier.width(4.dp))
-        Text(text = stringResource(arabyteBoardCategoryType.stringRes), color = if (enabled) arabyteColors.white else arabyteColors.gray06)
+        Text(
+            text = stringResource(arabyteBoardCategoryType.stringRes),
+            color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray06,
+            style = ArabyteTheme.typography.bodySemi13,
+        )
     }
 }
 
