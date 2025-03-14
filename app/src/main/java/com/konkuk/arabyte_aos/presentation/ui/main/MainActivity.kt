@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.konkuk.arabyte_aos.presentation.ui.login.LoginRoute
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

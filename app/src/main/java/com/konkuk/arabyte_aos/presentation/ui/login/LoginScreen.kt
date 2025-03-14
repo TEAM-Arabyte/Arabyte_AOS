@@ -1,7 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.login
 
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,9 +22,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
@@ -44,14 +45,14 @@ fun setLayoutLoginKakaoClickListener(
 @Composable
 fun LoginRoute(
     modifier: Modifier = Modifier,
-//    viewModel: LoginViewModel = hiltViewModel(),
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
 
     val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, _ ->
         if (oAuthToken != null) {
-            Log.d("LoginRoute", "OAuthToken_AccessToken= ${oAuthToken.accessToken}")
-//            viewModel.setKakaoAccessToken(oAuthToken.accessToken)
+            DebugLog.d("LoginRoute", "OAuthToken_AccessToken= ${oAuthToken.accessToken}")
+            viewModel.setKakaoAccessToken(oAuthToken.accessToken)
         }
     }
     LoginScreen(modifier = modifier) {
