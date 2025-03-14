@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -57,14 +58,16 @@ fun ArabyteCategoryButton(
 @Preview
 @Composable
 private fun ArabyteCategoryButtonPreview() {
-    Column(modifier = Modifier.background(color = ArabyteTheme.colors.white).padding(10.dp)) {
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.FOOD)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.MANAGEMENT)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.SERVICE)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.TECH)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.PRODUCTION)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.DESIGN)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.EDUCATION)
-        ArabyteCategoryButton(categoryType = ArabyteCategoryType.OFFICE)
+    ArabyteAOSTheme{
+        Column(modifier = Modifier.background(color = ArabyteTheme.colors.white).padding(10.dp)) {
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.FOOD)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.MANAGEMENT)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.SERVICE)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.TECH)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.PRODUCTION)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.DESIGN)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.EDUCATION)
+            ArabyteCategoryButton(categoryType = ArabyteCategoryType.OFFICE)
+        }
     }
 }

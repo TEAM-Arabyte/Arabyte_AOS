@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme.colors
 
@@ -41,8 +42,10 @@ fun ArabyteSelectSmallButton(
 @Preview
 @Composable
 private fun ArabyteSelectSmallButtonPreview() {
-    Column {
-        ArabyteSelectSmallButton(buttonText = "text")
-        ArabyteSelectSmallButton(buttonText = "text", enabled = false)
+    ArabyteAOSTheme {
+        Column {
+            ArabyteSelectSmallButton(buttonText = "text")
+            ArabyteSelectSmallButton(buttonText = "text", enabled = false)
+        }
     }
 }

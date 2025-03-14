@@ -11,6 +11,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +31,10 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ArabyteEvaluationButton(
     likeCount: Int,
+    iconRes: Int,
+    enabled: Boolean,
     modifier: Modifier = Modifier,
-    buttonClicked: () -> Unit = {},
-    enabled: Boolean = true,
+    buttonClicked: (Boolean) -> Unit = {},
 ) {
     val (backgroundColor, textColor) =
         when (enabled) {
@@ -39,32 +44,32 @@ fun ArabyteEvaluationButton(
 
     Row(
         modifier =
-            modifier
-                .then(
-                    if (!enabled) {
-                        Modifier.border(width = 1.dp, color = ArabyteTheme.colors.gray01, shape = RoundedCornerShape(50.dp))
-                    } else {
-                        Modifier
-                    },
-                )
-                .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
-                .noRippleClickable { buttonClicked() },
+        modifier
+            .then(
+                if (!enabled) {
+                    Modifier.border(width = 1.dp, color = ArabyteTheme.colors.gray01, shape = RoundedCornerShape(50.dp))
+                } else {
+                    Modifier
+                },
+            )
+            .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
+            .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_review_emotion_good_20), tint = Color.Unspecified, contentDescription = null)
+        Icon(imageVector = ImageVector.vectorResource(iconRes), tint = Color.Unspecified, contentDescription = null)
         Spacer(modifier = Modifier.width(5.dp))
-        Text(text = likeCount.toString(), color = textColor, style = ArabyteTheme.typography.bodyMed13)
+        Text(text = likeCount.toString(), color = textColor, style = ArabyteTheme.typography.bodySemi13)
     }
 }
 
 @Preview
 @Composable
 private fun ArabyteEvaluationButtonPreview() {
+    var isEnabled by remember { mutableStateOf(true) }
     ArabyteAOSTheme {
         Column {
-            ArabyteEvaluationButton(likeCount = 1)
-            ArabyteEvaluationButton(likeCount = 1, enabled = false)
+            ArabyteEvaluationButton(likeCount = 1, iconRes = R.drawable.ic_review_emotion_normal_20, enabled = isEnabled, buttonClicked = { isEnabled = it })
         }
     }
 }

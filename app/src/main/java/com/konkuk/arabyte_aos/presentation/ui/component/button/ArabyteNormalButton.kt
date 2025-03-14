@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -42,8 +43,10 @@ fun ArabyteNormalButton(
 @Preview
 @Composable
 private fun ArabyteNormalButtonPreview() {
-    Column {
-        ArabyteNormalButton(buttonText = "Button")
-        ArabyteNormalButton(buttonText = "Button", enabled = false)
+    ArabyteAOSTheme {
+        Column {
+            ArabyteNormalButton(buttonText = "Button")
+            ArabyteNormalButton(buttonText = "Button", enabled = false)
+        }
     }
 }
