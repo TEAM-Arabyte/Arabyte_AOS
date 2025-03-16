@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
@@ -29,10 +30,20 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import okhttp3.internal.immutableListOf
 
+interface ArabyteNormalTextFieldErrorHandler {
+    @Composable
+    fun getIdleErrors() : Pair<String, Color>
+    @Composable
+    fun getInvalidErrors(): Pair<String, Color>
+    @Composable
+    fun getValidErrors(): Pair<String, Color>
+}
+
 @Composable
 fun ArabyteNormalTextField(
     title: String,
     errorMessageList: List<String> = immutableListOf("", "error message", "success message"),
+    errorHandler: ArabyteNormalTextFieldErrorHandler,
     textMaxLength: Int,
     placeholder: String,
     modifier: Modifier = Modifier,
@@ -45,9 +56,9 @@ fun ArabyteNormalTextField(
 ) {
     val (errorMessage, errorMessageColor) =
         when (validationState) {
-            TextFieldValidationState.IDLE -> Pair(errorMessageList[0], ArabyteTheme.colors.black)
-            TextFieldValidationState.INVALID -> Pair(errorMessageList[1], ArabyteTheme.colors.alertRed)
-            TextFieldValidationState.VALID -> Pair(errorMessageList[2], ArabyteTheme.colors.mainBlue)
+            TextFieldValidationState.IDLE -> errorHandler.getIdleErrors()
+            TextFieldValidationState.INVALID -> errorHandler.getInvalidErrors()
+            TextFieldValidationState.VALID -> errorHandler.getValidErrors()
         }
 
     Column {
@@ -137,6 +148,23 @@ private fun ArabyteNormalTextFieldPreview() {
                         "validText" -> TextFieldValidationState.VALID
                         else -> TextFieldValidationState.INVALID
                     },
+                // 이 부분은 다른 곳에서 미리 정의해두고 사용해도 되고 이렇게 익명으로 사용해도 됨다
+                errorHandler = object : ArabyteNormalTextFieldErrorHandler {
+                    @Composable
+                    override fun getIdleErrors(): Pair<String, Color> {
+                        return Pair("", ArabyteTheme.colors.black)
+                    }
+
+                    @Composable
+                    override fun getInvalidErrors(): Pair<String, Color> {
+                        return Pair("error message", ArabyteTheme.colors.alertRed)
+                    }
+
+                    @Composable
+                    override fun getValidErrors(): Pair<String, Color> {
+                        return Pair("success message", ArabyteTheme.colors.mainBlue)
+                    }
+                }
             )
         }
     }
