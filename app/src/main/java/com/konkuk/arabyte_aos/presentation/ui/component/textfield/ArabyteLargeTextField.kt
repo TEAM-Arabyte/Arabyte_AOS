@@ -36,28 +36,30 @@ fun ArabyteLargeTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
-
     Column {
         Row(
-            modifier = modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                modifier
+                    .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
-                modifier = modifier
-                    .weight(1f)
-                    .height(215.dp)
-                    .roundedBackgroundWithPadding(
-                        backgroundColor = ArabyteTheme.colors.gray01,
-                        cornerRadius = 9.dp
-                    )
-                    .padding(horizontal = 11.dp, vertical = 13.dp),
+                modifier =
+                    modifier
+                        .weight(1f)
+                        .height(215.dp)
+                        .roundedBackgroundWithPadding(
+                            backgroundColor = ArabyteTheme.colors.gray01,
+                            cornerRadius = 9.dp,
+                        )
+                        .padding(horizontal = 11.dp, vertical = 13.dp),
             ) {
                 BasicTextField(
-                    modifier = Modifier
-                        .weight(1f),
+                    modifier =
+                        Modifier
+                            .weight(1f),
                     value = text,
                     onValueChange = {
                         if (it.codePointCount(0, it.length) <= textMaxLength) {
@@ -75,10 +77,10 @@ fun ArabyteLargeTextField(
                             Text(
                                 text = placeholder,
                                 color = ArabyteTheme.colors.gray03,
-                                style = ArabyteTheme.typography.bodyMed13
+                                style = ArabyteTheme.typography.bodyMed13,
                             )
                         }
-                    }
+                    },
                 )
             }
         }
@@ -88,11 +90,10 @@ fun ArabyteLargeTextField(
             Text(
                 text = "${text.length}/$textMaxLength",
                 color = ArabyteTheme.colors.gray06,
-                style = ArabyteTheme.typography.capSemi11
+                style = ArabyteTheme.typography.capSemi11,
             )
         }
     }
-
 }
 
 @Preview
@@ -107,7 +108,7 @@ private fun ArabyteLargeTextFieldPreview() {
                 text = value,
                 onValueChange = { newText ->
                     value = newText
-                }
+                },
             )
         }
     }

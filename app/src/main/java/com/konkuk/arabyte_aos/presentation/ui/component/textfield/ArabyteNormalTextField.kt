@@ -41,40 +41,43 @@ fun ArabyteNormalTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
-    val (errorMessage,errorMessageColor) = when (validationState) {
-        TextFieldValidationState.IDLE -> Pair(errorMessageList[0],ArabyteTheme.colors.black)
-        TextFieldValidationState.INVALID -> Pair(errorMessageList[1],ArabyteTheme.colors.alertRed)
-        TextFieldValidationState.VALID -> Pair(errorMessageList[2],ArabyteTheme.colors.mainBlue)
-    }
-
+    val (errorMessage, errorMessageColor) =
+        when (validationState) {
+            TextFieldValidationState.IDLE -> Pair(errorMessageList[0], ArabyteTheme.colors.black)
+            TextFieldValidationState.INVALID -> Pair(errorMessageList[1], ArabyteTheme.colors.alertRed)
+            TextFieldValidationState.VALID -> Pair(errorMessageList[2], ArabyteTheme.colors.mainBlue)
+        }
 
     Column {
         Text(text = title)
         Spacer(modifier = Modifier.height(4.dp))
         Row(
-            modifier = modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                modifier
+                    .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
-                modifier = modifier
-                    .weight(1f)
-                    .roundedBackgroundWithPadding(
-                        backgroundColor = ArabyteTheme.colors.gray01,
-                        cornerRadius = 9.dp
-                    )
-                    .padding(horizontal = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    modifier
+                        .weight(1f)
+                        .roundedBackgroundWithPadding(
+                            backgroundColor = ArabyteTheme.colors.gray01,
+                            cornerRadius = 9.dp,
+                        )
+                        .padding(horizontal = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 BasicTextField(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 15.dp),
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .padding(vertical = 15.dp),
                     value = text,
                     onValueChange = {
-                        if ( it.codePointCount(0, it.length) <= textMaxLength) {
+                        if (it.codePointCount(0, it.length) <= textMaxLength) {
                             onValueChange(it)
                         }
                     },
@@ -90,10 +93,10 @@ fun ArabyteNormalTextField(
                             Text(
                                 text = placeholder,
                                 color = ArabyteTheme.colors.gray03,
-                                style = ArabyteTheme.typography.bodyMed13
+                                style = ArabyteTheme.typography.bodyMed13,
                             )
                         }
-                    }
+                    },
                 )
             }
         }
@@ -102,17 +105,16 @@ fun ArabyteNormalTextField(
             Text(
                 text = errorMessage,
                 color = errorMessageColor,
-                style = ArabyteTheme.typography.capMed11
+                style = ArabyteTheme.typography.capMed11,
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "${text.length}/$textMaxLength",
                 color = ArabyteTheme.colors.gray06,
-                style = ArabyteTheme.typography.capSemi11
+                style = ArabyteTheme.typography.capSemi11,
             )
         }
     }
-
 }
 
 @Preview
@@ -129,11 +131,12 @@ private fun ArabyteNormalTextFieldPreview() {
                 onValueChange = { newText ->
                     value = newText
                 },
-                validationState = when(value) {
-                    "" -> TextFieldValidationState.IDLE
-                    "validText" -> TextFieldValidationState.VALID
-                    else -> TextFieldValidationState.INVALID
-                }
+                validationState =
+                    when (value) {
+                        "" -> TextFieldValidationState.IDLE
+                        "validText" -> TextFieldValidationState.VALID
+                        else -> TextFieldValidationState.INVALID
+                    },
             )
         }
     }

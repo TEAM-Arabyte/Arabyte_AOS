@@ -1,12 +1,8 @@
 package com.konkuk.arabyte_aos.presentation.ui.component.textfield
 
-import android.widget.Space
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
@@ -30,11 +26,8 @@ import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_MAX_LENGT
 import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_MONTH
 import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_YEAR
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
-import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
-import okhttp3.internal.immutableListOf
-import java.time.Month
 
 @Composable
 fun ArabyteCareerTextField(
@@ -45,41 +38,44 @@ fun ArabyteCareerTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
-
     Row {
         Row(
             modifier = modifier,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
-                modifier = modifier
-                    .width(96.dp)
-                    .roundedBackgroundWithPadding(
-                        backgroundColor = ArabyteTheme.colors.gray01,
-                        cornerRadius = 9.dp
-                    )
-                    .padding(horizontal = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    modifier
+                        .width(96.dp)
+                        .roundedBackgroundWithPadding(
+                            backgroundColor = ArabyteTheme.colors.gray01,
+                            cornerRadius = 9.dp,
+                        )
+                        .padding(horizontal = 10.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 BasicTextField(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 15.dp),
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .padding(vertical = 15.dp),
                     value = text,
                     onValueChange = { it ->
-                        if (it.all { it.isDigit() }
-                            && it.codePointCount(0, it.length) <= CAREER_MAX_LENGTH) {
+                        if (it.all { it.isDigit() } &&
+                            it.codePointCount(0, it.length) <= CAREER_MAX_LENGTH
+                        ) {
                             onValueChange(it)
                         }
                     },
                     cursorBrush = SolidColor(ArabyteTheme.colors.black),
                     singleLine = true,
                     keyboardActions = keyboardActions,
-                    keyboardOptions = keyboardOptions.copy(
-                        keyboardType = KeyboardType.Number
-                    ),
+                    keyboardOptions =
+                        keyboardOptions.copy(
+                            keyboardType = KeyboardType.Number,
+                        ),
                     visualTransformation = visualTransformation,
                     textStyle = ArabyteTheme.typography.bodySemi15.copy(color = ArabyteTheme.colors.black),
                     decorationBox = { innerTextField ->
@@ -88,22 +84,20 @@ fun ArabyteCareerTextField(
                             Text(
                                 text = placeholder,
                                 color = ArabyteTheme.colors.gray03,
-                                style = ArabyteTheme.typography.bodySemi15
+                                style = ArabyteTheme.typography.bodySemi15,
                             )
                         }
-                    }
+                    },
                 )
             }
             Spacer(modifier = Modifier.width(7.dp))
             Text(
                 text = careerText,
                 color = ArabyteTheme.colors.black,
-                style = ArabyteTheme.typography.bodyBold17
+                style = ArabyteTheme.typography.bodyBold17,
             )
         }
-
     }
-
 }
 
 @Preview
@@ -118,7 +112,7 @@ private fun ArabyteCareerTextFieldPreview() {
                 text = year,
                 onValueChange = { newText ->
                     year = newText
-                }
+                },
             )
             Spacer(modifier = Modifier.width(17.dp))
             ArabyteCareerTextField(
@@ -127,7 +121,7 @@ private fun ArabyteCareerTextFieldPreview() {
                 careerText = CAREER_MONTH,
                 onValueChange = { newText ->
                     month = newText
-                }
+                },
             )
         }
     }

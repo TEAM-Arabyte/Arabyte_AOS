@@ -52,17 +52,15 @@ fun ArabyteFilteringButton(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        if (arabyteFilteringType == ArabyteFilteringType.CHECK)
-            {
-                Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = Color.Unspecified, contentDescription = null)
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
-            } else
-            {
-                Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
-                Spacer(modifier = Modifier.width(4.dp))
-                Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = iconTint, contentDescription = null)
-            }
+        if (arabyteFilteringType == ArabyteFilteringType.CHECK) {
+            Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = Color.Unspecified, contentDescription = null)
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
+        } else {
+            Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
+            Spacer(modifier = Modifier.width(4.dp))
+            Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = iconTint, contentDescription = null)
+        }
     }
 }
 
