@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.component.textfield
 
+import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,47 +22,40 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_MAX_LENGTH
+import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_MONTH
+import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_YEAR
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import okhttp3.internal.immutableListOf
+import java.time.Month
 
 @Composable
-fun ArabyteNormalTextField(
-    title: String,
-    errorMessageList: List<String> = immutableListOf("", "error message", "success message"),
-    textMaxLength: Int,
+fun ArabyteCareerTextField(
     placeholder: String,
     modifier: Modifier = Modifier,
     text: String = "",
-    validationState: TextFieldValidationState = TextFieldValidationState.IDLE,
+    careerText: String = CAREER_YEAR,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val (errorMessage,errorMessageColor) = when (validationState) {
-        TextFieldValidationState.IDLE -> Pair(errorMessageList[0],ArabyteTheme.colors.black)
-        TextFieldValidationState.INVALID -> Pair(errorMessageList[1],ArabyteTheme.colors.alertRed)
-        TextFieldValidationState.VALID -> Pair(errorMessageList[2],ArabyteTheme.colors.mainBlue)
-    }
 
-
-    Column {
-        Text(text = title)
-        Spacer(modifier = Modifier.height(4.dp))
+    Row {
         Row(
-            modifier = modifier
-                .fillMaxWidth(),
+            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
                 modifier = modifier
-                    .weight(1f)
+                    .width(96.dp)
                     .roundedBackgroundWithPadding(
                         backgroundColor = ArabyteTheme.colors.gray01,
                         cornerRadius = 9.dp
@@ -73,66 +68,65 @@ fun ArabyteNormalTextField(
                         .weight(1f)
                         .padding(vertical = 15.dp),
                     value = text,
-                    onValueChange = {
-                        if ( it.codePointCount(0, it.length) <= textMaxLength) {
+                    onValueChange = { it ->
+                        if (it.all { it.isDigit() }
+                            && it.codePointCount(0, it.length) <= CAREER_MAX_LENGTH) {
                             onValueChange(it)
                         }
                     },
                     cursorBrush = SolidColor(ArabyteTheme.colors.black),
                     singleLine = true,
                     keyboardActions = keyboardActions,
-                    keyboardOptions = keyboardOptions,
+                    keyboardOptions = keyboardOptions.copy(
+                        keyboardType = KeyboardType.Number
+                    ),
                     visualTransformation = visualTransformation,
-                    textStyle = ArabyteTheme.typography.bodySemi13.copy(color = ArabyteTheme.colors.black),
+                    textStyle = ArabyteTheme.typography.bodySemi15.copy(color = ArabyteTheme.colors.black),
                     decorationBox = { innerTextField ->
                         innerTextField()
                         if (text.isEmpty()) {
                             Text(
                                 text = placeholder,
                                 color = ArabyteTheme.colors.gray03,
-                                style = ArabyteTheme.typography.bodyMed13
+                                style = ArabyteTheme.typography.bodySemi15
                             )
                         }
                     }
                 )
             }
-        }
-        Spacer(modifier = Modifier.height(4.dp))
-        Row {
+            Spacer(modifier = Modifier.width(7.dp))
             Text(
-                text = errorMessage,
-                color = errorMessageColor,
-                style = ArabyteTheme.typography.capMed11
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = "${text.length}/$textMaxLength",
-                color = ArabyteTheme.colors.gray06,
-                style = ArabyteTheme.typography.capSemi11
+                text = careerText,
+                color = ArabyteTheme.colors.black,
+                style = ArabyteTheme.typography.bodyBold17
             )
         }
+
     }
 
 }
 
 @Preview
 @Composable
-private fun ArabyteNormalTextFieldPreview() {
-    var value by remember { mutableStateOf("") }
+private fun ArabyteCareerTextFieldPreview() {
+    var year by remember { mutableStateOf("") }
+    var month by remember { mutableStateOf("") }
     ArabyteAOSTheme {
-        Column(modifier = Modifier.background(color = ArabyteTheme.colors.white)) {
-            ArabyteNormalTextField(
-                title = "title",
-                textMaxLength = 10,
-                placeholder = "placeholder",
-                text = value,
+        Row(modifier = Modifier.background(color = ArabyteTheme.colors.white)) {
+            ArabyteCareerTextField(
+                placeholder = "0",
+                text = year,
                 onValueChange = { newText ->
-                    value = newText
-                },
-                validationState = when(value) {
-                    "" -> TextFieldValidationState.IDLE
-                    "validText" -> TextFieldValidationState.VALID
-                    else -> TextFieldValidationState.INVALID
+                    year = newText
+                }
+            )
+            Spacer(modifier = Modifier.width(17.dp))
+            ArabyteCareerTextField(
+                placeholder = "0",
+                text = month,
+                careerText = CAREER_MONTH,
+                onValueChange = { newText ->
+                    month = newText
                 }
             )
         }
