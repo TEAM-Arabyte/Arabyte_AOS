@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.presentation.util.noRippleClickable
-import com.konkuk.arabyte_aos.presentation.util.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
+import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 

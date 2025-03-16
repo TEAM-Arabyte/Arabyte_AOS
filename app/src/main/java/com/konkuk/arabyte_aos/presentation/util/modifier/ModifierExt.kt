@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.util
+package com.konkuk.arabyte_aos.presentation.util.modifier
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
