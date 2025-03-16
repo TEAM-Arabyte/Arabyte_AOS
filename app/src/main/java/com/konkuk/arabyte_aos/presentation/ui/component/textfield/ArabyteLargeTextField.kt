@@ -24,35 +24,22 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
-import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
-import okhttp3.internal.immutableListOf
 
 @Composable
-fun ArabyteNormalTextField(
-    title: String,
-    errorMessageList: List<String> = immutableListOf("", "error message", "success message"),
+fun ArabyteLargeTextField(
     textMaxLength: Int,
     placeholder: String,
     modifier: Modifier = Modifier,
     text: String = "",
-    validationState: TextFieldValidationState = TextFieldValidationState.IDLE,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-    val (errorMessage,errorMessageColor) = when (validationState) {
-        TextFieldValidationState.IDLE -> Pair(errorMessageList[0],ArabyteTheme.colors.black)
-        TextFieldValidationState.INVALID -> Pair(errorMessageList[1],ArabyteTheme.colors.alertRed)
-        TextFieldValidationState.VALID -> Pair(errorMessageList[2],ArabyteTheme.colors.mainBlue)
-    }
-
 
     Column {
-        Text(text = title)
-        Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier = modifier
                 .fillMaxWidth(),
@@ -61,17 +48,16 @@ fun ArabyteNormalTextField(
             Row(
                 modifier = modifier
                     .weight(1f)
+                    .height(215.dp)
                     .roundedBackgroundWithPadding(
                         backgroundColor = ArabyteTheme.colors.gray01,
                         cornerRadius = 9.dp
                     )
-                    .padding(horizontal = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 11.dp, vertical = 13.dp),
             ) {
                 BasicTextField(
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(vertical = 15.dp),
+                        .weight(1f),
                     value = text,
                     onValueChange = {
                         if (it.codePointCount(0, it.length) <= textMaxLength) {
@@ -79,7 +65,6 @@ fun ArabyteNormalTextField(
                         }
                     },
                     cursorBrush = SolidColor(ArabyteTheme.colors.black),
-                    singleLine = true,
                     keyboardActions = keyboardActions,
                     keyboardOptions = keyboardOptions,
                     visualTransformation = visualTransformation,
@@ -99,11 +84,6 @@ fun ArabyteNormalTextField(
         }
         Spacer(modifier = Modifier.height(4.dp))
         Row {
-            Text(
-                text = errorMessage,
-                color = errorMessageColor,
-                style = ArabyteTheme.typography.capMed11
-            )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "${text.length}/$textMaxLength",
@@ -117,22 +97,16 @@ fun ArabyteNormalTextField(
 
 @Preview
 @Composable
-private fun ArabyteNormalTextFieldPreview() {
+private fun ArabyteLargeTextFieldPreview() {
     var value by remember { mutableStateOf("") }
     ArabyteAOSTheme {
         Column(modifier = Modifier.background(color = ArabyteTheme.colors.white)) {
-            ArabyteNormalTextField(
-                title = "title",
-                textMaxLength = 10,
+            ArabyteLargeTextField(
+                textMaxLength = 300,
                 placeholder = "placeholder",
                 text = value,
                 onValueChange = { newText ->
                     value = newText
-                },
-                validationState = when(value) {
-                    "" -> TextFieldValidationState.IDLE
-                    "validText" -> TextFieldValidationState.VALID
-                    else -> TextFieldValidationState.INVALID
                 }
             )
         }
