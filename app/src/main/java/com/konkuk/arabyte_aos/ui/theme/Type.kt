@@ -7,7 +7,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import com.konkuk.arabyte_aos.R
@@ -46,127 +45,109 @@ fun provideArabyteTypography(): ArabyteTypography {
         titleExtra24 =
             TextStyle(
                 fontSize = 24.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily(Font(R.font.suit_extrabold)),
                 lineHeight = 1.3.em,
             ),
         titleExtra20 =
             TextStyle(
                 fontSize = 20.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily(Font(R.font.suit_extrabold)),
                 lineHeight = 1.4.em,
             ),
         titleBold20 =
             TextStyle(
                 fontSize = 20.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.suit_bold)),
                 lineHeight = 1.4.em,
             ),
         titleBold18 =
             TextStyle(
                 fontSize = 18.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.suit_bold)),
                 lineHeight = 1.4.em,
             ),
         bodyBold17 =
             TextStyle(
                 fontSize = 17.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.suit_bold)),
                 lineHeight = 1.4.em,
             ),
         bodySemi17 =
             TextStyle(
                 fontSize = 17.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.SemiBold,
+                fontFamily = FontFamily(Font(R.font.suit_semibold)),
                 lineHeight = 1.4.em,
             ),
         bodyMed17 =
             TextStyle(
                 fontSize = 17.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily(Font(R.font.suit_medium)),
                 lineHeight = 1.4.em,
             ),
         bodyBold15 =
             TextStyle(
                 fontSize = 15.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.suit_bold)),
                 lineHeight = 1.4.em,
             ),
         bodySemi15 =
             TextStyle(
                 fontSize = 15.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.SemiBold,
+                fontFamily = FontFamily(Font(R.font.suit_semibold)),
                 lineHeight = 1.4.em,
             ),
         bodyMed15 =
             TextStyle(
                 fontSize = 15.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily(Font(R.font.suit_medium)),
                 lineHeight = 1.4.em,
             ),
         bodyBold13 =
             TextStyle(
                 fontSize = 13.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.suit_bold)),
                 lineHeight = 1.4.em,
             ),
         bodySemi13 =
             TextStyle(
                 fontSize = 13.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.SemiBold,
+                fontFamily = FontFamily(Font(R.font.suit_semibold)),
                 lineHeight = 1.4.em,
             ),
         bodyMed13 =
             TextStyle(
                 fontSize = 13.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily(Font(R.font.suit_medium)),
                 lineHeight = 1.4.em,
             ),
         capSemi11 =
             TextStyle(
                 fontSize = 11.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.SemiBold,
+                fontFamily = FontFamily(Font(R.font.suit_semibold)),
                 lineHeight = 1.4.em,
             ),
         capMed11 =
             TextStyle(
                 fontSize = 11.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily(Font(R.font.suit_medium)),
                 lineHeight = 1.4.em,
             ),
         capReg11 =
             TextStyle(
                 fontSize = 11.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily(Font(R.font.suit_medium)),
                 lineHeight = 1.4.em,
             ),
         capSemi9 =
             TextStyle(
                 fontSize = 9.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.SemiBold,
+                fontFamily = FontFamily(Font(R.font.suit_semibold)),
                 lineHeight = 1.4.em,
             ),
         capMed9 =
             TextStyle(
                 fontSize = 9.dp.toSp(density),
-                fontFamily = FontFamily(Font(R.font.suit)),
-                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily(Font(R.font.suit_medium)),
                 lineHeight = 1.4.em,
             ),
     )
