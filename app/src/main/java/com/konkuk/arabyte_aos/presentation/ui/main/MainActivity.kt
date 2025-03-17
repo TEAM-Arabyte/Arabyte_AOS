@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -43,12 +43,12 @@ fun Greeting(
     name: String,
     modifier: Modifier = Modifier,
 ) {
-    Row {
+    Column {
         Text(
-            text = "Hello $name!",
+            text = "Hello $name!폰트 적용 됐나",
             modifier = modifier,
             color = ArabyteTheme.colors.mainBlue,
-            style = ArabyteTheme.typography.capMed9,
+            style = ArabyteTheme.typography.titleExtra24,
         )
         Spacer(Modifier.height(9.dp).background(color = arabyteColors.black))
         Text(
@@ -58,10 +58,16 @@ fun Greeting(
             style = ArabyteTheme.typography.bodyMed13,
         )
         Text(
-            text = "Hello $name!",
+            text = "Hello $name!\n폰트 적용 됐나",
             modifier = modifier,
             color = ArabyteTheme.colors.subBlue,
             fontSize = 13.sp,
+        )
+        Text(
+            text = "Hello android\n아르바이트 경력 얼마나 되시나요?",
+            modifier = modifier,
+            color = ArabyteTheme.colors.subBlue,
+            style = ArabyteTheme.typography.titleExtra24,
         )
     }
 }
