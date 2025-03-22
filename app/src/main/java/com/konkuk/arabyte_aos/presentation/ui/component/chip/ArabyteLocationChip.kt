@@ -3,8 +3,6 @@ package com.konkuk.arabyte_aos.presentation.ui.component.chip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,15 +30,15 @@ fun ArabyteLocationChip(
 ) {
     Row(
         modifier =
-        Modifier
-            .then(modifier)
-            .roundedBackgroundWithPadding(
-                backgroundColor = ArabyteTheme.colors.gray01,
-                cornerRadius = 3.dp,
-                padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
-            ),
+            Modifier
+                .then(modifier)
+                .roundedBackgroundWithPadding(
+                    backgroundColor = ArabyteTheme.colors.gray01,
+                    cornerRadius = 3.dp,
+                    padding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally)
+        horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_location_13),

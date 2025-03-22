@@ -21,10 +21,15 @@
     <string name="button_check">근로계약서 인증하기</string>
 
 
-
     <!--  Filtering  -->
     <string name="review_filtering_check">근로계약서 인증</string>
     <string name="review_filtering_region">지역</string>
     <string name="review_filtering_category">카테고리</string>
 
+    <!--  Onboarding  -->
+    <integer name="onboarding_number_1">1</integer>
+    <integer name="onboarding_number_2">2</integer>
+
+    <!--  Board Comment  -->
+    <string name="board_comment_writer">작성자</string>
 </resources>

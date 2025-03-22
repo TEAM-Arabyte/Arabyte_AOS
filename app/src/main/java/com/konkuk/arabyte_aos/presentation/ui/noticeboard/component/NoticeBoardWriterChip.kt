@@ -7,7 +7,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -16,13 +18,13 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
  * 이 컴포넌트는 작성자의 댓글에 사용되며, 작성자의 정보를 표시합니다.
  *
  * @param modifier UI 수정 사항을 추가할 수 있는 Modifier입니다.
- * @param writerText 댓글 작성자의 이름을 나타내는 문자열입니다. 기본값은 작성자 입니다.
+ * @param writerResId 댓글 작성자의 이름을 나타내는 문자열 리소스 ID 입니다. 기본값은 작성자 입니다.
  */
 
 @Composable
 fun NoticeBoardWriterChip(
     modifier: Modifier = Modifier,
-    writerText: String = "작성자",
+    writerResId: Int = R.string.board_comment_writer,
 ) {
     Row(
         modifier =
@@ -36,7 +38,7 @@ fun NoticeBoardWriterChip(
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = writerText,
+            text = stringResource(writerResId),
             style = ArabyteTheme.typography.capSemi9,
             color = ArabyteTheme.colors.mainBlue,
         )
