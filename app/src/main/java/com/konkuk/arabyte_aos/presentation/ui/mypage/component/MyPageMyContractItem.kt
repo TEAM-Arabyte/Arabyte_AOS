@@ -17,6 +17,15 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
+/**
+ * 마이페이지 내, 근로 계약서 인증과 관련된 알바를 나타내는 컴포넌트입니다.
+ * 이 컴포넌트는 근로지명과 근로 계약서 인증 여부를 표시합니다.
+ *
+ * @param modifier UI 수정 사항을 추가할 수 있는 Modifier입니다.
+ * @param companyName 알바 근로지 이름입니다.
+ * @param isCertified 사용자가 근로계약서를 인증한 근로지인 경우 true로 설정합니다. 기본값은 false입니다.
+ */
+
 @Composable
 fun MyPageMyContractItem(
     modifier: Modifier = Modifier,

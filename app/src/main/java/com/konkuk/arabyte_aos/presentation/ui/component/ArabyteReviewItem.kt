@@ -25,6 +25,18 @@ import com.konkuk.arabyte_aos.presentation.ui.review.component.ReviewCategoryChi
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
+/**
+ * 리뷰 항목을 나타내는 컴포넌트입니다. (리뷰 리스트의 item)
+ *
+ * @param modifier UI 수정 사항을 추가할 수 있는 Modifier입니다.
+ * @param companyName 리뷰의 대상이 되는 근로지의 이름입니다.
+ * @param isCertified 근로 계약서 인증된 리뷰인 경우, true로 설정합니다. 기본값은 false입니다.
+ * @param starRate 리뷰의 별점입니다. Double 타입입니다.ㅏ
+ * @param reviewContent 리뷰의 내용을 나타내는 문자열입니다.
+ * @param location 리뷰가 작성된 근로지의 위치입니다.
+ * @param category 리뷰(알바)의 카테고리를 나타내는 문자열 리소스 ID로 사용됩니다.
+ */
+
 @Composable
 fun ArabyteReviewItem(
     modifier: Modifier = Modifier,

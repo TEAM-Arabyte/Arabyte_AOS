@@ -16,6 +16,15 @@ import com.konkuk.arabyte_aos.presentation.type.ArabyteTopAppBarType
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
+/**
+ * 4가지 타입의 상단 앱 바를 나타내는 컴포넌트입니다.
+ *
+ * @param appBarType 4가지 앱 바의 유형을 정의하는 [ArabyteTopAppBarType]입니다.
+ * @param modifier UI 수정 사항을 추가할 수 있는 Modifier입니다.
+ * @param onBackClick 좌측 back 버튼 클릭 시 호출되는 콜백 함수입니다. (뒤로가기)
+ * @param onOptionalClick 우측 선택적 버튼 클릭 시 호출되는 콜백 함수입니다.
+ *        기본값은 null이며, 제공되지 않을 경우 해당 버튼은 표시되지 않습니다.
+ */
 @Composable
 fun ArabyteTopAppBar(
     appBarType: ArabyteTopAppBarType,
