@@ -35,17 +35,18 @@ fun ArabyteBoardCategoryButton(
     buttonClicked: (Boolean) -> Unit,
 ) {
     Row(
-        modifier = modifier.conditionalBorder(
-            enabled = !enabled,
-            color = ArabyteTheme.colors.gray01,
-            width = 1.dp,
-            shape = RoundedCornerShape(30.dp)
-        ).roundedBackgroundWithPadding(
+        modifier =
+            modifier.conditionalBorder(
+                enabled = !enabled,
+                color = ArabyteTheme.colors.gray01,
+                width = 1.dp,
+                shape = RoundedCornerShape(30.dp),
+            ).roundedBackgroundWithPadding(
                 padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
                 cornerRadius = 30.dp,
                 backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.white,
             )
-            .noRippleClickable { buttonClicked(!enabled) },
+                .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(

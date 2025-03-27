@@ -14,5 +14,5 @@ enum class ArabyteCareerTextFieldType(
     YEAR(
         valueRange = 0..99,
         stringRes = R.string.career_text_field_year,
-    )
+    ),
 }

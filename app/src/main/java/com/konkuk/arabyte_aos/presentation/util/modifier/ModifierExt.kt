@@ -41,7 +41,7 @@ fun Modifier.conditionalBorder(
     enabled: Boolean,
     color: Color = Color.Black,
     width: Dp = 1.dp,
-    shape: Shape = RoundedCornerShape(20.dp)
+    shape: Shape = RoundedCornerShape(20.dp),
 ): Modifier {
     return if (enabled) {
         this.border(width = width, color = color, shape = shape)

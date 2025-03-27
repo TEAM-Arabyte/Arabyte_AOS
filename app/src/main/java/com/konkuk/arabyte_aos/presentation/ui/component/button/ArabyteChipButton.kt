@@ -28,28 +28,30 @@ fun ArabyteChipButton(
 ) {
     val borderColor = ArabyteTheme.colors.mainBlue
 
-    val borderModifier = remember(enabled) {
-        if (enabled) {
-            modifier.border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(20.dp),
-            )
-        } else {
-            modifier
+    val borderModifier =
+        remember(enabled) {
+            if (enabled) {
+                modifier.border(
+                    width = 1.dp,
+                    color = borderColor,
+                    shape = RoundedCornerShape(20.dp),
+                )
+            } else {
+                modifier
+            }
         }
-    }
 
     Text(
-        modifier = borderModifier
-            .roundedBackgroundWithPadding(
-                backgroundColor = if (enabled) ArabyteTheme.colors.lightBlue else ArabyteTheme.colors.gray01,
-                padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
-                cornerRadius = 20.dp,
-            )
-            .noRippleClickable {
-                buttonClicked(!enabled)
-            },
+        modifier =
+            borderModifier
+                .roundedBackgroundWithPadding(
+                    backgroundColor = if (enabled) ArabyteTheme.colors.lightBlue else ArabyteTheme.colors.gray01,
+                    padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
+                    cornerRadius = 20.dp,
+                )
+                .noRippleClickable {
+                    buttonClicked(!enabled)
+                },
         text = buttonText,
         color = if (enabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray05,
         textAlign = TextAlign.Center,

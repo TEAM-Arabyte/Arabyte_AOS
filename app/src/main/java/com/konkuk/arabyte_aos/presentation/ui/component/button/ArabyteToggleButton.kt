@@ -27,27 +27,29 @@ fun ArabyteToggleButton(
     modifier: Modifier = Modifier,
     buttonClicked: (Boolean) -> Unit = {},
 ) {
-    val (backgroundColor, alignment) = when (enabled) {
-        true -> Pair(ArabyteTheme.colors.mainBlue, Alignment.CenterStart)
-        false -> Pair(ArabyteTheme.colors.gray03, Alignment.CenterEnd)
-    }
+    val (backgroundColor, alignment) =
+        when (enabled) {
+            true -> Pair(ArabyteTheme.colors.mainBlue, Alignment.CenterStart)
+            false -> Pair(ArabyteTheme.colors.gray03, Alignment.CenterEnd)
+        }
 
     Box(
-        modifier = modifier
-            .width(35.dp)
-            .roundedBackgroundWithPadding(cornerRadius = 20.dp, backgroundColor = backgroundColor)
-            .noRippleClickable { buttonClicked(!enabled) },
-        contentAlignment = alignment
+        modifier =
+            modifier
+                .width(35.dp)
+                .roundedBackgroundWithPadding(cornerRadius = 20.dp, backgroundColor = backgroundColor)
+                .noRippleClickable { buttonClicked(!enabled) },
+        contentAlignment = alignment,
     ) {
         Box(
-            modifier = Modifier
-                .padding(2.5.dp)
-                .size(15.dp)
-                .background(color = ArabyteTheme.colors.white, shape = CircleShape)
+            modifier =
+                Modifier
+                    .padding(2.5.dp)
+                    .size(15.dp)
+                    .background(color = ArabyteTheme.colors.white, shape = CircleShape),
         )
     }
 }
-
 
 @Preview
 @Composable
