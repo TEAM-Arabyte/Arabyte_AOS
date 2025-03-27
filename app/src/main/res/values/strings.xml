@@ -20,11 +20,15 @@
     <string name="button_like">공감</string>
     <string name="button_check">근로계약서 인증하기</string>
 
-
-
     <!--  Filtering  -->
     <string name="review_filtering_check">근로계약서 인증</string>
     <string name="review_filtering_region">지역</string>
     <string name="review_filtering_category">카테고리</string>
+
+    <!--  Career TextField -->
+    <string name="career_text_field_month">개월</string>
+    <string name="career_text_field_year">년</string>
+
+
 
 </resources>
