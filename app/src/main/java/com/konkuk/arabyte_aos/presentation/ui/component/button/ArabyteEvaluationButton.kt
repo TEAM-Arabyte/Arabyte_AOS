@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.component.button
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.presentation.util.modifier.conditionalBorder
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
@@ -44,16 +44,15 @@ fun ArabyteEvaluationButton(
 
     Row(
         modifier =
-            modifier
-                .then(
-                    if (!enabled) {
-                        Modifier.border(width = 1.dp, color = ArabyteTheme.colors.gray01, shape = RoundedCornerShape(50.dp))
-                    } else {
-                        Modifier
-                    },
-                )
-                .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
-                .noRippleClickable { buttonClicked(!enabled) },
+        modifier
+            .conditionalBorder(
+                enabled = !enabled,
+                color = ArabyteTheme.colors.gray01,
+                width = 1.dp,
+                shape = RoundedCornerShape(50.dp)
+            )
+            .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
+            .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {

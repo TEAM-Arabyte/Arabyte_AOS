@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.util.modifier
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -33,4 +35,17 @@ fun Modifier.roundedBackgroundWithPadding(
     return this
         .background(color = backgroundColor, shape = RoundedCornerShape(cornerRadius))
         .padding(padding)
+}
+
+fun Modifier.conditionalBorder(
+    enabled: Boolean,
+    color: Color = Color.Black,
+    width: Dp = 1.dp,
+    shape: Shape = RoundedCornerShape(20.dp)
+): Modifier {
+    return if (enabled) {
+        this.border(width = width, color = color, shape = shape)
+    } else {
+        this
+    }
 }
