@@ -3,13 +3,13 @@ package com.konkuk.arabyte_aos.presentation.ui.login
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +31,8 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 fun setLayoutLoginKakaoClickListener(
@@ -57,7 +60,7 @@ fun LoginRoute(
             viewModel.setKakaoAccessToken(oAuthToken.accessToken)
         }
     }
-    LoginScreen(modifier = modifier,innerPaddingValues = innerPaddingValues) {
+    LoginScreen(modifier = modifier, innerPaddingValues = innerPaddingValues) {
         setLayoutLoginKakaoClickListener(context = context, callback = callback)
     }
 }
@@ -68,25 +71,31 @@ fun LoginScreen(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     loginButtonClicked: () -> Unit,
 ) {
-    Column(
+    Box(
         modifier =
             modifier
                 .fillMaxSize()
                 .background(color = arabyteColors.mainBlue)
                 .padding(innerPaddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.height(207.dp))
-        Text(
-            text = "당신의 알바 선택을 더 똑똑하게,\n알바의 모든것을 알아보세요",
-            color = arabyteColors.white,
-            textAlign = TextAlign.Center,
-        )
-        Spacer(modifier = Modifier.weight(1f))
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Spacer(modifier = Modifier.weight(207f))
+            Text(
+                text = stringResource(R.string.splash_service_description),
+                style = ArabyteTheme.typography.bodyMed15,
+                textAlign = TextAlign.Center,
+                color = ArabyteTheme.colors.white,
+            )
+            Spacer(modifier = Modifier.weight(459f))
+        }
         Row(
             modifier =
                 Modifier
-                    .padding(horizontal = 16.dp)
+                    .align(Alignment.BottomCenter)
+                    .padding(start = 16.dp, end = 16.dp, bottom = 39.dp)
                     .fillMaxWidth()
                     .roundedBackgroundWithPadding(
                         backgroundColor = arabyteColors.kakaoYellow,
@@ -103,15 +112,17 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
-                text = "카카오 계정으로 시작하기",
+                text = stringResource(R.string.login_kakao_login_text),
+                style = ArabyteTheme.typography.bodySemi17,
             )
         }
-        Spacer(modifier = Modifier.height(39.dp))
     }
 }
 
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(loginButtonClicked = {})
+    ArabyteAOSTheme {
+        LoginScreen(loginButtonClicked = {})
+    }
 }
