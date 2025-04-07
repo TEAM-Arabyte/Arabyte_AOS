@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
-import com.konkuk.arabyte_aos.ui.theme.arabyteColors
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme.colors
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +50,7 @@ fun Greeting(
             color = ArabyteTheme.colors.mainBlue,
             style = ArabyteTheme.typography.titleExtra24,
         )
-        Spacer(Modifier.height(9.dp).background(color = arabyteColors.black))
+        Spacer(Modifier.height(9.dp).background(color = ArabyteTheme.colors.black))
         Text(
             text = "Hello $name!",
             modifier = modifier,
