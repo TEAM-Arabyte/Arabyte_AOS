@@ -9,84 +9,72 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.presentation.type.ArabyteTopAppBarType
+import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 /**
  * 4가지 타입의 상단 앱 바를 나타내는 컴포넌트입니다.
  *
- * @param appBarType 4가지 앱 바의 유형을 정의하는 [ArabyteTopAppBarType]입니다.
- * @param modifier UI 수정 사항을 추가할 수 있는 Modifier입니다.
- * @param onBackClick 좌측 back 버튼 클릭 시 호출되는 콜백 함수입니다. (뒤로가기)
- * @param onOptionalClick 우측 선택적 버튼 클릭 시 호출되는 콜백 함수입니다.
- *        기본값은 null이며, 제공되지 않을 경우 해당 버튼은 표시되지 않습니다.
+ * @param useBack Back 버튼 여부
+ * @param title App Bar의 가운데 Title
+ * @param optionalText App Bar의 우측 text (ex. 완료)
+ * @param optionalIconRes App Bar의 우측 버튼 (ex. 더보기 버튼)
  */
+
 @Composable
 fun ArabyteTopAppBar(
-    appBarType: ArabyteTopAppBarType,
     modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
-    onOptionalClick: (() -> Unit) = {},
+    useBack: Boolean = true,
+    title: String? = null,
+    optionalText: String? = null,
+    optionalIconRes: Int? = null,
+    onBackClick: () -> Unit = {},
+    onOptionalClick: () -> Unit = {},
 ) {
-    Box(
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        Icon(
-            modifier =
-                Modifier
-                    .noRippleClickable { onBackClick() }
-                    .align(Alignment.CenterStart),
-            imageVector = ImageVector.vectorResource(id = appBarType.backButtonIconRes),
-            contentDescription = null,
-        )
-        if (appBarType is ArabyteTopAppBarType.BackButtonWithTitle ||
-            appBarType is ArabyteTopAppBarType.BackButtonWithTitleAndOption
-        ) {
+    Box(modifier = modifier.fillMaxWidth()) {
+        if (useBack) {
+            Icon(
+                modifier =
+                    Modifier
+                        .noRippleClickable { onBackClick() }
+                        .align(Alignment.CenterStart),
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_back_button_45),
+                contentDescription = null,
+            )
+        }
+
+        title?.let {
             Text(
-                text =
-                    stringResource(
-                        id =
-                            (appBarType as? ArabyteTopAppBarType.BackButtonWithTitle)?.titleStringRes
-                                ?: (appBarType as ArabyteTopAppBarType.BackButtonWithTitleAndOption).titleStringRes,
-                    ),
+                text = it,
                 style = ArabyteTheme.typography.bodySemi15,
                 color = ArabyteTheme.colors.black,
                 modifier = Modifier.align(Alignment.Center),
             )
         }
-        when (appBarType) {
-            is ArabyteTopAppBarType.BackButtonWithTitleAndOption -> {
-                Text(
-                    text = stringResource(id = appBarType.optionalButtonStringRes),
-                    style = ArabyteTheme.typography.bodySemi15,
-                    color = ArabyteTheme.colors.gray03,
-                    modifier =
-                        Modifier
-                            .padding(end = 16.dp)
-                            .noRippleClickable {
-                                onOptionalClick()
-                            }
-                            .align(Alignment.CenterEnd),
-                )
-            }
 
-            is ArabyteTopAppBarType.BackButtonWithOptionalIcon -> {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = appBarType.optionalIconRes),
-                    contentDescription = null,
-                    modifier =
-                        Modifier
-                            .noRippleClickable {
-                                onOptionalClick()
-                            }
-                            .align(Alignment.CenterEnd),
-                )
-            }
-            else -> {}
+        optionalText?.let {
+            Text(
+                text = it,
+                style = ArabyteTheme.typography.bodySemi15,
+                color = ArabyteTheme.colors.gray03,
+                modifier =
+                    Modifier
+                        .padding(end = 16.dp)
+                        .noRippleClickable { onOptionalClick() }
+                        .align(Alignment.CenterEnd),
+            )
+        } ?: optionalIconRes?.let {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = it),
+                contentDescription = null,
+                modifier =
+                    Modifier
+                        .noRippleClickable { onOptionalClick() }
+                        .align(Alignment.CenterEnd),
+            )
         }
     }
 }
