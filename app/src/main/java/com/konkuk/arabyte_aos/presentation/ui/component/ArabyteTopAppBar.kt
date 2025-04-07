@@ -29,10 +29,75 @@ fun ArabyteTopAppBar(
     modifier: Modifier = Modifier,
     useBack: Boolean = true,
     title: String? = null,
-    optionalText: String? = null,
-    optionalIconRes: Int? = null,
+    onBackClick: () -> Unit = {},
+) {
+    ArabyteTopAppBarInternal(
+        modifier = modifier,
+        useBack = useBack,
+        title = title,
+        onBackClick = onBackClick,
+    )
+}
+
+@Composable
+fun ArabyteTopAppBar(
+    modifier: Modifier = Modifier,
+    useBack: Boolean = true,
+    title: String? = null,
+    optionalText: String,
     onBackClick: () -> Unit = {},
     onOptionalClick: () -> Unit = {},
+) {
+    ArabyteTopAppBarInternal(
+        modifier = modifier,
+        useBack = useBack,
+        title = title,
+        onBackClick = onBackClick,
+        optionComponent = {
+            Text(
+                text = optionalText,
+                style = ArabyteTheme.typography.bodySemi15,
+                color = ArabyteTheme.colors.gray03,
+                modifier =
+                    Modifier
+                        .padding(end = 16.dp)
+                        .noRippleClickable { onOptionalClick() },
+            )
+        },
+    )
+}
+
+@Composable
+fun ArabyteTopAppBar(
+    modifier: Modifier = Modifier,
+    useBack: Boolean = true,
+    title: String? = null,
+    optionalIconRes: Int,
+    onBackClick: () -> Unit = {},
+    onOptionalClick: () -> Unit = {},
+) {
+    ArabyteTopAppBarInternal(
+        modifier = modifier,
+        useBack = useBack,
+        title = title,
+        onBackClick = onBackClick,
+        optionComponent = {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = optionalIconRes),
+                contentDescription = null,
+                modifier = Modifier.noRippleClickable { onOptionalClick() },
+            )
+        },
+    )
+}
+
+@Composable
+private fun ArabyteTopAppBarInternal(
+    modifier: Modifier = Modifier,
+    useBack: Boolean = true,
+    title: String? = null,
+    onBackClick: () -> Unit = {},
+    optionComponent: @Composable () -> Unit = {},
 ) {
     Box(modifier = modifier.fillMaxWidth()) {
         if (useBack) {
@@ -55,26 +120,8 @@ fun ArabyteTopAppBar(
             )
         }
 
-        optionalText?.let {
-            Text(
-                text = it,
-                style = ArabyteTheme.typography.bodySemi15,
-                color = ArabyteTheme.colors.gray03,
-                modifier =
-                    Modifier
-                        .padding(end = 16.dp)
-                        .noRippleClickable { onOptionalClick() }
-                        .align(Alignment.CenterEnd),
-            )
-        } ?: optionalIconRes?.let {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = it),
-                contentDescription = null,
-                modifier =
-                    Modifier
-                        .noRippleClickable { onOptionalClick() }
-                        .align(Alignment.CenterEnd),
-            )
+        Box(modifier = Modifier.align(Alignment.CenterEnd)) {
+            optionComponent()
         }
     }
 }
