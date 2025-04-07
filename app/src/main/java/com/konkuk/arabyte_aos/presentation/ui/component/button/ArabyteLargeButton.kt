@@ -30,7 +30,7 @@ fun ArabyteLargeButton(
                     padding = PaddingValues(vertical = 19.5.dp),
                 )
                 .noRippleClickable {
-                    buttonClicked()
+                    if (enabled) buttonClicked()
                 },
         text = buttonText,
         color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray05,
