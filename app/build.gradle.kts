@@ -99,6 +99,9 @@ dependencies {
 
     // Security
     implementation(libs.androidx.security.crypto)
+
+    // SplashScreen
+    implementation(libs.androidx.core.splashscreen)
 }
 ktlint {
     android = true

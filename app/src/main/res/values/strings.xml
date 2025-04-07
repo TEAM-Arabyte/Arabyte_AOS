@@ -29,6 +29,9 @@
     <string name="career_text_field_month">개월</string>
     <string name="career_text_field_year">년</string>
 
+    <!--  Splash  -->
+    <string name="splash_service_description">당신의 알바 선택을 더 똑똑하게,\n알바의 모든 것을 알아보세요!</string>
+
 
 
 </resources>
