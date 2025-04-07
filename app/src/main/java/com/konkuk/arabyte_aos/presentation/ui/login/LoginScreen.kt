@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,6 +46,7 @@ fun setLayoutLoginKakaoClickListener(
 @Composable
 fun LoginRoute(
     modifier: Modifier = Modifier,
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -55,7 +57,7 @@ fun LoginRoute(
             viewModel.setKakaoAccessToken(oAuthToken.accessToken)
         }
     }
-    LoginScreen(modifier = modifier) {
+    LoginScreen(modifier = modifier,innerPaddingValues = innerPaddingValues) {
         setLayoutLoginKakaoClickListener(context = context, callback = callback)
     }
 }
@@ -63,13 +65,15 @@ fun LoginRoute(
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     loginButtonClicked: () -> Unit,
 ) {
     Column(
         modifier =
             modifier
                 .fillMaxSize()
-                .background(color = arabyteColors.mainBlue),
+                .background(color = arabyteColors.mainBlue)
+                .padding(innerPaddingValues),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(207.dp))
