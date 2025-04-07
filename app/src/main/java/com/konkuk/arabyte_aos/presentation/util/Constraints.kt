@@ -7,3 +7,8 @@ object Login {
 object Token {
     const val BEARER = "Bearer "
 }
+
+object SignUp {
+    const val MALE = "남성"
+    const val FEMALE = "여성"
+}
