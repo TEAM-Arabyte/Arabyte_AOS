@@ -32,6 +32,11 @@
 
     <!--  Board Comment  -->
     <string name="board_comment_writer">작성자</string>
+
+    <!-- Dummy -->
+    <string name="dummy1">리뷰 작성하기</string>
+    <string name="dummy2">완료</string>
+    <string name="dummy3">게시글 작성</string>
     <!--  Career TextField -->
     <string name="career_text_field_month">개월</string>
     <string name="career_text_field_year">년</string>

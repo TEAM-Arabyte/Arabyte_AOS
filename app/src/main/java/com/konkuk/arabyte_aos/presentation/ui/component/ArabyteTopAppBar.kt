@@ -30,7 +30,7 @@ fun ArabyteTopAppBar(
     appBarType: ArabyteTopAppBarType,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
-    onOptionalClick: (() -> Unit)? = null,
+    onOptionalClick: (() -> Unit) = {},
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
@@ -68,9 +68,7 @@ fun ArabyteTopAppBar(
                         Modifier
                             .padding(end = 16.dp)
                             .noRippleClickable {
-                                if (onOptionalClick != null) {
-                                    onOptionalClick()
-                                }
+                                onOptionalClick()
                             }
                             .align(Alignment.CenterEnd),
                 )
@@ -83,9 +81,7 @@ fun ArabyteTopAppBar(
                     modifier =
                         Modifier
                             .noRippleClickable {
-                                if (onOptionalClick != null) {
-                                    onOptionalClick()
-                                }
+                                onOptionalClick()
                             }
                             .align(Alignment.CenterEnd),
                 )
