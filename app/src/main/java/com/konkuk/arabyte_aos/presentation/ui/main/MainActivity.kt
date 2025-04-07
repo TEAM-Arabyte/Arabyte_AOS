@@ -42,12 +42,12 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(Unit) {
                     viewModel.startSplashTimer()
                 }
-                if (showSplash) {
-                    SplashScreen()
-                } else {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                    ) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                ) { innerPadding ->
+                    if (showSplash) {
+                        SplashScreen(innerPaddingValues = innerPadding)
+                    } else {
                         LoginScreen(innerPaddingValues = innerPadding)
                     }
                 }
