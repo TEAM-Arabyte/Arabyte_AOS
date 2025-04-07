@@ -17,14 +17,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_MAX_LENGTH
-import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_MONTH
-import com.konkuk.arabyte_aos.presentation.util.CareerTextField.CAREER_YEAR
+import com.konkuk.arabyte_aos.presentation.type.ArabyteCareerTextFieldType
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -34,7 +33,7 @@ fun ArabyteCareerTextField(
     placeholder: String,
     modifier: Modifier = Modifier,
     text: String = "",
-    careerText: String = CAREER_YEAR,
+    careerTextFieldType: ArabyteCareerTextFieldType = ArabyteCareerTextFieldType.YEAR,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     onValueChange: (String) -> Unit = { _ -> },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Default),
@@ -62,11 +61,14 @@ fun ArabyteCareerTextField(
                             .weight(1f)
                             .padding(vertical = 15.dp),
                     value = text,
-                    onValueChange = { it ->
-                        if (it.all { it.isDigit() } &&
-                            it.codePointCount(0, it.length) <= CAREER_MAX_LENGTH
+                    onValueChange = { newValue ->
+                        if (newValue.isEmpty()) {
+                            onValueChange(newValue)
+                        } else if (
+                            newValue.all { it.isDigit() } &&
+                            newValue.toIntOrNull() in careerTextFieldType.valueRange
                         ) {
-                            onValueChange(it)
+                            onValueChange(newValue)
                         }
                     },
                     cursorBrush = SolidColor(ArabyteTheme.colors.black),
@@ -92,7 +94,7 @@ fun ArabyteCareerTextField(
             }
             Spacer(modifier = Modifier.width(7.dp))
             Text(
-                text = careerText,
+                text = stringResource(careerTextFieldType.stringRes),
                 color = ArabyteTheme.colors.black,
                 style = ArabyteTheme.typography.bodyBold17,
             )
@@ -118,7 +120,7 @@ private fun ArabyteCareerTextFieldPreview() {
             ArabyteCareerTextField(
                 placeholder = "0",
                 text = month,
-                careerText = CAREER_MONTH,
+                careerTextFieldType = ArabyteCareerTextFieldType.MONTH,
                 onValueChange = { newText ->
                     month = newText
                 },
