@@ -21,6 +21,9 @@ data class ArabyteColors(
     val mainBlue: Color,
     val subBlue: Color,
     val lightBlue: Color,
+    // Symentic
+    val alertRed: Color,
+    val kakaoYellow: Color,
 )
 
 val arabyteColors =
@@ -40,6 +43,9 @@ val arabyteColors =
         mainBlue = Color(0xFF5E76ED),
         subBlue = Color(0xFF889CFC),
         lightBlue = Color(0xFFE5E8FC),
+        // Symentic
+        alertRed = Color(0xFFFF3636),
+        kakaoYellow = Color(0xFFFEE500),
     )
 
 val LocalArabyteColors = staticCompositionLocalOf { arabyteColors }
