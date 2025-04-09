@@ -39,13 +39,13 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun ArabyteReviewItem(
-    modifier: Modifier = Modifier,
     companyName: String,
-    isCertified: Boolean = false,
     starRate: Double,
     reviewContent: String,
     location: String,
     category: Int,
+    modifier: Modifier = Modifier,
+    isCertified: Boolean = false,
 ) {
     Column(
         modifier =

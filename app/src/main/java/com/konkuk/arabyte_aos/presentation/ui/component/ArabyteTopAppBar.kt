@@ -28,8 +28,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun ArabyteTopAppBar(
     useBack: Boolean = true,
     title: String? = null,
-    onBackClick: () -> Unit = {},
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
 ) {
     ArabyteTopAppBarInternal(
         modifier = modifier,
