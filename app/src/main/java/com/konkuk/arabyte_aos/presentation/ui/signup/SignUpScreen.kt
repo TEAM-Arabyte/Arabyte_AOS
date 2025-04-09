@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,10 +24,11 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLocationButton
-import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteSmallButton
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpAgeGrid
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpGenderRow
+import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpSuccessView
+import com.konkuk.arabyte_aos.presentation.util.SignUp.errorMessageList
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -34,28 +36,41 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun SignUpRoute(
     viewModel: SignUpViewModel = hiltViewModel(),
-    innerPaddingValues: PaddingValues = PaddingValues(0.dp)
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (uiState.loadState) {
-        LoadState.Idle -> SignUpScreen(innerPaddingValues = innerPaddingValues, uiState = uiState,
-            completeButtonClicked = {},
-            ageButtonClicked = { age ->
-                viewModel.setEvent(SignUpContract.SignUpEvent.AgeButtonClicked(age))
-            },
-            genderButtonClicked = { gender ->
-                viewModel.setEvent(SignUpContract.SignUpEvent.GenderButtonClicked(gender))
-            }
-        )
-
-        LoadState.Success -> {
-            //TODO: 회원가입 성공 뷰
+    LaunchedEffect(uiState.selectedAge, uiState.selectedGender) {
+        if (uiState.selectedAge != null && uiState.selectedGender != null) {
+            viewModel.setEvent(SignUpContract.SignUpEvent.CompleteButtonEnabled)
         }
+    }
+
+    when (uiState.loadState) {
+        LoadState.Idle ->
+            SignUpScreen(
+                innerPaddingValues = innerPaddingValues,
+                uiState = uiState,
+                completeButtonClicked = {
+                    viewModel.setEvent(SignUpContract.SignUpEvent.CompleteButtonClicked)
+                },
+                ageButtonClicked = { age ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.AgeButtonClicked(age))
+                },
+                genderButtonClicked = { gender ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.GenderButtonClicked(gender))
+                },
+                onNicknameValueChanged = { nickname ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.NicknameValueChanged(nickname))
+                },
+                errorMessageList = errorMessageList,
+            )
+
+        LoadState.Success ->
+            SignUpSuccessView(nickname = "나야 알바", innerPaddingValues = innerPaddingValues)
 
         else -> Unit
     }
-
 }
 
 @Composable
@@ -66,59 +81,64 @@ fun SignUpScreen(
     completeButtonClicked: () -> Unit = {},
     ageButtonClicked: (String) -> Unit = {},
     genderButtonClicked: (String) -> Unit = {},
+    onNicknameValueChanged: (String) -> Unit = {},
+    errorMessageList: List<String> = emptyList(),
 ) {
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
 
     val titleRaw = stringResource(id = uiState.signUpType.titleStringRes)
-    val keywordTitle = when (uiState.signUpType) {
-        SignUpType.FIRST -> "닉네임"
-        SignUpType.SECOND -> "간단한 정보"
-    }
-
-    val spanTitle = buildAnnotatedString {
-        val parts = titleRaw.split(keywordTitle)
-        append(parts[0])
-        withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
-            append(keywordTitle)
+    val keywordTitle =
+        when (uiState.signUpType) {
+            SignUpType.FIRST -> "닉네임"
+            SignUpType.SECOND -> "간단한 정보"
         }
-        if (parts.size > 1) append(parts[1])
-    }
 
-    val spanPage = buildAnnotatedString {
-        when (uiState.signUpType.pageText) {
-            SignUpType.FIRST.pageText -> {
-                withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
-                    append("1")
-                }
-                append("/2")
+    val spanTitle =
+        buildAnnotatedString {
+            val parts = titleRaw.split(keywordTitle)
+            append(parts[0])
+            withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
+                append(keywordTitle)
             }
+            if (parts.size > 1) append(parts[1])
+        }
 
-            SignUpType.SECOND.pageText -> {
-                withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
-                    append("2/2")
+    val spanPage =
+        buildAnnotatedString {
+            when (uiState.signUpType.pageText) {
+                SignUpType.FIRST.pageText -> {
+                    withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
+                        append("1")
+                    }
+                    append("/2")
+                }
+
+                SignUpType.SECOND.pageText -> {
+                    withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
+                        append("2/2")
+                    }
                 }
             }
         }
-    }
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(innerPaddingValues)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(innerPaddingValues),
     ) {
-
         Spacer(modifier = Modifier.height(35.dp))
         Text(
             text = spanPage,
             modifier = horizontalModifier,
-            style = ArabyteTheme.typography.titleBold18
+            style = ArabyteTheme.typography.titleBold18,
         )
         Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = spanTitle,
             modifier = horizontalModifier,
-            style = ArabyteTheme.typography.titleBold18
+            style = ArabyteTheme.typography.titleBold18,
         )
         Spacer(modifier = Modifier.height(35.dp))
         when (uiState.signUpType) {
@@ -127,14 +147,20 @@ fun SignUpScreen(
                     modifier = horizontalModifier,
                     title = stringResource(R.string.sign_up_nickname),
                     textMaxLength = 10,
-                    placeholder = stringResource(R.string.sign_up_nickname_placeholder)
+                    text = uiState.nickname,
+                    onValueChange = { text ->
+                        onNicknameValueChanged(text)
+                    },
+                    validationState = uiState.nicknameValidationState,
+                    placeholder = stringResource(R.string.sign_up_nickname_placeholder),
+                    errorMessageList = errorMessageList,
                 )
             }
 
             SignUpType.SECOND -> {
                 ArabyteLocationButton(
                     modifier = horizontalModifier,
-                    title = stringResource(R.string.sign_up_region)
+                    title = stringResource(R.string.sign_up_region),
                 )
                 Spacer(modifier = Modifier.height(33.dp))
                 SignUpAgeGrid(
@@ -145,16 +171,20 @@ fun SignUpScreen(
                     },
                 )
                 Spacer(modifier = Modifier.height(23.dp))
-                SignUpGenderRow(modifier = horizontalModifier, onClick = { gender ->
-                    genderButtonClicked(gender)
-                })
+                SignUpGenderRow(
+                    modifier = horizontalModifier,
+                    selectedGender = uiState.selectedGender,
+                    onClick = { gender ->
+                        genderButtonClicked(gender)
+                    },
+                )
             }
         }
         Spacer(modifier = Modifier.weight(1f))
         ArabyteLargeButton(
             enabled = uiState.buttonEnabled,
             buttonText = stringResource(uiState.signUpType.buttonTextStringRes),
-            buttonClicked = completeButtonClicked
+            buttonClicked = completeButtonClicked,
         )
     }
 }
