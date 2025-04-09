@@ -28,33 +28,32 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun SignUpGenderRow(
     modifier: Modifier = Modifier,
     selectedGender: String? = null,
-    onClick: (String) -> Unit = {}
+    onClick: (String) -> Unit = {},
 ) {
-    val gender  = Pair(MALE, FEMALE)
+    val gender = Pair(MALE, FEMALE)
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(7.dp)
+        verticalArrangement = Arrangement.spacedBy(7.dp),
     ) {
         Text(text = stringResource(R.string.sign_up_gender), style = ArabyteTheme.typography.bodySemi15, color = ArabyteTheme.colors.black)
         Spacer(modifier = Modifier.height(6.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                ArabyteSmallButton(
-                    modifier = Modifier.weight(1f),
-                    buttonText = gender.first,
-                    enabled = selectedGender == gender.first,
-                    buttonClicked = { onClick(gender.first) }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                ArabyteSmallButton(
-                    modifier = Modifier.weight(1f),
-                    buttonText = gender.second,
-                    enabled = selectedGender == gender.second,
-                    buttonClicked = { onClick(gender.second) }
-                )
-            }
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            ArabyteSmallButton(
+                modifier = Modifier.weight(1f),
+                buttonText = gender.first,
+                enabled = selectedGender == gender.first,
+                buttonClicked = { onClick(gender.first) },
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            ArabyteSmallButton(
+                modifier = Modifier.weight(1f),
+                buttonText = gender.second,
+                enabled = selectedGender == gender.second,
+                buttonClicked = { onClick(gender.second) },
+            )
+        }
     }
 }
 
@@ -65,9 +64,9 @@ private fun SignUpGenderRowPreview() {
     ArabyteAOSTheme {
         SignUpGenderRow(
             selectedGender = selectedGender,
-            onClick = {gender ->
+            onClick = { gender ->
                 selectedGender = gender
-            }
+            },
         )
     }
 }

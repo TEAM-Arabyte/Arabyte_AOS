@@ -34,27 +34,28 @@ fun ArabyteLocationButton(
     isSelected: Boolean = false,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
+        modifier =
+            modifier
+                .fillMaxWidth(),
     ) {
         Text(text = title, style = ArabyteTheme.typography.bodySemi15)
         Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .noRippleClickable { onClicked() },
+                Modifier
+                    .fillMaxWidth()
+                    .noRippleClickable { onClicked() },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
                 modifier =
-                Modifier
-                    .weight(1f)
-                    .roundedBackgroundWithPadding(
-                        backgroundColor = ArabyteTheme.colors.gray01,
-                        cornerRadius = 9.dp,
-                    )
-                    .padding(horizontal = 10.dp, vertical = 15.dp),
+                    Modifier
+                        .weight(1f)
+                        .roundedBackgroundWithPadding(
+                            backgroundColor = ArabyteTheme.colors.gray01,
+                            cornerRadius = 9.dp,
+                        )
+                        .padding(horizontal = 10.dp, vertical = 15.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(

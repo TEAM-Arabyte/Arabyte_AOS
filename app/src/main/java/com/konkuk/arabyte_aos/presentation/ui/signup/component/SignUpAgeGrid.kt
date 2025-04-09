@@ -26,16 +26,21 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun SignUpAgeGrid(
     modifier: Modifier = Modifier,
     selectedAge: String? = null,
-    onClick: (String) -> Unit = {}
+    onClick: (String) -> Unit = {},
 ) {
-    val ageList = listOf(
-        "20세 미만", "20대 초반",
-        "20대 후반", "30대 초반",
-        "30대 후반", "40세 이상")
+    val ageList =
+        listOf(
+            "20세 미만",
+            "20대 초반",
+            "20대 후반",
+            "30대 초반",
+            "30대 후반",
+            "40세 이상",
+        )
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(7.dp)
+        verticalArrangement = Arrangement.spacedBy(7.dp),
     ) {
         Text(text = stringResource(R.string.sign_up_age), style = ArabyteTheme.typography.bodySemi15, color = ArabyteTheme.colors.black)
         Spacer(modifier = Modifier.height(6.dp))
@@ -50,14 +55,14 @@ fun SignUpAgeGrid(
                     modifier = Modifier.weight(1f),
                     buttonText = left,
                     enabled = selectedAge == left,
-                    buttonClicked = { onClick(left) }
+                    buttonClicked = { onClick(left) },
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 ArabyteSmallButton(
                     modifier = Modifier.weight(1f),
                     buttonText = right,
                     enabled = selectedAge == right,
-                    buttonClicked = { onClick(right) }
+                    buttonClicked = { onClick(right) },
                 )
             }
         }
@@ -74,7 +79,7 @@ private fun SignUpAgeGridPreview() {
             selectedAge = selectedAge,
             onClick = { selected ->
                 selectedAge = selected
-            }
+            },
         )
     }
 }

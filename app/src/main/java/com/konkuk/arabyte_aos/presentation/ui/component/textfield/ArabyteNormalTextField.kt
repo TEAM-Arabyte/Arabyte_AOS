@@ -50,7 +50,7 @@ fun ArabyteNormalTextField(
             TextFieldValidationState.VALID -> Pair(errorMessageList[2], ArabyteTheme.colors.mainBlue)
         }
 
-    Column (modifier = modifier.fillMaxWidth()){
+    Column(modifier = modifier.fillMaxWidth()) {
         Text(text = title, style = ArabyteTheme.typography.bodySemi15, color = ArabyteTheme.colors.black)
         Spacer(modifier = Modifier.height(4.dp))
         Row(

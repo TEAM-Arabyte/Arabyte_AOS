@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event : UiEvent>() :
     ViewModel() {
     private val initialState: State by lazy { createInitialState() }
+
     abstract fun createInitialState(): State
 
     private val _uiState = MutableStateFlow<State>(initialState)
@@ -38,9 +39,10 @@ abstract class BaseViewModel<State : UiState, SideEffect : UiSideEffect, Event :
         dispatchEvent(event)
     }
 
-    private fun dispatchEvent(event: Event) = viewModelScope.launch {
-        handleEvent(event)
-    }
+    private fun dispatchEvent(event: Event) =
+        viewModelScope.launch {
+            handleEvent(event)
+        }
 
     protected abstract suspend fun handleEvent(event: Event)
 
