@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -29,6 +30,7 @@ fun SignUpSuccessView(
     nickname: String,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
+    navigateToOnboarding: () -> Unit = {},
 ) {
     val styledText =
         buildAnnotatedString {
@@ -59,7 +61,8 @@ fun SignUpSuccessView(
         )
         Spacer(modifier = Modifier.height(17.dp))
         ArabyteNormalButton(
-            buttonText = "시작하기",
+            buttonText = stringResource(R.string.sign_up_success_button),
+            buttonClicked = navigateToOnboarding,
         )
         Spacer(modifier = Modifier.weight(174f))
     }

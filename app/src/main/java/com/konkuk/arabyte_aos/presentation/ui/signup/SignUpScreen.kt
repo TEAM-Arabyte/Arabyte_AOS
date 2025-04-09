@@ -31,6 +31,11 @@ import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpAgeGrid
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpGenderRow
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpSuccessView
+import com.konkuk.arabyte_aos.presentation.util.SignUp.FIRST_KEYWORD
+import com.konkuk.arabyte_aos.presentation.util.SignUp.ONE
+import com.konkuk.arabyte_aos.presentation.util.SignUp.SECOND_KEYWORD
+import com.konkuk.arabyte_aos.presentation.util.SignUp.SLASH_TWO
+import com.konkuk.arabyte_aos.presentation.util.SignUp.TWO_SLASH_TWO
 import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.errorMessageList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
@@ -80,7 +85,7 @@ fun SignUpRoute(
             )
 
         LoadState.Success ->
-            SignUpSuccessView(nickname = "나야 알바", innerPaddingValues = innerPaddingValues)
+            SignUpSuccessView(nickname = uiState.nickname, innerPaddingValues = innerPaddingValues)
 
         else -> Unit
     }
@@ -104,8 +109,8 @@ fun SignUpScreen(
     val titleRaw = stringResource(id = uiState.signUpType.titleStringRes)
     val keywordTitle =
         when (uiState.signUpType) {
-            SignUpType.FIRST -> "닉네임"
-            SignUpType.SECOND -> "간단한 정보"
+            SignUpType.FIRST -> FIRST_KEYWORD
+            SignUpType.SECOND -> SECOND_KEYWORD
         }
 
     val spanTitle =
@@ -123,14 +128,14 @@ fun SignUpScreen(
             when (uiState.signUpType.pageText) {
                 SignUpType.FIRST.pageText -> {
                     withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
-                        append("1")
+                        append(ONE)
                     }
-                    append("/2")
+                    append(SLASH_TWO)
                 }
 
                 SignUpType.SECOND.pageText -> {
                     withStyle(style = SpanStyle(color = ArabyteTheme.colors.mainBlue)) {
-                        append("2/2")
+                        append(TWO_SLASH_TWO)
                     }
                 }
             }

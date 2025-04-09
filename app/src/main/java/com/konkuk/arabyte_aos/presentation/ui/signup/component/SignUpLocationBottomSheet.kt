@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.signup.component
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,8 +20,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNormalButton
 import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
@@ -63,7 +64,7 @@ fun SignUpLocationBottomSheet(
                 .padding(top = 19.dp),
     ) {
         Text(
-            "거주하는 지역을 선택해주세요",
+            stringResource(R.string.sign_up_bottom_sheet_title),
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -130,18 +131,17 @@ fun SignUpLocationBottomSheet(
                     .padding(horizontal = 16.dp, vertical = 10.dp),
         ) {
             ArabyteNormalButton(
-                buttonText = "취소",
+                buttonText = stringResource(R.string.sign_up_bottom_sheet_close),
                 modifier = Modifier.weight(101f),
                 enabled = false,
                 buttonClicked = bottomSheetClose,
             )
             Spacer(modifier = Modifier.width(12.dp))
             ArabyteNormalButton(
-                buttonText = "적용하기",
+                buttonText = stringResource(R.string.sign_up_bottom_sheet_confirm),
                 modifier = Modifier.weight(218f),
                 buttonClicked = {
                     if (fullLocationText.isNotEmpty()) completeButtonClicked(fullLocationText)
-                    Log.d("zz", fullLocationText)
                 },
             )
         }

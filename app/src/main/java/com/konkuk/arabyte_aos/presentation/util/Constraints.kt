@@ -12,6 +12,13 @@ object SignUp {
     const val MALE = "남성"
     const val FEMALE = "여성"
 
+    const val FIRST_KEYWORD = "닉네임"
+    const val SECOND_KEYWORD = "간단한 정보"
+
+    const val ONE = "1"
+    const val SLASH_TWO = "/2"
+    const val TWO_SLASH_TWO = "2/2"
+
     private const val NICKNAME_IDLE_MESSAGE = ""
     private const val NICKNAME_VALID_MESSAGE = "닉네임은 공백 없이 한글로만 입력 가능합니다"
     private const val NICKNAME_INVALID_MESSAGE = "사용가능한 닉네임 입니다"
