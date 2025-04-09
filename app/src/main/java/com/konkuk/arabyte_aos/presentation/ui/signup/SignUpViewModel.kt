@@ -33,6 +33,10 @@ class SignUpViewModel
                 is SignUpContract.SignUpEvent.CompleteButtonEnabled -> {
                     setState { copy(buttonEnabled = true) }
                 }
+
+                is SignUpContract.SignUpEvent.ChangeLocationBottomSheetVisible -> {
+                    setState { copy(locationBottomSheetVisible = !currentState.locationBottomSheetVisible) }
+                }
             }
         }
 
