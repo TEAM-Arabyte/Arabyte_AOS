@@ -47,8 +47,8 @@ fun SignUpRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(uiState.selectedAge, uiState.selectedGender) {
-        if (uiState.selectedAge != null && uiState.selectedGender != null) {
+    LaunchedEffect(uiState.selectedAge, uiState.selectedGender, uiState.location) {
+        if (uiState.selectedAge != null && uiState.selectedGender != null && uiState.location.isNotEmpty()) {
             viewModel.setEvent(SignUpContract.SignUpEvent.CompleteButtonEnabled)
         }
     }
@@ -74,6 +74,9 @@ fun SignUpRoute(
                 changeBottomSheetVisible = {
                     viewModel.setEvent(SignUpContract.SignUpEvent.ChangeLocationBottomSheetVisible)
                 },
+                bottomSheetCompleteButtonClicked = { location ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.SetLocation(location))
+                },
             )
 
         LoadState.Success ->
@@ -94,6 +97,7 @@ fun SignUpScreen(
     onNicknameValueChanged: (String) -> Unit = {},
     errorMessageList: List<String> = emptyList(),
     changeBottomSheetVisible: () -> Unit = {},
+    bottomSheetCompleteButtonClicked: (String) -> Unit = {},
 ) {
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
 
@@ -176,7 +180,9 @@ fun SignUpScreen(
                     ArabyteLocationButton(
                         modifier = horizontalModifier,
                         onClicked = changeBottomSheetVisible,
+                        location = uiState.location,
                         title = stringResource(R.string.sign_up_region),
+                        isSelected = uiState.location.isNotEmpty(),
                     )
                     Spacer(modifier = Modifier.height(33.dp))
                     SignUpAgeGrid(
@@ -215,6 +221,11 @@ fun SignUpScreen(
 
             SignUpLocationBottomSheet(
                 modifier = Modifier.padding(bottom = innerPaddingValues.calculateBottomPadding()),
+                bottomSheetClose = changeBottomSheetVisible,
+                completeButtonClicked = { location ->
+                    bottomSheetCompleteButtonClicked(location)
+                    changeBottomSheetVisible()
+                },
                 sidoList = sidoList,
                 guList = guList,
                 dongList = dongList,

@@ -30,7 +30,7 @@ fun ArabyteLocationButton(
     title: String,
     modifier: Modifier = Modifier,
     onClicked: () -> Unit = {},
-    location: String = title,
+    location: String = "",
     isSelected: Boolean = false,
 ) {
     Column(
@@ -59,7 +59,7 @@ fun ArabyteLocationButton(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = location,
+                    text = if (isSelected) location else title,
                     style = ArabyteTheme.typography.bodySemi13,
                     color = if (isSelected) ArabyteTheme.colors.black else ArabyteTheme.colors.gray03,
                 )

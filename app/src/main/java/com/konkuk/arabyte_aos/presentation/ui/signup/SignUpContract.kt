@@ -17,6 +17,7 @@ class SignUpContract {
         val nickname: String = "",
         val nicknameValidationState: TextFieldValidationState = TextFieldValidationState.IDLE,
         val locationBottomSheetVisible: Boolean = false,
+        val location: String = "",
     ) : UiState
 
     sealed interface SignUpSideEffect : UiSideEffect {
@@ -35,5 +36,7 @@ class SignUpContract {
         data object CompleteButtonEnabled : SignUpEvent()
 
         data object ChangeLocationBottomSheetVisible : SignUpEvent()
+
+        data class SetLocation(val location: String) : SignUpEvent()
     }
 }

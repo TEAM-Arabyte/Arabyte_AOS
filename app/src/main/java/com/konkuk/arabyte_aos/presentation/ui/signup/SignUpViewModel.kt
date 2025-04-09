@@ -37,6 +37,10 @@ class SignUpViewModel
                 is SignUpContract.SignUpEvent.ChangeLocationBottomSheetVisible -> {
                     setState { copy(locationBottomSheetVisible = !currentState.locationBottomSheetVisible) }
                 }
+
+                is SignUpContract.SignUpEvent.SetLocation -> {
+                    setState { copy(location = event.location) }
+                }
             }
         }
 

@@ -26,6 +26,7 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoList
+import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoShortName
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -56,7 +57,7 @@ fun SignUpLocationSidoList(
                         HorizontalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
                     }
                     Text(
-                        text = location,
+                        text = sidoShortName(location),
                         style = if (isSelect) ArabyteTheme.typography.bodySemi13 else ArabyteTheme.typography.bodyMed13,
                         color = if (isSelect) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray03,
                         modifier =

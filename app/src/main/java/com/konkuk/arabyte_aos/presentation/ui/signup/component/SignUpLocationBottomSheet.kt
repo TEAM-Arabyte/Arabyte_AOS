@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.signup.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNormalButton
 import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
+import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoFullName
 import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoList
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -33,13 +35,23 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun SignUpLocationBottomSheet(
     modifier: Modifier = Modifier,
+    bottomSheetClose: () -> Unit = {},
+    completeButtonClicked: (String) -> Unit = {},
     sidoList: List<String>,
     guList: List<String>,
     dongList: List<String>,
 ) {
-    var selectedSido by remember { mutableStateOf<String?>(null) }
-    var selectedGu by remember { mutableStateOf<String?>(null) }
-    var selectedDong by remember { mutableStateOf<String?>(null) }
+    var selectedSido by remember { mutableStateOf(sidoList[0]) }
+    var selectedGu by remember { mutableStateOf("") }
+    var selectedDong by remember { mutableStateOf("") }
+
+    val districtText by remember(selectedGu, selectedDong) {
+        mutableStateOf(listOf(selectedGu, selectedDong).filter { it.isNotEmpty() }.joinToString(" "))
+    }
+
+    val fullLocationText by remember(selectedSido, selectedGu, selectedDong) {
+        mutableStateOf(listOf(sidoFullName(selectedSido), selectedGu, selectedDong).filter { it.isNotEmpty() }.joinToString(" "))
+    }
 
     Column(
         modifier =
@@ -65,26 +77,19 @@ fun SignUpLocationBottomSheet(
                     .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            selectedSido?.let {
+            selectedSido.let {
                 item {
                     ArabyteChipButton(
-                        buttonText = it,
+                        buttonText = sidoFullName(it),
                         enabled = true,
                     ) {}
                 }
             }
-            selectedGu?.let {
+
+            if (districtText.isNotEmpty()) {
                 item {
                     ArabyteChipButton(
-                        buttonText = it,
-                        enabled = true,
-                    ) {}
-                }
-            }
-            selectedDong?.let {
-                item {
-                    ArabyteChipButton(
-                        buttonText = it,
+                        buttonText = districtText,
                         enabled = true,
                     ) {}
                 }
@@ -124,9 +129,21 @@ fun SignUpLocationBottomSheet(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 10.dp),
         ) {
-            ArabyteNormalButton(buttonText = "취소", modifier = Modifier.weight(101f), enabled = false)
+            ArabyteNormalButton(
+                buttonText = "취소",
+                modifier = Modifier.weight(101f),
+                enabled = false,
+                buttonClicked = bottomSheetClose,
+            )
             Spacer(modifier = Modifier.width(12.dp))
-            ArabyteNormalButton(buttonText = "적용하기", modifier = Modifier.weight(218f))
+            ArabyteNormalButton(
+                buttonText = "적용하기",
+                modifier = Modifier.weight(218f),
+                buttonClicked = {
+                    if (fullLocationText.isNotEmpty()) completeButtonClicked(fullLocationText)
+                    Log.d("zz", fullLocationText)
+                },
+            )
         }
     }
 }
