@@ -28,8 +28,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun MyPageMyContractItem(
-    modifier: Modifier = Modifier,
     companyName: String,
+    modifier: Modifier = Modifier,
     isCertified: Boolean = false,
 ) {
     Row(

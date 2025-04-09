@@ -28,9 +28,9 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun OnboardingNumberChip(
-    modifier: Modifier = Modifier,
     numberResId: Int,
     isCompleted: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     val (borderColor, backgroundColor, textColor) =
         if (isCompleted) {
@@ -43,6 +43,7 @@ fun OnboardingNumberChip(
             Triple(ArabyteTheme.colors.gray03, ArabyteTheme.colors.gray01, ArabyteTheme.colors.gray03)
         }
     Row(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -56,7 +57,7 @@ fun OnboardingNumberChip(
 
         Box(
             modifier =
-                modifier
+                Modifier
                     .size(32.dp)
                     .border(shape = RoundedCornerShape(50.dp), width = 2.dp, color = borderColor)
                     .roundedBackgroundWithPadding(

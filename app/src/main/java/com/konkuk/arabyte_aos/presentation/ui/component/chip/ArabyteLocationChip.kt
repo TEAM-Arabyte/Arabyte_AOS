@@ -25,8 +25,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
  */
 @Composable
 fun ArabyteLocationChip(
-    modifier: Modifier = Modifier,
     locationText: String,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier =
