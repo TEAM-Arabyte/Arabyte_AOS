@@ -211,7 +211,7 @@ fun SignUpScreen(
             ArabyteLargeButton(
                 enabled = uiState.buttonEnabled,
                 buttonText = stringResource(uiState.signUpType.buttonTextStringRes),
-                buttonClicked = completeButtonClicked,
+                buttonClicked = { if (uiState.buttonEnabled) completeButtonClicked() },
             )
         }
 
