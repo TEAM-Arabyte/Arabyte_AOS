@@ -24,24 +24,27 @@ import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButto
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteCareerTextField
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
-
 @Composable
-fun OnBoardingRoute(modifier: Modifier = Modifier, innerPaddingValues: PaddingValues = PaddingValues(0.dp)) {
+fun OnBoardingRoute(
+    modifier: Modifier = Modifier,
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
+) {
     OnBoardingScreen(innerPaddingValues = innerPaddingValues)
 }
 
-
 @Composable
 fun OnBoardingScreen(
-    modifier: Modifier = Modifier, innerPaddingValues: PaddingValues = PaddingValues(0.dp),
-    onboardingType: OnboardingType = OnboardingType.FIRST
+    modifier: Modifier = Modifier,
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
+    onboardingType: OnboardingType = OnboardingType.FIRST,
 ) {
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(innerPaddingValues)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(innerPaddingValues),
     ) {
         Row(modifier = horizontalModifier) {
             Icon(imageVector = ImageVector.vectorResource(onboardingType.pageIconRes), contentDescription = null)
