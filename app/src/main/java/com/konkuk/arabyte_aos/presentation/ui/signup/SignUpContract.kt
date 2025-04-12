@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.signup
 
+import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
@@ -18,6 +19,10 @@ class SignUpContract {
         val nicknameValidationState: TextFieldValidationState = TextFieldValidationState.IDLE,
         val locationBottomSheetVisible: Boolean = false,
         val location: String = "",
+        val sidoList : List<LocationData> = emptyList(),
+        val guList : List<LocationData> = emptyList(),
+        val dongList : List<LocationData> = emptyList()
+
     ) : UiState
 
     sealed interface SignUpSideEffect : UiSideEffect {
@@ -38,5 +43,12 @@ class SignUpContract {
         data object ChangeLocationBottomSheetVisible : SignUpEvent()
 
         data class SetLocation(val location: String) : SignUpEvent()
+
+        data object LoadSidoList :SignUpEvent()
+
+        data class LoadGuList(val sidoCode: String) :SignUpEvent()
+
+        data class LoadDongList(val sidoCode: String,val guCode:String) :SignUpEvent()
+
     }
 }

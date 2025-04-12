@@ -21,16 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNormalButton
-import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
-import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoFullName
-import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoList
-import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -38,50 +34,60 @@ fun SignUpLocationBottomSheet(
     modifier: Modifier = Modifier,
     bottomSheetClose: () -> Unit = {},
     completeButtonClicked: (String) -> Unit = {},
-    sidoList: List<String>,
-    guList: List<String>,
-    dongList: List<String>,
+    sidoList: List<LocationData>,
+    guList: List<LocationData>,
+    dongList: List<LocationData>,
 ) {
     var selectedSido by remember { mutableStateOf(sidoList[0]) }
-    var selectedGu by remember { mutableStateOf("") }
-    var selectedDong by remember { mutableStateOf("") }
+    var selectedGu by remember { mutableStateOf<LocationData?>(null) }
+    var selectedDong by remember { mutableStateOf<LocationData?>(null) }
 
     val districtText by remember(selectedGu, selectedDong) {
-        mutableStateOf(listOf(selectedGu, selectedDong).filter { it.isNotEmpty() }.joinToString(" "))
+        mutableStateOf(
+            listOfNotNull(selectedGu?.guName, selectedDong?.dongName)
+                .filter { it.isNotBlank() }
+                .joinToString(" ")
+        )
     }
 
     val fullLocationText by remember(selectedSido, selectedGu, selectedDong) {
-        mutableStateOf(listOf(sidoFullName(selectedSido), selectedGu, selectedDong).filter { it.isNotEmpty() }.joinToString(" "))
+        mutableStateOf(listOfNotNull(
+            sidoFullName(selectedSido.sidoName),
+            selectedGu?.guName,
+            selectedDong?.dongName
+        ).filter { it.isNotBlank() }
+            .joinToString(" ")
+        )
     }
 
     Column(
         modifier =
-            modifier
-                .background(
-                    shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
-                    color = ArabyteTheme.colors.white,
-                )
-                .padding(top = 19.dp),
+        modifier
+            .background(
+                shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
+                color = ArabyteTheme.colors.white,
+            )
+            .padding(top = 19.dp),
     ) {
         Text(
             stringResource(R.string.sign_up_bottom_sheet_title),
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             style = ArabyteTheme.typography.bodyBold15,
         )
         LazyRow(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             selectedSido.let {
                 item {
                     ArabyteChipButton(
-                        buttonText = sidoFullName(it),
+                        buttonText = sidoFullName(it.sidoName),
                         enabled = true,
                     ) {}
                 }
@@ -99,9 +105,9 @@ fun SignUpLocationBottomSheet(
         HorizontalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(380.dp),
+            Modifier
+                .fillMaxWidth()
+                .height(380.dp),
         ) {
             SignUpLocationSidoList(
                 modifier = Modifier.weight(92f),
@@ -126,9 +132,9 @@ fun SignUpLocationBottomSheet(
         }
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 10.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 10.dp),
         ) {
             ArabyteNormalButton(
                 buttonText = stringResource(R.string.sign_up_bottom_sheet_close),
@@ -148,14 +154,14 @@ fun SignUpLocationBottomSheet(
     }
 }
 
-@Preview
-@Composable
-private fun SignUpLocationBottomSheetPreview() {
-    ArabyteAOSTheme {
-        SignUpLocationBottomSheet(
-            sidoList = sidoList,
-            guList = guList,
-            dongList = dongList,
-        )
-    }
-}
+//@Preview
+//@Composable
+//private fun SignUpLocationBottomSheetPreview() {
+//    ArabyteAOSTheme {
+//        SignUpLocationBottomSheet(
+//            sidoList = sidoList,
+//            guList = guList,
+//            dongList = dongList,
+//        )
+//    }
+//}

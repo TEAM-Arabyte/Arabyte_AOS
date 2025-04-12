@@ -36,10 +36,8 @@ import com.konkuk.arabyte_aos.presentation.util.SignUp.ONE
 import com.konkuk.arabyte_aos.presentation.util.SignUp.SECOND_KEYWORD
 import com.konkuk.arabyte_aos.presentation.util.SignUp.SLASH_TWO
 import com.konkuk.arabyte_aos.presentation.util.SignUp.TWO_SLASH_TWO
-import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.errorMessageList
-import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
-import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoList
+
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
@@ -56,6 +54,10 @@ fun SignUpRoute(
         if (uiState.selectedAge != null && uiState.selectedGender != null && uiState.location.isNotEmpty()) {
             viewModel.setEvent(SignUpContract.SignUpEvent.CompleteButtonEnabled)
         }
+    }
+
+    LaunchedEffect (Unit){
+        viewModel.setEvent(SignUpContract.SignUpEvent.LoadSidoList)
     }
 
     when (uiState.loadState) {
@@ -231,9 +233,9 @@ fun SignUpScreen(
                     bottomSheetCompleteButtonClicked(location)
                     changeBottomSheetVisible()
                 },
-                sidoList = sidoList,
-                guList = guList,
-                dongList = dongList,
+                sidoList = uiState.sidoList,
+                guList = uiState.guList,
+                dongList = uiState.dongList,
             )
         }
     }
