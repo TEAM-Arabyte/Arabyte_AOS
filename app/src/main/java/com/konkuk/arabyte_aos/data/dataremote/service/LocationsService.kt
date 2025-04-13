@@ -11,12 +11,12 @@ interface LocationsService {
 
     @GET("/$LOCATIONS/gu")
     suspend fun getGu(
-        @Query("sidoCode") sidoCode: String
+        @Query("sidoCode") sidoCode: String,
     ): List<LocationDataDto>
 
     @GET("/$LOCATIONS/dong")
     suspend fun getDong(
         @Query("sidoCode") sidoCode: String,
-        @Query("guCode") guCode: String
+        @Query("guCode") guCode: String,
     ): List<LocationDataDto>
 }

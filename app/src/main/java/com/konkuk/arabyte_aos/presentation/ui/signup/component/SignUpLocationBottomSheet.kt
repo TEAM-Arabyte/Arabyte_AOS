@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -34,62 +33,67 @@ fun SignUpLocationBottomSheet(
     modifier: Modifier = Modifier,
     bottomSheetClose: () -> Unit = {},
     completeButtonClicked: (String) -> Unit = {},
+    selectedSido: LocationData? = null,
     sidoList: List<LocationData>,
+    sidoOnclick: (LocationData) -> Unit = {},
+    selectedGu: LocationData? = null,
     guList: List<LocationData>,
+    guOnclick: (LocationData) -> Unit = {},
+    selectedDong: LocationData? = null,
     dongList: List<LocationData>,
+    dongOnclick: (LocationData) -> Unit = {},
 ) {
-    var selectedSido by remember { mutableStateOf(sidoList[0]) }
-    var selectedGu by remember { mutableStateOf<LocationData?>(null) }
-    var selectedDong by remember { mutableStateOf<LocationData?>(null) }
-
     val districtText by remember(selectedGu, selectedDong) {
         mutableStateOf(
             listOfNotNull(selectedGu?.guName, selectedDong?.dongName)
                 .filter { it.isNotBlank() }
-                .joinToString(" ")
+                .joinToString(" "),
         )
     }
 
     val fullLocationText by remember(selectedSido, selectedGu, selectedDong) {
-        mutableStateOf(listOfNotNull(
-            sidoFullName(selectedSido.sidoName),
-            selectedGu?.guName,
-            selectedDong?.dongName
-        ).filter { it.isNotBlank() }
-            .joinToString(" ")
+        mutableStateOf(
+            listOfNotNull(
+                selectedSido?.let { sidoFullName(it.sidoName) },
+                selectedGu?.guName,
+                selectedDong?.dongName,
+            ).filter { it.isNotBlank() }
+                .joinToString(" "),
         )
     }
 
     Column(
         modifier =
-        modifier
-            .background(
-                shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
-                color = ArabyteTheme.colors.white,
-            )
-            .padding(top = 19.dp),
+            modifier
+                .background(
+                    shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
+                    color = ArabyteTheme.colors.white,
+                )
+                .padding(top = 19.dp),
     ) {
         Text(
             stringResource(R.string.sign_up_bottom_sheet_title),
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             style = ArabyteTheme.typography.bodyBold15,
         )
         LazyRow(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             selectedSido.let {
                 item {
-                    ArabyteChipButton(
-                        buttonText = sidoFullName(it.sidoName),
-                        enabled = true,
-                    ) {}
+                    if (it != null) {
+                        ArabyteChipButton(
+                            buttonText = sidoFullName(it.sidoName),
+                            enabled = true,
+                        ) {}
+                    }
                 }
             }
 
@@ -105,36 +109,42 @@ fun SignUpLocationBottomSheet(
         HorizontalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .height(380.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .height(380.dp),
         ) {
             SignUpLocationSidoList(
                 modifier = Modifier.weight(92f),
                 locationList = sidoList,
                 selectedItem = selectedSido,
-                onItemSelected = { selectedSido = it },
+                onItemSelected = { sido ->
+                    sidoOnclick(sido)
+                },
             )
             VerticalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
             SignUpLocationDistrictList(
                 modifier = Modifier.weight(134f),
                 locationList = guList,
                 selectedItem = selectedGu,
-                onItemSelected = { selectedGu = it },
+                onItemSelected = { gu ->
+                    guOnclick(gu)
+                },
             )
             VerticalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
             SignUpLocationDistrictList(
                 modifier = Modifier.weight(134f),
                 locationList = dongList,
                 selectedItem = selectedDong,
-                onItemSelected = { selectedDong = it },
+                onItemSelected = { dong ->
+                    dongOnclick(dong)
+                },
             )
         }
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
         ) {
             ArabyteNormalButton(
                 buttonText = stringResource(R.string.sign_up_bottom_sheet_close),
@@ -154,9 +164,9 @@ fun SignUpLocationBottomSheet(
     }
 }
 
-//@Preview
-//@Composable
-//private fun SignUpLocationBottomSheetPreview() {
+// @Preview
+// @Composable
+// private fun SignUpLocationBottomSheetPreview() {
 //    ArabyteAOSTheme {
 //        SignUpLocationBottomSheet(
 //            sidoList = sidoList,
@@ -164,4 +174,4 @@ fun SignUpLocationBottomSheet(
 //            dongList = dongList,
 //        )
 //    }
-//}
+// }

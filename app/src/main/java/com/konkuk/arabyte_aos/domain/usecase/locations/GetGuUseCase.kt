@@ -6,10 +6,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetGuUseCase @Inject constructor(
-    private val locationsRepository: LocationsRepository
-) {
-    suspend operator fun invoke(sidoCode: String): Result<List<LocationData>> {
-        return locationsRepository.getGu(sidoCode)
+class GetGuUseCase
+    @Inject
+    constructor(
+        private val locationsRepository: LocationsRepository,
+    ) {
+        suspend operator fun invoke(sidoCode: String): Result<List<LocationData>> {
+            return locationsRepository.getGu(sidoCode)
+        }
     }
-}

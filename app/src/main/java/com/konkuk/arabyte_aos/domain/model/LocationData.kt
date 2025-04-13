@@ -9,5 +9,5 @@ data class LocationData(
     val dongName: String,
     val dongCode: String,
     val depth: Int,
-    val id: Int
+    val id: Int,
 )

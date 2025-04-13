@@ -19,10 +19,12 @@ class SignUpContract {
         val nicknameValidationState: TextFieldValidationState = TextFieldValidationState.IDLE,
         val locationBottomSheetVisible: Boolean = false,
         val location: String = "",
-        val sidoList : List<LocationData> = emptyList(),
-        val guList : List<LocationData> = emptyList(),
-        val dongList : List<LocationData> = emptyList()
-
+        val sidoList: List<LocationData> = emptyList(),
+        val guList: List<LocationData> = emptyList(),
+        val dongList: List<LocationData> = emptyList(),
+        val selectedSido: LocationData? = null,
+        val selectedGu: LocationData? = null,
+        val selectedDong: LocationData? = null,
     ) : UiState
 
     sealed interface SignUpSideEffect : UiSideEffect {
@@ -44,11 +46,16 @@ class SignUpContract {
 
         data class SetLocation(val location: String) : SignUpEvent()
 
-        data object LoadSidoList :SignUpEvent()
+        data object LoadSidoList : SignUpEvent()
 
-        data class LoadGuList(val sidoCode: String) :SignUpEvent()
+        data class LoadGuList(val sidoCode: String) : SignUpEvent()
 
-        data class LoadDongList(val sidoCode: String,val guCode:String) :SignUpEvent()
+        data class LoadDongList(val sidoCode: String, val guCode: String) : SignUpEvent()
 
+        data class SelectSido(val sido: LocationData) : SignUpEvent()
+
+        data class SelectGu(val gu: LocationData) : SignUpEvent()
+
+        data class SelectDong(val dong: LocationData) : SignUpEvent()
     }
 }

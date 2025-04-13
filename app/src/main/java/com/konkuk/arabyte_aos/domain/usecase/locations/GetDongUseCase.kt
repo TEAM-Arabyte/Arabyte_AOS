@@ -6,10 +6,15 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetDongUseCase @Inject constructor(
-    private val locationsRepository: LocationsRepository
-) {
-    suspend operator fun invoke(sidoCode: String, guCode: String): Result<List<LocationData>> {
-        return locationsRepository.getDong(sidoCode, guCode)
+class GetDongUseCase
+    @Inject
+    constructor(
+        private val locationsRepository: LocationsRepository,
+    ) {
+        suspend operator fun invoke(
+            sidoCode: String,
+            guCode: String,
+        ): Result<List<LocationData>> {
+            return locationsRepository.getDong(sidoCode, guCode)
+        }
     }
-}

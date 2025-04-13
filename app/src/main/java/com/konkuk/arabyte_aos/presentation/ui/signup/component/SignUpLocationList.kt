@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.signup.component
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,14 +39,14 @@ fun SignUpLocationSidoList(
             val isSelect = location.sidoName == selectedItem?.sidoName
             Box(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .background(
-                        color = if (isSelect) ArabyteTheme.colors.white else ArabyteTheme.colors.gray01,
-                    )
-                    .noRippleClickable {
-                        onItemSelected(location)
-                    },
+                    Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = if (isSelect) ArabyteTheme.colors.white else ArabyteTheme.colors.gray01,
+                        )
+                        .noRippleClickable {
+                            onItemSelected(location)
+                        },
             ) {
                 Column {
                     if (isSelect) {
@@ -56,9 +57,9 @@ fun SignUpLocationSidoList(
                         style = if (isSelect) ArabyteTheme.typography.bodySemi13 else ArabyteTheme.typography.bodyMed13,
                         color = if (isSelect) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray03,
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
                         textAlign = TextAlign.Center,
                     )
                     if (isSelect) {
@@ -83,15 +84,18 @@ fun SignUpLocationDistrictList(
             val isSelect = if (isGu) location.guName == selectedItem?.guName else location.dongName == selectedItem?.dongName
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .background(color = if (isSelect) ArabyteTheme.colors.lightBlue else ArabyteTheme.colors.white)
-                    .noRippleClickable { onItemSelected(location) }
-                    .padding(top = 10.dp, start = 15.dp, bottom = 10.dp, end = 8.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .background(color = if (isSelect) ArabyteTheme.colors.lightBlue else ArabyteTheme.colors.white)
+                        .noRippleClickable {
+                            onItemSelected(location)
+                            Log.d("zz", "Text: ${location.guName}, ${selectedItem?.guName} ")
+                        }
+                        .padding(top = 10.dp, start = 15.dp, bottom = 10.dp, end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = if(isGu) location.guName else location.dongName,
+                    text = if (isGu) location.guName else location.dongName,
                     style = if (isSelect) ArabyteTheme.typography.bodySemi13 else ArabyteTheme.typography.bodyMed13,
                     color = if (isSelect) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray07,
                 )
@@ -108,9 +112,9 @@ fun SignUpLocationDistrictList(
     }
 }
 
-//@Preview
-//@Composable
-//private fun SignUpLocationListPreview() {
+// @Preview
+// @Composable
+// private fun SignUpLocationListPreview() {
 //    ArabyteAOSTheme {
 //        Row(modifier = Modifier.fillMaxWidth()) {
 //            SignUpLocationSidoList(modifier = Modifier.weight(92f), locationList = sidoList)
@@ -120,4 +124,4 @@ fun SignUpLocationDistrictList(
 //            SignUpLocationDistrictList(modifier = Modifier.weight(134f), locationList = dongList)
 //        }
 //    }
-//}
+// }

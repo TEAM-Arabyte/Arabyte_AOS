@@ -6,10 +6,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetSidoUseCase @Inject constructor(
-    private val locationsRepository: LocationsRepository
-) {
-    suspend operator fun invoke(): Result<List<LocationData>> {
-        return locationsRepository.getSido()
+class GetSidoUseCase
+    @Inject
+    constructor(
+        private val locationsRepository: LocationsRepository,
+    ) {
+        suspend operator fun invoke(): Result<List<LocationData>> {
+            return locationsRepository.getSido()
+        }
     }
-}

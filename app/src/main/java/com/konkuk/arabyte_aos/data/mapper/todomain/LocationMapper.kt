@@ -14,7 +14,7 @@ fun List<LocationDataDto>.toDomainModel(): List<LocationData> {
             dongName = dto.dong ?: "",
             dongCode = dto.dongCode,
             depth = dto.depth,
-            id = dto.id
+            id = dto.id,
         )
     }
 }

@@ -14,5 +14,5 @@ data class LocationDataDto(
     val depth: Int,
     val id: Int,
     val createdAt: String? = null,
-    val updatedAt: String? = null
+    val updatedAt: String? = null,
 )

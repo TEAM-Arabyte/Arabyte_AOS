@@ -7,5 +7,8 @@ interface LocationsRemoteDataSource {
 
     suspend fun getGu(sidoCode: String): List<LocationDataDto>
 
-    suspend fun getDong(sidoCode: String, guCode: String): List<LocationDataDto>
+    suspend fun getDong(
+        sidoCode: String,
+        guCode: String,
+    ): List<LocationDataDto>
 }
