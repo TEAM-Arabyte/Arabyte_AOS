@@ -58,6 +58,6 @@
     <string name="onboarding_first_title">아르바이트 경력 얼마나 되시나요?</string>
     <string name="onboarding_first_description">지금까지 총 근무 기간을 입력해주새요</string>
     <string name="onboarding_second_title">어떤 아르바이트에 관심있나요?</string>
-    <string name="onboarding_second_description">최대 n개 선택 가능해요</string>
+    <string name="onboarding_second_description">최대 3개 선택 가능해요</string>
 
 </resources>

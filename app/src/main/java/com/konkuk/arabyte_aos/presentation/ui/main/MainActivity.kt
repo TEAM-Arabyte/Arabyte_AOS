@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.konkuk.arabyte_aos.presentation.ui.signup.SignUpRoute
+import com.konkuk.arabyte_aos.presentation.ui.onboarding.OnBoardingRoute
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ArabyteAOSTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SignUpRoute(innerPaddingValues = innerPadding)
+                    OnBoardingRoute(innerPaddingValues = innerPadding)
                 }
             }
         }
