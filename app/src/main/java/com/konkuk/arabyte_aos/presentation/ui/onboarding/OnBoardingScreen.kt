@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.onboarding
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,6 +30,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteCareerT
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.component.OnboardingPageChip
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.component.OnboardingSuccessView
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
+import com.konkuk.arabyte_aos.presentation.util.premission.PermissionUtils
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -61,13 +61,15 @@ fun OnBoardingRoute(
                 },
             )
         LoadState.Success -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                // Android 13 이상 → 알림 권한 요청 화면 보여줌
+            if (PermissionUtils.isNotificationPermissionRequired()) {
                 OnboardingSuccessView(
                     innerPaddingValues = innerPaddingValues,
-                    completeButtonClicked = {},
+                    completeButtonClicked = {
+                        // TODO: 홈 화면으로 이동
+                    },
                 )
             } else {
+                // TODO: 홈 화면으로 이동
             }
         }
         else -> Unit
@@ -151,7 +153,7 @@ fun OnBoardingScreen(
         ArabyteLargeButton(
             enabled = uiState.buttonEnabled,
             buttonText = stringResource(R.string.all_next_button),
-            buttonClicked = completeButtonClicked,
+            buttonClicked = { if (uiState.buttonEnabled) completeButtonClicked() },
         )
     }
 }

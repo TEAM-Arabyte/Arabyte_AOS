@@ -1,5 +1,9 @@
 package com.konkuk.arabyte_aos.presentation.ui.onboarding.component
 
+import android.Manifest
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -17,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +44,17 @@ fun OnboardingSuccessView(
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            Log.d("OnboardingSuccessView", "NotificationPermission is Granted: $isGranted")
+        }
+
+    LaunchedEffect(Unit) {
+        permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+    }
+
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
     val fullText = stringResource(R.string.onboarding_title)
     val highlight = "접근 권한"
