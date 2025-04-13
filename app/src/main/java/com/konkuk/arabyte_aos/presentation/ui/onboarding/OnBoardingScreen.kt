@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.onboarding
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.flowlayout.FlowRow
+import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCareerTextFieldType
 import com.konkuk.arabyte_aos.presentation.type.view.OnboardingType
@@ -27,6 +29,9 @@ import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButton
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteCareerTextField
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.component.OnboardingPageChip
+import com.konkuk.arabyte_aos.presentation.ui.onboarding.component.OnboardingSuccessView
+import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
+import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -37,22 +42,36 @@ fun OnBoardingRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    OnBoardingScreen(
-        innerPaddingValues = innerPaddingValues,
-        uiState = uiState,
-        careerYearTextChanged = { year ->
-            viewModel.setEvent(OnboardingContract.OnboardingEvent.ChangeCareerYearValue(year))
-        },
-        careerMonthTextChanged = { month ->
-            viewModel.setEvent(OnboardingContract.OnboardingEvent.ChangeCareerMonthValue(month))
-        },
-        completeButtonClicked = {
-            viewModel.setEvent(OnboardingContract.OnboardingEvent.CompleteButtonClicked)
-        },
-        categoryChipClicked = { category ->
-            viewModel.setEvent(OnboardingContract.OnboardingEvent.SelectJobCategory(category))
-        },
-    )
+    when (uiState.loadState) {
+        LoadState.Idle ->
+            OnBoardingScreen(
+                innerPaddingValues = innerPaddingValues,
+                uiState = uiState,
+                careerYearTextChanged = { year ->
+                    viewModel.setEvent(OnboardingContract.OnboardingEvent.ChangeCareerYearValue(year))
+                },
+                careerMonthTextChanged = { month ->
+                    viewModel.setEvent(OnboardingContract.OnboardingEvent.ChangeCareerMonthValue(month))
+                },
+                completeButtonClicked = {
+                    viewModel.setEvent(OnboardingContract.OnboardingEvent.CompleteButtonClicked)
+                },
+                categoryChipClicked = { category ->
+                    viewModel.setEvent(OnboardingContract.OnboardingEvent.SelectJobCategory(category))
+                },
+            )
+        LoadState.Success -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // Android 13 이상 → 알림 권한 요청 화면 보여줌
+                OnboardingSuccessView(
+                    innerPaddingValues = innerPaddingValues,
+                    completeButtonClicked = {},
+                )
+            } else {
+            }
+        }
+        else -> Unit
+    }
 }
 
 @Composable
@@ -77,7 +96,12 @@ fun OnBoardingScreen(
         Row(modifier = horizontalModifier, verticalAlignment = Alignment.CenterVertically) {
             OnboardingPageChip(onboardingType = uiState.onboardingType)
             Spacer(modifier = Modifier.weight(1f))
-            Text(text = "건너뛰기", style = ArabyteTheme.typography.bodySemi15, color = ArabyteTheme.colors.gray03)
+            Text(
+                text = stringResource(R.string.onboarding_skip_button),
+                style = ArabyteTheme.typography.bodySemi15,
+                color = ArabyteTheme.colors.gray03,
+                modifier = Modifier.noRippleClickable { completeButtonClicked() },
+            )
         }
         Spacer(modifier = Modifier.height(21.dp))
         Text(modifier = horizontalModifier, text = stringResource(uiState.onboardingType.titleStringRes), style = ArabyteTheme.typography.titleBold18, color = ArabyteTheme.colors.black)
@@ -88,7 +112,7 @@ fun OnBoardingScreen(
 
             Row(modifier = horizontalModifier) {
                 ArabyteCareerTextField(
-                    placeholder = "0",
+                    placeholder = stringResource(R.string.onboarding_career_text_field_placeholder),
                     text = uiState.careerYear,
                     careerTextFieldType = ArabyteCareerTextFieldType.YEAR,
                     onValueChange = { year ->
@@ -97,7 +121,7 @@ fun OnBoardingScreen(
                 )
                 Spacer(modifier = Modifier.width(17.dp))
                 ArabyteCareerTextField(
-                    placeholder = "0",
+                    placeholder = stringResource(R.string.onboarding_career_text_field_placeholder),
                     text = uiState.careerMonth,
                     careerTextFieldType = ArabyteCareerTextFieldType.MONTH,
                     onValueChange = { month ->
@@ -126,7 +150,7 @@ fun OnBoardingScreen(
         Spacer(modifier = Modifier.weight(1f))
         ArabyteLargeButton(
             enabled = uiState.buttonEnabled,
-            buttonText = "다음",
+            buttonText = stringResource(R.string.all_next_button),
             buttonClicked = completeButtonClicked,
         )
     }
