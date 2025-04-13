@@ -107,7 +107,7 @@ class SignUpViewModel
 
         private fun selectSido(sido: LocationData) {
             loadGuList(sidoCode = sido.sidoCode)
-            setState { copy(selectedSido = sido, dongList = emptyList()) }
+            setState { copy(selectedSido = sido, dongList = emptyList(), selectedGu = null, selectedDong = null) }
         }
 
         private fun loadGuList(sidoCode: String) {
@@ -122,7 +122,7 @@ class SignUpViewModel
 
         private fun selectGu(gu: LocationData) {
             loadDongList(sidoCode = gu.sidoCode, guCode = gu.guCode)
-            setState { copy(selectedGu = gu) }
+            setState { copy(selectedGu = gu, dongList = emptyList(), selectedDong = null) }
         }
 
         private fun loadDongList(
