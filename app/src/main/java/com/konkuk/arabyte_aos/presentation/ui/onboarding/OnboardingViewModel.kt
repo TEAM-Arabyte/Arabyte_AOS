@@ -39,7 +39,7 @@ class OnboardingViewModel
                 setState {
                     copy(
                         careerYear = year,
-                        buttonEnabled = (year.isNotEmpty() && currentState.careerMonth.isNotEmpty()),
+                        buttonEnabled = (year.isNotEmpty() || currentState.careerMonth.isNotEmpty()),
                     )
                 }
             }
@@ -50,7 +50,7 @@ class OnboardingViewModel
                 setState {
                     copy(
                         careerMonth = month,
-                        buttonEnabled = (month.isNotEmpty() && currentState.careerYear.isNotEmpty()),
+                        buttonEnabled = (month.isNotEmpty() || currentState.careerYear.isNotEmpty()),
                     )
                 }
             }
@@ -76,7 +76,7 @@ class OnboardingViewModel
         companion object {
             private const val YEAR_REGEX_PATTERN = "^(\\d|[1-9]\\d)?$"
 
-            private const val MONTH_REGEX_PATTERN = "^(\\d|1[0-2])?$"
+            private const val MONTH_REGEX_PATTERN = "^(0|[1-9]|1[0-2])?$"
 
             val yearRegex = Regex(YEAR_REGEX_PATTERN)
             val monthRegex = Regex(MONTH_REGEX_PATTERN)
