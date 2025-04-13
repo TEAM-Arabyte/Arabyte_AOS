@@ -22,55 +22,53 @@ class OnboardingViewModel
         }
 
         private fun completeButtonClicked() {
-            if (currentState.onboardingType == OnboardingType.FIRST)
-                {
-                    setState {
-                        copy(
-                            onboardingType = OnboardingType.SECOND,
-                            buttonEnabled = false,
-                        )
-                    }
-                } else
-                {
-                    setState { copy(loadState = LoadState.Success) }
+            if (currentState.onboardingType == OnboardingType.FIRST) {
+                setState {
+                    copy(
+                        onboardingType = OnboardingType.SECOND,
+                        buttonEnabled = false,
+                    )
                 }
+            } else {
+                setState { copy(loadState = LoadState.Success) }
+            }
         }
 
         private fun yearCareerValueChanged(year: String) {
-            if (yearRegex.matches(year))
-                {
-                    setState {
-                        copy(
-                            careerYear = year,
-                            buttonEnabled = (year.isNotEmpty() && currentState.careerMonth.isNotEmpty()),
-                        )
-                    }
+            if (yearRegex.matches(year)) {
+                setState {
+                    copy(
+                        careerYear = year,
+                        buttonEnabled = (year.isNotEmpty() && currentState.careerMonth.isNotEmpty()),
+                    )
                 }
+            }
         }
 
         private fun monthCareerValueChanged(month: String) {
-            if (monthRegex.matches(month))
-                {
-                    setState {
-                        copy(
-                            careerMonth = month,
-                            buttonEnabled = (month.isNotEmpty() && currentState.careerYear.isNotEmpty()),
-                        )
-                    }
+            if (monthRegex.matches(month)) {
+                setState {
+                    copy(
+                        careerMonth = month,
+                        buttonEnabled = (month.isNotEmpty() && currentState.careerYear.isNotEmpty()),
+                    )
                 }
+            }
         }
 
         private fun selectCategory(category: String) {
             setState {
+                val currentList = currentState.selectedCategories
+
                 val updatedList =
-                    if (currentState.selectedCategories.contains(category)) {
-                        currentState.selectedCategories - category
+                    if (currentList.contains(category)) {
+                        currentList - category
                     } else {
-                        currentState.selectedCategories + category
+                        if (currentList.size < 3) currentList + category else currentList
                     }
                 copy(
                     selectedCategories = updatedList,
-                    buttonEnabled = currentState.selectedCategories.isNotEmpty(),
+                    buttonEnabled = updatedList.isNotEmpty(),
                 )
             }
         }
