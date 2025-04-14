@@ -41,6 +41,11 @@
     <string name="career_text_field_month">개월</string>
     <string name="career_text_field_year">년</string>
 
+    <!-- Bottom Navigation -->
+    <string name="bottom_nav_home">홈</string>
+    <string name="bottom_nav_review">리뷰</string>
+    <string name="bottom_nav_notice_board">게시판</string>
+    <string name="bottom_nav_my_page">마이</string>
 
 
 </resources>
