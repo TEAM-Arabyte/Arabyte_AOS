@@ -38,7 +38,7 @@ fun SplashScreen(
             textAlign = TextAlign.Center,
             color = ArabyteTheme.colors.white,
         )
-        Spacer(modifier = Modifier.weight(459f))
+        Spacer(modifier = Modifier.weight(458f))
     }
 }
 
