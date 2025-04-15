@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.konkuk.arabyte_aos.presentation.ui.login.LoginScreen
+import com.konkuk.arabyte_aos.presentation.ui.signup.SignUpRoute
 import com.konkuk.arabyte_aos.presentation.ui.splash.SplashScreen
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     if (showSplash) {
                         SplashScreen(innerPaddingValues = innerPadding)
                     } else {
-                        LoginScreen(innerPaddingValues = innerPadding)
+                        SignUpRoute(innerPaddingValues = innerPadding)
                     }
                 }
             }

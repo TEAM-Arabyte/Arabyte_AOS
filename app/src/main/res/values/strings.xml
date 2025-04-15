@@ -20,7 +20,6 @@
     <string name="button_like">공감</string>
     <string name="button_check">근로계약서 인증하기</string>
 
-
     <!--  Filtering  -->
     <string name="review_filtering_check">근로계약서 인증</string>
     <string name="review_filtering_region">지역</string>
@@ -43,6 +42,25 @@
 
     <!--  Splash  -->
     <string name="splash_service_description">당신의 알바 선택을 더 똑똑하게,\n알바의 모든 것을 알아보세요!</string>
+
+    <!--  Sign Up -->
+    <string name="sign_up_first_title">알아봐이트에서 사용할\n닉네임을 입력해주세요!</string>
+    <string name="sign_up_first_button">다음</string>
+    <string name="sign_up_second_title">알아봐이트를 시작하기 전\n간단한 정보를 입력해주세요!</string>
+    <string name="sign_up_second_button">완료</string>
+    <string name="sign_up_nickname">닉네임</string>
+    <string name="sign_up_nickname_placeholder">공백없이 한글로 입력해주세요.</string>
+    <string name="sign_up_region">거주지</string>
+    <string name="sign_up_age">나이</string>
+    <string name="sign_up_gender">성별</string>
+    <string name="sign_up_bottom_sheet_title">거주하는 지역을 선택해주세요</string>
+    <string name="sign_up_bottom_sheet_close">취소</string>
+    <string name="sign_up_bottom_sheet_confirm">적용하기</string>
+    <string name="sign_up_success_button">시작하기</string>
+
+
+
+
 
 
 

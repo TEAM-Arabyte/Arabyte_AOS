@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.type
+package com.konkuk.arabyte_aos.presentation.type.component
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
