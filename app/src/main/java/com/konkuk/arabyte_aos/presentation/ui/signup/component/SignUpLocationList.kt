@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.signup.component
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -89,7 +88,6 @@ fun SignUpLocationDistrictList(
                         .background(color = if (isSelect) ArabyteTheme.colors.lightBlue else ArabyteTheme.colors.white)
                         .noRippleClickable {
                             onItemSelected(location)
-                            Log.d("zz", "Text: ${location.guName}, ${selectedItem?.guName} ")
                         }
                         .padding(top = 10.dp, start = 15.dp, bottom = 10.dp, end = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
