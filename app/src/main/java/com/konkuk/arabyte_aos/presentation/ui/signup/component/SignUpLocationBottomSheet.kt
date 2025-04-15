@@ -18,19 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNormalButton
-import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
-import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoFullName
-import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoList
-import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -38,20 +33,33 @@ fun SignUpLocationBottomSheet(
     modifier: Modifier = Modifier,
     bottomSheetClose: () -> Unit = {},
     completeButtonClicked: (String) -> Unit = {},
-    sidoList: List<String>,
-    guList: List<String>,
-    dongList: List<String>,
+    selectedSido: LocationData? = null,
+    sidoList: List<LocationData>,
+    sidoOnclick: (LocationData) -> Unit = {},
+    selectedGu: LocationData? = null,
+    guList: List<LocationData>,
+    guOnclick: (LocationData) -> Unit = {},
+    selectedDong: LocationData? = null,
+    dongList: List<LocationData>,
+    dongOnclick: (LocationData) -> Unit = {},
 ) {
-    var selectedSido by remember { mutableStateOf(sidoList[0]) }
-    var selectedGu by remember { mutableStateOf("") }
-    var selectedDong by remember { mutableStateOf("") }
-
     val districtText by remember(selectedGu, selectedDong) {
-        mutableStateOf(listOf(selectedGu, selectedDong).filter { it.isNotEmpty() }.joinToString(" "))
+        mutableStateOf(
+            listOfNotNull(selectedGu?.guName, selectedDong?.dongName)
+                .filter { it.isNotBlank() }
+                .joinToString(" "),
+        )
     }
 
     val fullLocationText by remember(selectedSido, selectedGu, selectedDong) {
-        mutableStateOf(listOf(sidoFullName(selectedSido), selectedGu, selectedDong).filter { it.isNotEmpty() }.joinToString(" "))
+        mutableStateOf(
+            listOfNotNull(
+                selectedSido?.let { sidoFullName(it.sidoName) },
+                selectedGu?.guName,
+                selectedDong?.dongName,
+            ).filter { it.isNotBlank() }
+                .joinToString(" "),
+        )
     }
 
     Column(
@@ -80,10 +88,12 @@ fun SignUpLocationBottomSheet(
         ) {
             selectedSido.let {
                 item {
-                    ArabyteChipButton(
-                        buttonText = sidoFullName(it),
-                        enabled = true,
-                    ) {}
+                    if (it != null) {
+                        ArabyteChipButton(
+                            buttonText = sidoFullName(it.sidoName),
+                            enabled = true,
+                        ) {}
+                    }
                 }
             }
 
@@ -107,21 +117,27 @@ fun SignUpLocationBottomSheet(
                 modifier = Modifier.weight(92f),
                 locationList = sidoList,
                 selectedItem = selectedSido,
-                onItemSelected = { selectedSido = it },
+                onItemSelected = { sido ->
+                    sidoOnclick(sido)
+                },
             )
             VerticalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
             SignUpLocationDistrictList(
                 modifier = Modifier.weight(134f),
                 locationList = guList,
                 selectedItem = selectedGu,
-                onItemSelected = { selectedGu = it },
+                onItemSelected = { gu ->
+                    guOnclick(gu)
+                },
             )
             VerticalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
             SignUpLocationDistrictList(
                 modifier = Modifier.weight(134f),
                 locationList = dongList,
                 selectedItem = selectedDong,
-                onItemSelected = { selectedDong = it },
+                onItemSelected = { dong ->
+                    dongOnclick(dong)
+                },
             )
         }
         Row(
@@ -148,14 +164,14 @@ fun SignUpLocationBottomSheet(
     }
 }
 
-@Preview
-@Composable
-private fun SignUpLocationBottomSheetPreview() {
-    ArabyteAOSTheme {
-        SignUpLocationBottomSheet(
-            sidoList = sidoList,
-            guList = guList,
-            dongList = dongList,
-        )
-    }
-}
+// @Preview
+// @Composable
+// private fun SignUpLocationBottomSheetPreview() {
+//    ArabyteAOSTheme {
+//        SignUpLocationBottomSheet(
+//            sidoList = sidoList,
+//            guList = guList,
+//            dongList = dongList,
+//        )
+//    }
+// }

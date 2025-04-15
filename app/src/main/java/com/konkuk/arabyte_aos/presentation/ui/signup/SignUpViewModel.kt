@@ -1,16 +1,27 @@
 package com.konkuk.arabyte_aos.presentation.ui.signup
 
+import android.util.Log
+import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.LocationData
+import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
+import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
+import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel
     @Inject
-    constructor() : BaseViewModel<SignUpContract.SignUpUiState, SignUpContract.SignUpSideEffect, SignUpContract.SignUpEvent>() {
+    constructor(
+        private val getSidoUseCase: GetSidoUseCase,
+        private val getGuUseCase: GetGuUseCase,
+        private val getDongUseCase: GetDongUseCase,
+    ) : BaseViewModel<SignUpContract.SignUpUiState, SignUpContract.SignUpSideEffect, SignUpContract.SignUpEvent>() {
         override fun createInitialState(): SignUpContract.SignUpUiState = SignUpContract.SignUpUiState()
 
         override suspend fun handleEvent(event: SignUpContract.SignUpEvent) {
@@ -41,6 +52,18 @@ class SignUpViewModel
                 is SignUpContract.SignUpEvent.SetLocation -> {
                     setState { copy(location = event.location) }
                 }
+
+                is SignUpContract.SignUpEvent.LoadSidoList -> loadSidoList()
+
+                is SignUpContract.SignUpEvent.LoadGuList -> loadGuList(sidoCode = event.sidoCode)
+
+                is SignUpContract.SignUpEvent.LoadDongList -> loadDongList(sidoCode = event.sidoCode, guCode = event.guCode)
+
+                is SignUpContract.SignUpEvent.SelectSido -> selectSido(event.sido)
+
+                is SignUpContract.SignUpEvent.SelectGu -> selectGu(event.gu)
+
+                is SignUpContract.SignUpEvent.SelectDong -> selectDong(event.dong)
             }
         }
 
@@ -70,6 +93,53 @@ class SignUpViewModel
                     buttonEnabled = isValid,
                 )
             }
+        }
+
+        private fun loadSidoList() {
+            viewModelScope.launch {
+                getSidoUseCase().onSuccess { sidoList ->
+                    setState { copy(sidoList = sidoList) }
+                }.onFailure { e ->
+                    Log.e("GetSidoUseCase", "Error: ${e.message}", e)
+                }
+            }
+        }
+
+        private fun selectSido(sido: LocationData) {
+            loadGuList(sidoCode = sido.sidoCode)
+            setState { copy(selectedSido = sido, dongList = emptyList(), selectedGu = null, selectedDong = null) }
+        }
+
+        private fun loadGuList(sidoCode: String) {
+            viewModelScope.launch {
+                getGuUseCase(sidoCode = sidoCode).onSuccess { guList ->
+                    setState { copy(guList = guList) }
+                }.onFailure { e ->
+                    Log.e("GetGuUseCase", "Error: ${e.message}", e)
+                }
+            }
+        }
+
+        private fun selectGu(gu: LocationData) {
+            loadDongList(sidoCode = gu.sidoCode, guCode = gu.guCode)
+            setState { copy(selectedGu = gu, dongList = emptyList(), selectedDong = null) }
+        }
+
+        private fun loadDongList(
+            sidoCode: String,
+            guCode: String,
+        ) {
+            viewModelScope.launch {
+                getDongUseCase(sidoCode = sidoCode, guCode = guCode).onSuccess { dongList ->
+                    setState { copy(dongList = dongList) }
+                }.onFailure { e ->
+                    Log.e("GetDongUseCase", "Error: ${e.message}", e)
+                }
+            }
+        }
+
+        private fun selectDong(dong: LocationData) {
+            setState { copy(selectedDong = dong) }
         }
 
         companion object {

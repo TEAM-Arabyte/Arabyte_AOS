@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLocationButton
@@ -36,10 +37,7 @@ import com.konkuk.arabyte_aos.presentation.util.SignUp.ONE
 import com.konkuk.arabyte_aos.presentation.util.SignUp.SECOND_KEYWORD
 import com.konkuk.arabyte_aos.presentation.util.SignUp.SLASH_TWO
 import com.konkuk.arabyte_aos.presentation.util.SignUp.TWO_SLASH_TWO
-import com.konkuk.arabyte_aos.presentation.util.SignUp.dongList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.errorMessageList
-import com.konkuk.arabyte_aos.presentation.util.SignUp.guList
-import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoList
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
@@ -56,6 +54,10 @@ fun SignUpRoute(
         if (uiState.selectedAge != null && uiState.selectedGender != null && uiState.location.isNotEmpty()) {
             viewModel.setEvent(SignUpContract.SignUpEvent.CompleteButtonEnabled)
         }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(SignUpContract.SignUpEvent.LoadSidoList)
     }
 
     when (uiState.loadState) {
@@ -82,6 +84,15 @@ fun SignUpRoute(
                 bottomSheetCompleteButtonClicked = { location ->
                     viewModel.setEvent(SignUpContract.SignUpEvent.SetLocation(location))
                 },
+                sidoOnclick = { sido ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.SelectSido(sido))
+                },
+                guOnclick = { gu ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.SelectGu(gu))
+                },
+                dongOnclick = { dong ->
+                    viewModel.setEvent(SignUpContract.SignUpEvent.SelectDong(dong))
+                },
             )
 
         LoadState.Success ->
@@ -103,6 +114,9 @@ fun SignUpScreen(
     errorMessageList: List<String> = emptyList(),
     changeBottomSheetVisible: () -> Unit = {},
     bottomSheetCompleteButtonClicked: (String) -> Unit = {},
+    sidoOnclick: (LocationData) -> Unit = {},
+    guOnclick: (LocationData) -> Unit = {},
+    dongOnclick: (LocationData) -> Unit = {},
 ) {
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
 
@@ -231,9 +245,21 @@ fun SignUpScreen(
                     bottomSheetCompleteButtonClicked(location)
                     changeBottomSheetVisible()
                 },
-                sidoList = sidoList,
-                guList = guList,
-                dongList = dongList,
+                selectedSido = uiState.selectedSido,
+                sidoList = uiState.sidoList,
+                sidoOnclick = { sido ->
+                    sidoOnclick(sido)
+                },
+                selectedGu = uiState.selectedGu,
+                guList = uiState.guList,
+                guOnclick = { gu ->
+                    guOnclick(gu)
+                },
+                selectedDong = uiState.selectedDong,
+                dongList = uiState.dongList,
+                dongOnclick = { dong ->
+                    dongOnclick(dong)
+                },
             )
         }
     }
