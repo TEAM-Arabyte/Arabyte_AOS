@@ -10,7 +10,7 @@ fun NavController.navigationLogin() {
     navigate(
         route = LoginRoute.ROUTE,
     ) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
+        popUpTo(graph.startDestinationId) { inclusive = false }
         launchSingleTop = true
     }
 }

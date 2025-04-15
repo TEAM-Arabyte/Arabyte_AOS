@@ -11,7 +11,7 @@ fun NavController.navigationHome() {
     navigate(
         route = HomeRoute.ROUTE,
     ) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
+        popUpTo(graph.startDestinationId) { inclusive = false }
         launchSingleTop = true
     }
 }

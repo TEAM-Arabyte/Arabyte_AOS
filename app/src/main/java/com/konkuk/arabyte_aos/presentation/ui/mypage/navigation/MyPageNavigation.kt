@@ -10,7 +10,7 @@ fun NavController.navigationMyPage() {
     navigate(
         route = MyPageRoute.ROUTE,
     ) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
+        popUpTo(graph.startDestinationId) { inclusive = false }
         launchSingleTop = true
     }
 }

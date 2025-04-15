@@ -13,10 +13,11 @@ fun NavController.navigationReview(
     categoryType: ArabyteCategoryType?,
 ) {
     val category = categoryType?.name ?: ""
+    val route = "${ReviewRoute.ROUTE}/$category"
     navigate(
-        route = "${ReviewRoute.ROUTE}/$category",
+        route = route,
     ) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
+        popUpTo(graph.startDestinationId) { inclusive = false }
         launchSingleTop = true
     }
 }

@@ -10,7 +10,7 @@ fun NavController.navigationNoticeBoard() {
     navigate(
         route = NoticeBoardRoute.ROUTE,
     ) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
+        popUpTo(graph.startDestinationId) { inclusive = false }
         launchSingleTop = true
     }
 }
