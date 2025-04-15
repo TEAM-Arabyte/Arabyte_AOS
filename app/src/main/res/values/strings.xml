@@ -25,9 +25,23 @@
     <string name="review_filtering_region">지역</string>
     <string name="review_filtering_category">카테고리</string>
 
+    <!--  Onboarding  -->
+    <integer name="onboarding_number_1">1</integer>
+    <integer name="onboarding_number_2">2</integer>
+
+    <!--  Board Comment  -->
+    <string name="board_comment_writer">작성자</string>
+
+    <!-- Dummy -->
+    <string name="dummy1">리뷰 작성하기</string>
+    <string name="dummy2">완료</string>
+    <string name="dummy3">게시글 작성</string>
     <!--  Career TextField -->
     <string name="career_text_field_month">개월</string>
     <string name="career_text_field_year">년</string>
+
+    <!--  Splash  -->
+    <string name="splash_service_description">당신의 알바 선택을 더 똑똑하게,\n알바의 모든 것을 알아보세요!</string>
 
     <!--  Sign Up -->
     <string name="sign_up_first_title">알아봐이트에서 사용할\n닉네임을 입력해주세요!</string>
