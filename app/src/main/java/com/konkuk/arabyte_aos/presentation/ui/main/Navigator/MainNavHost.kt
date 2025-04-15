@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.konkuk.arabyte_aos.presentation.ui.home.navigation.homeNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.login.navigation.loginNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.myPageNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.noticeboardNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.review.navigation.reviewNavGraph
@@ -29,6 +30,10 @@ fun MainNavHost(
             navController = navigator.navHostController,
             startDestination = navigator.startDestination,
         ) {
+            loginNavGraph(
+                paddingValues = paddingValues,
+                navigateToHome = navigator::navigateToHome,
+            )
             homeNavGraph(
                 paddingValues = paddingValues,
                 navigateToReview = navigator::navigateToReview,

@@ -8,10 +8,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.type.MainNavigationBarItemType
-import com.konkuk.arabyte_aos.presentation.ui.home.navigation.HomeRoute
 import com.konkuk.arabyte_aos.presentation.ui.home.navigation.navigationHome
+import com.konkuk.arabyte_aos.presentation.ui.login.LoginRoute
+import com.konkuk.arabyte_aos.presentation.ui.login.navigation.LoginRoute
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
-import com.konkuk.arabyte_aos.presentation.ui.navigation.Route
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard
 import com.konkuk.arabyte_aos.presentation.ui.review.navigation.navigationReview
 
@@ -28,8 +28,7 @@ class MainNavigator(
                 it.route.toString() == currentRoute
             }
 
-    // val startDestination = SignUpRoute.ROUTE
-    val startDestination = HomeRoute.ROUTE
+    val startDestination = LoginRoute.ROUTE
 
     fun navigateMainNavigation(mainNavigationBarItemType: MainNavigationBarItemType) {
         when (mainNavigationBarItemType) {
@@ -38,6 +37,10 @@ class MainNavigator(
             MainNavigationBarItemType.NOTICEBOARD -> navHostController.navigationNoticeBoard()
             MainNavigationBarItemType.MYPAGE -> navHostController.navigationMyPage()
         }
+    }
+
+    fun navigateToHome() {
+        navHostController.navigationHome()
     }
 
     fun navigateToReview(arabyteCategoryType: ArabyteCategoryType?) {
