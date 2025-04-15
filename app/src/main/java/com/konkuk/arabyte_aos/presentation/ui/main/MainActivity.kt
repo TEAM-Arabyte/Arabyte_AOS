@@ -11,11 +11,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.konkuk.arabyte_aos.presentation.ui.signup.SignUpRoute
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.konkuk.arabyte_aos.presentation.ui.login.LoginScreen
+import com.konkuk.arabyte_aos.presentation.ui.signup.SignUpRoute
 import com.konkuk.arabyte_aos.presentation.ui.splash.SplashScreen
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,22 +39,16 @@ class MainActivity : ComponentActivity() {
             }
 
             ArabyteAOSTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SignUpRoute(innerPaddingValues = innerPadding)
                 LaunchedEffect(Unit) {
                     viewModel.startSplashTimer()
                 }
-            }
-        }
-    }
-}
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
                     if (showSplash) {
                         SplashScreen(innerPaddingValues = innerPadding)
                     } else {
-                        LoginScreen(innerPaddingValues = innerPadding)
+                        SignUpRoute(innerPaddingValues = innerPadding)
                     }
                 }
             }
