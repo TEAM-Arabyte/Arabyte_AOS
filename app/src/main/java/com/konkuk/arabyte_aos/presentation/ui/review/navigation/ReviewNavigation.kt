@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.review.navigation
 
+import android.R.attr.defaultValue
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -23,22 +24,21 @@ fun NavGraphBuilder.reviewNavGraph(
     // navigateToReviewDetailScreen : () -> Unit
 ) {
     composable(
-        route = "${ReviewRoute.ROUTE}/{categoryType}",
+        route = ReviewRoute.ROUTE_WITH_ARGUMENT,
         arguments =
             listOf(
-                navArgument("categoryType") {
+                navArgument(ReviewRoute.ARGUMENT) {
                     type = NavType.StringType
                     defaultValue = ""
                     nullable = true
                 },
             ),
     ) { backStackEntry ->
-        val categoryString = backStackEntry.arguments?.getString("categoryType")
+        val categoryString = backStackEntry.arguments?.getString(ReviewRoute.ARGUMENT)
         val categoryType =
             runCatching {
                 ArabyteCategoryType.valueOf(categoryString ?: "")
             }.getOrNull()
-
         ReviewRoute(
             paddingValues = paddingValues,
             categoryType = categoryType,
@@ -48,4 +48,6 @@ fun NavGraphBuilder.reviewNavGraph(
 
 object ReviewRoute {
     const val ROUTE = "Review"
+    const val ARGUMENT = "CategoryType"
+    const val ROUTE_WITH_ARGUMENT = "$ROUTE/{$ARGUMENT}"
 }
