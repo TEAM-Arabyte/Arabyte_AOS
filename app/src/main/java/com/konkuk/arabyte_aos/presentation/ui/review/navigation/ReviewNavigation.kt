@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
+import com.konkuk.arabyte_aos.presentation.ui.navigation.navigateBottomMain
 import com.konkuk.arabyte_aos.presentation.ui.review.ReviewRoute
 
 fun NavController.navigationReview(
@@ -14,12 +15,7 @@ fun NavController.navigationReview(
 ) {
     val category = categoryType?.name ?: ""
     val route = "${ReviewRoute.ROUTE}/$category"
-    navigate(
-        route = route,
-    ) {
-        popUpTo(graph.startDestinationId) { inclusive = false }
-        launchSingleTop = true
-    }
+    navigateBottomMain(route)
 }
 
 fun NavGraphBuilder.reviewNavGraph(

@@ -5,14 +5,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.konkuk.arabyte_aos.presentation.ui.mypage.MyPageRoute
+import com.konkuk.arabyte_aos.presentation.ui.navigation.navigateBottomMain
 
 fun NavController.navigationMyPage() {
-    navigate(
-        route = MyPageRoute.ROUTE,
-    ) {
-        popUpTo(graph.startDestinationId) { inclusive = false }
-        launchSingleTop = true
-    }
+    navigateBottomMain(MyPageRoute.ROUTE)
 }
 
 fun NavGraphBuilder.myPageNavGraph(

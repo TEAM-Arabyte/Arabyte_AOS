@@ -57,13 +57,6 @@ class MainNavigator(
         }
     }
 
-    private fun clearBackStackTo(destination: String) {
-        navHostController.popBackStack(
-            route = destination,
-            inclusive = false,
-        )
-    }
-
     @Composable
     fun showBottomBar(): Boolean {
         return currentMainNavigationBarItem != null

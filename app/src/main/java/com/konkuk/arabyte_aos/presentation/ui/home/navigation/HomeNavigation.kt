@@ -6,14 +6,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.home.HomeRoute
+import com.konkuk.arabyte_aos.presentation.ui.navigation.navigateBottomMain
 
 fun NavController.navigationHome() {
-    navigate(
-        route = HomeRoute.ROUTE,
-    ) {
-        popUpTo(graph.startDestinationId) { inclusive = false }
-        launchSingleTop = true
-    }
+    navigateBottomMain(HomeRoute.ROUTE)
 }
 
 fun NavGraphBuilder.homeNavGraph(
