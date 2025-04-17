@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewlist
 
+import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
@@ -9,10 +10,10 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 class ReviewListContract {
     data class ReviewListUiState(
         val loadState: LoadState = LoadState.Idle,
-        val checkFilterSelected: Boolean = false,
-        val regionFilterSelected: Boolean = false,
-        val categoryFilterSelected: Boolean = false,
         val listSize: Int = 10,
+        val certifiedFilterSelected: Boolean = false,
+        val selectedRegion: String = "",
+        val selectedCategory: String = "",
         val reviewList: List<ReviewItem> =
             listOf(
                 ReviewItem(1, "스타벅스", true, 4.5f, " 처음 카페 알바를 시작한 곳인데, 교육을 친절하게 해주셔서 금방 적응할 수 있었습니다. 기본적인 음료 제조부터 계산까지 배울 수 있어서 ...!", "서울 강남구", "외식/음료"),
@@ -26,11 +27,39 @@ class ReviewListContract {
                 ReviewItem(9, "건설현장", true, 4.1f, " 처음 카페 알바를 시작한 곳인데, 교육을 친절하게 해주셔서 금방 적응할 수 있었습니다. 기본적인 음료 제조부터 계산까지 배울 수 있어서 ...", "경북 구미시", "생산/건설"),
                 ReviewItem(10, "행정사무보조", false, 4.4f, " 처음 카페 알바를 시작한 곳인데, 교육을 친절하게 해주셔서 금방 적응할 수 있었습니다. 기본적인 음료 제조부터 계산까지 배울 수 있어서 ...", "전북 전주시", "사무직"),
             ),
+        val regionBottomSheetVisible: Boolean = false,
+        val sidoList: List<LocationData> = emptyList(),
+        val guList: List<LocationData> = emptyList(),
+        val dongList: List<LocationData> = emptyList(),
+        val selectedSido: LocationData? = null,
+        val selectedGu: LocationData? = null,
+        val selectedDong: LocationData? = null,
     ) : UiState
 
     sealed interface ReviewListSideEffect : UiSideEffect {
         data object DummySideEffect : ReviewListSideEffect
     }
 
-    sealed class ReviewListEvent : UiEvent
+    sealed class ReviewListEvent : UiEvent {
+
+        data object ClickCategoryFilterButton : ReviewListEvent()
+
+        data object ChangeRegionBottomSheetVisible : ReviewListEvent()
+
+        data object SetRegionFilter : ReviewListEvent()
+
+        data object ResetRegionFilter : ReviewListEvent()
+
+        data object LoadSidoList : ReviewListEvent()
+
+        data class LoadGuList(val sidoCode: String) : ReviewListEvent()
+
+        data class LoadDongList(val sidoCode: String, val guCode: String) : ReviewListEvent()
+
+        data class SelectSido(val sido: LocationData) : ReviewListEvent()
+
+        data class SelectGu(val gu: LocationData) : ReviewListEvent()
+
+        data class SelectDong(val dong: LocationData) : ReviewListEvent()
+    }
 }

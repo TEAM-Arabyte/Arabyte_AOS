@@ -25,12 +25,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
+import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLocationButton
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpAgeGrid
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpGenderRow
-import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpSuccessView
 import com.konkuk.arabyte_aos.presentation.util.SignUp.FIRST_KEYWORD
 import com.konkuk.arabyte_aos.presentation.util.SignUp.ONE
@@ -238,7 +238,7 @@ fun SignUpScreen(
                         .noRippleClickable { changeBottomSheetVisible() },
             )
 
-            SignUpLocationBottomSheet(
+            ArabyteLocationBottomSheet(
                 modifier = Modifier.padding(bottom = innerPaddingValues.calculateBottomPadding()),
                 bottomSheetClose = changeBottomSheetVisible,
                 completeButtonClicked = { location ->
