@@ -18,7 +18,7 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
 fun HomeContentTitle(
-    @StringRes titleResId:  Int,
+    @StringRes titleResId: Int,
     @StringRes subtitleResId: Int,
     modifier: Modifier = Modifier,
     onClickMore: () -> Unit = {},
