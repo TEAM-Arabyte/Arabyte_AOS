@@ -36,7 +36,7 @@
     <string name="dummy1">리뷰 작성하기</string>
     <string name="dummy2">완료</string>
     <string name="dummy3">게시글 작성</string>
-    
+
     <!--  Career TextField -->
     <string name="career_text_field_month">개월</string>
     <string name="career_text_field_year">년</string>
@@ -71,4 +71,8 @@
     <string name="onboarding_title">더 빠른 알아봐이트 소식을 받아보려면\n접근 권한을 허용해 주세요!</string>
     <string name="onboarding_push_alarm_title">푸시알림</string>
     <string name="onboarding_push_alarm_description">마케팅 정보 앱 푸시 알림 수신 동의 (선택)</string>
+
+    <!--  Login  -->
+    <string name="login_kakao_login_text">카카오 계정으로 로그인</string>
+
 </resources>
