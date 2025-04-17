@@ -1,7 +1,9 @@
 package com.konkuk.arabyte_aos.di
 
 import com.konkuk.arabyte_aos.data.datalocal.datasource.DummyLocalDataSource
+import com.konkuk.arabyte_aos.data.datalocal.datasource.UserInfoLocalDataSource
 import com.konkuk.arabyte_aos.data.datalocal.datasourceimpl.DummyLocalDataSourceImpl
+import com.konkuk.arabyte_aos.data.datalocal.datasourceimpl.UserInfoLocalDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasource.DummyRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.LocationsRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.DummyRemoteDataSourceImpl
@@ -22,6 +24,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsDummyLocalDataSource(dummyLocalDataSourceImpl: DummyLocalDataSourceImpl): DummyLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserInfoLocalDataSource(userInfoLocalDataSourceImpl: UserInfoLocalDataSourceImpl): UserInfoLocalDataSource
 
     @Binds
     @Singleton

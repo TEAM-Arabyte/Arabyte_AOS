@@ -28,6 +28,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", properties["base.url"].toString())
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", properties["kakao.native.app.key"].toString())
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY_MANIFEST"] = properties["kakao.native.app.key.manifest"]?.toString() ?: ""
     }
 
     buildTypes {
@@ -62,6 +64,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.security.crypto.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,6 +74,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.accompanist.flowlayout)
 
     // Network
     implementation(platform(libs.okhttp.bom))
@@ -89,6 +94,12 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // Kakao
+    implementation(libs.bundles.kakao)
+
+    // Security
+    implementation(libs.androidx.security.crypto)
 
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)

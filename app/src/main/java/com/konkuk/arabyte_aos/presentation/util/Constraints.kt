@@ -52,3 +52,34 @@ object SignUp {
 
     fun sidoFullName(shortName: String): String = shortToFullMap[shortName] ?: shortName
 }
+
+object Onboarding {
+    private const val CATEGORY_FOOD = "외식/음료"
+    private const val CATEGORY_MANAGEMENT = "매장관리/판매"
+    private const val CATEGORY_SERVICE = "서비스"
+    private const val CATEGORY_CONSULTING = "고객상담/영업"
+    private const val CATEGORY_PRODUCTION = "생산/건설"
+    private const val CATEGORY_TECH = "IT/기술"
+    private const val CATEGORY_DESIGN = "디자인"
+    private const val CATEGORY_OFFICE = "사무직"
+    private const val CATEGORY_EDUCATION = "교육/강사"
+    private const val CATEGORY_DELIVERY = "운전/배달"
+    private const val CATEGORY_MEDIA = "미디어"
+    private const val CATEGORY_MEDICAL = "병원/간호/연구"
+
+    val categoryList =
+        listOf(
+            CATEGORY_FOOD,
+            CATEGORY_MANAGEMENT,
+            CATEGORY_SERVICE,
+            CATEGORY_CONSULTING,
+            CATEGORY_PRODUCTION,
+            CATEGORY_TECH,
+            CATEGORY_DESIGN,
+            CATEGORY_OFFICE,
+            CATEGORY_EDUCATION,
+            CATEGORY_DELIVERY,
+            CATEGORY_MEDIA,
+            CATEGORY_MEDICAL,
+        )
+}
