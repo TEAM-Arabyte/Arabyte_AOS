@@ -56,6 +56,9 @@ fun ReviewListRoute(
     ReviewListScreen(
         uiState = uiState,
         innerPaddingValues = innerPaddingValues,
+        checkFilterClicked = {
+            viewModel.setEvent(ReviewListContract.ReviewListEvent.ClickCertifiedFilterButton)
+        },
         changeRegionBottomSheetVisible = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ChangeRegionBottomSheetVisible)
         },
@@ -74,6 +77,9 @@ fun ReviewListRoute(
         resetRegionFilter = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetRegionFilter)
         },
+        resetAllButtonClicked = {
+            viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetAllFilter)
+        },
     )
 }
 
@@ -91,6 +97,7 @@ fun ReviewListScreen(
     sidoOnclick: (LocationData) -> Unit = {},
     guOnclick: (LocationData) -> Unit = {},
     dongOnclick: (LocationData) -> Unit = {},
+    resetAllButtonClicked: () -> Unit = {},
 ) {
     Box(
         modifier =
@@ -153,7 +160,7 @@ fun ReviewListScreen(
                         modifier =
                             Modifier
                                 .padding(4.dp)
-                                .noRippleClickable { },
+                                .noRippleClickable { resetAllButtonClicked() },
                         tint = ArabyteTheme.colors.gray05,
                     )
                 }

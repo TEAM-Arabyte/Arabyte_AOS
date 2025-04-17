@@ -41,6 +41,7 @@ class ReviewListContract {
     }
 
     sealed class ReviewListEvent : UiEvent {
+        data object ClickCertifiedFilterButton : ReviewListEvent()
 
         data object ClickCategoryFilterButton : ReviewListEvent()
 
@@ -49,6 +50,8 @@ class ReviewListContract {
         data object SetRegionFilter : ReviewListEvent()
 
         data object ResetRegionFilter : ReviewListEvent()
+
+        data object ResetAllFilter : ReviewListEvent()
 
         data object LoadSidoList : ReviewListEvent()
 

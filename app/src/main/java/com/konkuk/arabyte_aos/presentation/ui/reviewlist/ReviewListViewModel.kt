@@ -44,6 +44,12 @@ class ReviewListViewModel
                 is ReviewListContract.ReviewListEvent.SetRegionFilter -> setRegionFilter()
 
                 is ReviewListContract.ReviewListEvent.ResetRegionFilter -> resetRegionFilter()
+
+                is ReviewListContract.ReviewListEvent.ClickCertifiedFilterButton -> {
+                    setState { copy(certifiedFilterSelected = !currentState.certifiedFilterSelected) }
+                }
+
+                is ReviewListContract.ReviewListEvent.ResetAllFilter -> resetAllFilter()
             }
         }
 
@@ -117,5 +123,10 @@ class ReviewListViewModel
                     regionBottomSheetVisible = false,
                 )
             }
+        }
+
+        private fun resetAllFilter() {
+            resetRegionFilter()
+            setState { copy(certifiedFilterSelected = false) }
         }
     }
