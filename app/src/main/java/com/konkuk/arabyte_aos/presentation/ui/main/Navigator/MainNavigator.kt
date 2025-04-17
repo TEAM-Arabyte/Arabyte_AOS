@@ -6,10 +6,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
+import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.type.MainNavigationBarItemType
 import com.konkuk.arabyte_aos.presentation.ui.home.navigation.navigationHome
-import com.konkuk.arabyte_aos.presentation.ui.login.LoginRoute
 import com.konkuk.arabyte_aos.presentation.ui.login.navigation.LoginRoute
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard

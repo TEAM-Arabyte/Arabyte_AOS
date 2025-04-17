@@ -8,7 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.konkuk.arabyte_aos.presentation.type.ArabyteCategoryType
+import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
 
 @Composable
 fun HomeRoute(
