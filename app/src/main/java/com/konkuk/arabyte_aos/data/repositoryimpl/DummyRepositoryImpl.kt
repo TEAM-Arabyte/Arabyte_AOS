@@ -1,7 +1,7 @@
 package com.konkuk.arabyte_aos.data.repositoryimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.DummyRemoteDataSource
-import com.konkuk.arabyte_aos.data.mapper.toDomainModel
+import com.konkuk.arabyte_aos.data.mapper.todomain.toDomainModel
 import com.konkuk.arabyte_aos.domain.model.DummyData
 import com.konkuk.arabyte_aos.domain.repository.DummyRepository
 import javax.inject.Inject

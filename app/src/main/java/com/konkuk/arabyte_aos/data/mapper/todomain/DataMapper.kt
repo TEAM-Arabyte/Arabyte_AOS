@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.data.mapper
+package com.konkuk.arabyte_aos.data.mapper.todomain
 
 import com.konkuk.arabyte_aos.data.dataremote.model.response.DummyResponseDto
 import com.konkuk.arabyte_aos.domain.model.DummyData

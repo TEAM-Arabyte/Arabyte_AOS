@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.domain.usecase
+package com.konkuk.arabyte_aos.domain.usecase.dummy
 
 import com.konkuk.arabyte_aos.domain.repository.DummyRepository
 import javax.inject.Inject

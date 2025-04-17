@@ -74,6 +74,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.accompanist.flowlayout)
 
     // Network
     implementation(platform(libs.okhttp.bom))

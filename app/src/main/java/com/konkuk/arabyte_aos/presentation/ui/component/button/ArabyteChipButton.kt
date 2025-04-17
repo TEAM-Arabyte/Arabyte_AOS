@@ -24,7 +24,7 @@ fun ArabyteChipButton(
     buttonText: String,
     enabled: Boolean,
     modifier: Modifier = Modifier,
-    buttonClicked: (Boolean) -> Unit,
+    buttonClicked: () -> Unit,
 ) {
     val borderColor = ArabyteTheme.colors.mainBlue
 
@@ -50,7 +50,7 @@ fun ArabyteChipButton(
                     cornerRadius = 20.dp,
                 )
                 .noRippleClickable {
-                    buttonClicked(!enabled)
+                    buttonClicked()
                 },
         text = buttonText,
         color = if (enabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray05,
@@ -68,7 +68,7 @@ private fun ArabyteChipButtonPreview() {
             ArabyteChipButton(
                 buttonText = "chip button",
                 enabled = isEnabled,
-                buttonClicked = { isEnabled = it },
+                buttonClicked = { isEnabled = !isEnabled },
             )
         }
     }

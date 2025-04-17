@@ -30,22 +30,26 @@ fun ArabyteLocationButton(
     title: String,
     modifier: Modifier = Modifier,
     onClicked: () -> Unit = {},
-    location: String = title,
+    location: String = "",
     isSelected: Boolean = false,
 ) {
-    Column {
-        Text(text = title)
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(text = title, style = ArabyteTheme.typography.bodySemi15)
         Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier =
-                modifier
+                Modifier
                     .fillMaxWidth()
                     .noRippleClickable { onClicked() },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
                 modifier =
-                    modifier
+                    Modifier
                         .weight(1f)
                         .roundedBackgroundWithPadding(
                             backgroundColor = ArabyteTheme.colors.gray01,
@@ -55,7 +59,7 @@ fun ArabyteLocationButton(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = location,
+                    text = if (isSelected) location else title,
                     style = ArabyteTheme.typography.bodySemi13,
                     color = if (isSelected) ArabyteTheme.colors.black else ArabyteTheme.colors.gray03,
                 )
