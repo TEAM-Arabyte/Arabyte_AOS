@@ -1,0 +1,17 @@
+package com.konkuk.arabyte_aos.domain.model
+
+enum class ArticleKind {
+    FREE,
+    NOTICE,
+    OTHER,
+}
+
+data class ReviewItem(
+    val reviewItemId: Int,
+    val companyName: String,
+    val isCertified: Boolean,
+    val star: Float,
+    val content: String,
+    val region: String,
+    val category: String,
+)

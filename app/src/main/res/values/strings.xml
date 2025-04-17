@@ -23,6 +23,8 @@
     <string name="button_add_photo">사진 첨부하기(최대 n장)</string>
     <string name="button_like">공감</string>
     <string name="button_check">근로계약서 인증하기</string>
+    <string name="button_add_review">리뷰 작성하기</string>
+
 
     <!--  Filtering  -->
     <string name="review_filtering_check">근로계약서 인증</string>
