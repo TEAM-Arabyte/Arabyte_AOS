@@ -8,13 +8,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.konkuk.arabyte_aos.presentation.ui.login.LoginRoute
+import com.konkuk.arabyte_aos.presentation.ui.main.Navigator.MainNavigator
+import com.konkuk.arabyte_aos.presentation.ui.main.Navigator.rememberMainNavigator
 import com.konkuk.arabyte_aos.presentation.ui.splash.SplashScreen
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,10 +35,18 @@ class MainActivity : ComponentActivity() {
             val viewModel: MainViewModel = hiltViewModel()
             val showSplash by viewModel.showSplash.collectAsState()
             val window = this.window
+            val navigator: MainNavigator = rememberMainNavigator()
 
             LaunchedEffect(showSplash) {
                 val controller = WindowInsetsControllerCompat(window, window.decorView)
                 controller.isAppearanceLightStatusBars = !showSplash
+            }
+
+            SideEffect {
+                WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+                WindowCompat.getInsetsController(window, window.decorView).apply {
+                    isAppearanceLightNavigationBars = true
+                }
             }
 
             ArabyteAOSTheme {
@@ -48,7 +59,11 @@ class MainActivity : ComponentActivity() {
                     if (showSplash) {
                         SplashScreen(innerPaddingValues = innerPadding)
                     } else {
-                        LoginRoute(innerPaddingValues = innerPadding)
+                        // LoginRoute(innerPaddingValues = innerPadding)
+                        MainScreen(
+                            navigator = navigator,
+                            innerPaddingValues = innerPadding,
+                        )
                     }
                 }
             }

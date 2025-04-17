@@ -1,14 +1,17 @@
 package com.konkuk.arabyte_aos.presentation.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
+import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun HomeRoute(
@@ -38,7 +41,9 @@ fun HomeScreen(
     Column(
         modifier =
             modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.gray01)
+                .padding(paddingValues),
     ) {
         Text(text = "Home")
         Button(onClick = { navigateToReview(ArabyteCategoryType.MANAGEMENT) }) { Text("Review") }
