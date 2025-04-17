@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.home.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,8 +18,8 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
 fun HomeContentTitle(
-    title: Int,
-    subTitle: Int,
+    @StringRes titleResId:  Int,
+    @StringRes subtitleResId: Int,
     modifier: Modifier = Modifier,
     onClickMore: () -> Unit = {},
 ) {
@@ -26,13 +27,13 @@ fun HomeContentTitle(
         modifier = modifier.fillMaxWidth(),
     ) {
         Text(
-            text = stringResource(id = title),
+            text = stringResource(id = titleResId),
             style = ArabyteTheme.typography.bodyBold17,
             color = arabyteColors.black,
         )
         Row {
             Text(
-                text = stringResource(id = subTitle),
+                text = stringResource(id = subtitleResId),
                 style = ArabyteTheme.typography.capMed11,
                 color = arabyteColors.gray05,
             )
@@ -52,8 +53,8 @@ fun HomeContentTitle(
 private fun HomeContentTitlePreview() {
     ArabyteAOSTheme {
         HomeContentTitle(
-            title = R.string.home_review_title,
-            subTitle = R.string.home_review_sub_title,
+            titleResId = R.string.home_review_title,
+            subtitleResId = R.string.home_review_sub_title,
         )
     }
 }
