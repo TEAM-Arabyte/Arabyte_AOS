@@ -25,8 +25,8 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
 fun HomeRegionChip(
-    modifier: Modifier = Modifier,
     region: String,
+    modifier: Modifier = Modifier,
     buttonClicked: () -> Unit = {},
 ) {
     val (borderColor, backgroundColor, textColor) = Triple(ArabyteTheme.colors.mainBlue, ArabyteTheme.colors.lightBlue, ArabyteTheme.colors.mainBlue)
