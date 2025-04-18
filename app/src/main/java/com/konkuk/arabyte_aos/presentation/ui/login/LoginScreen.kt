@@ -92,7 +92,7 @@ fun LoginRoute(
 
 @Composable
 fun LoginScreen(
-    loginButtonClicked: () -> Unit = {},
+    loginButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
