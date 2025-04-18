@@ -101,22 +101,22 @@ fun ReviewListScreen(
 ) {
     Box(
         modifier =
-            modifier
-                .fillMaxSize()
-                .background(color = ArabyteTheme.colors.white)
-                .padding(innerPaddingValues),
+        modifier
+            .fillMaxSize()
+            .background(color = ArabyteTheme.colors.white)
+            .padding(innerPaddingValues),
     ) {
         Column(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
         ) {
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 14.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_review_list_pencil_24), contentDescription = null, tint = Color.Unspecified)
@@ -125,45 +125,47 @@ fun ReviewListScreen(
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_search_24), contentDescription = null, tint = Color.Unspecified)
             }
-            LazyRow(
+            Row (
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                item {
-                    ArabyteFilteringButton(
-                        arabyteFilteringType = ArabyteFilteringType.CHECK,
-                        enabled = uiState.certifiedFilterSelected,
-                        buttonClicked = checkFilterClicked,
-                    )
-                }
-                item {
-                    ArabyteFilteringButton(
-                        arabyteFilteringType = ArabyteFilteringType.REGION,
-                        enabled = uiState.selectedRegion.isNotEmpty(),
-                        buttonClicked = changeRegionBottomSheetVisible,
-                        buttonText = uiState.selectedRegion,
-                    )
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_all_refresh_30),
+                    contentDescription = null,
+                    modifier =
+                    Modifier
+                        .noRippleClickable { resetAllButtonClicked() },
+                    tint = Color.Unspecified,
+                )
+                LazyRow(modifier = Modifier.weight(1f).padding(start = 5.dp),
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                ) {
+                    item {
+                        ArabyteFilteringButton(
+                            arabyteFilteringType = ArabyteFilteringType.CHECK,
+                            enabled = uiState.certifiedFilterSelected,
+                            buttonClicked = checkFilterClicked,
+                        )
+                    }
+                    item {
+                        ArabyteFilteringButton(
+                            arabyteFilteringType = ArabyteFilteringType.REGION,
+                            enabled = uiState.selectedRegion.isNotEmpty(),
+                            buttonClicked = changeRegionBottomSheetVisible,
+                            buttonText = uiState.selectedRegion,
+                        )
+                    }
+
+                    item {
+                        ArabyteFilteringButton(
+                            arabyteFilteringType = ArabyteFilteringType.CATEGORY,
+                            enabled = uiState.selectedCategory.isNotEmpty(),
+                            buttonClicked = changeCategoryBottomSheetVisible,
+                            buttonText = uiState.selectedCategory,
+                        )
+                    }
                 }
 
-                item {
-                    ArabyteFilteringButton(
-                        arabyteFilteringType = ArabyteFilteringType.CATEGORY,
-                        enabled = uiState.selectedCategory.isNotEmpty(),
-                        buttonClicked = changeCategoryBottomSheetVisible,
-                        buttonText = uiState.selectedCategory,
-                    )
-                }
-                item {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_all_refresh_22),
-                        contentDescription = null,
-                        modifier =
-                            Modifier
-                                .padding(4.dp)
-                                .noRippleClickable { resetAllButtonClicked() },
-                        tint = ArabyteTheme.colors.gray05,
-                    )
-                }
             }
             if (uiState.listSize == 0) {
                 ArabyteEmptyView()
@@ -180,9 +182,9 @@ fun ReviewListScreen(
         }
         ArabyteAddFloatingButton(
             modifier =
-                Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(bottom = 82.dp, end = 16.dp),
+            Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 82.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addReviewButtonClicked,
         )
@@ -190,13 +192,13 @@ fun ReviewListScreen(
         if (uiState.regionBottomSheetVisible) {
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                        .noRippleClickable {
-                            changeRegionBottomSheetVisible()
-                            if (uiState.selectedRegion.isEmpty()) resetRegionFilter()
-                        },
+                Modifier
+                    .fillMaxSize()
+                    .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                    .noRippleClickable {
+                        changeRegionBottomSheetVisible()
+                        if (uiState.selectedRegion.isEmpty()) resetRegionFilter()
+                    },
             )
 
             ArabyteLocationBottomSheet(
