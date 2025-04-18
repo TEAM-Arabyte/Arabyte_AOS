@@ -40,6 +40,7 @@ fun ReviewDetailRating(reviewRating: ReviewRating, modifier: Modifier = Modifier
             Spacer(modifier = Modifier.width(5.dp))
             Text(text = "알바 리뷰", style = ArabyteTheme.typography.bodyBold15, color = ArabyteTheme.colors.black)
         }
+        Spacer(modifier = Modifier.height(4.dp))
         titleLabelList.forEachIndexed { index, (title, label) ->
             RatingRow(title = title, label = label)
             if (index != titleLabelList.lastIndex) {
