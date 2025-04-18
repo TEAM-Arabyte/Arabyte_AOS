@@ -1,7 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.login
 
 import androidx.lifecycle.viewModelScope
-import com.konkuk.arabyte_aos.data.repositoryimpl.UserInfoRepositoryImpl
+import com.konkuk.arabyte_aos.domain.repository.UserInfoRepository
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class LoginViewModel
     @Inject
     constructor(
-        private val userInfoRepositoryImpl: UserInfoRepositoryImpl,
+        private val userInfoRepository: UserInfoRepository,
     ) : BaseViewModel<LoginContract.LoginUiState, LoginContract.LoginSideEffect, LoginContract.LoginEvent>() {
         override fun createInitialState(): LoginContract.LoginUiState = LoginContract.LoginUiState()
 
@@ -25,7 +25,7 @@ class LoginViewModel
         }
 
         fun setKakaoAccessToken(accessToken: String) {
-            userInfoRepositoryImpl.setAccessToken(accessToken)
+            userInfoRepository.setAccessToken(accessToken)
             DebugLog.d("SetKakaoAccessToken", "accessToken= $accessToken")
             setEvent(LoginContract.LoginEvent.SetAuthToken(authTokenLoadState = LoadState.Success))
         }
@@ -37,7 +37,7 @@ class LoginViewModel
         }
 
         fun checkAutoLogin() {
-            if (userInfoRepositoryImpl.getRefreshToken()
+            if (userInfoRepository.getRefreshToken()
                     .isNotEmpty()
             ) {
                 setEvent(LoginContract.LoginEvent.GetLogin(LoadState.Success))
