@@ -76,7 +76,7 @@ fun ArabyteLocationBottomSheet(
                 .padding(top = 19.dp),
     ) {
         Text(
-            stringResource(R.string.sign_up_bottom_sheet_title),
+            stringResource(R.string.region_bottom_sheet_title),
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -151,14 +151,14 @@ fun ArabyteLocationBottomSheet(
                     .padding(horizontal = 16.dp, vertical = 10.dp),
         ) {
             ArabyteNormalButton(
-                buttonText = stringResource(R.string.sign_up_bottom_sheet_close),
+                buttonText = stringResource(R.string.all_bottom_sheet_close),
                 modifier = Modifier.weight(101f),
                 enabled = false,
                 buttonClicked = bottomSheetClose,
             )
             Spacer(modifier = Modifier.width(12.dp))
             ArabyteNormalButton(
-                buttonText = stringResource(R.string.sign_up_bottom_sheet_confirm),
+                buttonText = stringResource(R.string.all_bottom_sheet_confirm),
                 modifier = Modifier.weight(218f),
                 buttonClicked = {
                     if (fullLocationText.isNotEmpty()) completeButtonClicked(fullLocationText)

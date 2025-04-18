@@ -34,6 +34,7 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteFilteringType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteReviewItem
+import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteCategoryBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteFilteringButton
@@ -80,6 +81,18 @@ fun ReviewListRoute(
         resetAllButtonClicked = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetAllFilter)
         },
+        changeCategoryBottomSheetVisible = {
+            viewModel.setEvent(ReviewListContract.ReviewListEvent.ChangeCategoryBottomSheetVisible)
+        },
+        categoryChipClicked = { category ->
+            viewModel.setEvent(ReviewListContract.ReviewListEvent.SelectJobCategory(category = category))
+        },
+        categoryBottomSheetCompleteButtonClicked = {
+            viewModel.setEvent(ReviewListContract.ReviewListEvent.ClickCategoryBottomSheetCompleteButton)
+        },
+        resetCategoryFilter = {
+            viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetCategoryFilter)
+        },
     )
 }
 
@@ -98,25 +111,28 @@ fun ReviewListScreen(
     guOnclick: (LocationData) -> Unit = {},
     dongOnclick: (LocationData) -> Unit = {},
     resetAllButtonClicked: () -> Unit = {},
+    resetCategoryFilter: () -> Unit = {},
+    categoryBottomSheetCompleteButtonClicked: () -> Unit = {},
+    categoryChipClicked: (String) -> Unit = {},
 ) {
     Box(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(innerPaddingValues),
+            modifier
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(innerPaddingValues),
     ) {
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp),
         ) {
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 14.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_review_list_pencil_24), contentDescription = null, tint = Color.Unspecified)
@@ -125,19 +141,20 @@ fun ReviewListScreen(
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_search_24), contentDescription = null, tint = Color.Unspecified)
             }
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_all_refresh_30),
                     contentDescription = null,
                     modifier =
-                    Modifier
-                        .noRippleClickable { resetAllButtonClicked() },
+                        Modifier
+                            .noRippleClickable { resetAllButtonClicked() },
                     tint = Color.Unspecified,
                 )
-                LazyRow(modifier = Modifier.weight(1f).padding(start = 5.dp),
+                LazyRow(
+                    modifier = Modifier.weight(1f).padding(start = 5.dp),
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
                 ) {
                     item {
@@ -165,7 +182,6 @@ fun ReviewListScreen(
                         )
                     }
                 }
-
             }
             if (uiState.listSize == 0) {
                 ArabyteEmptyView()
@@ -182,9 +198,9 @@ fun ReviewListScreen(
         }
         ArabyteAddFloatingButton(
             modifier =
-            Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 82.dp, end = 16.dp),
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 82.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addReviewButtonClicked,
         )
@@ -192,15 +208,14 @@ fun ReviewListScreen(
         if (uiState.regionBottomSheetVisible) {
             Box(
                 modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                    .noRippleClickable {
-                        changeRegionBottomSheetVisible()
-                        if (uiState.selectedRegion.isEmpty()) resetRegionFilter()
-                    },
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable {
+                            changeRegionBottomSheetVisible()
+                            if (uiState.selectedRegion.isEmpty()) resetRegionFilter()
+                        },
             )
-
             ArabyteLocationBottomSheet(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 bottomSheetClose = resetRegionFilter,
@@ -220,6 +235,27 @@ fun ReviewListScreen(
                 dongOnclick = { dong ->
                     dongOnclick(dong)
                 },
+            )
+        }
+
+        if (uiState.categoryBottomSheetVisible) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable {
+                            changeCategoryBottomSheetVisible()
+                            if (uiState.selectedCategory.isEmpty()) resetCategoryFilter()
+                        },
+            )
+
+            ArabyteCategoryBottomSheet(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                bottomSheetClose = resetCategoryFilter,
+                completeButtonClicked = categoryBottomSheetCompleteButtonClicked,
+                selectedCategories = uiState.selectedCategories,
+                categoryChipClicked = categoryChipClicked,
             )
         }
     }

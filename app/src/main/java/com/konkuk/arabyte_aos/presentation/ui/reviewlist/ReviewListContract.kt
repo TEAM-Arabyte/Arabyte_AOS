@@ -28,12 +28,14 @@ class ReviewListContract {
                 ReviewItem(10, "행정사무보조", false, 4.4f, " 처음 카페 알바를 시작한 곳인데, 교육을 친절하게 해주셔서 금방 적응할 수 있었습니다. 기본적인 음료 제조부터 계산까지 배울 수 있어서 ...", "전북 전주시", "사무직"),
             ),
         val regionBottomSheetVisible: Boolean = false,
+        val categoryBottomSheetVisible: Boolean = false,
         val sidoList: List<LocationData> = emptyList(),
         val guList: List<LocationData> = emptyList(),
         val dongList: List<LocationData> = emptyList(),
         val selectedSido: LocationData? = null,
         val selectedGu: LocationData? = null,
         val selectedDong: LocationData? = null,
+        val selectedCategories: List<String> = emptyList(),
     ) : UiState
 
     sealed interface ReviewListSideEffect : UiSideEffect {
@@ -43,13 +45,15 @@ class ReviewListContract {
     sealed class ReviewListEvent : UiEvent {
         data object ClickCertifiedFilterButton : ReviewListEvent()
 
-        data object ClickCategoryFilterButton : ReviewListEvent()
+        data object ChangeCategoryBottomSheetVisible : ReviewListEvent()
 
         data object ChangeRegionBottomSheetVisible : ReviewListEvent()
 
         data object SetRegionFilter : ReviewListEvent()
 
         data object ResetRegionFilter : ReviewListEvent()
+
+        data object ResetCategoryFilter : ReviewListEvent()
 
         data object ResetAllFilter : ReviewListEvent()
 
@@ -64,5 +68,9 @@ class ReviewListContract {
         data class SelectGu(val gu: LocationData) : ReviewListEvent()
 
         data class SelectDong(val dong: LocationData) : ReviewListEvent()
+
+        data class SelectJobCategory(val category: String) : ReviewListEvent()
+
+        data object ClickCategoryBottomSheetCompleteButton : ReviewListEvent()
     }
 }

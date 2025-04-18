@@ -23,7 +23,11 @@ class ReviewListViewModel
 
         override suspend fun handleEvent(event: ReviewListContract.ReviewListEvent) {
             when (event) {
-                is ReviewListContract.ReviewListEvent.ClickCategoryFilterButton -> clickCertifiedFilter()
+                is ReviewListContract.ReviewListEvent.ClickCertifiedFilterButton -> clickCertifiedFilter()
+
+                is ReviewListContract.ReviewListEvent.ChangeCategoryBottomSheetVisible -> {
+                    setState { copy(categoryBottomSheetVisible = !currentState.categoryBottomSheetVisible) }
+                }
 
                 is ReviewListContract.ReviewListEvent.ChangeRegionBottomSheetVisible -> {
                     setState { copy(regionBottomSheetVisible = !currentState.regionBottomSheetVisible) }
@@ -45,11 +49,13 @@ class ReviewListViewModel
 
                 is ReviewListContract.ReviewListEvent.ResetRegionFilter -> resetRegionFilter()
 
-                is ReviewListContract.ReviewListEvent.ClickCertifiedFilterButton -> {
-                    setState { copy(certifiedFilterSelected = !currentState.certifiedFilterSelected) }
-                }
-
                 is ReviewListContract.ReviewListEvent.ResetAllFilter -> resetAllFilter()
+
+                is ReviewListContract.ReviewListEvent.SelectJobCategory -> selectCategory(event.category)
+
+                is ReviewListContract.ReviewListEvent.ResetCategoryFilter -> resetCategoryFilter()
+
+                is ReviewListContract.ReviewListEvent.ClickCategoryBottomSheetCompleteButton -> clickCategoryBottomSheetCompleteButton()
             }
         }
 
@@ -127,6 +133,41 @@ class ReviewListViewModel
 
         private fun resetAllFilter() {
             resetRegionFilter()
+            resetCategoryFilter()
             setState { copy(certifiedFilterSelected = false) }
+        }
+
+        private fun selectCategory(category: String) {
+            setState {
+                val currentList = currentState.selectedCategories
+
+                val updatedList =
+                    if (currentList.contains(category)) {
+                        currentList - category
+                    } else {
+                        if (currentList.size < 3) currentList + category else currentList
+                    }
+                copy(
+                    selectedCategories = updatedList,
+                )
+            }
+        }
+
+        private fun resetCategoryFilter() {
+            setState {
+                copy(
+                    selectedCategory = "",
+                    selectedCategories = emptyList(),
+                    categoryBottomSheetVisible = false,
+                )
+            }
+        }
+
+        private fun clickCategoryBottomSheetCompleteButton() {
+            when (currentState.selectedCategories.size) {
+                1 -> setState { copy(selectedCategory = currentState.selectedCategories[0], categoryBottomSheetVisible = false) }
+                0 -> setState { copy(selectedCategory = "", categoryBottomSheetVisible = false) }
+                else -> setState { copy(selectedCategory = "${ currentState.selectedCategories[0]}+외 ${currentState.selectedCategories.size - 1}", categoryBottomSheetVisible = false) }
+            }
         }
     }

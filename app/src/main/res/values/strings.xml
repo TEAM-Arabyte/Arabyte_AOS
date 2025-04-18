@@ -4,7 +4,6 @@
     <!--  All  -->
     <string name="all_next_button">다음</string>
 
-
     <!--  Category  -->
     <string name="all_category_food">외식/음료</string>
     <string name="all_category_management">매장관리/판매</string>
@@ -55,9 +54,6 @@
     <string name="sign_up_region">거주지</string>
     <string name="sign_up_age">나이</string>
     <string name="sign_up_gender">성별</string>
-    <string name="sign_up_bottom_sheet_title">거주하는 지역을 선택해주세요</string>
-    <string name="sign_up_bottom_sheet_close">취소</string>
-    <string name="sign_up_bottom_sheet_confirm">적용하기</string>
     <string name="sign_up_success_button">시작하기</string>
 
     <!--  Onboarding -->
@@ -76,5 +72,11 @@
 
     <!--  Login  -->
     <string name="login_kakao_login_text">카카오 계정으로 로그인</string>
+
+    <!-- BottomSheet -->
+    <string name="region_bottom_sheet_title">거주하는 지역을 선택해주세요</string>
+    <string name="category_bottom_sheet_title">카테고리</string>
+    <string name="all_bottom_sheet_close">취소</string>
+    <string name="all_bottom_sheet_confirm">적용하기</string>
 
 </resources>
