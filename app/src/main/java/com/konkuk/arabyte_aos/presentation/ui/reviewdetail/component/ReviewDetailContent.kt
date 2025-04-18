@@ -22,12 +22,16 @@ import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPa
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
-fun ReviewDetailContent(content: String, modifier: Modifier = Modifier) {
+fun ReviewDetailContent(
+    content: String,
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(horizontal = 16.dp, vertical = 13.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(horizontal = 16.dp, vertical = 13.dp),
     ) {
         Row {
             Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_file_27), contentDescription = null, tint = Color.Unspecified)

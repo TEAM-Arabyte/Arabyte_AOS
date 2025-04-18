@@ -87,7 +87,7 @@ fun ArabyteTopAppBar(
                 imageVector = ImageVector.vectorResource(id = optionalIconRes),
                 contentDescription = null,
                 modifier = Modifier.noRippleClickable { onOptionalClick() },
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
             )
         },
     )
@@ -110,7 +110,7 @@ private fun ArabyteTopAppBarInternal(
                         .align(Alignment.CenterStart),
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_back_button_45),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = Color.Unspecified,
             )
         }
 

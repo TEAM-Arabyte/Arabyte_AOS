@@ -31,22 +31,23 @@ fun ReviewDetailHeader(
     star: Float,
     region: String,
     category: ArabyteJobCategory,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(horizontal = 16.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(horizontal = 16.dp),
     ) {
         Spacer(modifier = Modifier.height(11.dp))
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(text = companyName, style = ArabyteTheme.typography.bodyBold17, color = ArabyteTheme.colors.black)
             if (isCertified) {
                 Spacer(modifier = Modifier.width(4.dp))
-                Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_auth_check_16), tint = Color.Unspecified,contentDescription = null, modifier = Modifier.size(20.dp))
+                Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_auth_check_16), tint = Color.Unspecified, contentDescription = null, modifier = Modifier.size(20.dp))
             }
             Spacer(modifier = Modifier.weight(1f))
             Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_star_16), tint = Color.Unspecified, contentDescription = null, modifier = Modifier.size(20.dp))

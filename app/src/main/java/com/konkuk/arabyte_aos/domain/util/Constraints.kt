@@ -1,7 +1,10 @@
 package com.konkuk.arabyte_aos.domain.util
 
-object ReviewRatingTexts {
+object Dummy {
+    //아래 파일 하나만 있으면 파일명이랑 오브젝트 명이랑 일치시키라고 린트에 자꾸 걸려서 임시로 만들어 두었습니다. 추가 상수 오브젝트 생기면 지우셔도 좋습니다!
+}
 
+object ReviewRatingTexts {
     const val TITLE_WORK_INTENSITY = "근무 강도"
     const val ASK_WORK_INTENSITY = "근무 강도는 어느 정도인가요?"
     const val LABEL_WORK_INTENSITY_LIGHT = "낮음"

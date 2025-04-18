@@ -26,14 +26,18 @@ import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPa
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
-fun ReviewDetailRating(reviewRating: ReviewRating, modifier: Modifier = Modifier) {
+fun ReviewDetailRating(
+    reviewRating: ReviewRating,
+    modifier: Modifier = Modifier,
+) {
     val titleLabelList = reviewRating.toTitleLabelList()
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(horizontal = 16.dp, vertical = 13.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(horizontal = 16.dp, vertical = 13.dp),
     ) {
         Row {
             Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_search_27), contentDescription = null, tint = Color.Unspecified)
@@ -51,25 +55,28 @@ fun ReviewDetailRating(reviewRating: ReviewRating, modifier: Modifier = Modifier
 }
 
 @Composable
-private fun RatingRow(title: String, label: String) {
+private fun RatingRow(
+    title: String,
+    label: String,
+) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 9.dp, bottom = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 9.dp, bottom = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = title,
             style = ArabyteTheme.typography.bodyMed13,
-            color = ArabyteTheme.colors.black
+            color = ArabyteTheme.colors.black,
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.roundedBackgroundWithPadding(padding = PaddingValues(vertical = 5.dp, horizontal = 8.dp), cornerRadius = 3.dp, backgroundColor = ArabyteTheme.colors.gray01),
             text = label,
             style = ArabyteTheme.typography.capSemi11,
-            color = ArabyteTheme.colors.gray06
+            color = ArabyteTheme.colors.gray06,
         )
     }
 }
-
