@@ -2,8 +2,7 @@ package com.konkuk.arabyte_aos.domain.model
 
 enum class ArticleKind {
     FREE,
-    NOTICE,
-    OTHER,
+    NOTICE
 }
 
 data class ReviewItem(
