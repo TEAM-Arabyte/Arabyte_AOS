@@ -78,3 +78,14 @@ enum class WorkDifficulty(val label: String) {
     val title: String = ReviewRatingTexts.TITLE_WORK_DIFFICULTY
     val ask: String = ReviewRatingTexts.ASK_WORK_DIFFICULTY
 }
+
+fun ReviewRating.toTitleLabelList(): List<Pair<String, String>> {
+    return listOf(
+        salary.title to salary.label,
+        salaryDate.title to salaryDate.label,
+        overtime.title to overtime.label,
+        workAtmosphere.title to workAtmosphere.label,
+        workDifficulty.title to workDifficulty.label,
+        workIntensity.title to workIntensity.label
+    )
+}
