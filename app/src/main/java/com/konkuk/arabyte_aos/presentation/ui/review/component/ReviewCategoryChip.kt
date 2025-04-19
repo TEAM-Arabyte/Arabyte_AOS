@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -23,7 +22,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ReviewCategoryChip(
     modifier: Modifier = Modifier,
-    categoryResId: Int,
+    category: String,
 ) {
     Row(
         modifier =
@@ -37,7 +36,7 @@ fun ReviewCategoryChip(
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = stringResource(categoryResId),
+            text = category.toString(),
             style = ArabyteTheme.typography.capSemi9,
             color = ArabyteTheme.colors.white,
         )
