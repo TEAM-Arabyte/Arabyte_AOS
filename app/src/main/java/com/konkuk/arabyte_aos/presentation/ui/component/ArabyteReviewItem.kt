@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.component
 
+import android.R.attr.category
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.presentation.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.ArabyteLocationChip
 import com.konkuk.arabyte_aos.presentation.ui.review.component.ReviewCategoryChip
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
@@ -39,13 +41,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun ArabyteReviewItem(
-    companyName: String,
-    starRate: Double,
-    reviewContent: String,
-    location: String,
-    category: Int,
+    reviewItem: ReviewItem,
     modifier: Modifier = Modifier,
-    isCertified: Boolean = false,
 ) {
     Column(
         modifier =
@@ -68,12 +65,12 @@ fun ArabyteReviewItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = companyName,
+                text = reviewItem.companyName,
                 style = ArabyteTheme.typography.bodyBold13,
                 color = ArabyteTheme.colors.black,
             )
 
-            if (isCertified) {
+            if (reviewItem.isCertified) {
                 Spacer(Modifier.width(4.dp))
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_auth_check_16),
@@ -90,14 +87,14 @@ fun ArabyteReviewItem(
             )
             Spacer(Modifier.width(3.dp))
             Text(
-                text = starRate.toString(),
+                text = reviewItem.star.toString(),
                 style = ArabyteTheme.typography.bodySemi13,
                 color = ArabyteTheme.colors.black,
             )
         }
 
         Text(
-            text = reviewContent,
+            text = reviewItem.content,
             style = ArabyteTheme.typography.capMed11,
             color = ArabyteTheme.colors.gray07,
             minLines = 2,
@@ -106,9 +103,9 @@ fun ArabyteReviewItem(
         )
 
         Row {
-            ArabyteLocationChip(locationText = location)
+            ArabyteLocationChip(locationText = reviewItem.region)
             Spacer(Modifier.width(4.dp))
-            ReviewCategoryChip(categoryResId = category)
+            ReviewCategoryChip(category = reviewItem.category)
         }
     }
 }
