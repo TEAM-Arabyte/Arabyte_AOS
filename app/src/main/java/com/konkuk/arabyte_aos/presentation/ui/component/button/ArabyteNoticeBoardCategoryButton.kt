@@ -36,25 +36,29 @@ fun ArabyteNoticeBoardCategoryButton(
 ) {
     Row(
         modifier =
-            modifier.conditionalBorder(
-                enabled = !enabled,
-                color = ArabyteTheme.colors.gray01,
-                width = 1.dp,
-                shape = RoundedCornerShape(30.dp),
-            ).roundedBackgroundWithPadding(
-                padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
-                cornerRadius = 30.dp,
-                backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.white,
-            )
+            modifier
+                .conditionalBorder(
+                    enabled = !enabled,
+                    color = ArabyteTheme.colors.gray01,
+                    width = 1.dp,
+                    shape = RoundedCornerShape(30.dp),
+                )
+                .roundedBackgroundWithPadding(
+                    padding = PaddingValues(vertical = 6.dp, horizontal = 13.dp),
+                    cornerRadius = 30.dp,
+                    backgroundColor = if (enabled) ArabyteTheme.colors.gray07 else ArabyteTheme.colors.white,
+                )
                 .noRippleClickable { buttonClicked(!enabled) },
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(noticeBoardCategoryType.imageDrawableRes),
-            tint = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray07,
-            contentDescription = null,
-        )
-        Spacer(modifier = Modifier.width(4.dp))
+        if (noticeBoardCategoryType.imageDrawableRes != null) {
+            Icon(
+                imageVector = ImageVector.vectorResource(noticeBoardCategoryType.imageDrawableRes),
+                tint = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray07,
+                contentDescription = null,
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+        }
         Text(
             text = stringResource(noticeBoardCategoryType.stringRes),
             color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray06,
