@@ -16,11 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentBoard
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
-import com.konkuk.arabyte_aos.presentation.ui.reviewlist.ReviewListContract
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -30,7 +28,7 @@ fun NoticeBoardDetailRoute(
     viewModel: NoticeBoardDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
-    LaunchedEffect (Unit){ viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.LoadNoticeBoardDetail) }
+    LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.LoadNoticeBoardDetail) }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     NoticeBoardDetailScreen(uiState = uiState, innerPaddingValues = innerPaddingValues, modifier = modifier)
@@ -38,14 +36,16 @@ fun NoticeBoardDetailRoute(
 
 @Composable
 fun NoticeBoardDetailScreen(
-    modifier: Modifier = Modifier, innerPaddingValues: PaddingValues = PaddingValues(0.dp),
+    modifier: Modifier = Modifier,
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     uiState: NoticeBoardDetailContract.NoticeBoardDetailUiState = NoticeBoardDetailContract.NoticeBoardDetailUiState(),
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(ArabyteTheme.colors.white)
-            .padding(innerPaddingValues)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(ArabyteTheme.colors.white)
+                .padding(innerPaddingValues),
     ) {
         ArabyteTopAppBar(
             useBack = true,
@@ -73,8 +73,6 @@ fun NoticeBoardDetailScreen(
                 )
             }
         }
-
-
     }
 }
 
