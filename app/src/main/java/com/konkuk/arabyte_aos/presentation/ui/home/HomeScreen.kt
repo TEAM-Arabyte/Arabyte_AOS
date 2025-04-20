@@ -61,7 +61,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun HomeRoute(
     onNavigateToNoticeBoard: () -> Unit,
     onNavigateToNoticeBoardDetail: (Int) -> Unit,
-    onNavigateToReview: () -> Unit,
+    onNavigateToReviewList: () -> Unit,
     onNavigateToReviewDetail: (Int) -> Unit,
     onNavigateToReviewCategory: (ArabyteCategoryType) -> Unit,
     onNavigateToMyPage: () -> Unit,
@@ -90,7 +90,7 @@ fun HomeRoute(
                 when (sideEffect) {
                     is HomeContract.HomeSideEffect.NavigateToNoticeBoard -> onNavigateToNoticeBoard()
                     is HomeContract.HomeSideEffect.NavigateToNoticeBoardDetail -> onNavigateToNoticeBoardDetail(sideEffect.noticeBoardId)
-                    is HomeContract.HomeSideEffect.NavigateToReview -> onNavigateToReview()
+                    is HomeContract.HomeSideEffect.NavigateToReview -> onNavigateToReviewList()
                     is HomeContract.HomeSideEffect.NavigateToReviewCategory -> onNavigateToReviewCategory(sideEffect.categoryType)
                     is HomeContract.HomeSideEffect.NavigateToReviewDetail -> onNavigateToReviewDetail(sideEffect.reviewId)
                     is HomeContract.HomeSideEffect.NavigateToMyPage -> onNavigateToMyPage()
@@ -101,7 +101,7 @@ fun HomeRoute(
     HomeScreen(
         onNavigateToNoticeBoard = onNavigateToNoticeBoard,
         onNavigateToNoticeBoardDetail = onNavigateToNoticeBoardDetail,
-        onNavigateToReview = onNavigateToReview,
+        onNavigateToReviewList = onNavigateToReviewList,
         onNavigateToReviewDetail = onNavigateToReviewDetail,
         onNavigateToReviewCategory = onNavigateToReviewCategory,
         onNavigateToMyPage = onNavigateToMyPage,
@@ -116,7 +116,7 @@ fun HomeRoute(
 fun HomeScreen(
     onNavigateToNoticeBoard: () -> Unit,
     onNavigateToNoticeBoardDetail: (Int) -> Unit,
-    onNavigateToReview: () -> Unit,
+    onNavigateToReviewList: () -> Unit,
     onNavigateToReviewDetail: (Int) -> Unit,
     onNavigateToReviewCategory: (ArabyteCategoryType) -> Unit,
     onNavigateToMyPage: () -> Unit,
@@ -163,7 +163,7 @@ fun HomeScreen(
                 uiState = uiState,
                 onNavigateToNoticeBoard = {},
                 onNavigateToNoticeBoardDetail = {},
-                onNavigateToReview = {},
+                onNavigateToReviewList = {},
                 onNavigateToReviewDetail = {},
                 onNavigateToReviewCategory = {},
                 onNavigateToMyPage = {},
@@ -178,7 +178,7 @@ fun HomeScreenContent(
     uiState: HomeContract.HomeUiState,
     onNavigateToNoticeBoard: () -> Unit,
     onNavigateToNoticeBoardDetail: (Int) -> Unit,
-    onNavigateToReview: () -> Unit,
+    onNavigateToReviewList: () -> Unit,
     onNavigateToReviewDetail: (Int) -> Unit,
     onNavigateToReviewCategory: (ArabyteCategoryType) -> Unit,
     onNavigateToMyPage: () -> Unit,
@@ -331,7 +331,7 @@ private fun HomeScreenPrev() {
         HomeRoute(
             onNavigateToNoticeBoard = {},
             onNavigateToNoticeBoardDetail = {},
-            onNavigateToReview = {},
+            onNavigateToReviewList = {},
             onNavigateToReviewDetail = {},
             onNavigateToReviewCategory = {},
             onNavigateToMyPage = {},
