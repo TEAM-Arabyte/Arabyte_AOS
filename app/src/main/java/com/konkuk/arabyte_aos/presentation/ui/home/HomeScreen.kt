@@ -204,18 +204,13 @@ fun HomeScreenContent(
         )
 
     Column(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .padding(horizontal = 20.dp),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.height(14.dp))
         FlowRow(
-            modifier =
-                Modifier
-                    .wrapContentWidth(Alignment.CenterHorizontally),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalArrangement = Arrangement.spacedBy(9.dp),
             maxItemsInEachRow = 4,
         ) {
@@ -230,6 +225,7 @@ fun HomeScreenContent(
             titleResId = R.string.home_review_title,
             subtitleResId = R.string.home_review_sub_title,
             onClickMore = {},
+            modifier = Modifier.padding(horizontal = 20.dp),
         )
         Spacer(Modifier.height(11.dp))
         HorizontalPager(
@@ -238,6 +234,7 @@ fun HomeScreenContent(
         ) { page ->
             ArabyteReviewItem(
                 reviewItem = uiState.reviewList[page],
+                modifier = Modifier.padding(horizontal = 20.dp),
             )
         }
         Spacer(Modifier.height(11.dp))
@@ -249,6 +246,7 @@ fun HomeScreenContent(
         HomeContentTitle(
             titleResId = R.string.home_notice_board_title,
             subtitleResId = R.string.home_notice_board_sub_title,
+            modifier = Modifier.padding(horizontal = 20.dp),
             onClickMore = {},
         )
         Spacer(Modifier.height(11.dp))
