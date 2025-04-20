@@ -74,14 +74,8 @@ fun HomeRoute(
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.HomeEvent.LoadUserName)
-    }
-    LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.HomeEvent.LoadRegion)
-    }
-    LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.HomeEvent.LoadReviewList)
-    }
-    LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.HomeEvent.LoadNoticeBoardList)
     }
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -90,7 +84,7 @@ fun HomeRoute(
                 when (sideEffect) {
                     is HomeContract.HomeSideEffect.NavigateToNoticeBoard -> onNavigateToNoticeBoard()
                     is HomeContract.HomeSideEffect.NavigateToNoticeBoardDetail -> onNavigateToNoticeBoardDetail(sideEffect.noticeBoardId)
-                    is HomeContract.HomeSideEffect.NavigateToReview -> onNavigateToReviewList()
+                    is HomeContract.HomeSideEffect.NavigateToReviewList -> onNavigateToReviewList()
                     is HomeContract.HomeSideEffect.NavigateToReviewCategory -> onNavigateToReviewCategory(sideEffect.categoryType)
                     is HomeContract.HomeSideEffect.NavigateToReviewDetail -> onNavigateToReviewDetail(sideEffect.reviewId)
                     is HomeContract.HomeSideEffect.NavigateToMyPage -> onNavigateToMyPage()
@@ -99,12 +93,12 @@ fun HomeRoute(
     }
 
     HomeScreen(
-        onNavigateToNoticeBoard = onNavigateToNoticeBoard,
-        onNavigateToNoticeBoardDetail = onNavigateToNoticeBoardDetail,
-        onNavigateToReviewList = onNavigateToReviewList,
-        onNavigateToReviewDetail = onNavigateToReviewDetail,
-        onNavigateToReviewCategory = onNavigateToReviewCategory,
-        onNavigateToMyPage = onNavigateToMyPage,
+        onNavigateToNoticeBoard = { viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToNoticeBoard) },
+        onNavigateToNoticeBoardDetail = {viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToNoticeBoardDetail(it))},
+        onNavigateToReviewList = {viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToReviewList)},
+        onNavigateToReviewDetail = {viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToReviewDetail(it))},
+        onNavigateToReviewCategory = {viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToReviewCategory(it))},
+        onNavigateToMyPage = {viewModel.setSideEffect(HomeContract.HomeSideEffect.NavigateToMyPage)},
         modifier = modifier,
         uiState = uiState,
         innerPaddingValues = innerPaddingValues,
