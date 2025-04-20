@@ -49,7 +49,7 @@ fun ArabyteNoticeBoardItem(
                     .padding(horizontal = 16.dp, vertical = 11.dp),
         ) {
             NoticeBoardCategoryChip(
-                categoryResId = noticeBoardItem.articleCategoryType.stringRes,
+                categoryResId = noticeBoardItem.noticeBoardCategoryType.stringRes,
             )
             Spacer(Modifier.height(5.dp))
             Row(

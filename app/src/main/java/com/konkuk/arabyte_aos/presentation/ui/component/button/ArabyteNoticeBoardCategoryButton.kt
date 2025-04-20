@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.presentation.type.component.ArabyteBoardCategoryType
+import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.util.modifier.conditionalBorder
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
@@ -28,8 +28,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
-fun ArabyteBoardCategoryButton(
-    arabyteBoardCategoryType: ArabyteBoardCategoryType,
+fun ArabyteNoticeBoardCategoryButton(
+    noticeBoardCategoryType: ArabyteNoticeBoardCategoryType,
     enabled: Boolean,
     modifier: Modifier = Modifier,
     buttonClicked: (Boolean) -> Unit,
@@ -50,13 +50,13 @@ fun ArabyteBoardCategoryButton(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = ImageVector.vectorResource(arabyteBoardCategoryType.imageDrawableRes),
+            imageVector = ImageVector.vectorResource(noticeBoardCategoryType.imageDrawableRes),
             tint = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray07,
             contentDescription = null,
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(
-            text = stringResource(arabyteBoardCategoryType.stringRes),
+            text = stringResource(noticeBoardCategoryType.stringRes),
             color = if (enabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray06,
             style = ArabyteTheme.typography.bodySemi13,
         )
@@ -70,14 +70,14 @@ private fun ArabyteSelectSmallButtonPreview() {
     var isEnabled2 by remember { mutableStateOf(true) }
     ArabyteAOSTheme {
         Column {
-            ArabyteBoardCategoryButton(
-                arabyteBoardCategoryType = ArabyteBoardCategoryType.FREE,
+            ArabyteNoticeBoardCategoryButton(
+                noticeBoardCategoryType = ArabyteNoticeBoardCategoryType.FREE,
                 enabled = isEnabled1,
                 buttonClicked = { isEnabled1 = it },
             )
 
-            ArabyteBoardCategoryButton(
-                arabyteBoardCategoryType = ArabyteBoardCategoryType.INFO,
+            ArabyteNoticeBoardCategoryButton(
+                noticeBoardCategoryType = ArabyteNoticeBoardCategoryType.INFO,
                 enabled = isEnabled2,
                 buttonClicked = { isEnabled2 = it },
             )

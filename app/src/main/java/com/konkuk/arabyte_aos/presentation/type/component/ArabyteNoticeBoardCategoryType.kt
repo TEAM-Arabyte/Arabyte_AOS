@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.konkuk.arabyte_aos.R
 
-enum class ArabyteBoardCategoryType(
+enum class ArabyteNoticeBoardCategoryType(
     @DrawableRes val imageDrawableRes: Int,
     @StringRes val stringRes: Int,
 ) {
