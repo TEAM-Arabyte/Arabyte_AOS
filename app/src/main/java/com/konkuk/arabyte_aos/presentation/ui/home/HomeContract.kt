@@ -34,7 +34,7 @@ class HomeContract {
     sealed interface HomeSideEffect : UiSideEffect {
         data class NavigateToReviewCategory(val categoryType: ArabyteCategoryType) : HomeSideEffect
 
-        data object NavigateToReview : HomeSideEffect
+        data object NavigateToReviewList : HomeSideEffect
 
         data class NavigateToReviewDetail(val reviewId: Int) : HomeSideEffect
 
