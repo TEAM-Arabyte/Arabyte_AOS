@@ -33,7 +33,8 @@ fun ArabyteFilteringButton(
     arabyteFilteringType: ArabyteFilteringType,
     enabled: Boolean,
     modifier: Modifier = Modifier,
-    buttonClicked: (Boolean) -> Unit = {},
+    buttonText: String = "",
+    buttonClicked: () -> Unit = {},
 ) {
     val (borderColor, backgroundColor, textColor) =
         when (enabled) {
@@ -48,7 +49,7 @@ fun ArabyteFilteringButton(
             modifier
                 .border(shape = RoundedCornerShape(30.dp), width = 1.dp, color = borderColor)
                 .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = backgroundColor, padding = PaddingValues(start = 13.dp, top = 6.dp, end = 11.dp, bottom = 6.dp))
-                .noRippleClickable { buttonClicked(!enabled) },
+                .noRippleClickable { buttonClicked() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -57,7 +58,7 @@ fun ArabyteFilteringButton(
             Spacer(modifier = Modifier.width(4.dp))
             Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
         } else {
-            Text(text = stringResource(arabyteFilteringType.stringRes), color = textColor, style = ArabyteTheme.typography.bodySemi13)
+            Text(text = if (buttonText.isEmpty()) stringResource(arabyteFilteringType.stringRes) else buttonText, color = textColor, style = ArabyteTheme.typography.bodySemi13)
             Spacer(modifier = Modifier.width(4.dp))
             Icon(imageVector = ImageVector.vectorResource(arabyteFilteringType.imageDrawableRes), tint = iconTint, contentDescription = null)
         }
@@ -73,9 +74,9 @@ private fun ArabyteAddPhotoButtonPreview() {
 
     ArabyteAOSTheme {
         Row {
-            ArabyteFilteringButton(arabyteFilteringType = ArabyteFilteringType.CHECK, enabled = isEnabled1, buttonClicked = { isEnabled1 = it })
-            ArabyteFilteringButton(arabyteFilteringType = ArabyteFilteringType.REGION, enabled = isEnabled2, buttonClicked = { isEnabled2 = it })
-            ArabyteFilteringButton(arabyteFilteringType = ArabyteFilteringType.CATEGORY, enabled = isEnabled3, buttonClicked = { isEnabled3 = it })
+            ArabyteFilteringButton(arabyteFilteringType = ArabyteFilteringType.CHECK, enabled = isEnabled1, buttonClicked = { })
+            ArabyteFilteringButton(arabyteFilteringType = ArabyteFilteringType.REGION, enabled = isEnabled2, buttonClicked = { })
+            ArabyteFilteringButton(arabyteFilteringType = ArabyteFilteringType.CATEGORY, enabled = isEnabled3, buttonClicked = { })
         }
     }
 }
