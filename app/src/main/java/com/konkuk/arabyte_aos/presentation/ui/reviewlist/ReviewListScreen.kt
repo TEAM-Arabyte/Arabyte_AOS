@@ -135,11 +135,19 @@ fun ReviewListScreen(
                         .padding(vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_review_list_pencil_24), contentDescription = null, tint = Color.Unspecified)
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_review_list_pencil_24),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(text = "리뷰", style = ArabyteTheme.typography.bodyBold17, color = ArabyteTheme.colors.black)
                 Spacer(modifier = Modifier.weight(1f))
-                Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_search_24), contentDescription = null, tint = Color.Unspecified)
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_all_search_24),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -154,7 +162,10 @@ fun ReviewListScreen(
                     tint = Color.Unspecified,
                 )
                 LazyRow(
-                    modifier = Modifier.weight(1f).padding(start = 5.dp),
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .padding(start = 5.dp),
                     horizontalArrangement = Arrangement.spacedBy(5.dp),
                 ) {
                     item {
@@ -187,10 +198,17 @@ fun ReviewListScreen(
                 ArabyteEmptyView()
             } else {
                 Spacer(modifier = Modifier.height(15.dp))
-                Text(text = "전체 ${uiState.listSize}", style = ArabyteTheme.typography.capMed11, color = ArabyteTheme.colors.gray06)
+                Text(
+                    text = "전체 ${uiState.listSize}",
+                    style = ArabyteTheme.typography.capMed11,
+                    color = ArabyteTheme.colors.gray06,
+                )
                 Spacer(modifier = Modifier.height(11.dp))
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(11.dp)) {
-                    items(uiState.reviewList) { reviewItem ->
+                    items(
+                        uiState.reviewList,
+                        key = { it.reviewItemId },
+                    ) { reviewItem ->
                         ArabyteReviewItem(reviewItem)
                     }
                 }
