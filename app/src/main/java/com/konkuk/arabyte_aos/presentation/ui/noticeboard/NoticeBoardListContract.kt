@@ -28,8 +28,8 @@ class NoticeBoardListContract {
     }
 
     sealed class NoticeBoardListUiEvent : UiEvent {
-        data class OnCategorySelected(val noticeBoardCategoryType: ArabyteNoticeBoardCategoryType) : NoticeBoardListUiEvent()
+        data class SelectCategory(val noticeBoardCategoryType: ArabyteNoticeBoardCategoryType) : NoticeBoardListUiEvent()
 
-        data class OnNoticeBoardItemClicked(val itemId: Int) : NoticeBoardListUiEvent()
+        data class LoadNoticeBoardList(val noticeBoardCategoryType: ArabyteNoticeBoardCategoryType) : NoticeBoardListUiEvent()
     }
 }
