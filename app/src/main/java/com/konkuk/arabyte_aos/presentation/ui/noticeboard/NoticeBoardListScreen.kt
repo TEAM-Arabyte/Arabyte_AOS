@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,7 +30,6 @@ import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCate
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
-import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -134,13 +132,5 @@ fun NoticeBoardListScreen(
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addNoticeBoardButtonClicked,
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun previewii() {
-    ArabyteAOSTheme {
-        NoticeBoardListRoute()
     }
 }
