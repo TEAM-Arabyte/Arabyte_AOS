@@ -31,7 +31,6 @@ import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocat
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLocationButton
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
-import com.konkuk.arabyte_aos.presentation.ui.home.HomeContract
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpAgeGrid
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpGenderRow
 import com.konkuk.arabyte_aos.presentation.ui.signup.component.SignUpSuccessView
@@ -48,13 +47,12 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun SignUpRoute(
-    navigateToOnboarding:()->Unit,
+    navigateToOnboarding: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
-
 
     LaunchedEffect(uiState.selectedAge, uiState.selectedGender, uiState.location) {
         if (uiState.selectedAge != null && uiState.selectedGender != null && uiState.location.isNotEmpty()) {

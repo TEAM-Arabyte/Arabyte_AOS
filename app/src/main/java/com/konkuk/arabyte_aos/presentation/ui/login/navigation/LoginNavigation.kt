@@ -19,12 +19,12 @@ fun NavGraphBuilder.loginNavGraph(
     paddingValues: PaddingValues,
     navigateToHome: () -> Unit,
     navigateSignUp: () -> Unit,
-    ) {
+) {
     composable(route = LoginRoute.ROUTE) {
         LoginRoute(
             innerPaddingValues = paddingValues,
             navigateToHome = navigateToHome,
-            navigateToSignUp = navigateSignUp
+            navigateToSignUp = navigateSignUp,
         )
     }
 }

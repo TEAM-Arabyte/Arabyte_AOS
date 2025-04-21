@@ -99,10 +99,10 @@ fun LoginScreen(
 ) {
     Box(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(color = arabyteColors.mainBlue)
-            .padding(innerPaddingValues),
+            modifier
+                .fillMaxSize()
+                .background(color = arabyteColors.mainBlue)
+                .padding(innerPaddingValues),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -121,15 +121,15 @@ fun LoginScreen(
         }
         Row(
             modifier =
-            Modifier
-                .align(Alignment.BottomCenter)
-                .padding(start = 16.dp, end = 16.dp, bottom = 39.dp)
-                .fillMaxWidth()
-                .roundedBackgroundWithPadding(
-                    backgroundColor = arabyteColors.kakaoYellow,
-                    cornerRadius = 6.dp,
-                )
-                .noRippleClickable { loginButtonClicked() },
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(start = 16.dp, end = 16.dp, bottom = 39.dp)
+                    .fillMaxWidth()
+                    .roundedBackgroundWithPadding(
+                        backgroundColor = arabyteColors.kakaoYellow,
+                        cornerRadius = 6.dp,
+                    )
+                    .noRippleClickable { loginButtonClicked() },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {

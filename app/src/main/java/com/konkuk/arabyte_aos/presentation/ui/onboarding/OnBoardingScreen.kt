@@ -32,7 +32,6 @@ import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLargeButto
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteCareerTextField
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.component.OnboardingPageChip
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.component.OnboardingSuccessView
-import com.konkuk.arabyte_aos.presentation.ui.signup.SignUpContract
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.premission.PermissionUtils
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
@@ -43,7 +42,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun OnBoardingRoute(
     viewModel: OnboardingViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
-    navigateToHome:()->Unit= {}
+    navigateToHome: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -56,7 +55,6 @@ fun OnBoardingRoute(
                 }
             }
     }
-
 
     when (uiState.loadState) {
         LoadState.Idle ->
