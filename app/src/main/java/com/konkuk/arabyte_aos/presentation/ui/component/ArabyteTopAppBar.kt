@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -86,6 +87,7 @@ fun ArabyteTopAppBar(
                 imageVector = ImageVector.vectorResource(id = optionalIconRes),
                 contentDescription = null,
                 modifier = Modifier.noRippleClickable { onOptionalClick() },
+                tint = Color.Unspecified,
             )
         },
     )
@@ -108,6 +110,7 @@ private fun ArabyteTopAppBarInternal(
                         .align(Alignment.CenterStart),
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_back_button_45),
                 contentDescription = null,
+                tint = Color.Unspecified,
             )
         }
 
