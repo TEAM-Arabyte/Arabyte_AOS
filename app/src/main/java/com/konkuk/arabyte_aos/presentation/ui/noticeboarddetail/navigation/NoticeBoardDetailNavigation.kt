@@ -11,7 +11,7 @@ fun NavController.navigationNoticeBoardDetail() {
     navigateBottomMain(NoticeBoardDetailRoute.ROUTE)
 }
 
-fun NavGraphBuilder.noticeboarddetailNavGraph(
+fun NavGraphBuilder.noticeBoarDetailNavGraph(
     paddingValues: PaddingValues,
 ) {
     composable(route = NoticeBoardDetailRoute.ROUTE) {
