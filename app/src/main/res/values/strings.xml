@@ -45,6 +45,11 @@
 
     <!--  Splash  -->
     <string name="splash_service_description">당신의 알바 선택을 더 똑똑하게,\n알바의 모든 것을 알아보세요!</string>
+    <!-- Bottom Navigation -->
+    <string name="bottom_nav_home">홈</string>
+    <string name="bottom_nav_review">리뷰</string>
+    <string name="bottom_nav_notice_board">게시판</string>
+    <string name="bottom_nav_my_page">마이</string>
 
     <!--  Sign Up -->
     <string name="sign_up_first_title">알아봐이트에서 사용할\n닉네임을 입력해주세요!</string>
@@ -80,6 +85,8 @@
     <string name="home_notice_board_sub_title">따끈따끈한 최신 게시글을 바로 확인해보세요!</string>
     <string name="home_more">더보기</string>
 
+    <!--  Home  -->
+    <string name="home_top_bar">님,\n솔직한 리뷰를 확인하고\n결정해보세요!</string>
 
     <!-- BottomSheet -->
     <string name="region_bottom_sheet_title">거주하는 지역을 선택해주세요</string>

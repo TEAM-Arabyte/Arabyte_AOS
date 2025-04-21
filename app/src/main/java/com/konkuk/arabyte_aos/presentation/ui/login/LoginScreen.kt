@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.konkuk.arabyte_aos.R
@@ -50,11 +53,15 @@ fun setLayoutLoginKakaoClickListener(
 
 @Composable
 fun LoginRoute(
+    navigateToHome: () -> Unit,
+    // navigateToSignUp: () -> Unit,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, _ ->
         if (oAuthToken != null) {
@@ -62,16 +69,32 @@ fun LoginRoute(
             viewModel.setKakaoAccessToken(oAuthToken.accessToken)
         }
     }
-    LoginScreen(modifier = modifier, innerPaddingValues = innerPaddingValues) {
-        setLayoutLoginKakaoClickListener(context = context, callback = callback)
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is LoginContract.LoginSideEffect.NavigateToHome -> navigateToHome()
+                    is LoginContract.LoginSideEffect.NavigateToSignUp -> {}
+                }
+            }
     }
+
+    LoginScreen(
+        loginButtonClicked = {
+            setLayoutLoginKakaoClickListener(context = context, callback = callback)
+            viewModel.setSideEffect(LoginContract.LoginSideEffect.NavigateToHome)
+        },
+        modifier = modifier,
+        innerPaddingValues = innerPaddingValues,
+    )
 }
 
 @Composable
 fun LoginScreen(
+    loginButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
-    loginButtonClicked: () -> Unit,
 ) {
     Box(
         modifier =

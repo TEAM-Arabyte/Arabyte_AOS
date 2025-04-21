@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.mypage
+package com.konkuk.arabyte_aos.presentation.ui.noticeboard
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,29 +9,31 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun MyPageRoute(
+fun NoticeBoardRoute(
     paddingValues: PaddingValues,
-    // navigateToMyInfoS : () -> Unit,
-    myPageViewModel: MyPageViewModel = hiltViewModel(),
+    // navigateToMyInfoScreen : ()->Unit,
+    modifier: Modifier = Modifier,
+    viewModel: NoticeBoardViewModel = hiltViewModel(),
 ) {
-    MyPageScreen(
+    NoticeBoardScreen(
         paddingValues = paddingValues,
-        myPageViewModel = myPageViewModel,
+        modifier = modifier,
+        viewModel = viewModel,
     )
 }
 
 @Composable
-fun MyPageScreen(
+fun NoticeBoardScreen(
     paddingValues: PaddingValues,
+    // navigateToMyInfoScreen : ()->Unit,
     modifier: Modifier = Modifier,
-    // navigateToMyInfoS : () -> Unit,
-    myPageViewModel: MyPageViewModel = hiltViewModel(),
+    viewModel: NoticeBoardViewModel = hiltViewModel(),
 ) {
     Column(
         modifier =
             modifier
                 .fillMaxSize(),
     ) {
-        Text(text = "MyScreen")
+        Text(text = "NoticeBoard")
     }
 }
