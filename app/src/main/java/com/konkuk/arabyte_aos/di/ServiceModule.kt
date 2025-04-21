@@ -9,20 +9,25 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
     @Provides
-    fun providesService(@Arabyte retrofit: Retrofit): DummyService =
+    fun providesService(
+        @Arabyte retrofit: Retrofit,
+    ): DummyService =
         retrofit.create(DummyService::class.java)
 
     @Provides
-    fun providesLocationsService(@Arabyte retrofit: Retrofit): LocationsService =
+    fun providesLocationsService(
+        @Arabyte retrofit: Retrofit,
+    ): LocationsService =
         retrofit.create(LocationsService::class.java)
 
     @Provides
-    fun providesAuthService(@Arabyte retrofit: Retrofit): AuthService =
+    fun providesAuthService(
+        @Arabyte retrofit: Retrofit,
+    ): AuthService =
         retrofit.create(AuthService::class.java)
 }

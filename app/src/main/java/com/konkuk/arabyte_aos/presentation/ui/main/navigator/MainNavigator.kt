@@ -13,6 +13,7 @@ import com.konkuk.arabyte_aos.presentation.ui.login.navigation.LoginRoute
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.navigationOnboarding
+import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.navigation.navigationReviewDetail
 import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.navigationReviewList
 import com.konkuk.arabyte_aos.presentation.ui.signup.navigation.navigationSignUp
 
@@ -58,6 +59,10 @@ class MainNavigator(
 
     fun navigateToOnboarding() {
         navHostController.navigationOnboarding()
+    }
+
+    fun navigateToReviewDetail() {
+        navHostController.navigationReviewDetail()
     }
 
     fun popBackStack() {

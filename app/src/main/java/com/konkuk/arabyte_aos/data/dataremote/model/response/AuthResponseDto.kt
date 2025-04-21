@@ -7,5 +7,5 @@ data class AuthResponseDto(
     val userId: Int,
     val accessToken: String,
     val refreshToken: String,
-    val isRegistered: Boolean
+    val isRegistered: Boolean,
 )

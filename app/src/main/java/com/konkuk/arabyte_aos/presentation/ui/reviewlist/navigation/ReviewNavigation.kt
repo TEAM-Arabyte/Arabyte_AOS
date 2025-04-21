@@ -20,7 +20,7 @@ fun NavController.navigationReviewList(
 
 fun NavGraphBuilder.reviewListNavGraph(
     paddingValues: PaddingValues,
-    // navigateToReviewDetailScreen : () -> Unit
+    navigateToReviewDetailScreen: () -> Unit,
 ) {
     composable(
         route = ReviewListRoute.ROUTE_WITH_ARGUMENT,
@@ -39,7 +39,8 @@ fun NavGraphBuilder.reviewListNavGraph(
                 ArabyteCategoryType.valueOf(categoryString ?: "")
             }.getOrNull()
         ReviewListRoute(
-            innerPaddingValues = paddingValues
+            innerPaddingValues = paddingValues,
+            navigateToReviewDetail = navigateToReviewDetailScreen,
         )
     }
 }

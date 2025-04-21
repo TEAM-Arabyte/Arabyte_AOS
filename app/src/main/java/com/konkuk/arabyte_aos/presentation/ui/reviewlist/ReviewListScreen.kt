@@ -46,6 +46,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ReviewListRoute(
     modifier: Modifier = Modifier,
+    navigateToReviewDetail: () -> Unit = {},
     viewModel: ReviewListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -93,6 +94,7 @@ fun ReviewListRoute(
         resetCategoryFilter = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetCategoryFilter)
         },
+        reviewItemClicked = { navigateToReviewDetail() },
     )
 }
 
@@ -114,6 +116,7 @@ fun ReviewListScreen(
     resetCategoryFilter: () -> Unit = {},
     categoryBottomSheetCompleteButtonClicked: () -> Unit = {},
     categoryChipClicked: (String) -> Unit = {},
+    reviewItemClicked: () -> Unit = {},
 ) {
     Box(
         modifier =
@@ -209,7 +212,7 @@ fun ReviewListScreen(
                         uiState.reviewList,
                         key = { it.reviewItemId },
                     ) { reviewItem ->
-                        ArabyteReviewItem(reviewItem)
+                        ArabyteReviewItem(reviewItem = reviewItem, modifier = Modifier.noRippleClickable(reviewItemClicked))
                     }
                 }
             }
