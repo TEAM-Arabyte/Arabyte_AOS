@@ -14,15 +14,18 @@ fun NavController.navigationHome() {
 
 fun NavGraphBuilder.homeNavGraph(
     paddingValues: PaddingValues,
-    navigateToReview: (ArabyteCategoryType?) -> Unit,
+    navigateToReviewList: (ArabyteCategoryType?) -> Unit,
     navigateToNoticeBoard: () -> Unit,
-    // MyProfileEditScreen, ReviewDetailScreen, BoardDetailScreen 등 추가
 ) {
     composable(route = HomeRoute.ROUTE) {
         HomeRoute(
-            paddingValues = paddingValues,
-            navigateToReview = navigateToReview,
-            navigateToNoticeBoard = navigateToNoticeBoard,
+            innerPaddingValues = paddingValues,
+            onNavigateToNoticeBoardDetail = {},
+            onNavigateToReviewList = {},
+            onNavigateToReviewDetail = {},
+            onNavigateToReviewCategory = {},
+            onNavigateToMyPage = {},
+            onNavigateToNoticeBoard = {},
         )
     }
 }
