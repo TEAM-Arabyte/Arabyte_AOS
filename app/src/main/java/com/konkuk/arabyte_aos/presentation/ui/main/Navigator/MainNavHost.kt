@@ -36,7 +36,7 @@ fun MainNavHost(
             )
             homeNavGraph(
                 paddingValues = paddingValues,
-                navigateToReview = navigator::navigateToReview,
+                navigateToReviewList = navigator::navigateToReview,
                 navigateToNoticeBoard = navigator::navigateToNoticeBoard,
             )
             reviewNavGraph(

@@ -21,7 +21,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.ReviewItem
-import com.konkuk.arabyte_aos.presentation.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.ArabyteLocationChip
 import com.konkuk.arabyte_aos.presentation.ui.reviewlist.component.ReviewCategoryChip
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
