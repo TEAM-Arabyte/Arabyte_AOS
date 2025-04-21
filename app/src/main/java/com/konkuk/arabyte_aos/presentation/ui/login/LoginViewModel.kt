@@ -28,6 +28,7 @@ constructor(
     }
 
     fun setKakaoAccessToken(accessToken: String) {
+        userInfoRepository.setAccessToken(accessToken)
         DebugLog.d("SetKakaoAccessToken", "accessToken= $accessToken")
         setEvent(LoginContract.LoginEvent.SetAuthToken(authTokenLoadState = LoadState.Success))
         viewModelScope.launch {

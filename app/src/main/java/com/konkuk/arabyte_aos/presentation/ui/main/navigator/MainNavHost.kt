@@ -53,7 +53,7 @@ fun MainNavHost(
             )
             signUpNavGraph(
                 paddingValues = paddingValues,
-                navigateToOnboarding = navigator::navigateToSignUp
+                navigateToOnboarding = navigator::navigateToOnboarding
             )
             onboardingNavGraph(
                 paddingValues = paddingValues,
