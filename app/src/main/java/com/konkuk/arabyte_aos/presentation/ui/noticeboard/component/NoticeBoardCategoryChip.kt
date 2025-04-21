@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboard.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun NoticeBoardCategoryChip(
     modifier: Modifier = Modifier,
-    categoryResId: Int,
+    @StringRes categoryResId: Int,
 ) {
     Row(
         modifier =
