@@ -5,7 +5,7 @@ sealed interface Route
 sealed interface MainNavigationBarRoute : Route {
     data object Home : MainNavigationBarRoute
 
-    data object Review : MainNavigationBarRoute
+    data object ReviewList : MainNavigationBarRoute
 
     data object NoticeBoard : MainNavigationBarRoute
 

@@ -42,7 +42,7 @@ class MainNavigator(
         }
     }
 
-    fun navigateToReview(arabyteCategoryType: ArabyteCategoryType?) {
+    fun navigateToReviewList(arabyteCategoryType: ArabyteCategoryType?) {
         navHostController.navigationReviewList(categoryType = arabyteCategoryType)
     }
 

@@ -20,7 +20,7 @@ enum class MainNavigationBarItemType(
     REVIEW(
         iconRes = R.drawable.ic_tabbar_review_23,
         label = R.string.bottom_nav_review,
-        route = MainNavigationBarRoute.Review,
+        route = MainNavigationBarRoute.ReviewList,
     ),
     NOTICEBOARD(
         iconRes = R.drawable.ic_tabbar_board_23,
