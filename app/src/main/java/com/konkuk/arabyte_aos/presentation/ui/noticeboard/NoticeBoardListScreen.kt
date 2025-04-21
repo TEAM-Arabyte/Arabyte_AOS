@@ -105,7 +105,7 @@ fun NoticeBoardListScreen(
                 }
             }
             Text(
-                text = "전체 ${uiState.noticeBoardCount}",
+                text = "전체 ${uiState.noticeBoardList.size}",
                 style = ArabyteTheme.typography.capMed11,
                 color = ArabyteTheme.colors.gray06,
                 modifier =
