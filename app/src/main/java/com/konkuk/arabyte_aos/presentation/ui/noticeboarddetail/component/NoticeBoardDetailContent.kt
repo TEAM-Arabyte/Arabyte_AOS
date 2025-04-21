@@ -9,14 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.konkuk.arabyte_aos.R
@@ -40,23 +39,24 @@ fun NoticeBoardDetailContent(
                 .background(color = ArabyteTheme.colors.white)
                 .padding(vertical = 11.dp, horizontal = 16.dp),
     ) {
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             if (writerProfileImage.isBlank()) {
                 Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.img_profile_default_male),
+                    painter = painterResource(R.drawable.img_profile_default_male),
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(28.dp),
                 )
             } else {
                 AsyncImage(
                     model = writerProfileImage,
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(28.dp),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(R.drawable.img_profile_default_anonymity),
                     error = painterResource(R.drawable.img_profile_default_anonymity),
                 )
             }
+            Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(text = writerNickname, style = ArabyteTheme.typography.capSemi11, color = ArabyteTheme.colors.gray07)
                 Text(text = writeDate, style = ArabyteTheme.typography.capMed9, color = ArabyteTheme.colors.gray05)
