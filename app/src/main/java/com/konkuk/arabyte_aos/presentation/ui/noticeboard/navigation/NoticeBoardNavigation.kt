@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.konkuk.arabyte_aos.presentation.ui.navigation.navigateBottomMain
-import com.konkuk.arabyte_aos.presentation.ui.noticeboard.NoticeBoardScreen
+import com.konkuk.arabyte_aos.presentation.ui.noticeboard.NoticeBoardListRoute
 
 fun NavController.navigationNoticeBoard() {
     navigateBottomMain(NoticeBoardRoute.ROUTE)
@@ -13,10 +13,12 @@ fun NavController.navigationNoticeBoard() {
 
 fun NavGraphBuilder.noticeboardNavGraph(
     paddingValues: PaddingValues,
+    navigateToNoticeBoardDetail: () -> Unit,
 ) {
     composable(route = NoticeBoardRoute.ROUTE) {
-        NoticeBoardScreen(
-            paddingValues = paddingValues,
+        NoticeBoardListRoute(
+            innerPaddingValues = paddingValues,
+            navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
         )
     }
 }

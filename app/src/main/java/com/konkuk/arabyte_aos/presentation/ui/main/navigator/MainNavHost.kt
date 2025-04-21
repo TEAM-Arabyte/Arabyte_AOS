@@ -52,6 +52,7 @@ fun MainNavHost(
             )
             noticeboardNavGraph(
                 paddingValues = paddingValues,
+                navigateToNoticeBoardDetail = navigator::navigateToNoticeBoardDetail,
             )
             myPageNavGraph(
                 paddingValues = paddingValues,
