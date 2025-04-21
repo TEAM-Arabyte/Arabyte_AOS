@@ -26,6 +26,8 @@ coilCompose = "2.3.0"
 appcompat = "1.7.0"
 kakao = "2.20.3"
 securityCryptoKtx = "1.1.0-alpha06"
+accompanistPager = "0.36.0"
+accompanistPagerIndicators = "0.36.0"
 
 
 
@@ -72,6 +74,8 @@ kakao-friend = { group = "com.kakao.sdk", name = "v2-friend", version.ref = "kak
 kakao-navi = { group = "com.kakao.sdk", name = "v2-navi", version.ref = "kakao" }
 kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" }
 androidx-security-crypto-ktx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "securityCryptoKtx" }
+accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

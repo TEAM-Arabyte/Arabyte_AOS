@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.noticeboard
+package com.konkuk.arabyte_aos.presentation.ui.review
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,33 +7,38 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
 
 @Composable
-fun NoticeBoardRoute(
+fun ReviewRoute(
     paddingValues: PaddingValues,
-    // navigateToMyInfoScreen : ()->Unit,
+    // navigateToReviewDetailScreen : () -> Unit
+    categoryType: ArabyteCategoryType?,
     modifier: Modifier = Modifier,
-    viewModel: NoticeBoardViewModel = hiltViewModel(),
+    viewModel: ReviewViewModel = hiltViewModel(),
 ) {
-    NoticeBoardScreen(
+    ReviewScreen(
         paddingValues = paddingValues,
         modifier = modifier,
+        categoryType = categoryType,
         viewModel = viewModel,
     )
 }
 
 @Composable
-fun NoticeBoardScreen(
+fun ReviewScreen(
     paddingValues: PaddingValues,
-    // navigateToMyInfoScreen : ()->Unit,
+    // navigateToReviewDetailScreen : () -> Unit
+    categoryType: ArabyteCategoryType?,
     modifier: Modifier = Modifier,
-    viewModel: NoticeBoardViewModel = hiltViewModel(),
+    viewModel: ReviewViewModel = hiltViewModel(),
 ) {
     Column(
         modifier =
             modifier
                 .fillMaxSize(),
     ) {
-        Text(text = "NoticeBoard")
+        Text("Review Screen")
+        Text("Category: ${categoryType?.name ?: "전체"}")
     }
 }
