@@ -48,8 +48,7 @@ class MainActivity : ComponentActivity() {
                     if (showSplash) {
                         SplashScreen(innerPaddingValues = innerPadding)
                     } else {
-//                        LoginRoute(innerPaddingValues = innerPadding)
-                        NoticeBoardDetailRoute(innerPaddingValues = innerPadding)
+                        LoginRoute(innerPaddingValues = innerPadding)
                     }
                 }
             }
