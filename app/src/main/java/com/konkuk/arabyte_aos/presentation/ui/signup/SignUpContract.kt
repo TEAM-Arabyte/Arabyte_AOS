@@ -28,7 +28,7 @@ class SignUpContract {
     ) : UiState
 
     sealed interface SignUpSideEffect : UiSideEffect {
-        data object DummySideEffect : SignUpSideEffect
+        data object NavigateToOnboarding : SignUpSideEffect
     }
 
     sealed class SignUpEvent : UiEvent {

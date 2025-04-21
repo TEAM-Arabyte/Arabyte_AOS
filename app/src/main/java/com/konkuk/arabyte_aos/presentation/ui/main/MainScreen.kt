@@ -10,9 +10,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.konkuk.arabyte_aos.presentation.type.MainNavigationBarItemType
 import com.konkuk.arabyte_aos.presentation.ui.component.navigator.MainBottomBar
-import com.konkuk.arabyte_aos.presentation.ui.main.Navigator.MainNavHost
-import com.konkuk.arabyte_aos.presentation.ui.main.Navigator.MainNavigator
-import com.konkuk.arabyte_aos.presentation.ui.main.Navigator.rememberMainNavigator
+import com.konkuk.arabyte_aos.presentation.ui.main.navigator.MainNavHost
+import com.konkuk.arabyte_aos.presentation.ui.main.navigator.MainNavigator
+import com.konkuk.arabyte_aos.presentation.ui.main.navigator.rememberMainNavigator
 
 @Composable
 fun MainScreen(

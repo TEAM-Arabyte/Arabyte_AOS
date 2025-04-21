@@ -1,7 +1,9 @@
 package com.konkuk.arabyte_aos.di
 
+import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import com.konkuk.arabyte_aos.data.dataremote.service.DummyService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
+import com.konkuk.arabyte_aos.di.qualifier.Arabyte
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,12 +15,14 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
     @Provides
-    @Singleton
-    fun providesService(retrofit: Retrofit): DummyService =
+    fun providesService(@Arabyte retrofit: Retrofit): DummyService =
         retrofit.create(DummyService::class.java)
 
     @Provides
-    @Singleton
-    fun providesLocationsService(retrofit: Retrofit): LocationsService =
+    fun providesLocationsService(@Arabyte retrofit: Retrofit): LocationsService =
         retrofit.create(LocationsService::class.java)
+
+    @Provides
+    fun providesAuthService(@Arabyte retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 }
