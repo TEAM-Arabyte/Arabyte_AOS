@@ -12,7 +12,7 @@ import com.konkuk.arabyte_aos.presentation.ui.login.navigation.loginNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.myPageNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.noticeboardNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.onboardingNavGraph
-import com.konkuk.arabyte_aos.presentation.ui.review.navigation.reviewNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.reviewListNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.signup.navigation.signUpNavGraph
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -42,7 +42,7 @@ fun MainNavHost(
                 navigateToReviewList = navigator::navigateToReview,
                 navigateToNoticeBoard = navigator::navigateToNoticeBoard,
             )
-            reviewNavGraph(
+            reviewListNavGraph(
                 paddingValues = paddingValues,
             )
             noticeboardNavGraph(
