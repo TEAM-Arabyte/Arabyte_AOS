@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.signup.component
+package com.konkuk.arabyte_aos.presentation.ui.component.location
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,7 +27,7 @@ import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
-fun SignUpLocationSidoList(
+fun ArabyteLocationSidoList(
     modifier: Modifier = Modifier,
     locationList: List<LocationData>,
     selectedItem: LocationData? = null,
@@ -71,7 +71,7 @@ fun SignUpLocationSidoList(
 }
 
 @Composable
-fun SignUpLocationDistrictList(
+fun ArabyteLocationDistrictList(
     modifier: Modifier = Modifier,
     locationList: List<LocationData>,
     selectedItem: LocationData? = null,
