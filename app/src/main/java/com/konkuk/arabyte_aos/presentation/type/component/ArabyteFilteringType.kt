@@ -10,14 +10,14 @@ enum class ArabyteFilteringType(
 ) {
     CHECK(
         imageDrawableRes = R.drawable.ic_all_auth_check_16,
-        stringRes = R.string.all_category_food,
+        stringRes = R.string.review_filtering_check,
     ),
     REGION(
         imageDrawableRes = R.drawable.ic_all_arrow_down_13,
-        stringRes = R.string.all_category_management,
+        stringRes = R.string.review_filtering_region,
     ),
     CATEGORY(
         imageDrawableRes = R.drawable.ic_all_arrow_down_13,
-        stringRes = R.string.all_category_service,
+        stringRes = R.string.review_filtering_category,
     ),
 }

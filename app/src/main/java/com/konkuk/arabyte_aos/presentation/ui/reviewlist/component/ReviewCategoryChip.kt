@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.review.component
+package com.konkuk.arabyte_aos.presentation.ui.reviewlist.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -36,7 +37,7 @@ fun ReviewCategoryChip(
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = category.toString(),
+            text = category,
             style = ArabyteTheme.typography.capSemi9,
             color = ArabyteTheme.colors.white,
         )

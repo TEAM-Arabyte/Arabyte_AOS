@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.component
 
-import android.R.attr.category
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,9 +20,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.ArabyteLocationChip
-import com.konkuk.arabyte_aos.presentation.ui.review.component.ReviewCategoryChip
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.component.ReviewCategoryChip
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -102,7 +102,7 @@ fun ArabyteReviewItem(
             overflow = TextOverflow.Ellipsis,
         )
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             ArabyteLocationChip(locationText = reviewItem.region)
             Spacer(Modifier.width(4.dp))
             ReviewCategoryChip(category = reviewItem.category)

@@ -35,7 +35,7 @@ fun ArabyteAddFloatingButton(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        Text(text = buttonText, color = ArabyteTheme.colors.white, style = ArabyteTheme.typography.bodySemi13)
+        Text(text = buttonText, color = ArabyteTheme.colors.white, style = ArabyteTheme.typography.bodySemi15)
         Spacer(modifier = Modifier.width(3.dp))
         Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_floating_button_plus_16), tint = Color.Unspecified, contentDescription = null)
     }

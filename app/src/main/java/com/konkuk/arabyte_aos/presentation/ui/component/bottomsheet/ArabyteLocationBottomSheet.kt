@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.signup.component
+package com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,11 +25,14 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNormalButton
+import com.konkuk.arabyte_aos.presentation.ui.component.location.ArabyteLocationDistrictList
+import com.konkuk.arabyte_aos.presentation.ui.component.location.ArabyteLocationSidoList
 import com.konkuk.arabyte_aos.presentation.util.SignUp.sidoFullName
+import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
-fun SignUpLocationBottomSheet(
+fun ArabyteLocationBottomSheet(
     modifier: Modifier = Modifier,
     bottomSheetClose: () -> Unit = {},
     completeButtonClicked: (String) -> Unit = {},
@@ -69,10 +72,11 @@ fun SignUpLocationBottomSheet(
                     shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
                     color = ArabyteTheme.colors.white,
                 )
+                .noRippleClickable { }
                 .padding(top = 19.dp),
     ) {
         Text(
-            stringResource(R.string.sign_up_bottom_sheet_title),
+            stringResource(R.string.region_bottom_sheet_title),
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -113,7 +117,7 @@ fun SignUpLocationBottomSheet(
                     .fillMaxWidth()
                     .height(380.dp),
         ) {
-            SignUpLocationSidoList(
+            ArabyteLocationSidoList(
                 modifier = Modifier.weight(92f),
                 locationList = sidoList,
                 selectedItem = selectedSido,
@@ -122,7 +126,7 @@ fun SignUpLocationBottomSheet(
                 },
             )
             VerticalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
-            SignUpLocationDistrictList(
+            ArabyteLocationDistrictList(
                 modifier = Modifier.weight(134f),
                 locationList = guList,
                 selectedItem = selectedGu,
@@ -131,7 +135,7 @@ fun SignUpLocationBottomSheet(
                 },
             )
             VerticalDivider(thickness = 1.dp, color = ArabyteTheme.colors.gray02)
-            SignUpLocationDistrictList(
+            ArabyteLocationDistrictList(
                 modifier = Modifier.weight(134f),
                 locationList = dongList,
                 selectedItem = selectedDong,
@@ -147,14 +151,14 @@ fun SignUpLocationBottomSheet(
                     .padding(horizontal = 16.dp, vertical = 10.dp),
         ) {
             ArabyteNormalButton(
-                buttonText = stringResource(R.string.sign_up_bottom_sheet_close),
+                buttonText = stringResource(R.string.all_bottom_sheet_close),
                 modifier = Modifier.weight(101f),
                 enabled = false,
                 buttonClicked = bottomSheetClose,
             )
             Spacer(modifier = Modifier.width(12.dp))
             ArabyteNormalButton(
-                buttonText = stringResource(R.string.sign_up_bottom_sheet_confirm),
+                buttonText = stringResource(R.string.all_bottom_sheet_confirm),
                 modifier = Modifier.weight(218f),
                 buttonClicked = {
                     if (fullLocationText.isNotEmpty()) completeButtonClicked(fullLocationText)
