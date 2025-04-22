@@ -21,7 +21,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
@@ -45,15 +47,26 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun SignUpRoute(
+    navigateToOnboarding: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(uiState.selectedAge, uiState.selectedGender, uiState.location) {
         if (uiState.selectedAge != null && uiState.selectedGender != null && uiState.location.isNotEmpty()) {
             viewModel.setEvent(SignUpContract.SignUpEvent.CompleteButtonEnabled)
         }
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is SignUpContract.SignUpSideEffect.NavigateToOnboarding -> navigateToOnboarding()
+                }
+            }
     }
 
     LaunchedEffect(Unit) {
@@ -96,7 +109,9 @@ fun SignUpRoute(
             )
 
         LoadState.Success ->
-            SignUpSuccessView(nickname = uiState.nickname, innerPaddingValues = innerPaddingValues)
+            SignUpSuccessView(nickname = uiState.nickname, innerPaddingValues = innerPaddingValues, navigateToOnboarding = {
+                viewModel.setSideEffect(SignUpContract.SignUpSideEffect.NavigateToOnboarding)
+            })
 
         else -> Unit
     }

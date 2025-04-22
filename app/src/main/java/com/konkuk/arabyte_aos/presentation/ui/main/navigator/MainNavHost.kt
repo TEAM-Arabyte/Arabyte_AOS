@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.main.Navigator
+package com.konkuk.arabyte_aos.presentation.ui.main.navigator
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,11 @@ import com.konkuk.arabyte_aos.presentation.ui.home.navigation.homeNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.login.navigation.loginNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.myPageNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.noticeboardNavGraph
-import com.konkuk.arabyte_aos.presentation.ui.review.navigation.reviewNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.noticeBoarDetailNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.onboardingNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.navigation.reviewDetailNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.reviewListNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.signup.navigation.signUpNavGraph
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -33,20 +37,37 @@ fun MainNavHost(
             loginNavGraph(
                 paddingValues = paddingValues,
                 navigateToHome = navigator::navigateToHome,
+                navigateSignUp = navigator::navigateToSignUp,
             )
             homeNavGraph(
                 paddingValues = paddingValues,
-                navigateToReviewList = navigator::navigateToReview,
+                navigateToReviewList = navigator::navigateToReviewList,
                 navigateToNoticeBoard = navigator::navigateToNoticeBoard,
             )
-            reviewNavGraph(
+            reviewDetailNavGraph(
                 paddingValues = paddingValues,
             )
+            reviewListNavGraph(
+                paddingValues = paddingValues,
+                navigateToReviewDetailScreen = navigator::navigateToReviewDetail,
+            )
             noticeboardNavGraph(
+                paddingValues = paddingValues,
+                navigateToNoticeBoardDetail = navigator::navigateToNoticeBoardDetail,
+            )
+            noticeBoarDetailNavGraph(
                 paddingValues = paddingValues,
             )
             myPageNavGraph(
                 paddingValues = paddingValues,
+            )
+            signUpNavGraph(
+                paddingValues = paddingValues,
+                navigateToOnboarding = navigator::navigateToOnboarding,
+            )
+            onboardingNavGraph(
+                paddingValues = paddingValues,
+                navigateToHome = navigator::navigateToHome,
             )
         }
     }

@@ -35,6 +35,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun NoticeBoardListRoute(
     modifier: Modifier = Modifier,
+    navigateToNoticeBoardDetail: () -> Unit = {},
     viewModel: NoticeBoardListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -43,6 +44,7 @@ fun NoticeBoardListRoute(
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
         addNoticeBoardButtonClicked = {},
+        navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
         modifier = modifier,
         uiState = uiState,
         innerPaddingValues = innerPaddingValues,
@@ -53,6 +55,7 @@ fun NoticeBoardListRoute(
 fun NoticeBoardListScreen(
     categoryOnClick: (ArabyteNoticeBoardCategoryType) -> Unit,
     addNoticeBoardButtonClicked: () -> Unit,
+    navigateToNoticeBoardDetail: () -> Unit = {},
     modifier: Modifier = Modifier,
     uiState: NoticeBoardListContract.NoticeBoardListUiState = NoticeBoardListContract.NoticeBoardListUiState(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
@@ -120,7 +123,10 @@ fun NoticeBoardListScreen(
                     items = uiState.noticeBoardList,
                     key = { it.noticeBoardItemId },
                 ) { noticeBoardItem ->
-                    ArabyteNoticeBoardItem(noticeBoardItem)
+                    ArabyteNoticeBoardItem(
+                        noticeBoardItem = noticeBoardItem,
+                        navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
+                    )
                 }
             }
         }

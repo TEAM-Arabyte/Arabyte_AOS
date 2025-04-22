@@ -28,6 +28,7 @@ kakao = "2.20.3"
 securityCryptoKtx = "1.1.0-alpha06"
 accompanistPager = "0.36.0"
 accompanistPagerIndicators = "0.36.0"
+playServicesAuth = "21.3.0"
 
 
 
@@ -76,6 +77,7 @@ kakao-cert = { group = "com.kakao.sdk", name = "v2-cert", version.ref = "kakao" 
 androidx-security-crypto-ktx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "securityCryptoKtx" }
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanistPager" }
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

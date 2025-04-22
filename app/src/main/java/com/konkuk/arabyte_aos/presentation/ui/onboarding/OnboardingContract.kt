@@ -17,7 +17,7 @@ class OnboardingContract {
     ) : UiState
 
     sealed interface OnboardingSideEffect : UiSideEffect {
-        data object DummySideEffect : OnboardingSideEffect
+        data object NavigateToHome : OnboardingSideEffect
     }
 
     sealed class OnboardingEvent : UiEvent {

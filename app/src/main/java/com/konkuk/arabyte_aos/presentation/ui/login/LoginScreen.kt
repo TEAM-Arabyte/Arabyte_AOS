@@ -54,7 +54,7 @@ fun setLayoutLoginKakaoClickListener(
 @Composable
 fun LoginRoute(
     navigateToHome: () -> Unit,
-    // navigateToSignUp: () -> Unit,
+    navigateToSignUp: () -> Unit,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     viewModel: LoginViewModel = hiltViewModel(),
@@ -75,7 +75,7 @@ fun LoginRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is LoginContract.LoginSideEffect.NavigateToHome -> navigateToHome()
-                    is LoginContract.LoginSideEffect.NavigateToSignUp -> {}
+                    is LoginContract.LoginSideEffect.NavigateToSignUp -> navigateToSignUp()
                 }
             }
     }
@@ -83,7 +83,8 @@ fun LoginRoute(
     LoginScreen(
         loginButtonClicked = {
             setLayoutLoginKakaoClickListener(context = context, callback = callback)
-            viewModel.setSideEffect(LoginContract.LoginSideEffect.NavigateToHome)
+//            viewModel.setSideEffect(LoginContract.LoginSideEffect.NavigateToHome)
+//            viewModel.setSideEffect(LoginContract.LoginSideEffect.NavigateToSignUp)
         },
         modifier = modifier,
         innerPaddingValues = innerPaddingValues,

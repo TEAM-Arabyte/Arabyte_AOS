@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.main.Navigator
+package com.konkuk.arabyte_aos.presentation.ui.main.navigator
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -12,14 +12,18 @@ import com.konkuk.arabyte_aos.presentation.ui.home.navigation.navigationHome
 import com.konkuk.arabyte_aos.presentation.ui.login.navigation.LoginRoute
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard
-import com.konkuk.arabyte_aos.presentation.ui.review.navigation.navigationReview
+import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.navigationNoticeBoardDetail
+import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.navigationOnboarding
+import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.navigation.navigationReviewDetail
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.navigationReviewList
+import com.konkuk.arabyte_aos.presentation.ui.signup.navigation.navigationSignUp
 
 class MainNavigator(
     val navHostController: NavHostController,
 ) {
     private val currentDestination: NavDestination?
         @Composable get() = navHostController.currentBackStackEntryAsState().value?.destination
-    val currentRoute: String?
+    private val currentRoute: String?
         @Composable get() = currentDestination?.route?.substringBefore("/")
     val currentMainNavigationBarItem: MainNavigationBarItemType?
         @Composable get() =
@@ -32,22 +36,38 @@ class MainNavigator(
     fun navigateMainNavigation(mainNavigationBarItemType: MainNavigationBarItemType) {
         when (mainNavigationBarItemType) {
             MainNavigationBarItemType.HOME -> navHostController.navigationHome()
-            MainNavigationBarItemType.REVIEW -> navHostController.navigationReview(categoryType = null)
+            MainNavigationBarItemType.REVIEW -> navHostController.navigationReviewList(categoryType = null)
             MainNavigationBarItemType.NOTICEBOARD -> navHostController.navigationNoticeBoard()
             MainNavigationBarItemType.MYPAGE -> navHostController.navigationMyPage()
         }
+    }
+
+    fun navigateToReviewList(arabyteCategoryType: ArabyteCategoryType?) {
+        navHostController.navigationReviewList(categoryType = arabyteCategoryType)
+    }
+
+    fun navigateToNoticeBoard() {
+        navHostController.navigationNoticeBoard()
     }
 
     fun navigateToHome() {
         navHostController.navigationHome()
     }
 
-    fun navigateToReview(arabyteCategoryType: ArabyteCategoryType?) {
-        navHostController.navigationReview(categoryType = arabyteCategoryType)
+    fun navigateToSignUp() {
+        navHostController.navigationSignUp()
     }
 
-    fun navigateToNoticeBoard() {
-        navHostController.navigationNoticeBoard()
+    fun navigateToOnboarding() {
+        navHostController.navigationOnboarding()
+    }
+
+    fun navigateToReviewDetail() {
+        navHostController.navigationReviewDetail()
+    }
+
+    fun navigateToNoticeBoardDetail() {
+        navHostController.navigationNoticeBoardDetail()
     }
 
     fun popBackStack() {

@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.login
 
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.repository.AuthRepository
 import com.konkuk.arabyte_aos.domain.repository.UserInfoRepository
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
@@ -14,6 +15,7 @@ class LoginViewModel
     @Inject
     constructor(
         private val userInfoRepository: UserInfoRepository,
+        private val authRepository: AuthRepository,
     ) : BaseViewModel<LoginContract.LoginUiState, LoginContract.LoginSideEffect, LoginContract.LoginEvent>() {
         override fun createInitialState(): LoginContract.LoginUiState = LoginContract.LoginUiState()
 
@@ -28,6 +30,20 @@ class LoginViewModel
             userInfoRepository.setAccessToken(accessToken)
             DebugLog.d("SetKakaoAccessToken", "accessToken= $accessToken")
             setEvent(LoginContract.LoginEvent.SetAuthToken(authTokenLoadState = LoadState.Success))
+            viewModelScope.launch {
+                authRepository.getAuthToken().onSuccess { response ->
+                    userInfoRepository.setAccessToken(response.accessToken)
+                    userInfoRepository.setRefreshToken(response.refreshToken)
+                    if (response.isRegistered) {
+                        setSideEffect(LoginContract.LoginSideEffect.NavigateToHome)
+                    } else {
+                        setSideEffect(LoginContract.LoginSideEffect.NavigateToSignUp)
+                    }
+                }
+                    .onFailure {
+                        setSideEffect(LoginContract.LoginSideEffect.NavigateToSignUp)
+                    }
+            }
         }
 
         fun getLogin() {

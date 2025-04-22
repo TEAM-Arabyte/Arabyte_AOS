@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +19,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.flowlayout.FlowRow
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
@@ -39,8 +42,19 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun OnBoardingRoute(
     viewModel: OnboardingViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
+    navigateToHome: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is OnboardingContract.OnboardingSideEffect.NavigateToHome -> navigateToHome()
+                }
+            }
+    }
 
     when (uiState.loadState) {
         LoadState.Idle ->
@@ -65,11 +79,11 @@ fun OnBoardingRoute(
                 OnboardingSuccessView(
                     innerPaddingValues = innerPaddingValues,
                     completeButtonClicked = {
-                        // TODO: 홈 화면으로 이동
+                        viewModel.setSideEffect(OnboardingContract.OnboardingSideEffect.NavigateToHome)
                     },
                 )
             } else {
-                // TODO: 홈 화면으로 이동
+                viewModel.setSideEffect(OnboardingContract.OnboardingSideEffect.NavigateToHome)
             }
         }
         else -> Unit

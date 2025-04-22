@@ -105,7 +105,7 @@ fun HomeScreenContent(
         uiState.noticeBoardItem.forEachIndexed { index, item ->
             ArabyteNoticeBoardItem(
                 noticeBoardItem = item,
-                navigateToReviewDetail = {},
+                navigateToNoticeBoardDetail = {},
             )
         }
     }
