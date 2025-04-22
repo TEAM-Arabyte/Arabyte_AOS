@@ -32,6 +32,11 @@ class UserInfoRepositoryImpl
                 )
             }
 
+        override suspend fun deleteUser(): Result<Unit> =
+            kotlin.runCatching {
+                useInfoRemoteDataSource.deleteUser()
+            }
+
         override fun clear() {
             userInfoLocalDataSource.clear()
         }

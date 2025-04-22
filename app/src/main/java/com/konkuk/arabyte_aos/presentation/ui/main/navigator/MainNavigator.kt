@@ -10,6 +10,7 @@ import com.konkuk.arabyte_aos.presentation.type.MainNavigationBarItemType
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.home.navigation.navigationHome
 import com.konkuk.arabyte_aos.presentation.ui.login.navigation.LoginRoute
+import com.konkuk.arabyte_aos.presentation.ui.login.navigation.navigationLogin
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.navigationNoticeBoardDetail
@@ -68,6 +69,10 @@ class MainNavigator(
 
     fun navigateToNoticeBoardDetail() {
         navHostController.navigationNoticeBoardDetail()
+    }
+
+    fun navigateToLogin() {
+        navHostController.navigationLogin()
     }
 
     fun popBackStack() {

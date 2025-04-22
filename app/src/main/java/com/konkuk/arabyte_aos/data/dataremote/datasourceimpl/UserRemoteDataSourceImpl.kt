@@ -14,4 +14,6 @@ class UserRemoteDataSourceImpl
             service.postOnboarding(
                 onboardingRequestDto = postOnboardingRequestDto,
             )
+
+        override suspend fun deleteUser() = service.deleteUser()
     }

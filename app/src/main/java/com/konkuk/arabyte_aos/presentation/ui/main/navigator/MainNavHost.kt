@@ -60,6 +60,7 @@ fun MainNavHost(
             )
             myPageNavGraph(
                 paddingValues = paddingValues,
+                navigateToLogin = navigator::navigateToLogin,
             )
             signUpNavGraph(
                 paddingValues = paddingValues,

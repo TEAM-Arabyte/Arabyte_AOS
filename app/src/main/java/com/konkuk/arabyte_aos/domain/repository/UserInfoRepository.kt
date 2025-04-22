@@ -13,5 +13,7 @@ interface UserInfoRepository {
 
     suspend fun postOnboarding(userOnboardingInfo: UserOnboardingInfo): Result<Unit>
 
+    suspend fun deleteUser(): Result<Unit>
+
     fun clear()
 }

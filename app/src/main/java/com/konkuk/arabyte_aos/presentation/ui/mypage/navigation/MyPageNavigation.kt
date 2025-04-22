@@ -13,10 +13,12 @@ fun NavController.navigationMyPage() {
 
 fun NavGraphBuilder.myPageNavGraph(
     paddingValues: PaddingValues,
+    navigateToLogin: () -> Unit,
 ) {
     composable(route = MyPageRoute.ROUTE) {
         MyPageRoute(
             paddingValues = paddingValues,
+            navigateToLogin = navigateToLogin,
         )
     }
 }
