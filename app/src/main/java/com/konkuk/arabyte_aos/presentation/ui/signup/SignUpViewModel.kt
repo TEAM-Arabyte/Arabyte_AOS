@@ -73,23 +73,22 @@ constructor(
     private fun completeButtonClicked() {
         when (currentState.signUpType) {
             SignUpType.FIRST -> {
-                
+
                 setState { copy(signUpType = SignUpType.SECOND, buttonEnabled = false) }
             }
 
             SignUpType.SECOND -> {
                 setState { copy(loadState = LoadState.Loading) }
-
                 viewModelScope.launch {
                     patchUserInfoUseCase(
                         nickname = currentState.nickname,
                         ageRange = currentState.selectedAge!!,
                         gender = currentState.selectedGender!!,
                         locationId = (
-                                currentState.selectedDong?.locationCode
-                                    ?: currentState.selectedGu?.locationCode
-                                    ?: currentState.selectedSido?.locationCode
-                                )!!.toInt()
+                                currentState.selectedDong?.id
+                                    ?: currentState.selectedGu?.id
+                                    ?: currentState.selectedSido?.id
+                                )!!
                     ).onSuccess {
                         setState { copy(loadState = LoadState.Success) }
                     }.onFailure {
