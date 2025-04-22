@@ -2,10 +2,12 @@ package com.konkuk.arabyte_aos.presentation.ui.signup
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
+import com.konkuk.arabyte_aos.domain.usecase.user.GetNicknameCheckUseCase
 import com.konkuk.arabyte_aos.domain.usecase.user.PatchUserInfoUseCase
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
@@ -23,6 +25,7 @@ class SignUpViewModel
         private val getGuUseCase: GetGuUseCase,
         private val getDongUseCase: GetDongUseCase,
         private val patchUserInfoUseCase: PatchUserInfoUseCase,
+        private val getNicknameCheckUseCase: GetNicknameCheckUseCase
     ) : BaseViewModel<SignUpContract.SignUpUiState, SignUpContract.SignUpSideEffect, SignUpContract.SignUpEvent>() {
         override fun createInitialState(): SignUpContract.SignUpUiState = SignUpContract.SignUpUiState()
 
@@ -72,7 +75,16 @@ class SignUpViewModel
         private fun completeButtonClicked() {
             when (currentState.signUpType) {
                 SignUpType.FIRST -> {
-                    setState { copy(signUpType = SignUpType.SECOND, buttonEnabled = false) }
+                    viewModelScope.launch {
+                        getNicknameCheckUseCase(nickname = currentState.nickname).onSuccess { response ->
+                            if (response.isDuplicate){
+                                setSideEffect(SignUpContract.SignUpSideEffect.NicknameDuplicatedToast)
+                            }
+                            else{
+                                setState { copy(loadState = LoadState.Success) }
+                            }
+                        }
+                    }
                 }
                 SignUpType.SECOND -> {
                     setState { copy(loadState = LoadState.Loading) }

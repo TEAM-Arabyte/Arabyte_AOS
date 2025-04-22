@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -40,6 +41,7 @@ import com.konkuk.arabyte_aos.presentation.util.SignUp.SECOND_KEYWORD
 import com.konkuk.arabyte_aos.presentation.util.SignUp.SLASH_TWO
 import com.konkuk.arabyte_aos.presentation.util.SignUp.TWO_SLASH_TWO
 import com.konkuk.arabyte_aos.presentation.util.SignUp.errorMessageList
+import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
@@ -51,6 +53,7 @@ fun SignUpRoute(
     viewModel: SignUpViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -65,6 +68,7 @@ fun SignUpRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is SignUpContract.SignUpSideEffect.NavigateToOnboarding -> navigateToOnboarding()
+                    SignUpContract.SignUpSideEffect.NicknameDuplicatedToast -> context.arabyteToastMessage(R.string.toast_message_nickname_duplicated)
                 }
             }
     }
