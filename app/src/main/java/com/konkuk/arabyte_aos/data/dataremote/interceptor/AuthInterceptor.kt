@@ -68,7 +68,7 @@ class AuthInterceptor
         private fun Request.newAuthBuilder(): Request {
             val token = localStorage.accessToken
 
-            DebugLog.d("ㅋㅋ", " 토큰: $token")
+            DebugLog.d("AuthInterceptor", " 토큰: $token")
             val formattedToken = if (token.contains(BEARER)) token else "$BEARER$token"
 
             return this.newBuilder()

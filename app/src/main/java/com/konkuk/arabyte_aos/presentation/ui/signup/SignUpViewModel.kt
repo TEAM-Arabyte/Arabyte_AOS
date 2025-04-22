@@ -10,6 +10,7 @@ import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
 import com.konkuk.arabyte_aos.domain.usecase.user.PatchUserInfoUseCase
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
+import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -73,13 +74,15 @@ constructor(
     private fun completeButtonClicked() {
         when (currentState.signUpType) {
             SignUpType.FIRST -> {
-
                 setState { copy(signUpType = SignUpType.SECOND, buttonEnabled = false) }
             }
 
             SignUpType.SECOND -> {
-                setState { copy(loadState = LoadState.Loading) }
+                DebugLog.d("ㅋㅋ","눌렸나")
                 viewModelScope.launch {
+                    DebugLog.d("ㅋㅋ","실행, current State nickname: ${currentState.nickname}, ageRange: ${currentState.selectedAge}, selectedGender: ${currentState.selectedGender}, locationId: ${currentState.selectedDong?.id
+                        ?: currentState.selectedGu?.id
+                        ?: currentState.selectedSido?.id!!}")
                     patchUserInfoUseCase(
                         nickname = currentState.nickname,
                         ageRange = currentState.selectedAge!!,
@@ -90,9 +93,11 @@ constructor(
                                     ?: currentState.selectedSido?.id
                                 )!!
                     ).onSuccess {
+                        DebugLog.d("ㅋㅋ","성공")
                         setState { copy(loadState = LoadState.Success) }
                     }.onFailure {
-                            setState { copy(loadState = LoadState.Error) }
+                        DebugLog.d("ㅋㅋ","실패")
+                        setState { copy(loadState = LoadState.Error) }
                         }
                 }
             }
