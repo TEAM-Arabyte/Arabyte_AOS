@@ -10,4 +10,7 @@ object ApiConstraints {
 
     // Locations
     const val LOCATIONS = "locations"
+
+    // User
+    const val USERS = "users"
 }

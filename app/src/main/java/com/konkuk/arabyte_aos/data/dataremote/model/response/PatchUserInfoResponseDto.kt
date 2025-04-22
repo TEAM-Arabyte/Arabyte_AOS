@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PatchUserInfoResponseDto(
     val isRegistered: Boolean,
-    val userId: Int
-    )
+    val userId: Int,
+)

@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.onboarding
 
+import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.type.view.OnboardingType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
@@ -13,7 +14,7 @@ class OnboardingContract {
         val buttonEnabled: Boolean = false,
         val careerYear: String = "",
         val careerMonth: String = "",
-        val selectedCategories: List<String> = emptyList(),
+        val selectedCategories: List<ArabyteJobCategory> = emptyList(),
     ) : UiState
 
     sealed interface OnboardingSideEffect : UiSideEffect {
@@ -27,6 +28,6 @@ class OnboardingContract {
 
         data class ChangeCareerMonthValue(val month: String) : OnboardingEvent()
 
-        data class SelectJobCategory(val category: String) : OnboardingEvent()
+        data class SelectJobCategory(val category: ArabyteJobCategory) : OnboardingEvent()
     }
 }

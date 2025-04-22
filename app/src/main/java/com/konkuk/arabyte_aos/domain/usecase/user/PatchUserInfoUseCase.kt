@@ -7,18 +7,23 @@ import javax.inject.Singleton
 
 @Singleton
 class PatchUserInfoUseCase
-@Inject
-constructor(
-    private val authRepository: AuthRepository
-) {
-    suspend operator fun invoke(nickname: String, ageRange: String, gender: String, locationId: Int): Result<Unit> {
-        return authRepository.patchUserInfo(
-            RegisterUserInfo(
-                nickname = nickname,
-                ageRange = ageRange,
-                gender = gender,
-                locationId = locationId
+    @Inject
+    constructor(
+        private val authRepository: AuthRepository,
+    ) {
+        suspend operator fun invoke(
+            nickname: String,
+            ageRange: String,
+            gender: String,
+            locationId: Int,
+        ): Result<Unit> {
+            return authRepository.patchUserInfo(
+                RegisterUserInfo(
+                    nickname = nickname,
+                    ageRange = ageRange,
+                    gender = gender,
+                    locationId = locationId,
+                ),
             )
-        )
+        }
     }
-}

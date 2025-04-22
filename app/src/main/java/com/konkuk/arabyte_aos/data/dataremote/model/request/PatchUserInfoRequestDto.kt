@@ -7,5 +7,5 @@ data class PatchUserInfoRequestDto(
     val nickname: String,
     val ageRange: String,
     val gender: String,
-    val locationId: Int
+    val locationId: Int,
 )

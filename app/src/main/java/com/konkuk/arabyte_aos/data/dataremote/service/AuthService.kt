@@ -12,6 +12,8 @@ interface AuthService {
     @POST("/$AUTH/kakao/authorize")
     suspend fun getAuthToken(): AuthResponseDto
 
-    @PATCH("/auth/register")
-    suspend fun patchUserInfo(@Body registerRequestDto: PatchUserInfoRequestDto): PatchUserInfoResponseDto
+    @PATCH("/$AUTH/register")
+    suspend fun patchUserInfo(
+        @Body registerRequestDto: PatchUserInfoRequestDto,
+    ): PatchUserInfoResponseDto
 }

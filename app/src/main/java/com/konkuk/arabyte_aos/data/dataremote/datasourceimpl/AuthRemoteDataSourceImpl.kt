@@ -8,13 +8,14 @@ import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import javax.inject.Inject
 
 class AuthRemoteDataSourceImpl
-@Inject
-constructor(
-    private val service: AuthService,
-) : AuthRemoteDataSource {
-    override suspend fun getAuthToken(): AuthResponseDto = service.getAuthToken()
+    @Inject
+    constructor(
+        private val service: AuthService,
+    ) : AuthRemoteDataSource {
+        override suspend fun getAuthToken(): AuthResponseDto = service.getAuthToken()
 
-    override suspend fun patchUserInfo(registerRequestDto: PatchUserInfoRequestDto): PatchUserInfoResponseDto = service.patchUserInfo(
-        registerRequestDto = registerRequestDto
-    )
-}
+        override suspend fun patchUserInfo(registerRequestDto: PatchUserInfoRequestDto): PatchUserInfoResponseDto =
+            service.patchUserInfo(
+                registerRequestDto = registerRequestDto,
+            )
+    }

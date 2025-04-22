@@ -16,8 +16,10 @@ class AuthRepositoryImpl
         override suspend fun getAuthToken(): Result<Auth> =
             runCatching { authRemoteDataSource.getAuthToken().toDomainModel() }
 
-    override suspend fun patchUserInfo(registerUserInfo: RegisterUserInfo): Result<Unit> =
-        runCatching { authRemoteDataSource.patchUserInfo(
-            registerRequestDto = registerUserInfo.toData()
-        ) }
+        override suspend fun patchUserInfo(registerUserInfo: RegisterUserInfo): Result<Unit> =
+            runCatching {
+                authRemoteDataSource.patchUserInfo(
+                    registerRequestDto = registerUserInfo.toData(),
+                )
+            }
     }

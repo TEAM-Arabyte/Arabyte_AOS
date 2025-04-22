@@ -7,9 +7,11 @@ import com.konkuk.arabyte_aos.data.datalocal.datasourceimpl.UserInfoLocalDataSou
 import com.konkuk.arabyte_aos.data.dataremote.datasource.AuthRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.DummyRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.LocationsRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.datasource.UserRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.AuthRemoteDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.DummyRemoteDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.LocationsRemoteDataSourceImpl
+import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.UserRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -30,6 +32,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsUserInfoLocalDataSource(userInfoLocalDataSourceImpl: UserInfoLocalDataSourceImpl): UserInfoLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserRemoteDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
 
     @Binds
     @Singleton
