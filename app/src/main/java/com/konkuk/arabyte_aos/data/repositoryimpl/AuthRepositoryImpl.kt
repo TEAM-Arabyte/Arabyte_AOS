@@ -13,4 +13,12 @@ class AuthRepositoryImpl
     ) : AuthRepository {
         override suspend fun getAuthToken(): Result<Auth> =
             runCatching { authRemoteDataSource.getAuthToken().toDomainModel() }
+
+    override suspend fun patchUserInfo(nickname: String, ageRange: String, gender: String, locationId: Int): Result<Unit> =
+        runCatching { authRemoteDataSource.patchUserInfo(
+            nickname = nickname,
+            ageRange = ageRange,
+            gender = gender,
+            locationId = locationId
+        ) }
     }
