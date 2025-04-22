@@ -25,11 +25,12 @@ class UserInfoRepositoryImpl
 
         override fun getRefreshToken(): String = userInfoLocalDataSource.refreshToken
 
-        override suspend fun postOnboarding(userOnboardingInfo: UserOnboardingInfo): Result<Unit> = runCatching {
-            useInfoRemoteDataSource.postOnboarding(
-                postOnboardingRequestDto = userOnboardingInfo.toData(),
-            )
-        }
+        override suspend fun postOnboarding(userOnboardingInfo: UserOnboardingInfo): Result<Unit> =
+            runCatching {
+                useInfoRemoteDataSource.postOnboarding(
+                    postOnboardingRequestDto = userOnboardingInfo.toData(),
+                )
+            }
 
         override fun clear() {
             userInfoLocalDataSource.clear()

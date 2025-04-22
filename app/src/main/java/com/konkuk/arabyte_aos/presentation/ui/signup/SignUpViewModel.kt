@@ -9,7 +9,6 @@ import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
 import com.konkuk.arabyte_aos.domain.usecase.user.PatchUserInfoUseCase
 import com.konkuk.arabyte_aos.presentation.type.view.SignUpType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
-import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 import dagger.hilt.android.lifecycle.HiltViewModel

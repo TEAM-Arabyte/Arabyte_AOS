@@ -7,5 +7,5 @@ fun UserOnboardingInfo.toData(): PostOnboardingRequestDto =
     PostOnboardingRequestDto(
         experienceYears = this.experienceYears,
         experienceMonths = this.experienceMonths,
-        jobInterests = this.jobInterests.map { it.name }
+        jobInterests = this.jobInterests.map { it.name },
     )
