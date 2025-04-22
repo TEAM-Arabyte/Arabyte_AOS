@@ -5,6 +5,6 @@ import com.konkuk.arabyte_aos.domain.model.NicknameCheck
 
 fun GetCheckNicknameResponseDto?.toDomainModel(): NicknameCheck {
     return NicknameCheck(
-        isDuplicate = this?.isDuplicate ?: true
+        isDuplicate = this?.isDuplicate ?: true,
     )
 }

@@ -2,7 +2,6 @@ package com.konkuk.arabyte_aos.presentation.ui.signup
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
@@ -25,7 +24,7 @@ class SignUpViewModel
         private val getGuUseCase: GetGuUseCase,
         private val getDongUseCase: GetDongUseCase,
         private val patchUserInfoUseCase: PatchUserInfoUseCase,
-        private val getNicknameCheckUseCase: GetNicknameCheckUseCase
+        private val getNicknameCheckUseCase: GetNicknameCheckUseCase,
     ) : BaseViewModel<SignUpContract.SignUpUiState, SignUpContract.SignUpSideEffect, SignUpContract.SignUpEvent>() {
         override fun createInitialState(): SignUpContract.SignUpUiState = SignUpContract.SignUpUiState()
 
@@ -77,12 +76,13 @@ class SignUpViewModel
                 SignUpType.FIRST -> {
                     viewModelScope.launch {
                         getNicknameCheckUseCase(nickname = currentState.nickname).onSuccess { response ->
-                            if (response.isDuplicate){
-                                setSideEffect(SignUpContract.SignUpSideEffect.NicknameDuplicatedToast)
-                            }
-                            else{
-                                setState { copy(loadState = LoadState.Success) }
-                            }
+                            if (response.isDuplicate)
+                                {
+                                    setSideEffect(SignUpContract.SignUpSideEffect.NicknameDuplicatedToast)
+                                } else
+                                {
+                                    setState { copy(loadState = LoadState.Success) }
+                                }
                         }
                     }
                 }

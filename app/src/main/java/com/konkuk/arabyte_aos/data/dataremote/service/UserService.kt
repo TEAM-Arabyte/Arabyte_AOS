@@ -21,6 +21,6 @@ interface UserService {
 
     @GET("/$USERS/nickname/check")
     suspend fun getCheckNickname(
-        @Query("nickname") nickname:String
-    ):Response<GetCheckNicknameResponseDto>
+        @Query("nickname") nickname: String,
+    ): Response<GetCheckNicknameResponseDto>
 }

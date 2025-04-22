@@ -12,7 +12,7 @@ import com.konkuk.arabyte_aos.R
 
 fun Context.arabyteToastMessage(
     @StringRes messageResId: Int,
-    length: Int = Toast.LENGTH_SHORT
+    length: Int = Toast.LENGTH_SHORT,
 ) {
     val layoutInflater = LayoutInflater.from(this)
     val layout = layoutInflater.inflate(R.layout.arabyte_toast, null)
@@ -20,15 +20,17 @@ fun Context.arabyteToastMessage(
     val textView = layout.findViewById<TextView>(R.id.arabyte_toast_message)
     textView.text = this.getString(messageResId)
 
-    val toastContainer = FrameLayout(this).apply {
-        setPadding(16, 0, 16, 0)
-        addView(layout)
-    }
+    val toastContainer =
+        FrameLayout(this).apply {
+            setPadding(16, 0, 16, 0)
+            addView(layout)
+        }
 
-    val toast = Toast(this).apply {
-        duration = length
-        view = toastContainer
-    }
+    val toast =
+        Toast(this).apply {
+            duration = length
+            view = toastContainer
+        }
 
     val yOffsetDp = 12
     val yOffsetPx = (yOffsetDp * this.resources.displayMetrics.density).toInt()
@@ -36,17 +38,19 @@ fun Context.arabyteToastMessage(
 
     toast.show()
 
-    val toastDurationMs = when (length) {
-        Toast.LENGTH_SHORT -> 2000L
-        Toast.LENGTH_LONG -> 3500L
-        else -> 2000L
-    }
+    val toastDurationMs =
+        when (length) {
+            Toast.LENGTH_SHORT -> 2000L
+            Toast.LENGTH_LONG -> 3500L
+            else -> 2000L
+        }
 
     layout.postDelayed({
-        val slideUp = TranslateAnimation(0f, 0f, 0f, -layout.height.toFloat()).apply {
-            duration = 500L
-            fillAfter = true
-        }
+        val slideUp =
+            TranslateAnimation(0f, 0f, 0f, -layout.height.toFloat()).apply {
+                duration = 500L
+                fillAfter = true
+            }
         layout.startAnimation(slideUp)
     }, toastDurationMs - 500L)
 }

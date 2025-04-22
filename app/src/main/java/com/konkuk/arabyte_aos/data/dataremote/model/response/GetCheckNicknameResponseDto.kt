@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetCheckNicknameResponseDto(
-    val isDuplicate: Boolean
+    val isDuplicate: Boolean,
 )

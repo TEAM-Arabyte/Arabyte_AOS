@@ -8,17 +8,16 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class UserRemoteDataSourceImpl
-@Inject
-constructor(
-    private val service: UserService,
-) : UserRemoteDataSource {
-    override suspend fun postOnboarding(postOnboardingRequestDto: PostOnboardingRequestDto) =
-        service.postOnboarding(
-            onboardingRequestDto = postOnboardingRequestDto,
-        )
+    @Inject
+    constructor(
+        private val service: UserService,
+    ) : UserRemoteDataSource {
+        override suspend fun postOnboarding(postOnboardingRequestDto: PostOnboardingRequestDto) =
+            service.postOnboarding(
+                onboardingRequestDto = postOnboardingRequestDto,
+            )
 
-    override suspend fun deleteUser() = service.deleteUser()
+        override suspend fun deleteUser() = service.deleteUser()
 
-    override suspend fun getNicknameCheck(nickname: String): Response<GetCheckNicknameResponseDto> = service.getCheckNickname(nickname = nickname)
-
-}
+        override suspend fun getNicknameCheck(nickname: String): Response<GetCheckNicknameResponseDto> = service.getCheckNickname(nickname = nickname)
+    }

@@ -9,5 +9,5 @@ interface UserRemoteDataSource {
 
     suspend fun deleteUser()
 
-    suspend fun getNicknameCheck(nickname:String) : Response<GetCheckNicknameResponseDto>
+    suspend fun getNicknameCheck(nickname: String): Response<GetCheckNicknameResponseDto>
 }
