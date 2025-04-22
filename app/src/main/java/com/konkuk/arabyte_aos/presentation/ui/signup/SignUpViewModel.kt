@@ -76,13 +76,11 @@ class SignUpViewModel
                 SignUpType.FIRST -> {
                     viewModelScope.launch {
                         getNicknameCheckUseCase(nickname = currentState.nickname).onSuccess { response ->
-                            if (response.isDuplicate)
-                                {
-                                    setSideEffect(SignUpContract.SignUpSideEffect.NicknameDuplicatedToast)
-                                } else
-                                {
-                                    setState { copy(loadState = LoadState.Success) }
-                                }
+                            if (response.isDuplicate) {
+                                setSideEffect(SignUpContract.SignUpSideEffect.NicknameDuplicatedToast)
+                            } else {
+                                setState { copy(loadState = LoadState.Success) }
+                            }
                         }
                     }
                 }
