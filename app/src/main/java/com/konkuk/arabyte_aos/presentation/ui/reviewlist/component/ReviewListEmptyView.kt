@@ -26,7 +26,7 @@ fun ReviewListEmptyView(modifier: Modifier = Modifier) {
         Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_review_empty_100), contentDescription = null, tint = Color.Unspecified, modifier = Modifier.size(182.dp))
         Text(text = stringResource(R.string.review_list_empty_main_title), color = ArabyteTheme.colors.gray06, style = ArabyteTheme.typography.bodyBold15)
         Text(text = stringResource(R.string.review_list_empty_sub_title), color = ArabyteTheme.colors.gray04, style = ArabyteTheme.typography.bodyMed13)
-        Spacer(modifier = Modifier.weight(226f))
+        Spacer(modifier = Modifier.weight(187f))
     }
 }
 

@@ -118,7 +118,9 @@ fun NoticeBoardListScreen(
                         .padding(start = 17.dp, top = 15.dp, bottom = 8.dp),
             )
 
-            if (uiState.noticeBoardList.isNotEmpty()) {
+            if (uiState.noticeBoardList.isEmpty()) {
+                NoticeBoardEmptyView()
+            } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                 ) {
@@ -132,8 +134,6 @@ fun NoticeBoardListScreen(
                         )
                     }
                 }
-            } else {
-                NoticeBoardEmptyView()
             }
         }
         ArabyteAddFloatingButton(
