@@ -38,7 +38,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteCateg
 import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteFilteringButton
-import com.konkuk.arabyte_aos.presentation.ui.component.view.ArabyteEmptyView
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.component.ReviewListEmptyView
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -198,7 +198,7 @@ fun ReviewListScreen(
                 }
             }
             if (uiState.listSize == 0) {
-                ArabyteEmptyView()
+                ReviewListEmptyView()
             } else {
                 Spacer(modifier = Modifier.height(15.dp))
                 Text(
