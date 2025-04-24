@@ -29,6 +29,7 @@
     <string name="button_like">공감</string>
     <string name="button_check">근로계약서 인증하기</string>
     <string name="button_add_review">리뷰 작성하기</string>
+    <string name="button_add_notice_board">글쓰기</string>
 
     <!--  Filtering  -->
     <string name="review_filtering_check">근로계약서 인증</string>

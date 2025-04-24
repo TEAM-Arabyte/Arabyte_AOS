@@ -197,15 +197,15 @@ fun ReviewListScreen(
                     }
                 }
             }
-            if (uiState.listSize == 0) {
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "전체 ${uiState.reviewList.size}",
+                style = ArabyteTheme.typography.capMed11,
+                color = ArabyteTheme.colors.gray06,
+            )
+            if (uiState.reviewList.isEmpty()) {
                 ReviewListEmptyView()
             } else {
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    text = "전체 ${uiState.listSize}",
-                    style = ArabyteTheme.typography.capMed11,
-                    color = ArabyteTheme.colors.gray06,
-                )
                 Spacer(modifier = Modifier.height(11.dp))
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(11.dp)) {
                     items(
@@ -221,7 +221,7 @@ fun ReviewListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 82.dp, end = 16.dp),
+                    .padding(bottom = 21.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addReviewButtonClicked,
         )

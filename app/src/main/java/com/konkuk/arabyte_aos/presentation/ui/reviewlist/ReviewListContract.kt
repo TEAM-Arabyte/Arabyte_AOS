@@ -10,7 +10,6 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 class ReviewListContract {
     data class ReviewListUiState(
         val loadState: LoadState = LoadState.Idle,
-        val listSize: Int = 10,
         val certifiedFilterSelected: Boolean = false,
         val selectedRegion: String = "",
         val selectedCategory: String = "",
