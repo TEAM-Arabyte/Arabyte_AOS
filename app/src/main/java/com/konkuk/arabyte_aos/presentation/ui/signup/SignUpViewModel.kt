@@ -79,7 +79,7 @@ class SignUpViewModel
                             if (response.isDuplicate) {
                                 setSideEffect(SignUpContract.SignUpSideEffect.NicknameDuplicatedToast)
                             } else {
-                                setState { copy(loadState = LoadState.Success) }
+                                setState { copy(signUpType = SignUpType.SECOND, buttonEnabled = false) }
                             }
                         }
                     }
