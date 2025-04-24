@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun NoticeBoardDetailCommentEmptyView(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(60.dp))
         Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_comment_empty_47), contentDescription = null, tint = Color.Unspecified)
         Spacer(modifier = Modifier.height(18.dp))
         Text(text = stringResource(R.string.board_comment_empty), color = ArabyteTheme.colors.gray05, style = ArabyteTheme.typography.bodySemi13)
