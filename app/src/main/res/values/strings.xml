@@ -17,9 +17,12 @@
     <string name="all_category_education">교육/강사</string>
     <string name="all_category_office">사무직</string>
 
+    <!--  Notice Board -->
     <string name="notice_board_category_all">전체</string>
     <string name="notice_board_category_free">자유게시판</string>
     <string name="notice_board_category_info">정보게시판</string>
+    <string name="notice_board_empty_main_title">아직 등록한 게시물이 없어요</string>
+    <string name="notice_board_empty_sub_title">새로운 개시물을 작성해보세요 </string>
 
     <!--  Button  -->
     <string name="button_add_photo">사진 첨부하기(최대 n장)</string>
