@@ -134,7 +134,7 @@ fun NoticeBoardListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 82.dp, end = 16.dp),
+                    .padding(bottom = 21.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addNoticeBoardButtonClicked,
         )

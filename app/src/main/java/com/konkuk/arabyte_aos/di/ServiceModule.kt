@@ -3,6 +3,7 @@ package com.konkuk.arabyte_aos.di
 import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import com.konkuk.arabyte_aos.data.dataremote.service.DummyService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
+import com.konkuk.arabyte_aos.data.dataremote.service.ReviewService
 import com.konkuk.arabyte_aos.data.dataremote.service.UserService
 import com.konkuk.arabyte_aos.di.qualifier.Arabyte
 import dagger.Module
@@ -37,4 +38,10 @@ object ServiceModule {
         @Arabyte retrofit: Retrofit,
     ): UserService =
         retrofit.create(UserService::class.java)
+
+    @Provides
+    fun providesReviewService(
+        @Arabyte retrofit: Retrofit,
+    ): ReviewService =
+        retrofit.create(ReviewService::class.java)
 }

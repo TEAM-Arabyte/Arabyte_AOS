@@ -53,6 +53,7 @@ fun ReviewListRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadSidoList)
+        viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadReviewList)
     }
 
     ReviewListScreen(
@@ -221,7 +222,7 @@ fun ReviewListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 82.dp, end = 16.dp),
+                    .padding(bottom = 21.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addReviewButtonClicked,
         )

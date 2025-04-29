@@ -13,4 +13,7 @@ object ApiConstraints {
 
     // User
     const val USERS = "users"
+
+    // Review
+    const val REVIEWS = "reviews"
 }
