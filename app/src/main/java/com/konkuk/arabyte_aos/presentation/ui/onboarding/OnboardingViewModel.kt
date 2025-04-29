@@ -1,15 +1,22 @@
 package com.konkuk.arabyte_aos.presentation.ui.onboarding
 
+import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.UserOnboardingInfo
+import com.konkuk.arabyte_aos.domain.usecase.user.PostOnboardingUserInfoUseCase
+import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.type.view.OnboardingType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel
     @Inject
-    constructor() : BaseViewModel<OnboardingContract.OnboardingUiState, OnboardingContract.OnboardingSideEffect, OnboardingContract.OnboardingEvent>() {
+    constructor(
+        private val postOnboardingUserInfoUseCase: PostOnboardingUserInfoUseCase,
+    ) : BaseViewModel<OnboardingContract.OnboardingUiState, OnboardingContract.OnboardingSideEffect, OnboardingContract.OnboardingEvent>() {
         override fun createInitialState(): OnboardingContract.OnboardingUiState = OnboardingContract.OnboardingUiState()
 
         override suspend fun handleEvent(event: OnboardingContract.OnboardingEvent) {
@@ -30,7 +37,21 @@ class OnboardingViewModel
                     )
                 }
             } else {
-                setState { copy(loadState = LoadState.Success) }
+                setState { copy(loadState = LoadState.Loading) }
+                viewModelScope.launch {
+                    postOnboardingUserInfoUseCase(
+                        userOnboardingInfo =
+                            UserOnboardingInfo(
+                                experienceYears = currentState.careerYear.trim().toIntOrNull(),
+                                experienceMonths = currentState.careerMonth.trim().toIntOrNull(),
+                                jobInterests = currentState.selectedCategories,
+                            ),
+                    ).onSuccess {
+                        setState { copy(loadState = LoadState.Success) }
+                    }.onFailure {
+                        setState { copy(loadState = LoadState.Error) }
+                    }
+                }
             }
         }
 
@@ -56,7 +77,7 @@ class OnboardingViewModel
             }
         }
 
-        private fun selectCategory(category: String) {
+        private fun selectCategory(category: ArabyteJobCategory) {
             setState {
                 val currentList = currentState.selectedCategories
 

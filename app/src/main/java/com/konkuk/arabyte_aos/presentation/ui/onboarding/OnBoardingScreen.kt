@@ -98,7 +98,7 @@ fun OnBoardingScreen(
     careerYearTextChanged: (String) -> Unit = {},
     careerMonthTextChanged: (String) -> Unit = {},
     completeButtonClicked: () -> Unit = {},
-    categoryChipClicked: (String) -> Unit = {},
+    categoryChipClicked: (ArabyteJobCategory) -> Unit = {},
 ) {
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
     Column(
@@ -155,9 +155,9 @@ fun OnBoardingScreen(
                 ArabyteJobCategory.entries.forEach { category ->
                     ArabyteChipButton(
                         buttonText = category.label,
-                        enabled = uiState.selectedCategories.contains(category.label),
+                        enabled = uiState.selectedCategories.contains(category),
                         buttonClicked = {
-                            categoryChipClicked(category.label)
+                            categoryChipClicked(category)
                         },
                     )
                 }

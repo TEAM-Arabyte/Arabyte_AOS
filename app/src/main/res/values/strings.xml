@@ -4,6 +4,9 @@
     <!--  All  -->
     <string name="all_next_button">다음</string>
 
+    <!--  Toast Message  -->
+    <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>
+
     <!--  Category  -->
     <string name="all_category_food">외식/음료</string>
     <string name="all_category_management">매장관리/판매</string>
