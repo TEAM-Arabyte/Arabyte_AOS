@@ -4,7 +4,10 @@ import androidx.navigation.NavController
 
 fun NavController.navigateBottomMain(route: String) {
     navigate(route) {
-        popUpTo(graph.startDestinationId) { inclusive = true }
+        popUpTo(graph.startDestinationId) {
+            saveState = true
+        }
         launchSingleTop = true
+        restoreState = true
     }
 }
