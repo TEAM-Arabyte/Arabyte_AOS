@@ -16,6 +16,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -113,20 +114,40 @@ fun HomeScreen(
     val scrollState = rememberLazyListState()
     val expandedTopBarIndex = 0
     var topBarHeightPx by remember { mutableIntStateOf(0) }
-    val showCollapsedTopBar by remember {
-        derivedStateOf {
-            val index = scrollState.firstVisibleItemIndex
-            val offset = scrollState.firstVisibleItemScrollOffset
-            val threshold = (topBarHeightPx * 0.5f).toInt()
-            index > expandedTopBarIndex || (index == expandedTopBarIndex && offset > threshold)
+    var isTopBarMeasured by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isTopBarMeasured) {
+        if (isTopBarMeasured) {
+            scrollState.scrollToItem(0)
         }
     }
+
+    val showCollapsedTopBar by remember {
+        derivedStateOf {
+            if (!isTopBarMeasured || topBarHeightPx == 0) {
+                false
+            } else {
+                val index = scrollState.firstVisibleItemIndex
+                val offset = scrollState.firstVisibleItemScrollOffset
+                val threshold = (topBarHeightPx * 0.5f).toInt()
+                index > expandedTopBarIndex || (index == expandedTopBarIndex && offset > threshold)
+            }
+        }
+    }
+
     Box(
         modifier =
             modifier
                 .fillMaxSize(),
     ) {
-        if (!showCollapsedTopBar) {
+        if (showCollapsedTopBar) {
+            HomeCollapsedTopBar(
+                modifier =
+                    Modifier
+                        .align(Alignment.TopStart)
+                        .zIndex(1f),
+            )
+        } else {
             HomeExpandedTopBarContent(
                 uiState = uiState,
                 modifier =
@@ -135,15 +156,8 @@ fun HomeScreen(
                         .zIndex(1f)
                         .onGloballyPositioned {
                             topBarHeightPx = it.size.height
+                            isTopBarMeasured = true
                         },
-            )
-        }
-        if (showCollapsedTopBar) {
-            HomeCollapsedTopBar(
-                modifier =
-                    Modifier
-                        .align(Alignment.TopStart)
-                        .zIndex(1f),
             )
         }
 
