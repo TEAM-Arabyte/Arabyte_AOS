@@ -39,6 +39,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocat
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteFilteringButton
 import com.konkuk.arabyte_aos.presentation.ui.component.view.ArabyteEmptyView
+import com.konkuk.arabyte_aos.presentation.util.HandleDoubleBackToExit
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -51,6 +52,7 @@ fun ReviewListRoute(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    HandleDoubleBackToExit()
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadSidoList)
     }

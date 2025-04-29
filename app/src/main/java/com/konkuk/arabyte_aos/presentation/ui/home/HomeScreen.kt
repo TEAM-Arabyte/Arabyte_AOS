@@ -35,6 +35,7 @@ import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.home.component.HomeCollapsedTopBar
 import com.konkuk.arabyte_aos.presentation.ui.home.component.HomeExpandedTopBarContent
 import com.konkuk.arabyte_aos.presentation.ui.home.component.HomeScreenContent
+import com.konkuk.arabyte_aos.presentation.util.HandleDoubleBackToExit
 import com.konkuk.arabyte_aos.presentation.util.toDp
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 
@@ -62,6 +63,8 @@ fun HomeRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    HandleDoubleBackToExit()
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(HomeContract.HomeEvent.LoadUserName)
