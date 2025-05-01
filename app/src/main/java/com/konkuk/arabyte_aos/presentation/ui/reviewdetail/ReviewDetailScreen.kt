@@ -42,7 +42,7 @@ fun ReviewDetailRoute(
                 isCertified = true,
                 star = 5.0f,
                 region = "서울특별시 광진구",
-                category = ArabyteJobCategory.FOOD,
+                category = ArabyteJobCategory.FOOD_BEVERAGE,
                 reviewRating =
                     ReviewRating(
                         workIntensity = WorkIntensity.LIGHT,
@@ -126,7 +126,7 @@ private fun ReviewDetailScreenPreview() {
                     isCertified = true,
                     star = 5.0f,
                     region = "서울특별시 광진구",
-                    category = ArabyteJobCategory.FOOD,
+                    category = ArabyteJobCategory.FOOD_BEVERAGE,
                     reviewRating =
                         ReviewRating(
                             workIntensity = WorkIntensity.LIGHT,

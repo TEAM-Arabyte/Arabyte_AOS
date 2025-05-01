@@ -3,12 +3,12 @@ package com.konkuk.arabyte_aos.data.mapper.todomain
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewsResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.PageableDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.ReviewContentDto
-import com.konkuk.arabyte_aos.data.dataremote.model.response.ReviewLocationDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.SortDto
 import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.domain.model.ReviewList
 import com.konkuk.arabyte_aos.domain.model.ReviewPageable
 import com.konkuk.arabyte_aos.domain.model.ReviewSort
+import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
 // GetReviewsResponseDto -> ReviewList
 fun GetReviewsResponseDto.toDomainModel(): ReviewList {
@@ -34,15 +34,10 @@ fun ReviewContentDto.toDomainModel(): ReviewItem {
         isCertified = this.isCertified,
         star = this.star,
         content = this.text,
-        region = this.location.toDomainString(),
-        category = this.category,
+        region = this.location,
+        category = ArabyteJobCategory.valueOf(this.category),
         companyName = "나중에 준대",
     )
-}
-
-// ReviewLocationDto -> ReviewLocation
-fun ReviewLocationDto.toDomainString(): String {
-    return this.sido + this.gu + this.dong
 }
 
 // SortDto -> ReviewSort

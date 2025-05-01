@@ -23,23 +23,8 @@ data class ReviewContentDto(
     val isCertified: Boolean,
     val star: Float,
     val text: String,
-    val location: ReviewLocationDto,
+    val location: String,
     val category: String,
-)
-
-@Serializable
-data class ReviewLocationDto(
-    val locationCode: String,
-    val sido: String,
-    val sidoCode: String,
-    val gu: String,
-    val guCode: String,
-    val dong: String,
-    val dongCode: String,
-    val depth: Int,
-    val id: Int,
-    val createdAt: String,
-    val updatedAt: String,
 )
 
 @Serializable
