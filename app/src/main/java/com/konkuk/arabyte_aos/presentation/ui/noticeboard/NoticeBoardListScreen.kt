@@ -30,6 +30,7 @@ import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCate
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
+import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardEmptyView
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -116,17 +117,22 @@ fun NoticeBoardListScreen(
                         .fillMaxWidth()
                         .padding(start = 17.dp, top = 15.dp, bottom = 8.dp),
             )
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                items(
-                    items = uiState.noticeBoardList,
-                    key = { it.noticeBoardItemId },
-                ) { noticeBoardItem ->
-                    ArabyteNoticeBoardItem(
-                        noticeBoardItem = noticeBoardItem,
-                        navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
-                    )
+
+            if (uiState.noticeBoardList.isEmpty()) {
+                NoticeBoardEmptyView()
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    items(
+                        items = uiState.noticeBoardList,
+                        key = { it.noticeBoardItemId },
+                    ) { noticeBoardItem ->
+                        ArabyteNoticeBoardItem(
+                            noticeBoardItem = noticeBoardItem,
+                            navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
+                        )
+                    }
                 }
             }
         }
@@ -135,7 +141,7 @@ fun NoticeBoardListScreen(
                 Modifier
                     .align(Alignment.BottomEnd)
                     .padding(bottom = 21.dp, end = 16.dp),
-            buttonText = stringResource(R.string.button_add_review),
+            buttonText = stringResource(R.string.button_add_notice_board),
             buttonClicked = addNoticeBoardButtonClicked,
         )
     }

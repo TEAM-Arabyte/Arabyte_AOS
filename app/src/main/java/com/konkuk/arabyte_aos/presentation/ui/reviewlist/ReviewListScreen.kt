@@ -38,7 +38,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteCateg
 import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteFilteringButton
-import com.konkuk.arabyte_aos.presentation.ui.component.view.ArabyteEmptyView
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.component.ReviewListEmptyView
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -198,15 +198,15 @@ fun ReviewListScreen(
                     }
                 }
             }
-            if (uiState.listSize == 0) {
-                ArabyteEmptyView()
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "전체 ${uiState.reviewList.size}",
+                style = ArabyteTheme.typography.capMed11,
+                color = ArabyteTheme.colors.gray06,
+            )
+            if (uiState.reviewList.isEmpty()) {
+                ReviewListEmptyView()
             } else {
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    text = "전체 ${uiState.listSize}",
-                    style = ArabyteTheme.typography.capMed11,
-                    color = ArabyteTheme.colors.gray06,
-                )
                 Spacer(modifier = Modifier.height(11.dp))
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(11.dp)) {
                     items(
