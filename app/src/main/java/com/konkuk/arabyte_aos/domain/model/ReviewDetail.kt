@@ -7,7 +7,7 @@ data class ReviewDetail(
     val reviewId: Int,
     val companyName: String,
     val isCertified: Boolean,
-    val star: Float,
+    val star: Int,
     val region: String,
     val category: ArabyteJobCategory,
     val reviewRating: ReviewRating,

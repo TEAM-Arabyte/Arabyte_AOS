@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.data.dataremote.datasource
 
+import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewsResponseDto
 import retrofit2.Response
 
@@ -8,4 +9,8 @@ interface ReviewsRemoteDataSource {
         page: Int,
         size: Int,
     ): Response<GetReviewsResponseDto>
+
+    suspend fun getReviewDetail(
+        reviewId: Int,
+    ): Response<GetReviewDetailResponseDto>
 }

@@ -26,7 +26,7 @@ class ReviewListContract {
     ) : UiState
 
     sealed interface ReviewListSideEffect : UiSideEffect {
-        data object DummySideEffect : ReviewListSideEffect
+        data class NavigateToReviewDetail(val reviewId: Int) : ReviewListSideEffect
     }
 
     sealed class ReviewListEvent : UiEvent {

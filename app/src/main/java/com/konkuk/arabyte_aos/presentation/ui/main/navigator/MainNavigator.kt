@@ -63,8 +63,8 @@ class MainNavigator(
         navHostController.navigationOnboarding()
     }
 
-    fun navigateToReviewDetail() {
-        navHostController.navigationReviewDetail()
+    fun navigateToReviewDetail(reviewId: Int) {
+        navHostController.navigationReviewDetail(reviewId = reviewId)
     }
 
     fun navigateToNoticeBoardDetail() {

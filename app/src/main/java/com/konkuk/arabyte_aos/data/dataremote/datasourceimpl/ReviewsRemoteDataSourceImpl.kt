@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.data.dataremote.datasourceimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.ReviewsRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewsResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.service.ReviewService
 import retrofit2.Response
@@ -18,5 +19,10 @@ class ReviewsRemoteDataSourceImpl
             service.getReviews(
                 page = page,
                 size = size,
+            )
+
+        override suspend fun getReviewDetail(reviewId: Int): Response<GetReviewDetailResponseDto> =
+            service.getReviewDetail(
+                reviewId = reviewId,
             )
     }

@@ -179,9 +179,8 @@ class ReviewListViewModel
             viewModelScope.launch {
                 getReviewListUseCase(page = 0, size = 10).onSuccess { result ->
                     setState { copy(reviewList = result.content) }
-                    DebugLog.d("ㅋㅋ", "성공: ${result.content}")
                 }.onFailure { e ->
-                    DebugLog.d("ㅋㅋ", "실패: ${e.message}")
+                    DebugLog.d("ReviewListViewModel", "Error message: ${e.message}")
                 }
             }
         }

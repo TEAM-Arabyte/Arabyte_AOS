@@ -29,7 +29,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteFilteringType
@@ -46,14 +48,27 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ReviewListRoute(
     modifier: Modifier = Modifier,
-    navigateToReviewDetail: () -> Unit = {},
+    navigateToReviewDetail: (reviewId: Int) -> Unit = {},
     viewModel: ReviewListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadSidoList)
         viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadReviewList)
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail -> {
+                        navigateToReviewDetail(sideEffect.reviewId)
+                    }
+                }
+            }
     }
 
     ReviewListScreen(
@@ -95,7 +110,9 @@ fun ReviewListRoute(
         resetCategoryFilter = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetCategoryFilter)
         },
-        reviewItemClicked = { navigateToReviewDetail() },
+        reviewItemClicked = { reviewId ->
+            viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail(reviewId = reviewId))
+        },
     )
 }
 
@@ -117,7 +134,7 @@ fun ReviewListScreen(
     resetCategoryFilter: () -> Unit = {},
     categoryBottomSheetCompleteButtonClicked: () -> Unit = {},
     categoryChipClicked: (String) -> Unit = {},
-    reviewItemClicked: () -> Unit = {},
+    reviewItemClicked: (reviewId: Int) -> Unit = {},
 ) {
     Box(
         modifier =
@@ -213,7 +230,13 @@ fun ReviewListScreen(
                         uiState.reviewList,
                         key = { it.reviewItemId },
                     ) { reviewItem ->
-                        ArabyteReviewItem(reviewItem = reviewItem, modifier = Modifier.noRippleClickable(reviewItemClicked))
+                        ArabyteReviewItem(
+                            reviewItem = reviewItem,
+                            modifier =
+                                Modifier.noRippleClickable {
+                                    reviewItemClicked(reviewItem.reviewItemId)
+                                },
+                        )
                     }
                 }
             }

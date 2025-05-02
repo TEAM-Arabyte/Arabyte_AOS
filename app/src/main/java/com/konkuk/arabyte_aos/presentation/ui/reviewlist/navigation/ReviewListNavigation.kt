@@ -20,7 +20,7 @@ fun NavController.navigationReviewList(
 
 fun NavGraphBuilder.reviewListNavGraph(
     paddingValues: PaddingValues,
-    navigateToReviewDetailScreen: () -> Unit,
+    navigateToReviewDetailScreen: (reviewId: Int) -> Unit,
 ) {
     composable(
         route = ReviewListRoute.ROUTE_WITH_ARGUMENT,
@@ -40,7 +40,9 @@ fun NavGraphBuilder.reviewListNavGraph(
             }.getOrNull()
         ReviewListRoute(
             innerPaddingValues = paddingValues,
-            navigateToReviewDetail = navigateToReviewDetailScreen,
+            navigateToReviewDetail = { reviewId ->
+                navigateToReviewDetailScreen(reviewId)
+            },
         )
     }
 }
