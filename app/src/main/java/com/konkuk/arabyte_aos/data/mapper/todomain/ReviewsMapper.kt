@@ -10,7 +10,6 @@ import com.konkuk.arabyte_aos.domain.model.ReviewPageable
 import com.konkuk.arabyte_aos.domain.model.ReviewSort
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
-// GetReviewsResponseDto -> ReviewList
 fun GetReviewsResponseDto.toDomainModel(): ReviewList {
     return ReviewList(
         totalElements = this.totalElements,
@@ -27,7 +26,6 @@ fun GetReviewsResponseDto.toDomainModel(): ReviewList {
     )
 }
 
-// ReviewContentDto -> ReviewContent
 fun ReviewContentDto.toDomainModel(): ReviewItem {
     return ReviewItem(
         reviewItemId = this.reviewId,
@@ -40,7 +38,6 @@ fun ReviewContentDto.toDomainModel(): ReviewItem {
     )
 }
 
-// SortDto -> ReviewSort
 fun SortDto.toDomainModel(): ReviewSort {
     return ReviewSort(
         empty = this.empty,
@@ -49,7 +46,6 @@ fun SortDto.toDomainModel(): ReviewSort {
     )
 }
 
-// PageableDto -> ReviewPageable
 fun PageableDto.toDomainModel(): ReviewPageable {
     return ReviewPageable(
         offset = this.offset,

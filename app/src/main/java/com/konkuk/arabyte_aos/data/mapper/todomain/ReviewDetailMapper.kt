@@ -11,7 +11,6 @@ import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
 import com.konkuk.arabyte_aos.domain.model.WorkIntensity
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
-// GetReviewsResponseDto -> ReviewList
 fun GetReviewDetailResponseDto.toDomainModel(): ReviewDetail {
     return ReviewDetail(
         reviewId = this.reviewId,
