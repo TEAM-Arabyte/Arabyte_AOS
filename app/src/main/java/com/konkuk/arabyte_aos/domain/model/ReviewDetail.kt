@@ -84,6 +84,19 @@ enum class WorkDifficulty(val label: String) {
     val ask: String = ReviewRatingTexts.ASK_WORK_DIFFICULTY
 }
 
+interface ReviewRatingItem {
+    val label: String
+    val title: String
+    val ask: String
+}
+
+data class ReviewRatingItemWrapper<T : Enum<T>>(
+    val value: T,
+    override val label: String,
+    override val title: String,
+    override val ask: String,
+) : ReviewRatingItem
+
 fun ReviewRating.toTitleLabelList(): List<Pair<String, String>> {
     return listOf(
         salary.title to salary.label,
@@ -94,3 +107,51 @@ fun ReviewRating.toTitleLabelList(): List<Pair<String, String>> {
         workIntensity.title to workIntensity.label,
     )
 }
+
+fun WorkIntensity.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_WORK_INTENSITY,
+        ask = ReviewRatingTexts.ASK_WORK_INTENSITY,
+    )
+
+fun WorkAtmosphere.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_WORK_ATMOSPHERE,
+        ask = ReviewRatingTexts.ASK_WORK_ATMOSPHERE,
+    )
+
+fun Salary.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_SALARY,
+        ask = ReviewRatingTexts.ASK_SALARY,
+    )
+
+fun SalaryDate.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_SALARY_DATE,
+        ask = ReviewRatingTexts.ASK_SALARY_DATE,
+    )
+
+fun Overtime.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_OVERTIME,
+        ask = ReviewRatingTexts.ASK_OVERTIME,
+    )
+
+fun WorkDifficulty.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_WORK_DIFFICULTY,
+        ask = ReviewRatingTexts.ASK_WORK_DIFFICULTY,
+    )

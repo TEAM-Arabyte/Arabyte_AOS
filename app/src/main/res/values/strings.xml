@@ -106,4 +106,18 @@
     <string name="review_list_empty_main_title">아직 등록한 리뷰가 없어요</string>
     <string name="review_list_empty_sub_title">새로운 리뷰를 작성해보세요 </string>
 
+    <!-- ReviewWrite -->
+    <string name="review_write_company">근무지</string>
+    <string name="review_write_complete">완료</string>
+    <string name="review_write_company_placeholder">근무지를 입력해주세요</string>
+    <string name="review_write_region">근무 지역</string>
+    <string name="review_write_job_category">카테고리</string>
+    <string name="review_write_top_bar_title">리뷰 작성하기</string>
+    <string name="review_write_review_title">알바에 대한 총평을 작성해 주세요</string>
+    <string name="review_write_review_placeholder">알바에 대한 전반적인 후기를 작성해주세요</string>
+    <string name="review_write_star_rating_format">%1$d/5</string>
+
+
+
+
 </resources>
