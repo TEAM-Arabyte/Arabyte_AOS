@@ -34,7 +34,6 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun NoticeBoardDetailCommentItem(
     comment: NoticeBoardDetailComment,
     isWriter: Boolean,
-    hasParent: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -46,7 +45,7 @@ fun NoticeBoardDetailCommentItem(
         Row(
             modifier = Modifier,
         ) {
-            if (hasParent) {
+            if (comment.parentId != null) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_notice_board_arrow_comment_18),
                     contentDescription = null,
@@ -125,9 +124,10 @@ private fun NoticeBoardDetailCommentPrev1() {
                     nickname = "휘둥",
                     content = "무슨 알바하셨나요?",
                     isAnonymous = false,
+                    commentId = 1,
+                    parentId = null,
                 ),
             isWriter = true,
-            hasParent = false,
         )
     }
 }
@@ -143,9 +143,10 @@ private fun NoticeBoardDetailCommentPrev2() {
                     nickname = "휘둥",
                     content = "고깃집 알바 했어요!",
                     isAnonymous = true,
+                    commentId = 1,
+                    parentId = 1,
                 ),
             isWriter = false,
-            hasParent = true,
         )
     }
 }

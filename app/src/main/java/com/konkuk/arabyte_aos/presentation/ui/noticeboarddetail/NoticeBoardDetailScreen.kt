@@ -70,6 +70,7 @@ fun NoticeBoardDetailScreen(
             item {
                 NoticeBoardDetailCommentBoard(
                     commentList = uiState.noticeBoardDetail.commentList,
+                    articleWriteNickname = uiState.noticeBoardDetail.nickname,
                 )
             }
         }
