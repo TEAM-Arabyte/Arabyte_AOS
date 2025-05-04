@@ -97,4 +97,8 @@
     <string name="all_bottom_sheet_close">취소</string>
     <string name="all_bottom_sheet_confirm">적용하기</string>
 
+    <!-- NoticeBoardComment -->
+    <string name="notice_board_comment_reply">답글달기</string>
+    <string name="notice_board_comment_report">신고하기</string>
+
 </resources>
