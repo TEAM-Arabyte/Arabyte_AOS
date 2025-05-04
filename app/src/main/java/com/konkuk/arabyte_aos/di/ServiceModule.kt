@@ -3,6 +3,7 @@ package com.konkuk.arabyte_aos.di
 import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import com.konkuk.arabyte_aos.data.dataremote.service.DummyService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
+import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
 import com.konkuk.arabyte_aos.data.dataremote.service.UserService
 import com.konkuk.arabyte_aos.di.qualifier.Arabyte
 import dagger.Module
@@ -10,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,4 +39,10 @@ object ServiceModule {
         @Arabyte retrofit: Retrofit,
     ): UserService =
         retrofit.create(UserService::class.java)
+
+    @Provides
+    fun providesNoticeBoardService(
+        @Arabyte retrofit: Retrofit,
+    ): NoticeBoardService =
+        retrofit.create(NoticeBoardService::class.java)
 }

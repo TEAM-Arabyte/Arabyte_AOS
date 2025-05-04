@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,11 +26,13 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.util.DebugLogger
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
+import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -40,6 +43,14 @@ fun NoticeBoardListRoute(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.setEvent(
+            NoticeBoardListContract.NoticeBoardListUiEvent.GetNoticeBoardList(
+                viewModel.uiState.value.selectedCategory,
+            ),
+        )
+    }
 
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
@@ -60,6 +71,7 @@ fun NoticeBoardListScreen(
     uiState: NoticeBoardListContract.NoticeBoardListUiState = NoticeBoardListContract.NoticeBoardListUiState(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
+    DebugLog.e("NoticeBoardList", "리스트 크기: ${uiState.noticeBoardList.size}")
     Box(
         modifier =
             modifier
@@ -121,7 +133,7 @@ fun NoticeBoardListScreen(
             ) {
                 items(
                     items = uiState.noticeBoardList,
-                    key = { it.noticeBoardItemId },
+                    key = { it.articleId },
                 ) { noticeBoardItem ->
                     ArabyteNoticeBoardItem(
                         noticeBoardItem = noticeBoardItem,

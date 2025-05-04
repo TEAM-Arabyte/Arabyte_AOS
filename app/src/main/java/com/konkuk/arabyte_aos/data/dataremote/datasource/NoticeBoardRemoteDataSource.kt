@@ -1,0 +1,13 @@
+package com.konkuk.arabyte_aos.data.dataremote.datasource
+
+import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListResponseDto
+import retrofit2.Response
+
+interface NoticeBoardRemoteDataSource {
+    suspend fun getNoticeBoardList(
+        articleKind: String?,
+        page: Int,
+        size: Int,
+        sort: String,
+    ): Response<GetNoticeBoardListResponseDto>
+}
