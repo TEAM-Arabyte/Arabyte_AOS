@@ -20,6 +20,7 @@ class ReviewDetailContract {
         val reviewDetail: ReviewDetail =
             ReviewDetail(
                 reviewId = -1,
+                userId = -1,
                 companyName = "",
                 isCertified = false,
                 star = 0,
@@ -35,11 +36,14 @@ class ReviewDetailContract {
                         workDifficulty = WorkDifficulty.EASY,
                     ),
                 reviewContent = "",
+                badCount = 0,
+                normalCount = 0,
+                goodCount = 0,
             ),
     ) : UiState
 
     sealed interface ReviewDetailSideEffect : UiSideEffect {
-        data object DummySideEffect : ReviewDetailSideEffect
+        data object PopBackStack : ReviewDetailSideEffect
     }
 
     sealed class ReviewDetailEvent : UiEvent {

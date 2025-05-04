@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GetReviewDetailResponseDto(
     val reviewId: Int,
+    val userId: Int,
     val companyName: String,
     val isCertified: Boolean,
     val star: Int,
@@ -17,4 +18,7 @@ data class GetReviewDetailResponseDto(
     val salaryDate: String,
     val overtime: String,
     val difficulty: String,
+    val badCount: Int,
+    val normalCount: Int,
+    val goodCount: Int,
 )

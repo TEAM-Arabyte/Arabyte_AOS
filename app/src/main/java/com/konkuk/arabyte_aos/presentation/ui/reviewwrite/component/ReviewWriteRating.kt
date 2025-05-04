@@ -10,8 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.konkuk.arabyte_aos.domain.model.NullableReviewRating
 import com.konkuk.arabyte_aos.domain.model.Overtime
-import com.konkuk.arabyte_aos.domain.model.ReviewRating
 import com.konkuk.arabyte_aos.domain.model.ReviewRatingItemWrapper
 import com.konkuk.arabyte_aos.domain.model.Salary
 import com.konkuk.arabyte_aos.domain.model.SalaryDate
@@ -24,7 +24,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun <T : Enum<T>> ReviewRatingSection(
-    selected: T,
+    selected: T?,
     items: List<ReviewRatingItemWrapper<T>>,
     onSelect: (T) -> Unit,
 ) {
@@ -50,11 +50,12 @@ fun <T : Enum<T>> ReviewRatingSection(
 @Composable
 fun ReviewWritingRating(
     modifier: Modifier = Modifier,
-    reviewRating: ReviewRating,
-    onRatingChanged: (ReviewRating) -> Unit,
+    reviewRating: NullableReviewRating,
+    onRatingChanged: (NullableReviewRating) -> Unit,
 ) {
-    Column(modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         ReviewRatingSection(
             selected = reviewRating.workIntensity,

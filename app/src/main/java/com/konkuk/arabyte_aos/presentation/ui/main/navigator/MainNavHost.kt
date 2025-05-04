@@ -42,11 +42,12 @@ fun MainNavHost(
             )
             homeNavGraph(
                 paddingValues = paddingValues,
-                navigateToReviewList = navigator::navigateToReviewList,
+                navigateToReviewList = navigator::navigateToReviewListWithCategory,
                 navigateToNoticeBoard = navigator::navigateToNoticeBoard,
             )
             reviewDetailNavGraph(
                 paddingValues = paddingValues,
+                popBackStack = navigator::popBackStack,
             )
             reviewListNavGraph(
                 paddingValues = paddingValues,
@@ -74,6 +75,8 @@ fun MainNavHost(
             )
             reviewWriteNavGraph(
                 paddingValues = paddingValues,
+                popBackStack = navigator::popBackStack,
+                navigateToReviewList = navigator::navigateToReviewList,
             )
         }
     }

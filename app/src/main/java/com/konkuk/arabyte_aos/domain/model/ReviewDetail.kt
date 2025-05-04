@@ -5,6 +5,7 @@ import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
 data class ReviewDetail(
     val reviewId: Int,
+    val userId: Int,
     val companyName: String,
     val isCertified: Boolean,
     val star: Int,
@@ -12,6 +13,9 @@ data class ReviewDetail(
     val category: ArabyteJobCategory,
     val reviewRating: ReviewRating,
     val reviewContent: String,
+    val badCount: Int,
+    val normalCount: Int,
+    val goodCount: Int,
 )
 
 data class ReviewRating(
@@ -22,6 +26,47 @@ data class ReviewRating(
     val overtime: Overtime,
     val workDifficulty: WorkDifficulty,
 )
+
+data class NullableReviewRating(
+    val workIntensity: WorkIntensity? = null,
+    val workAtmosphere: WorkAtmosphere? = null,
+    val salary: Salary? = null,
+    val salaryDate: SalaryDate? = null,
+    val overtime: Overtime? = null,
+    val workDifficulty: WorkDifficulty? = null,
+)
+
+fun NullableReviewRating.isNotNull(): Boolean {
+    return workIntensity != null &&
+        workAtmosphere != null &&
+        salary != null &&
+        salaryDate != null &&
+        overtime != null &&
+        workDifficulty != null
+}
+
+fun NullableReviewRating.toReviewRating(): ReviewRating {
+    return ReviewRating(
+        workIntensity =
+            this.workIntensity
+                ?: throw IllegalStateException("workIntensity is null"),
+        workAtmosphere =
+            this.workAtmosphere
+                ?: throw IllegalStateException("workAtmosphere is null"),
+        salary =
+            this.salary
+                ?: throw IllegalStateException("salary is null"),
+        salaryDate =
+            this.salaryDate
+                ?: throw IllegalStateException("salaryDate is null"),
+        overtime =
+            this.overtime
+                ?: throw IllegalStateException("overtime is null"),
+        workDifficulty =
+            this.workDifficulty
+                ?: throw IllegalStateException("workDifficulty is null"),
+    )
+}
 
 enum class WorkIntensity(val label: String) {
     LIGHT(ReviewRatingTexts.LABEL_WORK_INTENSITY_LIGHT),

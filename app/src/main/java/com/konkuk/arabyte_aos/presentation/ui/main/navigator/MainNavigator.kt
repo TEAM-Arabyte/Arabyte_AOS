@@ -44,8 +44,12 @@ class MainNavigator(
         }
     }
 
-    fun navigateToReviewList(arabyteCategoryType: ArabyteCategoryType?) {
+    fun navigateToReviewListWithCategory(arabyteCategoryType: ArabyteCategoryType?) {
         navHostController.navigationReviewList(categoryType = arabyteCategoryType)
+    }
+
+    fun navigateToReviewList() {
+        navHostController.navigationReviewList(categoryType = null)
     }
 
     fun navigateToNoticeBoard() {

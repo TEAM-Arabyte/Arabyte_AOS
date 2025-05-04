@@ -15,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.Overtime
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
@@ -26,6 +28,7 @@ import com.konkuk.arabyte_aos.domain.model.WorkAtmosphere
 import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
 import com.konkuk.arabyte_aos.domain.model.WorkIntensity
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
+import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailContent
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHeader
@@ -37,26 +40,41 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ReviewDetailRoute(
     reviewId: Int,
+    popBackStack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ReviewDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.GetReviewDetail(reviewId = reviewId))
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is ReviewDetailContract.ReviewDetailSideEffect.PopBackStack -> popBackStack()
+                }
+            }
     }
 
     ReviewDetailScreen(
         modifier = modifier,
         reviewDetail = uiState.reviewDetail,
         innerPaddingValues = innerPaddingValues,
+        popBackStack = {
+            viewModel.setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.PopBackStack)
+        },
     )
 }
 
 @Composable
 fun ReviewDetailScreen(
     reviewDetail: ReviewDetail,
+    popBackStack: () -> Unit,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -69,7 +87,7 @@ fun ReviewDetailScreen(
     ) {
         ArabyteTopAppBar(
             useBack = true,
-            onBackClick = {},
+            onBackClick = popBackStack,
             optionalIconRes = R.drawable.ic_all_optional_button_45,
             onOptionalClick = {},
         )
@@ -97,7 +115,14 @@ fun ReviewDetailScreen(
                 )
             }
             item {
-                ReviewDetailHelpful()
+                ReviewDetailHelpful(
+                    likeCounts =
+                        mapOf(
+                            ReviewHelpfulType.BAD to reviewDetail.badCount,
+                            ReviewHelpfulType.NORMAL to reviewDetail.normalCount,
+                            ReviewHelpfulType.GOOD to reviewDetail.goodCount,
+                        ),
+                )
             }
         }
     }
@@ -111,6 +136,7 @@ private fun ReviewDetailScreenPreview() {
             reviewDetail =
                 ReviewDetail(
                     reviewId = 1,
+                    userId = 1,
                     companyName = "메가커피 건대점",
                     isCertified = true,
                     star = 5,
@@ -133,7 +159,11 @@ private fun ReviewDetailScreenPreview() {
                             "매장 분위기도 전체적으로 활기차고 편안해서 일하면서 크게 스트레스 받지 않았습니다. 바쁜 시간대에는 정신없긴 했지만, 덕분에 빠르게 업무에 익숙해질 수 있었어요.\n" +
                             "\n" +
                             "첫 알바로 추천할 만한 곳입니다! \uD83D\uDE0A",
+                    badCount = 0,
+                    normalCount = 0,
+                    goodCount = 0,
                 ),
+            popBackStack = { },
         )
     }
 }

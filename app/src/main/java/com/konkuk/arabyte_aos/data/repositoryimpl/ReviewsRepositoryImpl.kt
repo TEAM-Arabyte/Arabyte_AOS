@@ -1,7 +1,9 @@
 package com.konkuk.arabyte_aos.data.repositoryimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.ReviewsRemoteDataSource
+import com.konkuk.arabyte_aos.data.mapper.todata.toRequestDto
 import com.konkuk.arabyte_aos.data.mapper.todomain.toDomainModel
+import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
 import com.konkuk.arabyte_aos.domain.model.ReviewList
 import com.konkuk.arabyte_aos.domain.repository.ReviewsRepository
@@ -25,8 +27,13 @@ class ReviewsRepositoryImpl
             }
 
         override suspend fun getReviewDetail(reviewId: Int): Result<ReviewDetail> =
-            kotlin.runCatching {
+            runCatching {
                 reviewsRemoteDataSource.getReviewDetail(reviewId = reviewId).body()?.toDomainModel()
                     ?: throw IllegalStateException("Response body is null")
+            }
+
+        override suspend fun postReview(postReview: PostReview): Result<Unit> =
+            runCatching {
+                reviewsRemoteDataSource.postReview(postReviewRequestDto = postReview.toRequestDto())
             }
     }

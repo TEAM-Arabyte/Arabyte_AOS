@@ -3,6 +3,7 @@
 
     <!--  All  -->
     <string name="all_next_button">다음</string>
+    <string name="all_toast_server_error">서버 에러가 발생했습니다.</string>
 
     <!--  Toast Message  -->
     <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>
@@ -116,6 +117,8 @@
     <string name="review_write_review_title">알바에 대한 총평을 작성해 주세요</string>
     <string name="review_write_review_placeholder">알바에 대한 전반적인 후기를 작성해주세요</string>
     <string name="review_write_star_rating_format">%1$d/5</string>
+    <string name="review_write_data_valid_error">모든 항목을 작성해 주세요</string>
+
 
 
 

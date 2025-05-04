@@ -27,8 +27,8 @@ class ReviewListContract {
 
     sealed interface ReviewListSideEffect : UiSideEffect {
         data class NavigateToReviewDetail(val reviewId: Int) : ReviewListSideEffect
-        data object NavigateToReviewWrite : ReviewListSideEffect
 
+        data object NavigateToReviewWrite : ReviewListSideEffect
     }
 
     sealed class ReviewListEvent : UiEvent {

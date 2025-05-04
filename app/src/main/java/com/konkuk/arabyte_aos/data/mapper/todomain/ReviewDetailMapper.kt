@@ -14,6 +14,7 @@ import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 fun GetReviewDetailResponseDto.toDomainModel(): ReviewDetail {
     return ReviewDetail(
         reviewId = this.reviewId,
+        userId = this.userId,
         companyName = this.companyName,
         isCertified = this.isCertified,
         star = this.star,
@@ -29,5 +30,8 @@ fun GetReviewDetailResponseDto.toDomainModel(): ReviewDetail {
                 workDifficulty = WorkDifficulty.valueOf(this.difficulty),
             ),
         reviewContent = this.text,
+        badCount = this.badCount,
+        normalCount = this.normalCount,
+        goodCount = this.goodCount,
     )
 }

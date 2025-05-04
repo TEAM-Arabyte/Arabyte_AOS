@@ -13,10 +13,14 @@ fun NavController.navigationReviewWrite() {
 
 fun NavGraphBuilder.reviewWriteNavGraph(
     paddingValues: PaddingValues,
+    popBackStack: () -> Unit,
+    navigateToReviewList: () -> Unit,
 ) {
     composable(route = ReviewWriteRoute.ROUTE) {
         ReviewWriteRoute(
             innerPaddingValues = paddingValues,
+            popBackStack = popBackStack,
+            navigateToReviewList = navigateToReviewList,
         )
     }
 }

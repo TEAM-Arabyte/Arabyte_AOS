@@ -118,7 +118,7 @@ fun ReviewListRoute(
         },
         addReviewButtonClicked = {
             viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewWrite)
-        }
+        },
     )
 }
 

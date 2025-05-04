@@ -40,7 +40,7 @@ fun ReviewWriteStar(
             )
         }
         Spacer(modifier = Modifier.width(5.dp))
-        Text(text = stringResource(R.string.review_write_star_rating_format,selectedStar), style = ArabyteTheme.typography.capSemi11, color = ArabyteTheme.colors.gray06)
+        Text(text = stringResource(R.string.review_write_star_rating_format, selectedStar), style = ArabyteTheme.typography.capSemi11, color = ArabyteTheme.colors.gray06)
     }
 }
 
