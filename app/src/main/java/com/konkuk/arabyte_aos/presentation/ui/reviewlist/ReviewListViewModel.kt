@@ -5,6 +5,7 @@ import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
+import com.konkuk.arabyte_aos.domain.usecase.reivew.GetReviewListUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ class ReviewListViewModel
         private val getSidoUseCase: GetSidoUseCase,
         private val getGuUseCase: GetGuUseCase,
         private val getDongUseCase: GetDongUseCase,
+        private val getReviewListUseCase: GetReviewListUseCase,
     ) : BaseViewModel<ReviewListContract.ReviewListUiState, ReviewListContract.ReviewListSideEffect, ReviewListContract.ReviewListEvent>() {
         override fun createInitialState(): ReviewListContract.ReviewListUiState = ReviewListContract.ReviewListUiState()
 
@@ -56,6 +58,8 @@ class ReviewListViewModel
                 is ReviewListContract.ReviewListEvent.ResetCategoryFilter -> resetCategoryFilter()
 
                 is ReviewListContract.ReviewListEvent.ClickCategoryBottomSheetCompleteButton -> clickCategoryBottomSheetCompleteButton()
+
+                is ReviewListContract.ReviewListEvent.LoadReviewList -> getReviewList()
             }
         }
 
@@ -167,7 +171,17 @@ class ReviewListViewModel
             when (currentState.selectedCategories.size) {
                 1 -> setState { copy(selectedCategory = currentState.selectedCategories[0], categoryBottomSheetVisible = false) }
                 0 -> setState { copy(selectedCategory = "", categoryBottomSheetVisible = false) }
-                else -> setState { copy(selectedCategory = "${ currentState.selectedCategories[0]}+외 ${currentState.selectedCategories.size - 1}", categoryBottomSheetVisible = false) }
+                else -> setState { copy(selectedCategory = "${currentState.selectedCategories[0]}+외 ${currentState.selectedCategories.size - 1}", categoryBottomSheetVisible = false) }
+            }
+        }
+
+        private fun getReviewList() {
+            viewModelScope.launch {
+                getReviewListUseCase(page = 0, size = 10).onSuccess { result ->
+                    setState { copy(reviewList = result.content) }
+                }.onFailure { e ->
+                    DebugLog.d("ReviewListViewModel", "Error message: ${e.message}")
+                }
             }
         }
     }

@@ -29,7 +29,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteFilteringType
@@ -38,7 +40,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteCateg
 import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteFilteringButton
-import com.konkuk.arabyte_aos.presentation.ui.component.view.ArabyteEmptyView
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.component.ReviewListEmptyView
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -46,13 +48,27 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ReviewListRoute(
     modifier: Modifier = Modifier,
-    navigateToReviewDetail: () -> Unit = {},
+    navigateToReviewDetail: (reviewId: Int) -> Unit = {},
     viewModel: ReviewListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadSidoList)
+        viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadReviewList)
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail -> {
+                        navigateToReviewDetail(sideEffect.reviewId)
+                    }
+                }
+            }
     }
 
     ReviewListScreen(
@@ -94,7 +110,9 @@ fun ReviewListRoute(
         resetCategoryFilter = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetCategoryFilter)
         },
-        reviewItemClicked = { navigateToReviewDetail() },
+        reviewItemClicked = { reviewId ->
+            viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail(reviewId = reviewId))
+        },
     )
 }
 
@@ -116,7 +134,7 @@ fun ReviewListScreen(
     resetCategoryFilter: () -> Unit = {},
     categoryBottomSheetCompleteButtonClicked: () -> Unit = {},
     categoryChipClicked: (String) -> Unit = {},
-    reviewItemClicked: () -> Unit = {},
+    reviewItemClicked: (reviewId: Int) -> Unit = {},
 ) {
     Box(
         modifier =
@@ -197,22 +215,28 @@ fun ReviewListScreen(
                     }
                 }
             }
-            if (uiState.listSize == 0) {
-                ArabyteEmptyView()
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "전체 ${uiState.reviewList.size}",
+                style = ArabyteTheme.typography.capMed11,
+                color = ArabyteTheme.colors.gray06,
+            )
+            if (uiState.reviewList.isEmpty()) {
+                ReviewListEmptyView()
             } else {
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    text = "전체 ${uiState.listSize}",
-                    style = ArabyteTheme.typography.capMed11,
-                    color = ArabyteTheme.colors.gray06,
-                )
                 Spacer(modifier = Modifier.height(11.dp))
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(11.dp)) {
                     items(
                         uiState.reviewList,
                         key = { it.reviewItemId },
                     ) { reviewItem ->
-                        ArabyteReviewItem(reviewItem = reviewItem, modifier = Modifier.noRippleClickable(reviewItemClicked))
+                        ArabyteReviewItem(
+                            reviewItem = reviewItem,
+                            modifier =
+                                Modifier.noRippleClickable {
+                                    reviewItemClicked(reviewItem.reviewItemId)
+                                },
+                        )
                     }
                 }
             }
@@ -221,7 +245,7 @@ fun ReviewListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 82.dp, end = 16.dp),
+                    .padding(bottom = 21.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addReviewButtonClicked,
         )

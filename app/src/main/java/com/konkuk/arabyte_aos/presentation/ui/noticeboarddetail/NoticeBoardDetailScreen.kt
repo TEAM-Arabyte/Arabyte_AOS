@@ -53,7 +53,7 @@ fun NoticeBoardDetailScreen(
             optionalIconRes = R.drawable.ic_all_optional_button_45,
             onOptionalClick = {},
         )
-        LazyColumn {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 NoticeBoardDetailContent(
                     writerProfileImage = uiState.noticeBoardDetail.profileImage,

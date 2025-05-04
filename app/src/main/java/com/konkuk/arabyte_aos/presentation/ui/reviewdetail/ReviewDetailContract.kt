@@ -1,5 +1,14 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewdetail
 
+import com.konkuk.arabyte_aos.domain.model.Overtime
+import com.konkuk.arabyte_aos.domain.model.ReviewDetail
+import com.konkuk.arabyte_aos.domain.model.ReviewRating
+import com.konkuk.arabyte_aos.domain.model.Salary
+import com.konkuk.arabyte_aos.domain.model.SalaryDate
+import com.konkuk.arabyte_aos.domain.model.WorkAtmosphere
+import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
+import com.konkuk.arabyte_aos.domain.model.WorkIntensity
+import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
@@ -8,6 +17,25 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 class ReviewDetailContract {
     data class ReviewDetailUiState(
         val loadState: LoadState = LoadState.Idle,
+        val reviewDetail: ReviewDetail =
+            ReviewDetail(
+                reviewId = -1,
+                companyName = "",
+                isCertified = false,
+                star = 0,
+                region = "",
+                category = ArabyteJobCategory.FOOD_BEVERAGE,
+                reviewRating =
+                    ReviewRating(
+                        workIntensity = WorkIntensity.LIGHT,
+                        workAtmosphere = WorkAtmosphere.RIGID,
+                        salary = Salary.HIGH,
+                        salaryDate = SalaryDate.REGULARLY,
+                        overtime = Overtime.REGULARLY,
+                        workDifficulty = WorkDifficulty.EASY,
+                    ),
+                reviewContent = "",
+            ),
     ) : UiState
 
     sealed interface ReviewDetailSideEffect : UiSideEffect {
@@ -15,6 +43,6 @@ class ReviewDetailContract {
     }
 
     sealed class ReviewDetailEvent : UiEvent {
-        data object DummyEvent : ReviewDetailEvent()
+        data class GetReviewDetail(val reviewId: Int) : ReviewDetailEvent()
     }
 }

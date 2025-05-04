@@ -28,7 +28,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun ReviewDetailHeader(
     companyName: String,
     isCertified: Boolean,
-    star: Float,
+    star: Int,
     region: String,
     category: ArabyteJobCategory,
     modifier: Modifier = Modifier,
@@ -77,9 +77,9 @@ private fun ReviewDetailHeaderRowPreview() {
         ReviewDetailHeader(
             companyName = "메가커피 건대점",
             isCertified = true,
-            star = 5.0f,
+            star = 5,
             region = "서울특별시 광진구",
-            category = ArabyteJobCategory.FOOD,
+            category = ArabyteJobCategory.FOOD_BEVERAGE,
         )
     }
 }
