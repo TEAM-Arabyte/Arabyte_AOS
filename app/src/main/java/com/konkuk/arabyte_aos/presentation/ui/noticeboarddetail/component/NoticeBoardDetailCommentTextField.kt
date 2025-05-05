@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component
 
-import android.R.attr.text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -128,7 +127,7 @@ fun NoticeBoardDetailCommentTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun NoticeBoardDetailCommentTextFieldPreview() {
+private fun NoticeBoardDetailCommentTextFieldPreview() {
     var text by remember { mutableStateOf("") }
     var isAnonymous by remember { mutableStateOf(false) }
 

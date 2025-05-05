@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -27,8 +28,10 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentItem
+import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
+import com.konkuk.arabyte_aos.presentation.util.modifier.advancedImePadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import flattenCommentTree
@@ -54,12 +57,16 @@ fun NoticeBoardDetailScreen(
 ) {
     val commentTree = remember(noticeBoardDetail.comments) { buildCommentTree(noticeBoardDetail.comments) }
     val flattenList = remember(noticeBoardDetail.comments) { flattenCommentTree(commentTree) }
+    var text by remember { mutableStateOf("") }
+    var isAnonymous by remember { mutableStateOf(false) }
+
     Column(
         modifier =
             modifier
                 .fillMaxSize()
                 .background(ArabyteTheme.colors.white)
-                .padding(innerPaddingValues),
+                .padding(innerPaddingValues)
+                .advancedImePadding(),
     ) {
         ArabyteTopAppBar(
             useBack = true,
@@ -68,7 +75,12 @@ fun NoticeBoardDetailScreen(
             onOptionalClick = {},
         )
 
-        LazyColumn(modifier = Modifier.wrapContentHeight()) {
+        LazyColumn(
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+        ) {
             item {
                 NoticeBoardDetailContent(
                     writerProfileImage = "",
@@ -110,6 +122,19 @@ fun NoticeBoardDetailScreen(
                 }
             }
         }
+        NoticeBoardDetailCommentTextField(
+            text = text,
+            onTextChange = { text = it },
+            isAnonymous = isAnonymous,
+            onAnonymousChanged = { isAnonymous = it },
+            onSend = {
+                // TODO : API
+                text = ""
+            },
+            modifier =
+                Modifier
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+        )
     }
 }
 
