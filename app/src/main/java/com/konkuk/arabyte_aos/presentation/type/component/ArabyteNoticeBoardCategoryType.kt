@@ -19,7 +19,8 @@ enum class ArabyteNoticeBoardCategoryType(
     INFO(
         imageDrawableRes = R.drawable.ic_notice_board_type_info,
         stringRes = R.string.notice_board_category_info,
-    );
+    ),
+    ;
 
-    fun toApiValue():String? = if (this == ALL) null else name
+    fun toApiValue(): String? = if (this == ALL) null else name
 }
