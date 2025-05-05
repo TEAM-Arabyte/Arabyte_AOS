@@ -7,3 +7,7 @@ annotation class Arabyte
 
 @Qualifier
 annotation class Auth
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class Kakao

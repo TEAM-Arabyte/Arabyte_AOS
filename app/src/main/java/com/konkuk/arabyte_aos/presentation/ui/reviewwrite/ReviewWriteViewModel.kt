@@ -6,6 +6,7 @@ import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.isNotNull
 import com.konkuk.arabyte_aos.domain.model.toReviewRating
+import com.konkuk.arabyte_aos.domain.usecase.kakao.GetKakaoSearchUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
@@ -24,6 +25,7 @@ class ReviewWriteViewModel
         private val getGuUseCase: GetGuUseCase,
         private val getDongUseCase: GetDongUseCase,
         private val postReviewUseCase: PostReviewUseCase,
+        private val getKakaoSearchUseCase: GetKakaoSearchUseCase,
     ) : BaseViewModel<ReviewWriteContract.ReviewWriteUiState, ReviewWriteContract.ReviewWriteSideEffect, ReviewWriteContract.ReviewWriteEvent>() {
         override fun createInitialState(): ReviewWriteContract.ReviewWriteUiState = ReviewWriteContract.ReviewWriteUiState()
 
@@ -75,14 +77,15 @@ class ReviewWriteViewModel
             }
         }
 
-        private fun onCompanyTextChanged(company: String) {
-            val trimmed = company.take(20)
-            setState {
-                copy(
-                    companyName = trimmed,
-                )
+    private fun onCompanyTextChanged(company: String) {
+        val trimmed = company.take(20)
+        viewModelScope.launch {
+            setState { copy(companyName = trimmed) }
+            getKakaoSearchUseCase(query = trimmed).onSuccess {
+            }.onFailure {
             }
         }
+    }
 
         private fun onReviewTextChanged(review: String) {
             val trimmed = review.take(20)
