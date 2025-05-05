@@ -21,7 +21,7 @@ data class NoticeBoardContent(
     val likeCount: Long,
     val commentCount: Long,
     val createdAt: String,
-    val thumbnailImage: String,
+    val thumbnailImage: String?,
     val articleKind: String,
     val isLiked: Boolean,
 )

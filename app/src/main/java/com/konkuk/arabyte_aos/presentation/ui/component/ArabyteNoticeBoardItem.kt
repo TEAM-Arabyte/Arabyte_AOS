@@ -73,7 +73,7 @@ fun ArabyteNoticeBoardItem(
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
-                if (noticeBoardItem.thumbnailImage.isNotBlank()) {
+                if (!noticeBoardItem.thumbnailImage.isNullOrBlank()) {
                     Spacer(Modifier.width(8.dp))
                     AsyncImage(
                         model = noticeBoardItem.thumbnailImage,

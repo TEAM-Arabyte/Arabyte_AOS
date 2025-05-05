@@ -49,13 +49,12 @@ fun NoticeBoardDetailCommentItem(
                 )
                 Spacer(Modifier.width(10.dp))
             }
-            if (comment.isAnonymous) {
-                Image(
-                    painter = painterResource(R.drawable.img_profile_default_anonymity),
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp),
-                )
-            }
+
+            Image(
+                painter = painterResource(R.drawable.img_profile_default_anonymity),
+                contentDescription = null,
+                modifier = Modifier.size(28.dp),
+            )
         }
         Spacer(Modifier.width(10.dp))
         Column(
