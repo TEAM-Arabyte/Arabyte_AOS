@@ -34,7 +34,7 @@ fun ReviewContentDto.toDomainModel(): ReviewItem {
         content = this.text,
         region = this.location,
         category = ArabyteJobCategory.valueOf(this.category),
-        companyName = "나중에 준대",
+        companyName = this.companyName,
     )
 }
 
