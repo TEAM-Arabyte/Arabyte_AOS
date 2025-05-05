@@ -36,4 +36,9 @@ class ReviewsRepositoryImpl
             runCatching {
                 reviewsRemoteDataSource.postReview(postReviewRequestDto = postReview.toRequestDto())
             }
+
+        override suspend fun deleteReviewDetail(reviewId: Int): Result<Unit> =
+            runCatching {
+                reviewsRemoteDataSource.deleteReviewDetail(reviewId = reviewId)
+            }
     }

@@ -48,6 +48,7 @@ fun MainNavHost(
             reviewDetailNavGraph(
                 paddingValues = paddingValues,
                 popBackStack = navigator::popBackStack,
+                navigateToReviewList = navigator::navigateToReviewList,
             )
             reviewListNavGraph(
                 paddingValues = paddingValues,

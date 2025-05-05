@@ -27,29 +27,30 @@ fun ArabyteTwoButtonDialog(
     cancelButtonClicked: () -> Unit,
     completeButtonClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    cancelButtonText: String = stringResource(R.string.all_cancel_button)
-    ) {
+    cancelButtonText: String = stringResource(R.string.all_cancel_button),
+) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .roundedBackgroundWithPadding(cornerRadius = 20.dp, backgroundColor = ArabyteTheme.colors.white, padding = PaddingValues(horizontal = 24.dp, vertical = 30.dp)),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .roundedBackgroundWithPadding(cornerRadius = 20.dp, backgroundColor = ArabyteTheme.colors.white, padding = PaddingValues(horizontal = 24.dp, vertical = 30.dp)),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = title, style = ArabyteTheme.typography.bodyBold17, color = ArabyteTheme.colors.black)
         Spacer(modifier = Modifier.height(20.dp))
-        Row (modifier = Modifier.fillMaxWidth()){
+        Row(modifier = Modifier.fillMaxWidth()) {
             ArabyteNormalButton(
                 buttonText = cancelButtonText,
                 enabled = false,
                 modifier = Modifier.weight(1f),
-                buttonClicked = cancelButtonClicked
+                buttonClicked = cancelButtonClicked,
             )
             Spacer(modifier = Modifier.width(8.dp))
             ArabyteNormalButton(
                 buttonText = completeButtonText,
                 enabled = true,
                 modifier = Modifier.weight(1f),
-                buttonClicked = completeButtonClicked
+                buttonClicked = completeButtonClicked,
             )
         }
     }
@@ -64,7 +65,7 @@ private fun ArabyteTwoButtonDialogPreview() {
             completeButtonText = "삭제",
             cancelButtonClicked = {},
             completeButtonClicked = {},
-            cancelButtonText = "취소"
+            cancelButtonText = "취소",
         )
     }
 }

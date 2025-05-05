@@ -17,4 +17,8 @@ interface ReviewsRepository {
     suspend fun postReview(
         postReview: PostReview,
     ): Result<Unit>
+
+    suspend fun deleteReviewDetail(
+        reviewId: Int,
+    ): Result<Unit>
 }

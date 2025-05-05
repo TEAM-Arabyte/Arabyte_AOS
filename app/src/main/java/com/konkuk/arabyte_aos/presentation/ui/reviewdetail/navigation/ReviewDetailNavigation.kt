@@ -16,6 +16,7 @@ fun NavController.navigationReviewDetail(reviewId: Int) {
 fun NavGraphBuilder.reviewDetailNavGraph(
     paddingValues: PaddingValues,
     popBackStack: () -> Unit,
+    navigateToReviewList: () -> Unit,
 ) {
     composable(
         route = ReviewDetailRoute.ROUTE_WITH_ARGUMENT,
@@ -31,6 +32,7 @@ fun NavGraphBuilder.reviewDetailNavGraph(
             reviewId = reviewId,
             innerPaddingValues = paddingValues,
             popBackStack = popBackStack,
+            navigateToReviewList = navigateToReviewList,
         )
     }
 }

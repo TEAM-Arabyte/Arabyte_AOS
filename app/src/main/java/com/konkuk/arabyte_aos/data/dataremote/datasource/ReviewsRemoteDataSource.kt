@@ -16,4 +16,8 @@ interface ReviewsRemoteDataSource {
     ): Response<GetReviewDetailResponseDto>
 
     suspend fun postReview(postReviewRequestDto: PostReviewRequestDto): Response<Unit>
+
+    suspend fun deleteReviewDetail(
+        reviewId: Int,
+    ): Response<Unit>
 }

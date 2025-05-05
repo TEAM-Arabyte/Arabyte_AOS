@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,23 +23,14 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.domain.model.Overtime
-import com.konkuk.arabyte_aos.domain.model.ReviewDetail
-import com.konkuk.arabyte_aos.domain.model.ReviewRating
-import com.konkuk.arabyte_aos.domain.model.Salary
-import com.konkuk.arabyte_aos.domain.model.SalaryDate
-import com.konkuk.arabyte_aos.domain.model.WorkAtmosphere
-import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
-import com.konkuk.arabyte_aos.domain.model.WorkIntensity
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
-import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.dialog.ArabyteTwoButtonDialog
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailContent
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHeader
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHelpful
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailRating
+import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -47,12 +39,14 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun ReviewDetailRoute(
     reviewId: Int,
     popBackStack: () -> Unit,
+    navigateToReviewList: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ReviewDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.GetReviewDetail(reviewId = reviewId))
@@ -64,6 +58,10 @@ fun ReviewDetailRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is ReviewDetailContract.ReviewDetailSideEffect.PopBackStack -> popBackStack()
+
+                    is ReviewDetailContract.ReviewDetailSideEffect.NavigateToReviewList -> navigateToReviewList()
+
+                    is ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast -> context.arabyteToastMessage(R.string.all_toast_server_error)
                 }
             }
     }
@@ -77,27 +75,32 @@ fun ReviewDetailRoute(
         },
         changeDialogVisible = {
             viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ChangeDialogVisible)
-        }
+        },
+        dialogCompleteButtonClicked = { isMyReview ->
+            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked(isMyReview))
+        },
     )
 }
 
 @Composable
 fun ReviewDetailScreen(
     popBackStack: () -> Unit,
-    changeDialogVisible:()->Unit,
+    changeDialogVisible: () -> Unit,
+    dialogCompleteButtonClicked: (isMyReview: Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    uiState: ReviewDetailContract.ReviewDetailUiState=ReviewDetailContract.ReviewDetailUiState(),
-    isMyReview:Boolean = uiState.currentUserId==uiState.reviewDetail.userId,
+    uiState: ReviewDetailContract.ReviewDetailUiState = ReviewDetailContract.ReviewDetailUiState(),
+    isMyReview: Boolean = uiState.currentUserId == uiState.reviewDetail.userId,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = ArabyteTheme.colors.white)
-                .padding(innerPaddingValues),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(color = ArabyteTheme.colors.white)
+                    .padding(innerPaddingValues),
         ) {
             ArabyteTopAppBar(
                 useBack = true,
@@ -112,7 +115,7 @@ fun ReviewDetailScreen(
                         isCertified = uiState.reviewDetail.isCertified,
                         star = uiState.reviewDetail.star,
                         region = uiState.reviewDetail.region,
-                        category =uiState. reviewDetail.category,
+                        category = uiState.reviewDetail.category,
                     )
                 }
                 item {
@@ -131,11 +134,11 @@ fun ReviewDetailScreen(
                 item {
                     ReviewDetailHelpful(
                         likeCounts =
-                        mapOf(
-                            ReviewHelpfulType.BAD to uiState.reviewDetail.badCount,
-                            ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
-                            ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
-                        ),
+                            mapOf(
+                                ReviewHelpfulType.BAD to uiState.reviewDetail.badCount,
+                                ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
+                                ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
+                            ),
                     )
                 }
             }
@@ -144,20 +147,20 @@ fun ReviewDetailScreen(
         if (uiState.dialogVisible) {
             Box(
                 modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                    .noRippleClickable (changeDialogVisible),
-                contentAlignment = Alignment.Center
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable(changeDialogVisible),
+                contentAlignment = Alignment.Center,
             ) {
                 ArabyteTwoButtonDialog(
                     modifier = Modifier.padding(horizontal = 30.dp),
                     title = if (isMyReview) stringResource(R.string.review_detail_dialog_delete) else stringResource(R.string.review_detail_dialog_report),
-                    completeButtonText =  if (isMyReview) stringResource(R.string.review_detail_button_delete) else stringResource(R.string.review_detail_button_report),
+                    completeButtonText = if (isMyReview) stringResource(R.string.review_detail_button_delete) else stringResource(R.string.review_detail_button_report),
                     cancelButtonClicked = changeDialogVisible,
                     completeButtonClicked = {
                         changeDialogVisible()
-
+                        dialogCompleteButtonClicked(isMyReview)
                     },
                 )
             }
@@ -172,6 +175,7 @@ private fun ReviewDetailScreenPreview() {
         ReviewDetailScreen(
             popBackStack = { },
             changeDialogVisible = {},
+            dialogCompleteButtonClicked = { },
         )
     }
 }

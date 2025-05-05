@@ -123,7 +123,7 @@
 
     <!-- ReviewList -->
     <string name="review_detail_dialog_delete">리뷰를 삭제하시겠습니까?</string>
-    <string name="review_detail_dialog_report">리뷰를 신고하시겠습니까?</string>
+    <string name="review_detail_dialog_report">해당 리뷰를 신고하시겠습니까?</string>
     <string name="review_detail_button_delete">삭제</string>
     <string name="review_detail_button_report">신고</string>
 

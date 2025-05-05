@@ -29,4 +29,7 @@ class ReviewsRemoteDataSourceImpl
 
         override suspend fun postReview(postReviewRequestDto: PostReviewRequestDto): Response<Unit> =
             service.postReview(postReviewRequestDto = postReviewRequestDto)
+
+        override suspend fun deleteReviewDetail(reviewId: Int): Response<Unit> =
+            service.deleteReviewDetail(reviewId = reviewId)
     }
