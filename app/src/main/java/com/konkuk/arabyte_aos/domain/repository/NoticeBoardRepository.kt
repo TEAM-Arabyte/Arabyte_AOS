@@ -12,6 +12,6 @@ interface NoticeBoardRepository {
     ): Result<NoticeBoardList>
 
     suspend fun getNoticeBoardDetail(
-        articleId: Int,
+        articleId: Long,
     ): Result<NoticeBoardDetail>
 }

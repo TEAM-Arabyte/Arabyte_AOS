@@ -13,6 +13,6 @@ interface NoticeBoardRemoteDataSource {
     ): Response<GetNoticeBoardListResponseDto>
 
     suspend fun getNoticeBoardDetail(
-        articleId: Int,
+        articleId: Long,
     ): Response<GetNoticeBoardDetailResponseDto>
 }

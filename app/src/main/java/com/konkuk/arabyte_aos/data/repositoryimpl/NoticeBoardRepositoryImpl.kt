@@ -28,7 +28,7 @@ class NoticeBoardRepositoryImpl
                     ?: throw IllegalStateException("Response body is null")
             }
 
-        override suspend fun getNoticeBoardDetail(articleId: Int): Result<NoticeBoardDetail> =
+        override suspend fun getNoticeBoardDetail(articleId: Long): Result<NoticeBoardDetail> =
             runCatching {
                 noticeBoardListRemoteDataSource.getNoticeBoardDetail(
                     articleId = articleId,

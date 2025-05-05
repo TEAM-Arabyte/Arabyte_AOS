@@ -25,7 +25,7 @@ class NoticeBoardDetailViewModel
 
         private fun getNoticeBoardDetail(articleId: Long) {
             viewModelScope.launch {
-                getNoticeBoardDetailUseCase(articleId.toInt())
+                getNoticeBoardDetailUseCase(articleId)
                     .onSuccess { noticeBoardDetail ->
                         setState {
                             copy(

@@ -24,5 +24,5 @@ data class NoticeBoardDetailCommentDto(
     val nickname: String,
     val createdAt: String,
     val isAnonymous: Boolean,
-    val parentId: Long,
+    val parentId: Long?,
 )

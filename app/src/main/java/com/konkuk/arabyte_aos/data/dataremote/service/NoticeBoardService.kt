@@ -19,6 +19,6 @@ interface NoticeBoardService {
 
     @GET("/$ARTICLES/{articleId}")
     suspend fun getNoticeBoardDetail(
-        @Path("articleId") articleId: Int,
+        @Path("articleId") articleId: Long,
     ): Response<GetNoticeBoardDetailResponseDto>
 }

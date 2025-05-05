@@ -25,7 +25,7 @@ class NoticeBoardRemoteDataSourceImpl
                 sort = sort,
             )
 
-        override suspend fun getNoticeBoardDetail(articleId: Int): Response<GetNoticeBoardDetailResponseDto> =
+        override suspend fun getNoticeBoardDetail(articleId: Long): Response<GetNoticeBoardDetailResponseDto> =
             service.getNoticeBoardDetail(
                 articleId = articleId,
             )

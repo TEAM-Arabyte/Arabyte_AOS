@@ -12,7 +12,7 @@ class GetNoticeBoardDetailUseCase
         private val noticeBoardRepository: NoticeBoardRepository,
     ) {
         suspend operator fun invoke(
-            articleId: Int,
+            articleId: Long,
         ): Result<NoticeBoardDetail> {
             return noticeBoardRepository.getNoticeBoardDetail(
                 articleId = articleId,
