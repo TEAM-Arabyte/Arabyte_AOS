@@ -36,7 +36,7 @@ constructor(
 
             is ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked -> dialogCompleteButtonClicked(event.isMyReview)
 
-            is ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked -> helpfulClicked(event.reviewHelpful)
+            is ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked -> helpfulClicked(event.isMyReview,event.reviewHelpful)
         }
     }
 
@@ -74,12 +74,17 @@ constructor(
         }
     }
 
-    private fun helpfulClicked(helpful: ReviewHelpfulType) {
-        viewModelScope.launch {
-            postReviewHelpfulUseCase(reviewId = currentState.reviewDetail.reviewId, helpful = helpful)
-                .onSuccess { response ->
-                    setState { copy(reviewDetail = response) }
-                }
+    private fun helpfulClicked(isMyReview: Boolean,helpful: ReviewHelpfulType) {
+        if (isMyReview){
+            setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowAlertToast)
+        }
+        else{
+            viewModelScope.launch {
+                postReviewHelpfulUseCase(reviewId = currentState.reviewDetail.reviewId, helpful = helpful)
+                    .onSuccess { response ->
+                        setState { copy(reviewDetail = response) }
+                    }
+            }
         }
     }
 }

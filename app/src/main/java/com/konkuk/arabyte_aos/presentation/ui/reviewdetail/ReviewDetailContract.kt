@@ -52,6 +52,8 @@ class ReviewDetailContract {
         data object NavigateToReviewList : ReviewDetailSideEffect
 
         data object ShowServerErrorToast : ReviewDetailSideEffect
+
+        data object ShowAlertToast : ReviewDetailSideEffect
     }
 
     sealed class ReviewDetailEvent : UiEvent {
@@ -63,6 +65,6 @@ class ReviewDetailContract {
 
         data class DialogCompleteButtonClicked(val isMyReview: Boolean) : ReviewDetailEvent()
 
-        data class ReviewHelpfulClicked(val reviewHelpful: ReviewHelpfulType) :ReviewDetailEvent()
+        data class ReviewHelpfulClicked(val isMyReview: Boolean,val reviewHelpful: ReviewHelpfulType) :ReviewDetailEvent()
     }
 }

@@ -62,6 +62,8 @@ fun ReviewDetailRoute(
                     is ReviewDetailContract.ReviewDetailSideEffect.NavigateToReviewList -> navigateToReviewList()
 
                     is ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast -> context.arabyteToastMessage(R.string.all_toast_server_error)
+
+                    is ReviewDetailContract.ReviewDetailSideEffect.ShowAlertToast -> context.arabyteToastMessage(R.string.review_detail_alert_toast)
                 }
             }
     }
@@ -79,8 +81,8 @@ fun ReviewDetailRoute(
         dialogCompleteButtonClicked = { isMyReview ->
             viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked(isMyReview))
         },
-        helpfulClicked = {helpful->
-            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked(helpful))
+        helpfulClicked = { isMyReview, helpful ->
+            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked(isMyReview, helpful))
         }
     )
 }
@@ -90,7 +92,7 @@ fun ReviewDetailScreen(
     popBackStack: () -> Unit,
     changeDialogVisible: () -> Unit,
     dialogCompleteButtonClicked: (isMyReview: Boolean) -> Unit,
-    helpfulClicked:(ReviewHelpfulType) -> Unit,
+    helpfulClicked: (isMyReview: Boolean, ReviewHelpfulType) -> Unit,
     modifier: Modifier = Modifier,
     uiState: ReviewDetailContract.ReviewDetailUiState = ReviewDetailContract.ReviewDetailUiState(),
     isMyReview: Boolean = uiState.currentUserId == uiState.reviewDetail.userId,
@@ -101,10 +103,10 @@ fun ReviewDetailScreen(
     ) {
         Column(
             modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(color = ArabyteTheme.colors.white)
-                    .padding(innerPaddingValues),
+            Modifier
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(innerPaddingValues),
         ) {
             ArabyteTopAppBar(
                 useBack = true,
@@ -138,13 +140,13 @@ fun ReviewDetailScreen(
                 item {
                     ReviewDetailHelpful(
                         likeCounts =
-                            mapOf(
-                                ReviewHelpfulType.BAD to uiState.reviewDetail.badCount,
-                                ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
-                                ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
-                            ),
+                        mapOf(
+                            ReviewHelpfulType.BAD to uiState.reviewDetail.badCount,
+                            ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
+                            ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
+                        ),
                         onItemClick = { type, _ ->
-                            helpfulClicked(type)
+                            helpfulClicked(isMyReview, type)
                         }
                     )
                 }
@@ -154,10 +156,10 @@ fun ReviewDetailScreen(
         if (uiState.dialogVisible) {
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                        .noRippleClickable(changeDialogVisible),
+                Modifier
+                    .fillMaxSize()
+                    .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                    .noRippleClickable(changeDialogVisible),
                 contentAlignment = Alignment.Center,
             ) {
                 ArabyteTwoButtonDialog(
@@ -183,7 +185,7 @@ private fun ReviewDetailScreenPreview() {
             popBackStack = { },
             changeDialogVisible = {},
             dialogCompleteButtonClicked = { },
-            helpfulClicked = {},
+            helpfulClicked = { _, _ -> },
         )
     }
 }
