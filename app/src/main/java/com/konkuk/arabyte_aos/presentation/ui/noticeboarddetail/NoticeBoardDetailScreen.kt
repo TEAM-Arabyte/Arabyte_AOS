@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -110,16 +110,27 @@ fun NoticeBoardDetailScreen(
                     // Todo: 엠티뷰 컴포넌트 부르기
                 }
             } else {
-                items(
+                itemsIndexed(
                     items = flattenList,
-                ) { (comment, isReply) ->
+                ) { index, (comment, isReply) ->
                     val isWriter = comment.nickname == noticeBoardDetail.nickname
-
+                    if (index != 0 && !isReply) {
+                        HorizontalDivider(
+                            thickness = 1.dp,
+                            color = ArabyteTheme.colors.gray01,
+                        )
+                    }
                     NoticeBoardDetailCommentItem(
                         comment = comment,
                         isWriter = isWriter,
                     )
                 }
+            }
+            item {
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = ArabyteTheme.colors.gray01,
+                )
             }
         }
         NoticeBoardDetailCommentTextField(
