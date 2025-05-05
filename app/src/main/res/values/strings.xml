@@ -3,6 +3,9 @@
 
     <!--  All  -->
     <string name="all_next_button">다음</string>
+    <string name="all_cancel_button">취소</string>
+    <string name="all_complete_button">확인</string>
+
 
     <!--  Toast Message  -->
     <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>

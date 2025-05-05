@@ -21,6 +21,14 @@ class MyPageViewModel
         override suspend fun handleEvent(event: MyPageContract.MyPageEvent) {
             when (event) {
                 is MyPageContract.MyPageEvent.WithDrawClicked -> withDrawClicked()
+
+                is MyPageContract.MyPageEvent.ChangeDialogVisible -> {
+                    setState { copy(dialogVisible = !currentState.dialogVisible) }
+                }
+
+                is MyPageContract.MyPageEvent.ChangeUserProfileVisible -> {
+                    setState { copy(userProfileVisible = !currentState.userProfileVisible) }
+                }
             }
         }
 
