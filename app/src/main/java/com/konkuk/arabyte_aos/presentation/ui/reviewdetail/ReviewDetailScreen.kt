@@ -25,7 +25,7 @@ import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
-import com.konkuk.arabyte_aos.presentation.ui.dialog.ArabyteTwoButtonDialog
+import com.konkuk.arabyte_aos.presentation.ui.component.dialog.ArabyteTwoButtonDialog
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailContent
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHeader
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHelpful

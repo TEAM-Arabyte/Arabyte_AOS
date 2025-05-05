@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.ui.dialog
+package com.konkuk.arabyte_aos.presentation.ui.component.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
