@@ -28,7 +28,6 @@ class NoticeBoardListViewModel
 
         private fun getNoticeBoardList(noticeBoardCategoryType: ArabyteNoticeBoardCategoryType) {
             setState { copy(loadState = LoadState.Loading) }
-            // NoticeBoardListUiState 의 noticeBoardList 변경하기 <- usecase에서 filter 된 거 가져오기..?
             setState {
                 copy(
                     noticeBoardCount = noticeBoardList.size,
@@ -38,7 +37,7 @@ class NoticeBoardListViewModel
             viewModelScope.launch {
                 val result: Result<NoticeBoardList> =
                     getNoticeBoardListUseCase(
-                        articleKind = noticeBoardCategoryType.name,
+                        articleKind = noticeBoardCategoryType.toApiValue(),
                         page = 0,
                         size = 3,
                         sort = "createdAt,desc",
