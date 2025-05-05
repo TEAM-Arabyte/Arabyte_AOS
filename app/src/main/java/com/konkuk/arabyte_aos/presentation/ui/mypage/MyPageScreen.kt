@@ -148,15 +148,14 @@ fun MyPageScreen(
                 )
             }
         }
-        if (uiState.userProfileVisible)
-            {
-                MyPageProfileView(
-                    profileImageRes = "",
-                    defaultProfileRes = defaultProfileRes,
-                    userProfile = uiState.userProfile,
-                    backButtonClicked = changeUserProfileVisible,
-                )
-            }
+        if (uiState.userProfileVisible) {
+            MyPageProfileView(
+                profileImageRes = "",
+                defaultProfileRes = defaultProfileRes,
+                userProfile = uiState.userProfile,
+                backButtonClicked = changeUserProfileVisible,
+            )
+        }
     }
 }
 
