@@ -25,14 +25,11 @@ fun ReviewDetailHelpful(
     onItemClick: (ReviewHelpfulType, Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
-    val helpfulList =
-        remember {
-            generateReviewHelpfulList(
-                likeCounts = likeCounts,
-                selectedType = selectedType,
-                onClick = onItemClick,
-            )
-        }
+    val helpfulList = generateReviewHelpfulList(
+        likeCounts = likeCounts,
+        selectedType = selectedType,
+        onClick = onItemClick,
+    )
 
     Column(
         modifier =

@@ -3,6 +3,7 @@ package com.konkuk.arabyte_aos.domain.repository
 import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
 import com.konkuk.arabyte_aos.domain.model.ReviewList
+import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 
 interface ReviewsRepository {
     suspend fun getReviews(
@@ -21,4 +22,9 @@ interface ReviewsRepository {
     suspend fun deleteReviewDetail(
         reviewId: Int,
     ): Result<Unit>
+
+    suspend fun postReviewHelpful(
+        reviewId: Int,
+        helpful: ReviewHelpfulType
+    ): Result<ReviewDetail>
 }

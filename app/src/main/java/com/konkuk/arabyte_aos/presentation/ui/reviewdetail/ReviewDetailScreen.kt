@@ -79,6 +79,9 @@ fun ReviewDetailRoute(
         dialogCompleteButtonClicked = { isMyReview ->
             viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked(isMyReview))
         },
+        helpfulClicked = {helpful->
+            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked(helpful))
+        }
     )
 }
 
@@ -87,6 +90,7 @@ fun ReviewDetailScreen(
     popBackStack: () -> Unit,
     changeDialogVisible: () -> Unit,
     dialogCompleteButtonClicked: (isMyReview: Boolean) -> Unit,
+    helpfulClicked:(ReviewHelpfulType) -> Unit,
     modifier: Modifier = Modifier,
     uiState: ReviewDetailContract.ReviewDetailUiState = ReviewDetailContract.ReviewDetailUiState(),
     isMyReview: Boolean = uiState.currentUserId == uiState.reviewDetail.userId,
@@ -139,6 +143,9 @@ fun ReviewDetailScreen(
                                 ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
                                 ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
                             ),
+                        onItemClick = { type, _ ->
+                            helpfulClicked(type)
+                        }
                     )
                 }
             }
@@ -176,6 +183,7 @@ private fun ReviewDetailScreenPreview() {
             popBackStack = { },
             changeDialogVisible = {},
             dialogCompleteButtonClicked = { },
+            helpfulClicked = {},
         )
     }
 }

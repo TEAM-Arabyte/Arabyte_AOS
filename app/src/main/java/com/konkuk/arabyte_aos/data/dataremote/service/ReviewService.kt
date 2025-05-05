@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.data.dataremote.service
 
+import com.konkuk.arabyte_aos.data.dataremote.model.request.PostReviewHelpfulRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.request.PostReviewRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewsResponseDto
@@ -34,4 +35,10 @@ interface ReviewService {
     suspend fun deleteReviewDetail(
         @Path(REVIEW_ID) reviewId: Int,
     ): Response<Unit>
+
+    @POST("/$REVIEWS/{reviewId}/helpful")
+    suspend fun postReviewHelpful(
+        @Path(REVIEW_ID) reviewId: Int,
+        @Body postReviewHelpfulDto: PostReviewHelpfulRequestDto
+    ): Response<GetReviewDetailResponseDto>
 }
