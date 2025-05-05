@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
@@ -25,11 +24,12 @@ fun ReviewDetailHelpful(
     onItemClick: (ReviewHelpfulType, Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
-    val helpfulList = generateReviewHelpfulList(
-        likeCounts = likeCounts,
-        selectedType = selectedType,
-        onClick = onItemClick,
-    )
+    val helpfulList =
+        generateReviewHelpfulList(
+            likeCounts = likeCounts,
+            selectedType = selectedType,
+            onClick = onItemClick,
+        )
 
     Column(
         modifier =

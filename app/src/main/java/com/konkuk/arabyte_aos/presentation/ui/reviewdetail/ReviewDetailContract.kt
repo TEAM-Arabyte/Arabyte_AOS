@@ -9,7 +9,6 @@ import com.konkuk.arabyte_aos.domain.model.WorkAtmosphere
 import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
 import com.konkuk.arabyte_aos.domain.model.WorkIntensity
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpful
 import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
@@ -65,6 +64,6 @@ class ReviewDetailContract {
 
         data class DialogCompleteButtonClicked(val isMyReview: Boolean) : ReviewDetailEvent()
 
-        data class ReviewHelpfulClicked(val isMyReview: Boolean,val reviewHelpful: ReviewHelpfulType) :ReviewDetailEvent()
+        data class ReviewHelpfulClicked(val isMyReview: Boolean, val reviewHelpful: ReviewHelpfulType) : ReviewDetailEvent()
     }
 }

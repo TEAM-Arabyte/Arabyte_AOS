@@ -39,6 +39,6 @@ interface ReviewService {
     @POST("/$REVIEWS/{reviewId}/helpful")
     suspend fun postReviewHelpful(
         @Path(REVIEW_ID) reviewId: Int,
-        @Body postReviewHelpfulDto: PostReviewHelpfulRequestDto
+        @Body postReviewHelpfulDto: PostReviewHelpfulRequestDto,
     ): Response<GetReviewDetailResponseDto>
 }

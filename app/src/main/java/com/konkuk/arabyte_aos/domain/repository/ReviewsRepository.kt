@@ -25,6 +25,6 @@ interface ReviewsRepository {
 
     suspend fun postReviewHelpful(
         reviewId: Int,
-        helpful: ReviewHelpfulType
+        helpful: ReviewHelpfulType,
     ): Result<ReviewDetail>
 }

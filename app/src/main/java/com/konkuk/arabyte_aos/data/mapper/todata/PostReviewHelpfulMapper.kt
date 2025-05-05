@@ -5,6 +5,6 @@ import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 
 fun ReviewHelpfulType.toRequestDto(): PostReviewHelpfulRequestDto {
     return PostReviewHelpfulRequestDto(
-        helpful = this.name
+        helpful = this.name,
     )
 }

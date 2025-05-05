@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
@@ -37,7 +36,6 @@ fun ArabyteEvaluationButton(
     modifier: Modifier = Modifier,
     buttonClicked: (Boolean) -> Unit = {},
 ) {
-
     fun Int.toDisplayCount(): String {
         return if (this > 99) "99+" else this.toString()
     }
@@ -47,7 +45,6 @@ fun ArabyteEvaluationButton(
             true -> Pair(ArabyteTheme.colors.gray07, ArabyteTheme.colors.white)
             false -> Pair(ArabyteTheme.colors.white, ArabyteTheme.colors.black)
         }
-
 
     Row(
         modifier =
@@ -68,8 +65,6 @@ fun ArabyteEvaluationButton(
         Text(text = likeCount.toDisplayCount(), color = textColor, style = ArabyteTheme.typography.bodySemi13)
     }
 }
-
-
 
 @Preview
 @Composable

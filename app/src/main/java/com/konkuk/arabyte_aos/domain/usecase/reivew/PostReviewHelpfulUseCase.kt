@@ -8,17 +8,17 @@ import javax.inject.Singleton
 
 @Singleton
 class PostReviewHelpfulUseCase
-@Inject
-constructor(
-    private val reviewsRepository: ReviewsRepository,
-) {
-    suspend operator fun invoke(
-        reviewId: Int,
-        helpful: ReviewHelpfulType
-    ): Result<ReviewDetail> {
-        return reviewsRepository.postReviewHelpful(
-            reviewId = reviewId,
-            helpful = helpful
-        )
+    @Inject
+    constructor(
+        private val reviewsRepository: ReviewsRepository,
+    ) {
+        suspend operator fun invoke(
+            reviewId: Int,
+            helpful: ReviewHelpfulType,
+        ): Result<ReviewDetail> {
+            return reviewsRepository.postReviewHelpful(
+                reviewId = reviewId,
+                helpful = helpful,
+            )
+        }
     }
-}

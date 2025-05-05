@@ -83,7 +83,7 @@ fun ReviewDetailRoute(
         },
         helpfulClicked = { isMyReview, helpful ->
             viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked(isMyReview, helpful))
-        }
+        },
     )
 }
 
@@ -103,10 +103,10 @@ fun ReviewDetailScreen(
     ) {
         Column(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .background(color = ArabyteTheme.colors.white)
-                .padding(innerPaddingValues),
+                Modifier
+                    .fillMaxSize()
+                    .background(color = ArabyteTheme.colors.white)
+                    .padding(innerPaddingValues),
         ) {
             ArabyteTopAppBar(
                 useBack = true,
@@ -140,14 +140,14 @@ fun ReviewDetailScreen(
                 item {
                     ReviewDetailHelpful(
                         likeCounts =
-                        mapOf(
-                            ReviewHelpfulType.BAD to uiState.reviewDetail.badCount,
-                            ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
-                            ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
-                        ),
+                            mapOf(
+                                ReviewHelpfulType.BAD to uiState.reviewDetail.badCount,
+                                ReviewHelpfulType.NORMAL to uiState.reviewDetail.normalCount,
+                                ReviewHelpfulType.GOOD to uiState.reviewDetail.goodCount,
+                            ),
                         onItemClick = { type, _ ->
                             helpfulClicked(isMyReview, type)
-                        }
+                        },
                     )
                 }
             }
@@ -156,10 +156,10 @@ fun ReviewDetailScreen(
         if (uiState.dialogVisible) {
             Box(
                 modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                    .noRippleClickable(changeDialogVisible),
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable(changeDialogVisible),
                 contentAlignment = Alignment.Center,
             ) {
                 ArabyteTwoButtonDialog(

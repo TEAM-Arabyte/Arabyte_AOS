@@ -24,6 +24,6 @@ interface ReviewsRemoteDataSource {
 
     suspend fun postReviewHelpful(
         reviewId: Int,
-        postReviewHelpfulRequestDto: PostReviewHelpfulRequestDto
+        postReviewHelpfulRequestDto: PostReviewHelpfulRequestDto,
     ): Response<GetReviewDetailResponseDto>
 }
