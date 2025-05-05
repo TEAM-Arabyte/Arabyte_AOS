@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.di
 
 import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
+import com.konkuk.arabyte_aos.data.dataremote.service.CommentService
 import com.konkuk.arabyte_aos.data.dataremote.service.DummyService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
@@ -45,4 +46,10 @@ object ServiceModule {
         @Arabyte retrofit: Retrofit,
     ): NoticeBoardService =
         retrofit.create(NoticeBoardService::class.java)
+
+    @Provides
+    fun providesCommentService(
+        @Arabyte retrofit: Retrofit,
+    ): CommentService =
+        retrofit.create(CommentService::class.java)
 }

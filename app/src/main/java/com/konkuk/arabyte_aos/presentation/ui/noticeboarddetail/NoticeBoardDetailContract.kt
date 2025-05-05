@@ -9,7 +9,6 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 class NoticeBoardDetailContract {
     data class NoticeBoardDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        // Todo : 구조 리팩토링
         val noticeBoardDetail: NoticeBoardDetail =
             NoticeBoardDetail(
                 articleId = -1,
