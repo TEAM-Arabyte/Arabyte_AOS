@@ -14,6 +14,7 @@ class CommentRepositoryImpl
         override suspend fun postComment(postComment: PostComment): Result<Unit> =
             runCatching {
                 commentDataSource.postComment(
+                    articleId = postComment.articleId,
                     postCommentRequestDto = postComment.toRequestDto(),
                 )
             }

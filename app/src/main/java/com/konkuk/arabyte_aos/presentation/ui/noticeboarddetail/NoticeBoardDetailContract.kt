@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
+import com.konkuk.arabyte_aos.domain.model.PostComment
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
@@ -22,6 +23,13 @@ class NoticeBoardDetailContract {
                 imageUrls = emptyList(),
                 isLiked = false,
             ),
+        val postComment: PostComment =
+            PostComment(
+                articleId = -1,
+                text = "",
+                parentId = null,
+                isAnonymous = false,
+            ),
     ) : UiState
 
     sealed interface NoticeBoardDetailSideEffect : UiSideEffect {
@@ -30,5 +38,13 @@ class NoticeBoardDetailContract {
 
     sealed class NoticeBoardDetailEvent : UiEvent {
         data class GetNoticeBoardDetail(val articleId: Long) : NoticeBoardDetailEvent()
+
+        data class ChangeCommentText(val text: String) : NoticeBoardDetailEvent()
+
+        data class ChangeAnonymous(val isAnonymous: Boolean) : NoticeBoardDetailEvent()
+
+        data class SubmitComment(val articleId: Long) : NoticeBoardDetailEvent()
+
+        data class SetReplyTarget(val parentId: Long) : NoticeBoardDetailEvent()
     }
 }

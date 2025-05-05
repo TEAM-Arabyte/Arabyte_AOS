@@ -121,6 +121,7 @@ fun NoticeBoardDetailCommentTextField(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_send_24),
             tint = if (text.isEmpty()) Color.Unspecified else ArabyteTheme.colors.mainBlue,
             contentDescription = null,
+            modifier = Modifier.noRippleClickable { onSend() },
         )
     }
 }

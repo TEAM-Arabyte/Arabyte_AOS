@@ -11,8 +11,12 @@ class CommentDataSourceImpl
     constructor(
         private val service: CommentService,
     ) : CommentDataSource {
-        override suspend fun postComment(postCommentRequestDto: PostCommentRequestDto): Response<Unit> =
+        override suspend fun postComment(
+            articleId: Long,
+            postCommentRequestDto: PostCommentRequestDto,
+        ): Response<Unit> =
             service.postComment(
                 postCommentRequestDto = postCommentRequestDto,
+                articleId = articleId,
             )
     }

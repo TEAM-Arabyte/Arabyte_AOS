@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -43,10 +42,19 @@ fun NoticeBoardDetailRoute(
     viewModel: NoticeBoardDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId = articleId)) }
     DebugLog.d("NoticeBoardDetailScreen", "ArticleId : $articleId")
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    NoticeBoardDetailScreen(noticeBoardDetail = uiState.noticeBoardDetail, innerPaddingValues = innerPaddingValues, modifier = modifier)
+    NoticeBoardDetailScreen(
+        noticeBoardDetail = uiState.noticeBoardDetail,
+        innerPaddingValues = innerPaddingValues,
+        modifier = modifier,
+        onTextChange = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText(it)) },
+        onAnonymousChanged = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeAnonymous(it)) },
+        onSend = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment(articleId)) },
+        text = uiState.postComment.text,
+        isAnonymous = uiState.postComment.isAnonymous,
+    )
 }
 
 @Composable
@@ -54,11 +62,14 @@ fun NoticeBoardDetailScreen(
     noticeBoardDetail: NoticeBoardDetail,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
+    onTextChange: (String) -> Unit,
+    onAnonymousChanged: (Boolean) -> Unit,
+    onSend: () -> Unit,
+    text: String,
+    isAnonymous: Boolean,
 ) {
     val commentTree = remember(noticeBoardDetail.comments) { buildCommentTree(noticeBoardDetail.comments) }
     val flattenList = remember(noticeBoardDetail.comments) { flattenCommentTree(commentTree) }
-    var text by remember { mutableStateOf("") }
-    var isAnonymous by remember { mutableStateOf(false) }
 
     Column(
         modifier =
@@ -135,13 +146,10 @@ fun NoticeBoardDetailScreen(
         }
         NoticeBoardDetailCommentTextField(
             text = text,
-            onTextChange = { text = it },
+            onTextChange = onTextChange,
             isAnonymous = isAnonymous,
-            onAnonymousChanged = { isAnonymous = it },
-            onSend = {
-                // TODO : API
-                text = ""
-            },
+            onAnonymousChanged = onAnonymousChanged,
+            onSend = onSend,
             modifier =
                 Modifier
                     .padding(horizontal = 16.dp, vertical = 10.dp),

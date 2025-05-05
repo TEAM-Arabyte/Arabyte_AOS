@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class PostCommentRequestDto(
     val articleId: Long,
     val text: String,
-    val parentId: Long,
+    val parentId: Long?,
     val isAnonymous: Boolean,
 )
