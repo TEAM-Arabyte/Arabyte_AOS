@@ -15,30 +15,34 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.util.DebugLogger
 import com.konkuk.arabyte_aos.R
+import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentBoard
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
+import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardDetailRoute(
+    articleId:Long,
     modifier: Modifier = Modifier,
     viewModel: NoticeBoardDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
-    LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.LoadNoticeBoardDetail) }
-
+    LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId = articleId)) }
+    DebugLog.d("NoticeBoardDetailScreen","ArticleId : $articleId")
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    NoticeBoardDetailScreen(uiState = uiState, innerPaddingValues = innerPaddingValues, modifier = modifier)
+    NoticeBoardDetailScreen(noticeBoardDetail = uiState.noticeBoardDetail, innerPaddingValues = innerPaddingValues, modifier = modifier)
 }
 
 @Composable
 fun NoticeBoardDetailScreen(
+    noticeBoardDetail : NoticeBoardDetail,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
-    uiState: NoticeBoardDetailContract.NoticeBoardDetailUiState = NoticeBoardDetailContract.NoticeBoardDetailUiState(),
 ) {
     Column(
         modifier =
@@ -56,12 +60,12 @@ fun NoticeBoardDetailScreen(
         LazyColumn {
             item {
                 NoticeBoardDetailContent(
-                    writerProfileImage = uiState.noticeBoardDetail.profileImage,
-                    writerNickname = uiState.noticeBoardDetail.nickname,
-                    writeDate = uiState.noticeBoardDetail.writeDate,
-                    title = uiState.noticeBoardDetail.title,
-                    content = uiState.noticeBoardDetail.content,
-                    isLiked = uiState.noticeBoardDetail.isLiked,
+                    writerProfileImage = noticeBoardDetail.profileImage,
+                    writerNickname = noticeBoardDetail.nickname,
+                    writeDate = noticeBoardDetail.writeDate,
+                    title = noticeBoardDetail.title,
+                    content = noticeBoardDetail.content,
+                    isLiked = noticeBoardDetail.isLiked,
                 )
             }
             item {
@@ -69,8 +73,8 @@ fun NoticeBoardDetailScreen(
             }
             item {
                 NoticeBoardDetailCommentBoard(
-                    commentList = uiState.noticeBoardDetail.commentList,
-                    articleWriteNickname = uiState.noticeBoardDetail.nickname,
+                    commentList = noticeBoardDetail.commentList,
+                    articleWriteNickname = noticeBoardDetail.nickname,
                 )
             }
         }
@@ -81,6 +85,6 @@ fun NoticeBoardDetailScreen(
 @Composable
 private fun NoticeBoardDetailScreenPreview() {
     ArabyteAOSTheme {
-        NoticeBoardDetailScreen()
+        // NoticeBoardDetailScreen()
     }
 }

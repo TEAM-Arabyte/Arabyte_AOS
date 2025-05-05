@@ -34,13 +34,11 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 fun ArabyteNoticeBoardItem(
     noticeBoardItem: NoticeBoardContent,
     modifier: Modifier = Modifier,
-    navigateToNoticeBoardDetail: () -> Unit = {},
 ) {
     Column(
         modifier =
             modifier
                 .fillMaxWidth()
-                .noRippleClickable(navigateToNoticeBoardDetail),
     ) {
         Column(
             modifier =

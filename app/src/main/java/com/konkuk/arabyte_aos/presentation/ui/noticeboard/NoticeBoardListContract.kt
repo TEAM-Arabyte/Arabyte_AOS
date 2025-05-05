@@ -16,7 +16,7 @@ class NoticeBoardListContract {
     ) : UiState
 
     sealed interface NoticeBoardListSideEffect : UiSideEffect {
-        data class NavigateToNoticeBoardDetail(val itemId: Int) : NoticeBoardListSideEffect
+        data class NavigateToNoticeBoardDetail(val articleId: Long) : NoticeBoardListSideEffect
     }
 
     sealed class NoticeBoardListUiEvent : UiEvent {

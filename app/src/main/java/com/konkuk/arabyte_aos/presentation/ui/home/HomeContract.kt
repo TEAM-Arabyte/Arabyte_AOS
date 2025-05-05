@@ -1,10 +1,8 @@
 package com.konkuk.arabyte_aos.presentation.ui.home
 
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardContent
-import com.konkuk.arabyte_aos.domain.model.NoticeBoardItem
 import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
-import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
@@ -33,7 +31,7 @@ class HomeContract {
 
         data object NavigateToNoticeBoard : HomeSideEffect
 
-        data class NavigateToNoticeBoardDetail(val noticeBoardId: Int) : HomeSideEffect
+        data class NavigateToNoticeBoardDetail(val articleId: Long) : HomeSideEffect
 
         data object NavigateToMyPage : HomeSideEffect
     }

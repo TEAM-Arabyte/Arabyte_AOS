@@ -19,7 +19,7 @@ class NoticeBoardDetailViewModel
 
         override suspend fun handleEvent(event: NoticeBoardDetailContract.NoticeBoardDetailEvent) {
             when (event) {
-                is NoticeBoardDetailContract.NoticeBoardDetailEvent.LoadNoticeBoardDetail -> loadNoticeBoardDetail()
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail -> loadNoticeBoardDetail()
             }
         }
 

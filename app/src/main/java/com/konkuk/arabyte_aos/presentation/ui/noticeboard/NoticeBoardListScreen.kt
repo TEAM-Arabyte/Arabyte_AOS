@@ -25,7 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import coil.util.DebugLogger
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
@@ -33,16 +35,18 @@ import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
+import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardListRoute(
     modifier: Modifier = Modifier,
-    navigateToNoticeBoardDetail: () -> Unit = {},
+    navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     viewModel: NoticeBoardListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
         viewModel.setEvent(
@@ -52,10 +56,21 @@ fun NoticeBoardListRoute(
         )
     }
 
+    LaunchedEffect(viewModel.sideEffect,lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when(sideEffect){
+                    is NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail -> {
+                        navigateToNoticeBoardDetail(sideEffect.articleId)
+                    }
+                }
+            }
+    }
+
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
         addNoticeBoardButtonClicked = {},
-        navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
+        navigateToNoticeBoardDetail = { articleId -> viewModel.setSideEffect(NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail(articleId = articleId)) },
         modifier = modifier,
         uiState = uiState,
         innerPaddingValues = innerPaddingValues,
@@ -66,7 +81,7 @@ fun NoticeBoardListRoute(
 fun NoticeBoardListScreen(
     categoryOnClick: (ArabyteNoticeBoardCategoryType) -> Unit,
     addNoticeBoardButtonClicked: () -> Unit,
-    navigateToNoticeBoardDetail: () -> Unit = {},
+    navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     modifier: Modifier = Modifier,
     uiState: NoticeBoardListContract.NoticeBoardListUiState = NoticeBoardListContract.NoticeBoardListUiState(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
@@ -137,7 +152,9 @@ fun NoticeBoardListScreen(
                 ) { noticeBoardItem ->
                     ArabyteNoticeBoardItem(
                         noticeBoardItem = noticeBoardItem,
-                        navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
+                        modifier = Modifier.noRippleClickable {
+                            navigateToNoticeBoardDetail(noticeBoardItem.articleId)
+                        },
                     )
                 }
             }
