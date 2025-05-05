@@ -17,6 +17,7 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 class ReviewDetailContract {
     data class ReviewDetailUiState(
         val loadState: LoadState = LoadState.Idle,
+        val currentUserId:Int = -1,
         val reviewDetail: ReviewDetail =
             ReviewDetail(
                 reviewId = -1,
@@ -40,6 +41,7 @@ class ReviewDetailContract {
                 normalCount = 0,
                 goodCount = 0,
             ),
+        val dialogVisible:Boolean = false
     ) : UiState
 
     sealed interface ReviewDetailSideEffect : UiSideEffect {
@@ -48,5 +50,9 @@ class ReviewDetailContract {
 
     sealed class ReviewDetailEvent : UiEvent {
         data class GetReviewDetail(val reviewId: Int) : ReviewDetailEvent()
+
+        data object GetUserID : ReviewDetailEvent()
+
+        data object ChangeDialogVisible : ReviewDetailEvent()
     }
 }

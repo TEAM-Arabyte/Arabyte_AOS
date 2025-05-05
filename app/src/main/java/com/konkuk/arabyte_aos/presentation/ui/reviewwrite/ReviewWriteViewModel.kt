@@ -175,13 +175,11 @@ class ReviewWriteViewModel
                                 reviewRating = currentState.reviewRating.toReviewRating(),
                             ),
                     )
-                if (result.isSuccess)
-                    {
-                        setSideEffect(ReviewWriteContract.ReviewWriteSideEffect.NavigateToReviewList)
-                    } else
-                    {
-                        setSideEffect(ReviewWriteContract.ReviewWriteSideEffect.ShowServerErrorToast)
-                    }
+                if (result.isSuccess) {
+                    setSideEffect(ReviewWriteContract.ReviewWriteSideEffect.NavigateToReviewList)
+                } else {
+                    setSideEffect(ReviewWriteContract.ReviewWriteSideEffect.ShowServerErrorToast)
+                }
             }
         }
     }
