@@ -26,7 +26,6 @@ import com.konkuk.arabyte_aos.domain.model.NoticeBoardContent
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.CommentChip
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.LikeChip
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardCategoryChip
-import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
@@ -38,7 +37,7 @@ fun ArabyteNoticeBoardItem(
     Column(
         modifier =
             modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
     ) {
         Column(
             modifier =

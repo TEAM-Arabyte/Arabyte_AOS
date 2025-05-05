@@ -28,7 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import coil.util.DebugLogger
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
@@ -56,10 +55,10 @@ fun NoticeBoardListRoute(
         )
     }
 
-    LaunchedEffect(viewModel.sideEffect,lifecycleOwner) {
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
-                when(sideEffect){
+                when (sideEffect) {
                     is NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail -> {
                         navigateToNoticeBoardDetail(sideEffect.articleId)
                     }
@@ -152,9 +151,10 @@ fun NoticeBoardListScreen(
                 ) { noticeBoardItem ->
                     ArabyteNoticeBoardItem(
                         noticeBoardItem = noticeBoardItem,
-                        modifier = Modifier.noRippleClickable {
-                            navigateToNoticeBoardDetail(noticeBoardItem.articleId)
-                        },
+                        modifier =
+                            Modifier.noRippleClickable {
+                                navigateToNoticeBoardDetail(noticeBoardItem.articleId)
+                            },
                     )
                 }
             }

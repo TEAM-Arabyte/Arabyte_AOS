@@ -67,7 +67,7 @@ class MainNavigator(
         navHostController.navigationReviewDetail()
     }
 
-    fun navigateToNoticeBoardDetail(articleId : Long) {
+    fun navigateToNoticeBoardDetail(articleId: Long) {
         navHostController.navigationNoticeBoardDetail(articleId = articleId)
     }
 

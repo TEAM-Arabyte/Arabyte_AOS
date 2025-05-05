@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.util.DebugLogger
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
@@ -27,20 +26,20 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardDetailRoute(
-    articleId:Long,
+    articleId: Long,
     modifier: Modifier = Modifier,
     viewModel: NoticeBoardDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId = articleId)) }
-    DebugLog.d("NoticeBoardDetailScreen","ArticleId : $articleId")
+    DebugLog.d("NoticeBoardDetailScreen", "ArticleId : $articleId")
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     NoticeBoardDetailScreen(noticeBoardDetail = uiState.noticeBoardDetail, innerPaddingValues = innerPaddingValues, modifier = modifier)
 }
 
 @Composable
 fun NoticeBoardDetailScreen(
-    noticeBoardDetail : NoticeBoardDetail,
+    noticeBoardDetail: NoticeBoardDetail,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {

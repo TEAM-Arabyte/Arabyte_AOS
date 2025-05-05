@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.konkuk.arabyte_aos.presentation.ui.navigation.Route
 import com.konkuk.arabyte_aos.presentation.ui.navigation.navigateBottomMain
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.NoticeBoardDetailRoute
 
@@ -19,11 +18,12 @@ fun NavGraphBuilder.noticeBoarDetailNavGraph(
 ) {
     composable(
         route = NoticeBoardDetailRoute.ROUTE_WITH_ARGUMENT,
-        arguments = listOf(
-            navArgument(NoticeBoardDetailRoute.ARGUMENT) {
-                type = NavType.LongType
-            }
-        )
+        arguments =
+            listOf(
+                navArgument(NoticeBoardDetailRoute.ARGUMENT) {
+                    type = NavType.LongType
+                },
+            ),
     ) { backStackEntry ->
         val articleId = backStackEntry.arguments?.getLong(NoticeBoardDetailRoute.ARGUMENT) ?: -1
         NoticeBoardDetailRoute(
