@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.model
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetailComment
 
 data class NoticeBoardCommentNode(
     val comment: NoticeBoardDetailComment,

@@ -17,17 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetailComment
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetailComment
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardWriterChip
-import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -53,20 +49,11 @@ fun NoticeBoardDetailCommentItem(
                 )
                 Spacer(Modifier.width(10.dp))
             }
-            if (comment.isAnonymous || comment.profileImage.isBlank()) {
+            if (comment.isAnonymous) {
                 Image(
                     painter = painterResource(R.drawable.img_profile_default_anonymity),
                     contentDescription = null,
                     modifier = Modifier.size(28.dp),
-                )
-            } else {
-                AsyncImage(
-                    model = comment.profileImage,
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp),
-                    contentScale = ContentScale.Crop,
-                    placeholder = painterResource(R.drawable.img_profile_default_anonymity),
-                    error = painterResource(R.drawable.img_profile_default_anonymity),
                 )
             }
         }
@@ -92,7 +79,7 @@ fun NoticeBoardDetailCommentItem(
                 }
             }
             Text(
-                text = comment.content,
+                text = comment.text,
                 style = ArabyteTheme.typography.bodyMed13,
                 color = ArabyteTheme.colors.gray07,
             )
@@ -110,43 +97,5 @@ fun NoticeBoardDetailCommentItem(
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun NoticeBoardDetailCommentPrev1() {
-    ArabyteAOSTheme {
-        NoticeBoardDetailCommentItem(
-            comment =
-                NoticeBoardDetailComment(
-                    profileImage = "",
-                    nickname = "휘둥",
-                    content = "무슨 알바하셨나요?",
-                    isAnonymous = false,
-                    commentId = 1,
-                    parentId = null,
-                ),
-            isWriter = true,
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun NoticeBoardDetailCommentPrev2() {
-    ArabyteAOSTheme {
-        NoticeBoardDetailCommentItem(
-            comment =
-                NoticeBoardDetailComment(
-                    profileImage = "d",
-                    nickname = "휘둥",
-                    content = "고깃집 알바 했어요!",
-                    isAnonymous = true,
-                    commentId = 1,
-                    parentId = 1,
-                ),
-            isWriter = false,
-        )
     }
 }

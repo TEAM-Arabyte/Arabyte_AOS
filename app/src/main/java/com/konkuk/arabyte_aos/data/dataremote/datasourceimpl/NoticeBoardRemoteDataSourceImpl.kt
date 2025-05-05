@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.data.dataremote.datasourceimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.NoticeBoardRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
 import retrofit2.Response
@@ -22,5 +23,10 @@ class NoticeBoardRemoteDataSourceImpl
                 page = page,
                 size = size,
                 sort = sort,
+            )
+
+        override suspend fun getNoticeBoardDetail(articleId: Int): Response<GetNoticeBoardDetailResponseDto> =
+            service.getNoticeBoardDetail(
+                articleId = articleId,
             )
     }

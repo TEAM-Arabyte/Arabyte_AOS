@@ -1,6 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
-import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetail
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
@@ -9,7 +9,20 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 class NoticeBoardDetailContract {
     data class NoticeBoardDetailUiState(
         val loadState: LoadState = LoadState.Idle,
-        val noticeBoardDetail: NoticeBoardDetail? = null,
+        // Todo : 구조 리팩토링
+        val noticeBoardDetail: NoticeBoardDetail =
+            NoticeBoardDetail(
+                articleId = -1,
+                nickname = "",
+                createdAt = "",
+                title = "",
+                text = "",
+                likeCount = 0,
+                commentCount = 0,
+                comments = emptyList(),
+                imageUrls = emptyList(),
+                isLiked = false,
+            ),
     ) : UiState
 
     sealed interface NoticeBoardDetailSideEffect : UiSideEffect {

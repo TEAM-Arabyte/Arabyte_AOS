@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.domain.repository
 
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardList
 
 interface NoticeBoardRepository {
@@ -9,4 +10,8 @@ interface NoticeBoardRepository {
         size: Int,
         sort: String,
     ): Result<NoticeBoardList>
+
+    suspend fun getNoticeBoardDetail(
+        articleId: Int,
+    ): Result<NoticeBoardDetail>
 }

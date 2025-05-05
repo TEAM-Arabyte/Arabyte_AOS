@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetail
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentBoard
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
@@ -58,12 +58,13 @@ fun NoticeBoardDetailScreen(
         )
         LazyColumn {
             item {
+                // Todo : 구조 리팩토링
                 NoticeBoardDetailContent(
-                    writerProfileImage = noticeBoardDetail.profileImage,
+                    writerProfileImage = "",
                     writerNickname = noticeBoardDetail.nickname,
-                    writeDate = noticeBoardDetail.writeDate,
+                    writeDate = noticeBoardDetail.createdAt,
                     title = noticeBoardDetail.title,
-                    content = noticeBoardDetail.content,
+                    content = noticeBoardDetail.text,
                     isLiked = noticeBoardDetail.isLiked,
                 )
             }
@@ -72,7 +73,7 @@ fun NoticeBoardDetailScreen(
             }
             item {
                 NoticeBoardDetailCommentBoard(
-                    commentList = noticeBoardDetail.commentList,
+                    commentList = noticeBoardDetail.comments,
                     articleWriteNickname = noticeBoardDetail.nickname,
                 )
             }

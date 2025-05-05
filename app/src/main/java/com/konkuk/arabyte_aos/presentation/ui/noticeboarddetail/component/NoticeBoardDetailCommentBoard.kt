@@ -15,10 +15,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.presentation.model.NoticeBoardDetailComment
-import com.konkuk.arabyte_aos.presentation.model.buildCommentTree
-import com.konkuk.arabyte_aos.presentation.model.flattenCommentTree
+import buildCommentTree
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetailComment
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
+import flattenCommentTree
 
 @Composable
 fun NoticeBoardDetailCommentBoard(
