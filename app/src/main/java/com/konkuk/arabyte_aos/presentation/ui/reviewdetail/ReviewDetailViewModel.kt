@@ -77,17 +77,15 @@ class ReviewDetailViewModel
             isMyReview: Boolean,
             helpful: ReviewHelpfulType,
         ) {
-            if (isMyReview)
-                {
-                    setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowAlertToast)
-                } else
-                {
-                    viewModelScope.launch {
-                        postReviewHelpfulUseCase(reviewId = currentState.reviewDetail.reviewId, helpful = helpful)
-                            .onSuccess { response ->
-                                setState { copy(reviewDetail = response) }
-                            }
-                    }
+            if (isMyReview) {
+                setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowAlertToast)
+            } else {
+                viewModelScope.launch {
+                    postReviewHelpfulUseCase(reviewId = currentState.reviewDetail.reviewId, helpful = helpful)
+                        .onSuccess { response ->
+                            setState { copy(reviewDetail = response) }
+                        }
                 }
+            }
         }
     }
