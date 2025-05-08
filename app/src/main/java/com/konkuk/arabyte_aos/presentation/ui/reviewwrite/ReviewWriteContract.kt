@@ -1,9 +1,9 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewwrite
 
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.domain.model.KakaoPlace
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.model.NullableReviewRating
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
