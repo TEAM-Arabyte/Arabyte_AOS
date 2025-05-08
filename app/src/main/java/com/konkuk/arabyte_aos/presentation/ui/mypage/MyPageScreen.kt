@@ -60,17 +60,19 @@ fun MyPageRoute(
         withDrawClicked = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.WithDrawClicked) },
         changeDialogVisible = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.ChangeDialogVisible) },
         changeUserProfileVisible = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.ChangeUserProfileVisible) },
+        logoutClicked = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.LogoutClicked) },
     )
 }
 
 @Composable
 fun MyPageScreen(
     paddingValues: PaddingValues,
+    withDrawClicked: () -> Unit,
+    logoutClicked: () -> Unit,
+    changeDialogVisible: () -> Unit,
+    changeUserProfileVisible: () -> Unit,
     modifier: Modifier = Modifier,
     uiState: MyPageContract.MyPageUiState = MyPageContract.MyPageUiState(),
-    withDrawClicked: () -> Unit = {},
-    changeDialogVisible: () -> Unit = {},
-    changeUserProfileVisible: () -> Unit = {},
 ) {
     val defaultProfileRes =
         when (uiState.userProfile.gender) {
@@ -81,7 +83,8 @@ fun MyPageScreen(
 
     Box(
         modifier =
-            modifier.fillMaxSize()
+            modifier
+                .fillMaxSize()
                 .background(color = ArabyteTheme.colors.white)
                 .padding(paddingValues),
     ) {
@@ -113,7 +116,7 @@ fun MyPageScreen(
             }
             MyPageClickableText(text = "서비스 이용약관", clickable = changeDialogVisible)
             MyPageClickableText(text = "개인정보처리방침", clickable = {})
-            MyPageClickableText(text = "로그아웃", clickable = {}, textColor = ArabyteTheme.colors.alertRed)
+            MyPageClickableText(text = "로그아웃", clickable = logoutClicked, textColor = ArabyteTheme.colors.alertRed)
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -166,6 +169,9 @@ private fun MyPageScreenPreview() {
         MyPageScreen(
             withDrawClicked = {},
             paddingValues = PaddingValues(0.dp),
+            logoutClicked = {},
+            changeDialogVisible = {},
+            changeUserProfileVisible = {},
         )
     }
 }

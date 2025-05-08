@@ -32,6 +32,8 @@ class MyPageContract {
     sealed class MyPageEvent : UiEvent {
         data object WithDrawClicked : MyPageEvent()
 
+        data object LogoutClicked : MyPageEvent()
+
         data object ChangeDialogVisible : MyPageEvent()
 
         data object ChangeUserProfileVisible : MyPageEvent()

@@ -16,5 +16,5 @@ fun MyPageClickableText(
     clickable: () -> Unit,
     textColor: Color = ArabyteTheme.colors.black,
 ) {
-    Text(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 20.dp).noRippleClickable(clickable), text = text, style = ArabyteTheme.typography.bodyMed15, color = textColor)
+    Text(modifier = Modifier.fillMaxWidth().noRippleClickable(clickable).padding(horizontal = 16.dp, vertical = 20.dp), text = text, style = ArabyteTheme.typography.bodyMed15, color = textColor)
 }

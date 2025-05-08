@@ -29,6 +29,8 @@ class MyPageViewModel
                 is MyPageContract.MyPageEvent.ChangeUserProfileVisible -> {
                     setState { copy(userProfileVisible = !currentState.userProfileVisible) }
                 }
+
+                is MyPageContract.MyPageEvent.LogoutClicked -> logout()
             }
         }
 
@@ -36,12 +38,16 @@ class MyPageViewModel
             setState { copy(loadState = LoadState.Loading) }
             viewModelScope.launch {
                 deleteUserUseCase().onSuccess {
-                    userInfoRepository.clear()
                     setState { copy(loadState = LoadState.Success) }
-                    setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)
+                    logout()
                 }.onFailure {
                     setState { copy(loadState = LoadState.Error) }
                 }
             }
+        }
+
+        private fun logout() {
+            userInfoRepository.clear()
+            setSideEffect(MyPageContract.MyPageSideEffect.NavigateToLogin)
         }
     }

@@ -46,8 +46,7 @@ class UserInfoLocalDataSourceImpl
             set(value) = setValue(REFRESH_TOKEN, value)
 
         override fun clear() {
-            setValue(REFRESH_TOKEN, "")
-            setValue(ACCESS_TOKEN, "")
+            sharedPreferences.edit { clear() }
         }
 
         private fun getValue(key: String): String =
