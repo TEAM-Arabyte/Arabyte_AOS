@@ -3,6 +3,7 @@ package com.konkuk.arabyte_aos.presentation.ui.mypage
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.model.Gender
 import com.konkuk.arabyte_aos.presentation.model.UserProfile
+import com.konkuk.arabyte_aos.presentation.util.WebViewUrl.SERVICE_RULES_URL
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
@@ -23,6 +24,8 @@ class MyPageContract {
                 experienceMonths = 4,
                 jobInterests = listOf(ArabyteJobCategory.DELIVERY, ArabyteJobCategory.FOOD_BEVERAGE),
             ),
+        val webViewVisible: Boolean = false,
+        val wevViewUrl: String = SERVICE_RULES_URL,
     ) : UiState
 
     sealed interface MyPageSideEffect : UiSideEffect {
@@ -37,5 +40,9 @@ class MyPageContract {
         data object ChangeDialogVisible : MyPageEvent()
 
         data object ChangeUserProfileVisible : MyPageEvent()
+
+        data object ChangeWebViewVisible : MyPageEvent()
+
+        data class SetWebViewUrl(val url: String) : MyPageEvent()
     }
 }

@@ -28,9 +28,12 @@ import com.konkuk.arabyte_aos.BuildConfig
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.model.Gender
 import com.konkuk.arabyte_aos.presentation.ui.component.dialog.ArabyteTwoButtonDialog
+import com.konkuk.arabyte_aos.presentation.ui.component.view.ArabyteWebView
 import com.konkuk.arabyte_aos.presentation.ui.mypage.component.MyPageClickableText
 import com.konkuk.arabyte_aos.presentation.ui.mypage.component.MyPageProfileRow
 import com.konkuk.arabyte_aos.presentation.ui.mypage.component.MyPageProfileView
+import com.konkuk.arabyte_aos.presentation.util.WebViewUrl.PRIVACY_POLICY_URL
+import com.konkuk.arabyte_aos.presentation.util.WebViewUrl.SERVICE_RULES_URL
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -61,6 +64,8 @@ fun MyPageRoute(
         changeDialogVisible = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.ChangeDialogVisible) },
         changeUserProfileVisible = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.ChangeUserProfileVisible) },
         logoutClicked = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.LogoutClicked) },
+        changeWebViewVisible = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.ChangeWebViewVisible) },
+        setWebViewUrl = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.SetWebViewUrl(it)) },
     )
 }
 
@@ -73,6 +78,8 @@ fun MyPageScreen(
     changeUserProfileVisible: () -> Unit,
     modifier: Modifier = Modifier,
     uiState: MyPageContract.MyPageUiState = MyPageContract.MyPageUiState(),
+    changeWebViewVisible: () -> Unit,
+    setWebViewUrl: (String) -> Unit,
 ) {
     val defaultProfileRes =
         when (uiState.userProfile.gender) {
@@ -114,8 +121,14 @@ fun MyPageScreen(
                 Spacer(modifier = Modifier.weight(1f))
                 Text(text = "v${BuildConfig.VERSION_CODE}", style = ArabyteTheme.typography.bodyMed13, color = ArabyteTheme.colors.gray04)
             }
-            MyPageClickableText(text = "서비스 이용약관", clickable = changeDialogVisible)
-            MyPageClickableText(text = "개인정보처리방침", clickable = {})
+            MyPageClickableText(text = "서비스 이용약관", clickable = {
+                setWebViewUrl(SERVICE_RULES_URL)
+                changeWebViewVisible()
+            })
+            MyPageClickableText(text = "개인정보처리방침", clickable = {
+                setWebViewUrl(PRIVACY_POLICY_URL)
+                changeWebViewVisible()
+            })
             MyPageClickableText(text = "로그아웃", clickable = logoutClicked, textColor = ArabyteTheme.colors.alertRed)
 
             Spacer(modifier = Modifier.weight(1f))
@@ -159,6 +172,12 @@ fun MyPageScreen(
                 backButtonClicked = changeUserProfileVisible,
             )
         }
+        if (uiState.webViewVisible) {
+            ArabyteWebView(
+                url = uiState.wevViewUrl,
+                onClose = changeWebViewVisible,
+            )
+        }
     }
 }
 
@@ -172,6 +191,8 @@ private fun MyPageScreenPreview() {
             logoutClicked = {},
             changeDialogVisible = {},
             changeUserProfileVisible = {},
+            changeWebViewVisible = {},
+            setWebViewUrl = {},
         )
     }
 }

@@ -103,6 +103,9 @@ dependencies {
 
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)
+
+    // WebView
+    implementation(libs.accompanist.webview)
 }
 ktlint {
     android = true

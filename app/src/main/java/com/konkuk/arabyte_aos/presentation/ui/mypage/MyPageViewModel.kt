@@ -31,6 +31,14 @@ class MyPageViewModel
                 }
 
                 is MyPageContract.MyPageEvent.LogoutClicked -> logout()
+
+                is MyPageContract.MyPageEvent.SetWebViewUrl -> {
+                    setState { copy(wevViewUrl = event.url) }
+                }
+
+                is MyPageContract.MyPageEvent.ChangeWebViewVisible -> {
+                    setState { copy(webViewVisible = !currentState.webViewVisible) }
+                }
             }
         }
 
