@@ -1,7 +1,6 @@
 package com.konkuk.arabyte_aos.domain.model
 
 import com.konkuk.arabyte_aos.domain.util.ReviewRatingTexts
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
 data class ReviewDetail(
     val reviewId: Int,
@@ -16,6 +15,7 @@ data class ReviewDetail(
     val badCount: Int,
     val normalCount: Int,
     val goodCount: Int,
+    val helpful: ReviewHelpfulType?,
 )
 
 data class ReviewRating(

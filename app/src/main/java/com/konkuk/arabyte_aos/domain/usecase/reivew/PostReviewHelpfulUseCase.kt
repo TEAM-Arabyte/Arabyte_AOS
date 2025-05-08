@@ -1,8 +1,8 @@
 package com.konkuk.arabyte_aos.domain.usecase.reivew
 
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.repository.ReviewsRepository
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -5,9 +5,10 @@ import com.konkuk.arabyte_aos.data.mapper.todata.toRequestDto
 import com.konkuk.arabyte_aos.data.mapper.todomain.toDomainModel
 import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
+import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.domain.model.ReviewList
 import com.konkuk.arabyte_aos.domain.repository.ReviewsRepository
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import javax.inject.Inject
 
 class ReviewsRepositoryImpl
@@ -48,7 +49,24 @@ class ReviewsRepositoryImpl
             helpful: ReviewHelpfulType,
         ): Result<ReviewDetail> =
             runCatching {
-                reviewsRemoteDataSource.postReviewHelpful(reviewId = reviewId, postReviewHelpfulRequestDto = helpful.toRequestDto()).body()?.toDomainModel()
+                reviewsRemoteDataSource.postReviewHelpful(
+                    reviewId = reviewId,
+                    postReviewHelpfulRequestDto = helpful.toRequestDto(),
+                ).body()?.toDomainModel()
+                    ?: throw IllegalStateException("Response body is null")
+            }
+
+        override suspend fun getFilteredReviews(
+            locationId: Int?,
+            categories: List<String>?,
+            isCertified: Boolean?,
+        ): Result<List<ReviewItem>> =
+            runCatching {
+                reviewsRemoteDataSource.getFilteredReviews(
+                    locationId = locationId,
+                    categories = categories,
+                    isCertified = isCertified,
+                ).body()?.map { it.toDomainModel() }
                     ?: throw IllegalStateException("Response body is null")
             }
     }

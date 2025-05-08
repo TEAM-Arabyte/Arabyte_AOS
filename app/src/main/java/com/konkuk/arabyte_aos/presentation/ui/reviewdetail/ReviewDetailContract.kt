@@ -1,15 +1,15 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewdetail
 
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.domain.model.Overtime
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.model.ReviewRating
 import com.konkuk.arabyte_aos.domain.model.Salary
 import com.konkuk.arabyte_aos.domain.model.SalaryDate
 import com.konkuk.arabyte_aos.domain.model.WorkAtmosphere
 import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
 import com.konkuk.arabyte_aos.domain.model.WorkIntensity
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.UiState
@@ -41,6 +41,7 @@ class ReviewDetailContract {
                 badCount = 0,
                 normalCount = 0,
                 goodCount = 0,
+                helpful = null,
             ),
         val dialogVisible: Boolean = false,
     ) : UiState

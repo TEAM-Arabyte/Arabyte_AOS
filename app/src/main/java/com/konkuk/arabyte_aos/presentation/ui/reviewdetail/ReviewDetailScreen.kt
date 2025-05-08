@@ -23,7 +23,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.component.dialog.ArabyteTwoButtonDialog
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailContent
@@ -148,6 +148,7 @@ fun ReviewDetailScreen(
                         onItemClick = { type, _ ->
                             helpfulClicked(isMyReview, type)
                         },
+                        selectedType = uiState.reviewDetail.helpful,
                     )
                 }
             }

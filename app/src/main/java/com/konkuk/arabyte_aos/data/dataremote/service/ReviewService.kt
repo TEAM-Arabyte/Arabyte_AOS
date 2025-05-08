@@ -4,6 +4,7 @@ import com.konkuk.arabyte_aos.data.dataremote.model.request.PostReviewHelpfulReq
 import com.konkuk.arabyte_aos.data.dataremote.model.request.PostReviewRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewsResponseDto
+import com.konkuk.arabyte_aos.data.dataremote.model.response.ReviewContentDto
 import com.konkuk.arabyte_aos.data.util.ApiConstraints.REVIEWS
 import com.konkuk.arabyte_aos.data.util.ApiConstraints.REVIEW_ID
 import retrofit2.Response
@@ -41,4 +42,11 @@ interface ReviewService {
         @Path(REVIEW_ID) reviewId: Int,
         @Body postReviewHelpfulDto: PostReviewHelpfulRequestDto,
     ): Response<GetReviewDetailResponseDto>
+
+    @GET("/$REVIEWS/filter")
+    suspend fun getFilteredReviews(
+        @Query("locationId") locationId: Int?,
+        @Query("categories") categories: List<String>?,
+        @Query("isCertified") isCertified: Boolean?,
+    ): Response<List<ReviewContentDto>>
 }
