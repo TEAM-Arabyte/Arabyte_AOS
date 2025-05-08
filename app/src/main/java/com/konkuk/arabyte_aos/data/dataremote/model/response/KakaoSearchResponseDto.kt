@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.data.dataremote.model.response
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,8 +10,8 @@ data class KakaoSearchResponseDto(
 
 @Serializable
 data class Place(
-    var id: String,
-    var placeName: String,
-    var addressName: String,
-    var roadAddressName: String,
+    @SerialName("id") val id: String,
+    @SerialName("place_name") val placeName: String,
+    @SerialName("address_name") val addressName: String,
+    @SerialName("road_address_name") val roadAddressName: String,
 )

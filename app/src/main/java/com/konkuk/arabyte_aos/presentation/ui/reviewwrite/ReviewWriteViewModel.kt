@@ -14,6 +14,8 @@ import com.konkuk.arabyte_aos.domain.usecase.reivew.PostReviewUseCase
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -65,7 +67,11 @@ class ReviewWriteViewModel
 
                 is ReviewWriteContract.ReviewWriteEvent.LoadGuList -> loadGuList(sidoCode = event.sidoCode)
 
-                is ReviewWriteContract.ReviewWriteEvent.LoadDongList -> loadDongList(sidoCode = event.sidoCode, guCode = event.guCode)
+                is ReviewWriteContract.ReviewWriteEvent.LoadDongList ->
+                    loadDongList(
+                        sidoCode = event.sidoCode,
+                        guCode = event.guCode,
+                    )
 
                 is ReviewWriteContract.ReviewWriteEvent.SelectSido -> selectSido(event.sido)
 
@@ -74,18 +80,42 @@ class ReviewWriteViewModel
                 is ReviewWriteContract.ReviewWriteEvent.SelectDong -> selectDong(event.dong)
 
                 is ReviewWriteContract.ReviewWriteEvent.WriteCompleteButtonClicked -> completeButtonClicked()
+
+                is ReviewWriteContract.ReviewWriteEvent.ChangPlaceBottomSheetVisible -> {
+                    setState { copy(placeBottomSheetVisible = !currentState.placeBottomSheetVisible) }
+                }
+
+                is ReviewWriteContract.ReviewWriteEvent.SelectPlace -> {
+                    setState {
+                        copy(
+                            selectedCompany = event.place,
+                            placeBottomSheetText = event.place.placeName,
+                            placeBottomSheetVisible = false,
+                        )
+                    }
+                }
             }
         }
 
-    private fun onCompanyTextChanged(company: String) {
-        val trimmed = company.take(20)
-        viewModelScope.launch {
-            setState { copy(companyName = trimmed) }
-            getKakaoSearchUseCase(query = trimmed).onSuccess {
-            }.onFailure {
-            }
+        private var debounceJob: Job? = null
+
+        private fun onCompanyTextChanged(company: String) {
+            val trimmed = company.take(20)
+            setState { copy(placeBottomSheetText = company) }
+            debounceJob?.cancel()
+            if (trimmed.isNotEmpty()) {
+                viewModelScope.launch {
+                    delay(500)
+                    getKakaoSearchUseCase(query = trimmed).onSuccess { placeList ->
+                        setState { copy(placeList = placeList) }
+                    }.onFailure {
+                    }
+                }
+            } else
+                {
+                    setState { copy(placeList = emptyList()) }
+                }
         }
-    }
 
         private fun onReviewTextChanged(review: String) {
             val trimmed = review.take(20)
@@ -114,7 +144,15 @@ class ReviewWriteViewModel
 
         private fun selectSido(sido: LocationData) {
             loadGuList(sidoCode = sido.sidoCode)
-            setState { copy(selectedSido = sido, dongList = emptyList(), selectedGu = null, selectedDong = null, locationId = sido.id) }
+            setState {
+                copy(
+                    selectedSido = sido,
+                    dongList = emptyList(),
+                    selectedGu = null,
+                    selectedDong = null,
+                    locationId = sido.id,
+                )
+            }
         }
 
         private fun loadGuList(sidoCode: String) {
@@ -155,7 +193,7 @@ class ReviewWriteViewModel
                 state.jobCategory != null &&
                     state.reviewRating.isNotNull() &&
                     state.reviewText.isNotBlank() &&
-                    state.star > 0 && state.locationId > 0 && state.companyId > 0
+                    state.star > 0 && state.locationId > 0 && state.selectedCompany.id != "-1"
 
             if (isValid) {
                 postReview()
@@ -170,7 +208,7 @@ class ReviewWriteViewModel
                     postReviewUseCase(
                         postReview =
                             PostReview(
-                                companyId = currentState.companyId,
+                                companyId = currentState.selectedCompany.id.toInt(),
                                 locationId = currentState.locationId,
                                 category = currentState.jobCategory!!,
                                 text = currentState.reviewText,

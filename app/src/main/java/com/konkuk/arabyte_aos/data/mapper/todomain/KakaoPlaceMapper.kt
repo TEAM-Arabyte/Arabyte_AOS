@@ -8,13 +8,8 @@ fun KakaoSearchResponseDto.toDomainModel(): List<KakaoPlace> {
         KakaoPlace(
             id = document.id,
             placeName = document.placeName,
-            categoryName = document.categoryName,
-            categoryGroupCode = document.categoryGroupCode,
-            categoryGroupName = document.categoryGroupName,
-            phone = document.phone,
             addressName = document.addressName,
             roadAddressName = document.roadAddressName,
-            placeUrl = document.placeUrl,
         )
     }
 }

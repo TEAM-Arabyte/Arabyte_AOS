@@ -16,7 +16,7 @@ object KakaoDataSourceProvidesModule {
     @Provides
     @Singleton
     fun provideKakaoRemoteDataSource(
-        @Kakao kakaoService: KakaoService
+        @Kakao kakaoService: KakaoService,
     ): KakaoRemoteDataSource =
         KakaoRemoteDataSourceImpl(kakaoService)
 }

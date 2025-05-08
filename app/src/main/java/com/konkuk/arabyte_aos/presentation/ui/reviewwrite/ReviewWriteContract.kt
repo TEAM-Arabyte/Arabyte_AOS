@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewwrite
 
+import com.konkuk.arabyte_aos.domain.model.KakaoPlace
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.model.NullableReviewRating
 import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
@@ -12,8 +13,13 @@ import com.konkuk.arabyte_aos.presentation.util.view.TextFieldValidationState
 class ReviewWriteContract {
     data class ReviewWriteUiState(
         val loadState: LoadState = LoadState.Idle,
-        val companyName: String = "",
-        val companyId: Int = 1,
+        val selectedCompany: KakaoPlace =
+            KakaoPlace(
+                id = "-1",
+                placeName = "",
+                addressName = "",
+                roadAddressName = "",
+            ),
         val companyValidationState: TextFieldValidationState = TextFieldValidationState.IDLE,
         val jobCategory: ArabyteJobCategory? = null,
         val region: String = "",
@@ -28,6 +34,9 @@ class ReviewWriteContract {
         val selectedSido: LocationData? = null,
         val selectedGu: LocationData? = null,
         val selectedDong: LocationData? = null,
+        val placeList: List<KakaoPlace> = emptyList(),
+        val placeBottomSheetVisible: Boolean = false,
+        val placeBottomSheetText: String = "",
     ) : UiState
 
     sealed interface ReviewWriteSideEffect : UiSideEffect {
@@ -51,6 +60,8 @@ class ReviewWriteContract {
 
         data object ChangeLocationBottomSheetVisible : ReviewWriteEvent()
 
+        data object ChangPlaceBottomSheetVisible : ReviewWriteEvent()
+
         data class ReviewRatingChanged(val reviewRating: NullableReviewRating) : ReviewWriteEvent()
 
         data class SetLocation(val location: String) : ReviewWriteEvent()
@@ -68,5 +79,7 @@ class ReviewWriteContract {
         data class SelectDong(val dong: LocationData) : ReviewWriteEvent()
 
         data object WriteCompleteButtonClicked : ReviewWriteEvent()
+
+        data class SelectPlace(val place: KakaoPlace) : ReviewWriteEvent()
     }
 }

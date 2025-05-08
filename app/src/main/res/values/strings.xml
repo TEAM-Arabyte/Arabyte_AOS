@@ -105,6 +105,7 @@
     <string name="all_bottom_sheet_close">취소</string>
     <string name="all_bottom_sheet_confirm">적용하기</string>
 
+
     <!-- ReviewList -->
     <string name="review_list_empty_main_title">아직 등록한 리뷰가 없어요</string>
     <string name="review_list_empty_sub_title">새로운 리뷰를 작성해보세요 </string>
