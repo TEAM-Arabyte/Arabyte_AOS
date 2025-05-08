@@ -21,4 +21,5 @@ data class GetReviewDetailResponseDto(
     val badCount: Int,
     val normalCount: Int,
     val goodCount: Int,
+    val helpful: String?,
 )

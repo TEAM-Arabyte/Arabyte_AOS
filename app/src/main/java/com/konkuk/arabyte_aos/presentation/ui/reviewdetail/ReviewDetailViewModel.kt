@@ -1,11 +1,11 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewdetail
 
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.usecase.reivew.DeleteReviewDetailUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.GetReviewDetailUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.PostReviewHelpfulUseCase
 import com.konkuk.arabyte_aos.domain.usecase.user.GetUserIdUseCase
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import dagger.hilt.android.lifecycle.HiltViewModel

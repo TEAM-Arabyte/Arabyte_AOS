@@ -5,9 +5,9 @@ import com.konkuk.arabyte_aos.data.mapper.todata.toRequestDto
 import com.konkuk.arabyte_aos.data.mapper.todomain.toDomainModel
 import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.model.ReviewList
 import com.konkuk.arabyte_aos.domain.repository.ReviewsRepository
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
 import javax.inject.Inject
 
 class ReviewsRepositoryImpl

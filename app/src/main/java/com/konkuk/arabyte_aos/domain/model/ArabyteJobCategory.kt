@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.model
+package com.konkuk.arabyte_aos.domain.model
 
 enum class ArabyteJobCategory(val label: String) {
     FOOD_BEVERAGE("외식/음료"),

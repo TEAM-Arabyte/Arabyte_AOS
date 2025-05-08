@@ -1,15 +1,16 @@
 package com.konkuk.arabyte_aos.data.mapper.todomain
 
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewDetailResponseDto
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.domain.model.Overtime
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.model.ReviewRating
 import com.konkuk.arabyte_aos.domain.model.Salary
 import com.konkuk.arabyte_aos.domain.model.SalaryDate
 import com.konkuk.arabyte_aos.domain.model.WorkAtmosphere
 import com.konkuk.arabyte_aos.domain.model.WorkDifficulty
 import com.konkuk.arabyte_aos.domain.model.WorkIntensity
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
 fun GetReviewDetailResponseDto.toDomainModel(): ReviewDetail {
     return ReviewDetail(
@@ -33,5 +34,6 @@ fun GetReviewDetailResponseDto.toDomainModel(): ReviewDetail {
         badCount = this.badCount,
         normalCount = this.normalCount,
         goodCount = this.goodCount,
+        helpful = this.helpful?.let { ReviewHelpfulType.valueOf(it) },
     )
 }

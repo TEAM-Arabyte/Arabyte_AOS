@@ -12,8 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.konkuk.arabyte_aos.presentation.model.ReviewHelpfulType
-import com.konkuk.arabyte_aos.presentation.model.generateReviewHelpfulList
+import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
+import com.konkuk.arabyte_aos.domain.model.generateReviewHelpfulList
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteEvaluationButton
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 

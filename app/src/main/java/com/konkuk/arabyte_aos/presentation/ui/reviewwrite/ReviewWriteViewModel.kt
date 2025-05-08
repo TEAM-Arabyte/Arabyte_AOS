@@ -2,6 +2,7 @@ package com.konkuk.arabyte_aos.presentation.ui.reviewwrite
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.isNotNull
@@ -10,7 +11,6 @@ import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.PostReviewUseCase
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
