@@ -3,6 +3,7 @@ package com.konkuk.arabyte_aos.domain.repository
 import com.konkuk.arabyte_aos.domain.model.PostReview
 import com.konkuk.arabyte_aos.domain.model.ReviewDetail
 import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
+import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.domain.model.ReviewList
 
 interface ReviewsRepository {
@@ -27,4 +28,10 @@ interface ReviewsRepository {
         reviewId: Int,
         helpful: ReviewHelpfulType,
     ): Result<ReviewDetail>
+
+    suspend fun getFilteredReviews(
+        locationId: Int?,
+        categories: List<String>?,
+        isCertified: Boolean?,
+    ): Result<List<ReviewItem>>
 }
