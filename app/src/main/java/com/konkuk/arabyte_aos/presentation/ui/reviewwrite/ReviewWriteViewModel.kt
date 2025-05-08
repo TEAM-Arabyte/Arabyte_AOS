@@ -111,10 +111,9 @@ class ReviewWriteViewModel
                     }.onFailure {
                     }
                 }
-            } else
-                {
-                    setState { copy(placeList = emptyList()) }
-                }
+            } else {
+                setState { copy(placeList = emptyList()) }
+            }
         }
 
         private fun onReviewTextChanged(review: String) {
