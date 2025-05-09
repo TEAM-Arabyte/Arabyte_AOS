@@ -29,7 +29,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteFilteringType
@@ -38,8 +40,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteCateg
 import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteFilteringButton
-import com.konkuk.arabyte_aos.presentation.ui.component.view.ArabyteEmptyView
-import com.konkuk.arabyte_aos.presentation.util.HandleDoubleBackToExit
+import com.konkuk.arabyte_aos.presentation.ui.reviewlist.component.ReviewListEmptyView
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -53,7 +54,6 @@ fun ReviewListRoute(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HandleDoubleBackToExit()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {

@@ -13,7 +13,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import com.konkuk.arabyte_aos.presentation.util.HandleDoubleBackToExit
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 
 @Composable
@@ -25,8 +24,6 @@ fun MyPageRoute(
     val uiState by myPageViewModel.uiState.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
-
-    HandleDoubleBackToExit()
 
     LaunchedEffect(myPageViewModel.sideEffect, lifecycleOwner) {
         myPageViewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)

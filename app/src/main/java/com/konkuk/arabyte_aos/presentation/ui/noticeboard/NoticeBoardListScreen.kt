@@ -30,7 +30,6 @@ import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCate
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
-import com.konkuk.arabyte_aos.presentation.util.HandleDoubleBackToExit
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -41,7 +40,6 @@ fun NoticeBoardListRoute(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HandleDoubleBackToExit()
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
         addNoticeBoardButtonClicked = {},
