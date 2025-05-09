@@ -1,10 +1,13 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewdetail
 
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.ReportData
+import com.konkuk.arabyte_aos.domain.model.ReportType
 import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.usecase.reivew.DeleteReviewDetailUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.GetReviewDetailUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.PostReviewHelpfulUseCase
+import com.konkuk.arabyte_aos.domain.usecase.report.PostReportUseCase
 import com.konkuk.arabyte_aos.domain.usecase.user.GetUserIdUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
@@ -20,6 +23,7 @@ class ReviewDetailViewModel
         private val getUserIdUseCase: GetUserIdUseCase,
         private val deleteReviewDetailUseCase: DeleteReviewDetailUseCase,
         private val postReviewHelpfulUseCase: PostReviewHelpfulUseCase,
+        private val postReportUseCase: PostReportUseCase,
     ) : BaseViewModel<ReviewDetailContract.ReviewDetailUiState, ReviewDetailContract.ReviewDetailSideEffect, ReviewDetailContract.ReviewDetailEvent>() {
         override fun createInitialState(): ReviewDetailContract.ReviewDetailUiState = ReviewDetailContract.ReviewDetailUiState()
 
@@ -59,6 +63,7 @@ class ReviewDetailViewModel
             if (isMyReview) {
                 deleteReviewDetail()
             } else {
+                reportReviewDetail()
             }
         }
 
@@ -69,6 +74,23 @@ class ReviewDetailViewModel
                 }.onFailure {
                     setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast)
                     setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.NavigateToReviewList)
+                }
+            }
+        }
+
+        private fun reportReviewDetail() {
+            viewModelScope.launch {
+                postReportUseCase(
+                    reportData =
+                        ReportData(
+                            reportType = ReportType.REVIEW,
+                            targetId = currentState.reviewDetail.reviewId.toLong(),
+                            reason = "몰라 이자식아",
+                        ),
+                ).onSuccess {
+                    setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowReportToast)
+                }.onFailure {
+                    setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast)
                 }
             }
         }

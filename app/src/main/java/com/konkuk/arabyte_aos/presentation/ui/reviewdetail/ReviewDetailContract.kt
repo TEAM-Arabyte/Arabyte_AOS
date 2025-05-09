@@ -54,6 +54,8 @@ class ReviewDetailContract {
         data object ShowServerErrorToast : ReviewDetailSideEffect
 
         data object ShowAlertToast : ReviewDetailSideEffect
+
+        data object ShowReportToast : ReviewDetailSideEffect
     }
 
     sealed class ReviewDetailEvent : UiEvent {

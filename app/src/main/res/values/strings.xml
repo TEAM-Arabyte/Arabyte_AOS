@@ -128,6 +128,6 @@
     <string name="review_detail_button_delete">삭제</string>
     <string name="review_detail_button_report">신고</string>
     <string name="review_detail_alert_toast">내가 작성한 리뷰에는 도움여부를 남길 수 없어요 🥲</string>
-
+    <string name="review_detail_report_toast">해당 리뷰에 대한 신고가 완료되었습니다.</string>
 
 </resources>

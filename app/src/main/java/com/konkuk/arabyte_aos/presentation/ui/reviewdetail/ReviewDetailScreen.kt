@@ -64,6 +64,8 @@ fun ReviewDetailRoute(
                     is ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast -> context.arabyteToastMessage(R.string.all_toast_server_error)
 
                     is ReviewDetailContract.ReviewDetailSideEffect.ShowAlertToast -> context.arabyteToastMessage(R.string.review_detail_alert_toast)
+
+                    is ReviewDetailContract.ReviewDetailSideEffect.ShowReportToast -> context.arabyteToastMessage(R.string.review_detail_report_toast)
                 }
             }
     }
