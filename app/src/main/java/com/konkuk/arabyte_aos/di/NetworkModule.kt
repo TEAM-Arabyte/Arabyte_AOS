@@ -4,8 +4,10 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.konkuk.arabyte_aos.BuildConfig
 import com.konkuk.arabyte_aos.BuildConfig.DEBUG
 import com.konkuk.arabyte_aos.data.dataremote.interceptor.AuthInterceptor
+import com.konkuk.arabyte_aos.data.dataremote.interceptor.KakaoInterceptor
 import com.konkuk.arabyte_aos.di.qualifier.Arabyte
 import com.konkuk.arabyte_aos.di.qualifier.Auth
+import com.konkuk.arabyte_aos.di.qualifier.Kakao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -74,5 +76,35 @@ object NetworkModule {
             .addConverterFactory(
                 json.asConverterFactory(requireNotNull("application/json".toMediaTypeOrNull())),
             )
+            .build()
+
+    @Provides
+    @Singleton
+    @Kakao
+    fun providesKakaoInterceptor(): KakaoInterceptor = KakaoInterceptor()
+
+    @Provides
+    @Singleton
+    @Kakao
+    fun providesKakaoOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        @Kakao kakaoInterceptor: KakaoInterceptor,
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(kakaoInterceptor)
+            .build()
+
+    @Provides
+    @Singleton
+    @Kakao
+    fun providesKakaoRetrofit(
+        @Kakao okHttpClient: OkHttpClient,
+        json: Json,
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.KAKO_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaTypeOrNull()!!))
             .build()
 }

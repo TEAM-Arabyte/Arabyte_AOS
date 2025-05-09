@@ -31,16 +31,18 @@ import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.flowlayout.FlowRow
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
+import com.konkuk.arabyte_aos.domain.model.KakaoPlace
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.model.NullableReviewRating
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.component.bottomsheet.ArabyteLocationBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteLocationButton
-import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
 import com.konkuk.arabyte_aos.presentation.ui.reviewwrite.component.ReviewWriteEvaluation
+import com.konkuk.arabyte_aos.presentation.ui.reviewwrite.component.ReviewWritePlaceBottomSheet
 import com.konkuk.arabyte_aos.presentation.ui.reviewwrite.component.ReviewWritingRating
 import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
+import com.konkuk.arabyte_aos.presentation.util.modifier.advancedImePadding
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -122,6 +124,12 @@ fun ReviewWriteRoute(
         popBackStack = {
             viewModel.setSideEffect(ReviewWriteContract.ReviewWriteSideEffect.PopBackStack)
         },
+        placeClicked = { place ->
+            viewModel.setEvent(ReviewWriteContract.ReviewWriteEvent.SelectPlace(place))
+        },
+        changePlaceBottomSheetVisible = {
+            viewModel.setEvent(ReviewWriteContract.ReviewWriteEvent.ChangPlaceBottomSheetVisible)
+        },
     )
 }
 
@@ -131,6 +139,7 @@ fun ReviewWriteScreen(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     uiState: ReviewWriteContract.ReviewWriteUiState = ReviewWriteContract.ReviewWriteUiState(),
     changeLocationBottomSheetVisible: () -> Unit = {},
+    changePlaceBottomSheetVisible: () -> Unit = {},
     categoryChipClicked: (ArabyteJobCategory) -> Unit = {},
     onCompanyValueChanged: (String) -> Unit = {},
     onReviewValueChanged: (String) -> Unit = {},
@@ -142,6 +151,7 @@ fun ReviewWriteScreen(
     dongOnclick: (LocationData) -> Unit = {},
     writeCompleteButtonClicked: () -> Unit = {},
     popBackStack: () -> Unit = {},
+    placeClicked: (KakaoPlace) -> Unit,
 ) {
     val horizontalModifier = Modifier.padding(horizontal = 16.dp)
     val focusManager = LocalFocusManager.current
@@ -150,6 +160,7 @@ fun ReviewWriteScreen(
         modifier =
             modifier
                 .fillMaxSize()
+                .advancedImePadding()
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = {
@@ -180,16 +191,12 @@ fun ReviewWriteScreen(
                     Modifier.fillMaxWidth(),
             ) {
                 item {
-                    ArabyteNormalTextField(
+                    ArabyteLocationButton(
                         modifier = horizontalModifier,
+                        onClicked = changePlaceBottomSheetVisible,
+                        location = uiState.selectedCompany.placeName,
                         title = stringResource(R.string.review_write_company),
-                        textMaxLength = 20,
-                        text = uiState.companyName,
-                        onValueChange = { text ->
-                            onCompanyValueChanged(text)
-                        },
-                        validationState = uiState.companyValidationState,
-                        placeholder = stringResource(R.string.review_write_company_placeholder),
+                        isSelected = uiState.selectedCompany.placeName.isNotEmpty(),
                     )
                 }
                 item {
@@ -296,11 +303,33 @@ fun ReviewWriteScreen(
                 },
             )
         }
+
+        if (uiState.placeBottomSheetVisible) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .advancedImePadding()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable(changePlaceBottomSheetVisible),
+            )
+            ReviewWritePlaceBottomSheet(
+                placeList = uiState.placeList,
+                placeClicked = placeClicked,
+                textFieldText = uiState.placeBottomSheetText,
+                placeTextChanged = onCompanyValueChanged,
+                validationState = uiState.companyValidationState,
+            )
+        }
     }
 }
 
 @Preview
 @Composable
 private fun ReviewWriteScreenPreview() {
-    ArabyteAOSTheme { ReviewWriteScreen() }
+    ArabyteAOSTheme {
+        ReviewWriteScreen(
+            placeClicked = {},
+        )
+    }
 }
