@@ -47,14 +47,31 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 @Composable
 fun ReviewListRoute(
     modifier: Modifier = Modifier,
-    navigateToReviewDetail: () -> Unit = {},
+    navigateToReviewDetail: (reviewId: Int) -> Unit = {},
+    navigateToReviewWrite: () -> Unit = {},
     viewModel: ReviewListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HandleDoubleBackToExit()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(Unit) {
         viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadSidoList)
+        viewModel.setEvent(ReviewListContract.ReviewListEvent.LoadReviewList)
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail -> {
+                        navigateToReviewDetail(sideEffect.reviewId)
+                    }
+
+                    is ReviewListContract.ReviewListSideEffect.NavigateToReviewWrite -> navigateToReviewWrite()
+                }
+            }
     }
 
     ReviewListScreen(
@@ -96,7 +113,12 @@ fun ReviewListRoute(
         resetCategoryFilter = {
             viewModel.setEvent(ReviewListContract.ReviewListEvent.ResetCategoryFilter)
         },
-        reviewItemClicked = { navigateToReviewDetail() },
+        reviewItemClicked = { reviewId ->
+            viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail(reviewId = reviewId))
+        },
+        addReviewButtonClicked = {
+            viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewWrite)
+        },
     )
 }
 
@@ -118,7 +140,7 @@ fun ReviewListScreen(
     resetCategoryFilter: () -> Unit = {},
     categoryBottomSheetCompleteButtonClicked: () -> Unit = {},
     categoryChipClicked: (String) -> Unit = {},
-    reviewItemClicked: () -> Unit = {},
+    reviewItemClicked: (reviewId: Int) -> Unit = {},
 ) {
     Box(
         modifier =
@@ -199,22 +221,28 @@ fun ReviewListScreen(
                     }
                 }
             }
-            if (uiState.listSize == 0) {
-                ArabyteEmptyView()
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "전체 ${uiState.reviewList.size}",
+                style = ArabyteTheme.typography.capMed11,
+                color = ArabyteTheme.colors.gray06,
+            )
+            if (uiState.reviewList.isEmpty()) {
+                ReviewListEmptyView()
             } else {
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    text = "전체 ${uiState.listSize}",
-                    style = ArabyteTheme.typography.capMed11,
-                    color = ArabyteTheme.colors.gray06,
-                )
                 Spacer(modifier = Modifier.height(11.dp))
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(11.dp)) {
                     items(
                         uiState.reviewList,
                         key = { it.reviewItemId },
                     ) { reviewItem ->
-                        ArabyteReviewItem(reviewItem = reviewItem, modifier = Modifier.noRippleClickable(reviewItemClicked))
+                        ArabyteReviewItem(
+                            reviewItem = reviewItem,
+                            modifier =
+                                Modifier.noRippleClickable {
+                                    reviewItemClicked(reviewItem.reviewItemId)
+                                },
+                        )
                     }
                 }
             }
@@ -223,7 +251,7 @@ fun ReviewListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 82.dp, end = 16.dp),
+                    .padding(bottom = 21.dp, end = 16.dp),
             buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addReviewButtonClicked,
         )

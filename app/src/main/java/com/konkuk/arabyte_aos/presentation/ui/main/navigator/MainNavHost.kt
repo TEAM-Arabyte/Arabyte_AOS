@@ -15,6 +15,7 @@ import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.notic
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.onboardingNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.navigation.reviewDetailNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.reviewListNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.reviewwrite.navigation.reviewWriteNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.signup.navigation.signUpNavGraph
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -41,15 +42,18 @@ fun MainNavHost(
             )
             homeNavGraph(
                 paddingValues = paddingValues,
-                navigateToReviewList = navigator::navigateToReviewList,
+                navigateToReviewList = navigator::navigateToReviewListWithCategory,
                 navigateToNoticeBoard = navigator::navigateToNoticeBoard,
             )
             reviewDetailNavGraph(
                 paddingValues = paddingValues,
+                popBackStack = navigator::popBackStack,
+                navigateToReviewList = navigator::navigateToReviewList,
             )
             reviewListNavGraph(
                 paddingValues = paddingValues,
                 navigateToReviewDetailScreen = navigator::navigateToReviewDetail,
+                navigateToReviewWrite = navigator::navigateToReviewWrite,
             )
             noticeboardNavGraph(
                 paddingValues = paddingValues,
@@ -69,6 +73,11 @@ fun MainNavHost(
             onboardingNavGraph(
                 paddingValues = paddingValues,
                 navigateToHome = navigator::navigateToHome,
+            )
+            reviewWriteNavGraph(
+                paddingValues = paddingValues,
+                popBackStack = navigator::popBackStack,
+                navigateToReviewList = navigator::navigateToReviewList,
             )
         }
     }

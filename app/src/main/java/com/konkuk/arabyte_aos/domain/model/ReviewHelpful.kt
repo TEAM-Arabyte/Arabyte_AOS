@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.model
+package com.konkuk.arabyte_aos.domain.model
 
 import androidx.annotation.DrawableRes
 import com.konkuk.arabyte_aos.R
@@ -13,9 +13,9 @@ data class ReviewHelpful(
 enum class ReviewHelpfulType(
     @DrawableRes val iconRes: Int,
 ) {
+    BAD(R.drawable.ic_review_emotion_bad_20),
     NORMAL(R.drawable.ic_review_emotion_normal_20),
     GOOD(R.drawable.ic_review_emotion_good_20),
-    BAD(R.drawable.ic_review_emotion_bad_20),
 }
 
 fun generateReviewHelpfulList(

@@ -24,7 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.google.accompanist.flowlayout.FlowRow
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCareerTextFieldType
 import com.konkuk.arabyte_aos.presentation.type.view.OnboardingType
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteChipButton

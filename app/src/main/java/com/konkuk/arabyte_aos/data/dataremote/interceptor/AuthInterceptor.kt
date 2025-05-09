@@ -8,7 +8,6 @@ import com.konkuk.arabyte_aos.data.datalocal.datasource.UserInfoLocalDataSource
 import com.konkuk.arabyte_aos.data.dataremote.model.response.ReissueResponseDto
 import com.konkuk.arabyte_aos.data.util.ApiConstraints.AUTH
 import com.konkuk.arabyte_aos.data.util.ApiConstraints.REISSUE
-import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,8 +66,6 @@ class AuthInterceptor
 
         private fun Request.newAuthBuilder(): Request {
             val token = localStorage.accessToken
-
-            DebugLog.d("AuthInterceptor", " 토큰: $token")
             val formattedToken = if (token.contains(BEARER)) token else "$BEARER$token"
 
             return this.newBuilder()

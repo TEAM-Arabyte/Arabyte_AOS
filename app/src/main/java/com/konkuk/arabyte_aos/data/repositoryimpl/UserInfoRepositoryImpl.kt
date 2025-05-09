@@ -27,6 +27,12 @@ class UserInfoRepositoryImpl
 
         override fun getRefreshToken(): String = userInfoLocalDataSource.refreshToken
 
+        override fun setUserId(userId: Int) {
+            userInfoLocalDataSource.userId = userId.toString()
+        }
+
+        override fun getUserId(): Int = userInfoLocalDataSource.userId.toInt()
+
         override suspend fun postOnboarding(userOnboardingInfo: UserOnboardingInfo): Result<Unit> =
             runCatching {
                 useInfoRemoteDataSource.postOnboarding(

@@ -3,6 +3,9 @@
 
     <!--  All  -->
     <string name="all_next_button">다음</string>
+    <string name="all_toast_server_error">서버 에러가 발생했습니다.</string>
+    <string name="all_cancel_button">취소</string>
+
 
     <!--  Toast Message  -->
     <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>
@@ -17,17 +20,19 @@
     <string name="all_category_education">교육/강사</string>
     <string name="all_category_office">사무직</string>
 
-    <!--  Notice Board Category  -->
+    <!--  Notice Board -->
     <string name="notice_board_category_all">전체</string>
     <string name="notice_board_category_free">자유게시판</string>
     <string name="notice_board_category_info">정보게시판</string>
+    <string name="notice_board_empty_main_title">아직 등록한 게시물이 없어요</string>
+    <string name="notice_board_empty_sub_title">새로운 개시물을 작성해보세요 </string>
 
     <!--  Button  -->
     <string name="button_add_photo">사진 첨부하기(최대 n장)</string>
     <string name="button_like">공감</string>
     <string name="button_check">근로계약서 인증하기</string>
     <string name="button_add_review">리뷰 작성하기</string>
-
+    <string name="button_add_notice_board">글쓰기</string>
 
     <!--  Filtering  -->
     <string name="review_filtering_check">근로계약서 인증</string>
@@ -36,6 +41,7 @@
 
     <!--  Board Comment  -->
     <string name="board_comment_writer">작성자</string>
+    <string name="board_comment_empty">아직 작성된 댓글이 없어요</string>
 
     <!-- Dummy -->
     <string name="dummy1">리뷰 작성하기</string>
@@ -48,6 +54,7 @@
 
     <!--  Splash  -->
     <string name="splash_service_description">당신의 알바 선택을 더 똑똑하게,\n알바의 모든 것을 알아보세요!</string>
+
     <!-- Bottom Navigation -->
     <string name="bottom_nav_home">홈</string>
     <string name="bottom_nav_review">리뷰</string>
@@ -81,6 +88,7 @@
 
     <!--  Login  -->
     <string name="login_kakao_login_text">카카오 계정으로 로그인</string>
+
     <!-- HomeContentTitle -->
     <string name="home_review_title">회원님이 관심 가질 리뷰를 모아봤어요!</string>
     <string name="home_review_sub_title">회원님을 위한 맞춤 추천 리뷰를 만나보세요!</string>
@@ -96,5 +104,30 @@
     <string name="category_bottom_sheet_title">카테고리</string>
     <string name="all_bottom_sheet_close">취소</string>
     <string name="all_bottom_sheet_confirm">적용하기</string>
+
+
+    <!-- ReviewList -->
+    <string name="review_list_empty_main_title">아직 등록한 리뷰가 없어요</string>
+    <string name="review_list_empty_sub_title">새로운 리뷰를 작성해보세요 </string>
+
+    <!-- ReviewWrite -->
+    <string name="review_write_company">근무지</string>
+    <string name="review_write_complete">완료</string>
+    <string name="review_write_company_placeholder">근무지를 입력해주세요</string>
+    <string name="review_write_region">근무 지역</string>
+    <string name="review_write_job_category">카테고리</string>
+    <string name="review_write_top_bar_title">리뷰 작성하기</string>
+    <string name="review_write_review_title">알바에 대한 총평을 작성해 주세요</string>
+    <string name="review_write_review_placeholder">알바에 대한 전반적인 후기를 작성해주세요</string>
+    <string name="review_write_star_rating_format">%1$d/5</string>
+    <string name="review_write_data_valid_error">모든 항목을 작성해 주세요</string>
+
+    <!-- ReviewDetail -->
+    <string name="review_detail_dialog_delete">리뷰를 삭제하시겠습니까?</string>
+    <string name="review_detail_dialog_report">해당 리뷰를 신고하시겠습니까?</string>
+    <string name="review_detail_button_delete">삭제</string>
+    <string name="review_detail_button_report">신고</string>
+    <string name="review_detail_alert_toast">내가 작성한 리뷰에는 도움여부를 남길 수 없어요 🥲</string>
+
 
 </resources>

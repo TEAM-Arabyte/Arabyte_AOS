@@ -1,10 +1,5 @@
 package com.konkuk.arabyte_aos.domain.model
 
-enum class ArticleKind {
-    FREE,
-    NOTICE,
-}
-
 data class ReviewItem(
     val reviewItemId: Int,
     val companyName: String,
@@ -12,5 +7,5 @@ data class ReviewItem(
     val star: Float,
     val content: String,
     val region: String,
-    val category: String,
+    val category: ArabyteJobCategory,
 )

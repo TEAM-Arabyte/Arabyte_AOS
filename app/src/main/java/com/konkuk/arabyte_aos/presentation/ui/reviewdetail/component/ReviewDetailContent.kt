@@ -39,6 +39,6 @@ fun ReviewDetailContent(
             Text(text = "상세 리뷰", style = ArabyteTheme.typography.bodyBold15, color = ArabyteTheme.colors.black)
         }
         Spacer(modifier = Modifier.height(15.dp))
-        Text(text = content, style = ArabyteTheme.typography.bodyMed15, color = ArabyteTheme.colors.gray07, modifier = Modifier.roundedBackgroundWithPadding(cornerRadius = 9.dp, backgroundColor = ArabyteTheme.colors.gray01, padding = PaddingValues(vertical = 11.dp, horizontal = 13.dp)))
+        Text(text = content, style = ArabyteTheme.typography.bodyMed15, color = ArabyteTheme.colors.gray07, modifier = Modifier.fillMaxWidth().roundedBackgroundWithPadding(cornerRadius = 9.dp, backgroundColor = ArabyteTheme.colors.gray01, padding = PaddingValues(vertical = 11.dp, horizontal = 13.dp)))
     }
 }
