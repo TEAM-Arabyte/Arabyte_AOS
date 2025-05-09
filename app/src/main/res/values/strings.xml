@@ -3,6 +3,9 @@
 
     <!--  All  -->
     <string name="all_next_button">다음</string>
+    <string name="all_toast_server_error">서버 에러가 발생했습니다.</string>
+    <string name="all_cancel_button">취소</string>
+
 
     <!--  Toast Message  -->
     <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>
@@ -102,8 +105,29 @@
     <string name="all_bottom_sheet_close">취소</string>
     <string name="all_bottom_sheet_confirm">적용하기</string>
 
+
     <!-- ReviewList -->
     <string name="review_list_empty_main_title">아직 등록한 리뷰가 없어요</string>
     <string name="review_list_empty_sub_title">새로운 리뷰를 작성해보세요 </string>
+
+    <!-- ReviewWrite -->
+    <string name="review_write_company">근무지</string>
+    <string name="review_write_complete">완료</string>
+    <string name="review_write_company_placeholder">근무지를 입력해주세요</string>
+    <string name="review_write_region">근무 지역</string>
+    <string name="review_write_job_category">카테고리</string>
+    <string name="review_write_top_bar_title">리뷰 작성하기</string>
+    <string name="review_write_review_title">알바에 대한 총평을 작성해 주세요</string>
+    <string name="review_write_review_placeholder">알바에 대한 전반적인 후기를 작성해주세요</string>
+    <string name="review_write_star_rating_format">%1$d/5</string>
+    <string name="review_write_data_valid_error">모든 항목을 작성해 주세요</string>
+
+    <!-- ReviewDetail -->
+    <string name="review_detail_dialog_delete">리뷰를 삭제하시겠습니까?</string>
+    <string name="review_detail_dialog_report">해당 리뷰를 신고하시겠습니까?</string>
+    <string name="review_detail_button_delete">삭제</string>
+    <string name="review_detail_button_report">신고</string>
+    <string name="review_detail_alert_toast">내가 작성한 리뷰에는 도움여부를 남길 수 없어요 🥲</string>
+
 
 </resources>

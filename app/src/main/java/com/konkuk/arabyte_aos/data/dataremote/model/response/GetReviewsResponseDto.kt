@@ -20,6 +20,7 @@ data class GetReviewsResponseDto(
 @Serializable
 data class ReviewContentDto(
     val reviewId: Int,
+    val companyName: String,
     val isCertified: Boolean,
     val star: Float,
     val text: String,

@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.model
+package com.konkuk.arabyte_aos.domain.model
 
 import androidx.annotation.DrawableRes
 import com.konkuk.arabyte_aos.R

@@ -49,6 +49,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 fun ReviewListRoute(
     modifier: Modifier = Modifier,
     navigateToReviewDetail: (reviewId: Int) -> Unit = {},
+    navigateToReviewWrite: () -> Unit = {},
     viewModel: ReviewListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -67,6 +68,8 @@ fun ReviewListRoute(
                     is ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail -> {
                         navigateToReviewDetail(sideEffect.reviewId)
                     }
+
+                    is ReviewListContract.ReviewListSideEffect.NavigateToReviewWrite -> navigateToReviewWrite()
                 }
             }
     }
@@ -112,6 +115,9 @@ fun ReviewListRoute(
         },
         reviewItemClicked = { reviewId ->
             viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewDetail(reviewId = reviewId))
+        },
+        addReviewButtonClicked = {
+            viewModel.setSideEffect(ReviewListContract.ReviewListSideEffect.NavigateToReviewWrite)
         },
     )
 }

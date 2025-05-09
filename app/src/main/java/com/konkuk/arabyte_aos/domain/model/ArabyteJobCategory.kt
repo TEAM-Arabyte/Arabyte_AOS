@@ -1,4 +1,4 @@
-package com.konkuk.arabyte_aos.presentation.model
+package com.konkuk.arabyte_aos.domain.model
 
 enum class ArabyteJobCategory(val label: String) {
     FOOD_BEVERAGE("외식/음료"),
@@ -21,5 +21,11 @@ enum class ArabyteJobCategory(val label: String) {
         fun fromLabel(label: String): ArabyteJobCategory? {
             return categoryList.find { it.label == label }
         }
+
+        private fun String.toArabyteJobCategory(): ArabyteJobCategory? =
+            ArabyteJobCategory.entries.find { it.label == this }
+
+        fun List<String>.toCategoryNameList(): List<String> =
+            this.mapNotNull { it.toArabyteJobCategory()?.name }
     }
 }

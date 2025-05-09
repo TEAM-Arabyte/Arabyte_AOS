@@ -34,6 +34,8 @@ class LoginViewModel
                 authRepository.getAuthToken().onSuccess { response ->
                     userInfoRepository.setAccessToken(response.accessToken)
                     userInfoRepository.setRefreshToken(response.refreshToken)
+                    userInfoRepository.setUserId(response.userId)
+
                     if (response.isRegistered) {
                         setSideEffect(LoginContract.LoginSideEffect.NavigateToHome)
                     } else {

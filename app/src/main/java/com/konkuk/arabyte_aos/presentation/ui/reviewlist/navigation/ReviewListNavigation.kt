@@ -21,6 +21,7 @@ fun NavController.navigationReviewList(
 fun NavGraphBuilder.reviewListNavGraph(
     paddingValues: PaddingValues,
     navigateToReviewDetailScreen: (reviewId: Int) -> Unit,
+    navigateToReviewWrite: () -> Unit,
 ) {
     composable(
         route = ReviewListRoute.ROUTE_WITH_ARGUMENT,
@@ -43,6 +44,7 @@ fun NavGraphBuilder.reviewListNavGraph(
             navigateToReviewDetail = { reviewId ->
                 navigateToReviewDetailScreen(reviewId)
             },
+            navigateToReviewWrite = navigateToReviewWrite,
         )
     }
 }
