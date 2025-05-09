@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
+import FlattenComment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,13 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import buildCommentTree
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
@@ -43,6 +42,7 @@ fun NoticeBoardDetailRoute(
     LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId = articleId)) }
     NoticeBoardDetailScreen(
         noticeBoardDetail = uiState.noticeBoardDetail,
+        flattenCommentList = uiState.flattenCommentTree,
         innerPaddingValues = innerPaddingValues,
         modifier = modifier,
         onTextChange = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText(it)) },
@@ -56,6 +56,7 @@ fun NoticeBoardDetailRoute(
 @Composable
 fun NoticeBoardDetailScreen(
     noticeBoardDetail: NoticeBoardDetail,
+    flattenCommentList: List<FlattenComment>,
     onTextChange: (String) -> Unit,
     onAnonymousChanged: (Boolean) -> Unit,
     onSend: () -> Unit,
@@ -64,9 +65,6 @@ fun NoticeBoardDetailScreen(
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
-    val commentTree = remember(noticeBoardDetail.comments) { buildCommentTree(noticeBoardDetail.comments) }
-    val flattenList = remember(noticeBoardDetail.comments) { flattenCommentTree(commentTree) }
-
     Column(
         modifier =
             modifier
@@ -112,13 +110,13 @@ fun NoticeBoardDetailScreen(
                 Spacer(modifier = Modifier.height(11.dp))
             }
 
-            if (flattenList.isEmpty()) {
+            if (flattenCommentList.isEmpty()) {
                 item {
                     // Todo: 엠티뷰 컴포넌트 부르기
                 }
             } else {
                 itemsIndexed(
-                    items = flattenList,
+                    items = flattenCommentList,
                 ) { index, (comment, isReply) ->
                     val isWriter = comment.nickname == noticeBoardDetail.nickname
                     if (index != 0 && !isReply) {

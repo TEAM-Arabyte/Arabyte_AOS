@@ -1,5 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
+import FlattenComment
+import NoticeBoardCommentNode
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.domain.model.PostComment
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
@@ -30,6 +32,8 @@ class NoticeBoardDetailContract {
                 parentId = null,
                 isAnonymous = false,
             ),
+        val commentTree: List<NoticeBoardCommentNode> = emptyList(),
+        val flattenCommentTree: List<FlattenComment> = emptyList(),
     ) : UiState
 
     sealed interface NoticeBoardDetailSideEffect : UiSideEffect {

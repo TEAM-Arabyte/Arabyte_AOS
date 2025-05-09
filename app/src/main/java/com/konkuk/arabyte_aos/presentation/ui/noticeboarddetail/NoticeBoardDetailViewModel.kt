@@ -1,12 +1,14 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
 import androidx.lifecycle.viewModelScope
+import buildCommentTree
 import com.konkuk.arabyte_aos.domain.usecase.comment.PostCommentUseCase
 import com.konkuk.arabyte_aos.domain.usecase.noticeboard.GetNoticeBoardDetailUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import flattenCommentTree
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -59,11 +61,15 @@ class NoticeBoardDetailViewModel
             viewModelScope.launch {
                 getNoticeBoardDetailUseCase(articleId)
                     .onSuccess { noticeBoardDetail ->
+                        val commentTree = buildCommentTree(noticeBoardDetail.comments)
+                        val flattenCommentTree = flattenCommentTree(commentTree)
                         setState {
                             copy(
                                 loadState = LoadState.Success,
                                 noticeBoardDetail = noticeBoardDetail,
                                 postComment = postComment.copy(articleId = articleId),
+                                commentTree = commentTree,
+                                flattenCommentTree = flattenCommentTree,
                             )
                         }
                     }
