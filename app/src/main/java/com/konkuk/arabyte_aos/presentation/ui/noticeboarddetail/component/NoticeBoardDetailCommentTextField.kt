@@ -32,7 +32,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -139,7 +138,6 @@ private fun NoticeBoardDetailCommentTextFieldPreview() {
             isAnonymous = isAnonymous,
             onAnonymousChanged = { isAnonymous = it },
             onSend = {
-                DebugLog.d("z", "댓글 전송: $text, 익명: $isAnonymous")
                 text = ""
             },
         )

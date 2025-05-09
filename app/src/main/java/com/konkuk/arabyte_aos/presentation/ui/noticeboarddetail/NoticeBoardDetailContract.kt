@@ -37,7 +37,7 @@ class NoticeBoardDetailContract {
     ) : UiState
 
     sealed interface NoticeBoardDetailSideEffect : UiSideEffect {
-        data object DummySideEffect : NoticeBoardDetailSideEffect
+        data object NavigateToBack : NoticeBoardDetailSideEffect
     }
 
     sealed class NoticeBoardDetailEvent : UiEvent {

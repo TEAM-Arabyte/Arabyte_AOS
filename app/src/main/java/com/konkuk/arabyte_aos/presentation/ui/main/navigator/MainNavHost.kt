@@ -57,6 +57,7 @@ fun MainNavHost(
             )
             noticeBoarDetailNavGraph(
                 paddingValues = paddingValues,
+                navigateToBack = { navigator.popBackStack() },
             )
             myPageNavGraph(
                 paddingValues = paddingValues,

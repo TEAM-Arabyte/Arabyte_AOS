@@ -14,6 +14,7 @@ fun NavController.navigationNoticeBoardDetail(articleId: Long) {
 }
 
 fun NavGraphBuilder.noticeBoarDetailNavGraph(
+    navigateToBack: () -> Unit,
     paddingValues: PaddingValues,
 ) {
     composable(
@@ -27,6 +28,7 @@ fun NavGraphBuilder.noticeBoarDetailNavGraph(
     ) { backStackEntry ->
         val articleId = backStackEntry.arguments?.getLong(NoticeBoardDetailRoute.ARGUMENT) ?: -1
         NoticeBoardDetailRoute(
+            navigateToBack = navigateToBack,
             articleId = articleId,
             innerPaddingValues = paddingValues,
         )

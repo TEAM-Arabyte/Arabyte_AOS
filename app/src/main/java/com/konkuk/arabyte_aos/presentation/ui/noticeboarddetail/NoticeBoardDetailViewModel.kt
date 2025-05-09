@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
+import android.R.attr.text
 import androidx.lifecycle.viewModelScope
 import buildCommentTree
 import com.konkuk.arabyte_aos.domain.usecase.comment.PostCommentUseCase
@@ -24,23 +25,11 @@ class NoticeBoardDetailViewModel
         override suspend fun handleEvent(event: NoticeBoardDetailContract.NoticeBoardDetailEvent) {
             when (event) {
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail -> getNoticeBoardDetail(event.articleId)
-                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeAnonymous -> updateAnonymous(event.isAnonymous)
-                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText -> updateCommentText(event.text)
-                is NoticeBoardDetailContract.NoticeBoardDetailEvent.SetReplyTarget -> updateReplyTarget(event.parentId)
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeAnonymous -> setState { copy(postComment = postComment.copy(isAnonymous = event.isAnonymous)) }
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText -> setState { copy(postComment = postComment.copy(text = event.text)) }
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.SetReplyTarget -> setState { copy(postComment = postComment.copy(parentId = event.parentId)) }
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment -> postComment(event.articleId)
             }
-        }
-
-        private fun updateAnonymous(isAnonymous: Boolean) {
-            setState { copy(postComment = postComment.copy(isAnonymous = isAnonymous)) }
-        }
-
-        private fun updateCommentText(text: String) {
-            setState { copy(postComment = postComment.copy(text = text)) }
-        }
-
-        private fun updateReplyTarget(parentId: Long) {
-            setState { copy(postComment = postComment.copy(parentId = parentId)) }
         }
 
         private fun postComment(articleId: Long) {
@@ -49,7 +38,7 @@ class NoticeBoardDetailViewModel
                 postCommentUseCase(comment)
                     .onSuccess {
                         setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId))
-                        updateCommentText("")
+                        setState { copy(postComment = postComment.copy(text = "")) }
                     }
                     .onFailure { e ->
                         DebugLog.d("postComment", e.message)
@@ -75,7 +64,6 @@ class NoticeBoardDetailViewModel
                     }
                     .onFailure { throwable ->
                         DebugLog.e("NoticeBoardDetail", "❌ onFailure: ${throwable.message}")
-                        setState { copy(loadState = LoadState.Error) }
                     }
             }
         }

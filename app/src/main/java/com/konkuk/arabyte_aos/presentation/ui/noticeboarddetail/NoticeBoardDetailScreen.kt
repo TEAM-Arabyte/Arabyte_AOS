@@ -20,7 +20,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
@@ -34,12 +36,23 @@ import flattenCommentTree
 @Composable
 fun NoticeBoardDetailRoute(
     articleId: Long,
+    navigateToBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NoticeBoardDetailViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId = articleId)) }
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    NoticeBoardDetailContract.NoticeBoardDetailSideEffect.NavigateToBack -> navigateToBack()
+                }
+            }
+    }
     NoticeBoardDetailScreen(
         noticeBoardDetail = uiState.noticeBoardDetail,
         flattenCommentList = uiState.flattenCommentTree,
@@ -50,6 +63,7 @@ fun NoticeBoardDetailRoute(
         onSend = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment(articleId)) },
         text = uiState.postComment.text,
         isAnonymous = uiState.postComment.isAnonymous,
+        navigateToBack = { viewModel.setSideEffect(NoticeBoardDetailContract.NoticeBoardDetailSideEffect.NavigateToBack) },
     )
 }
 
@@ -62,6 +76,7 @@ fun NoticeBoardDetailScreen(
     onSend: () -> Unit,
     text: String,
     isAnonymous: Boolean,
+    navigateToBack: () -> Unit,
     modifier: Modifier = Modifier,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -75,7 +90,7 @@ fun NoticeBoardDetailScreen(
     ) {
         ArabyteTopAppBar(
             useBack = true,
-            onBackClick = {},
+            onBackClick = { navigateToBack() },
             optionalIconRes = R.drawable.ic_all_optional_button_45,
             onOptionalClick = {},
         )
