@@ -1,8 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.home
 
-import com.konkuk.arabyte_aos.domain.model.NoticeBoardContent
 import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
-import com.konkuk.arabyte_aos.domain.model.NoticeBoardItem
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardContent
 import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteCategoryType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
