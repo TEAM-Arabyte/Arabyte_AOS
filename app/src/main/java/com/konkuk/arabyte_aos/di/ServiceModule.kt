@@ -3,16 +3,20 @@ package com.konkuk.arabyte_aos.di
 import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import com.konkuk.arabyte_aos.data.dataremote.service.CommentService
 import com.konkuk.arabyte_aos.data.dataremote.service.DummyService
+import com.konkuk.arabyte_aos.data.dataremote.service.KakaoService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
+import com.konkuk.arabyte_aos.data.dataremote.service.ReviewService
 import com.konkuk.arabyte_aos.data.dataremote.service.UserService
 import com.konkuk.arabyte_aos.di.qualifier.Arabyte
+import com.konkuk.arabyte_aos.di.qualifier.Kakao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import kotlin.jvm.java
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -40,6 +44,20 @@ object ServiceModule {
         @Arabyte retrofit: Retrofit,
     ): UserService =
         retrofit.create(UserService::class.java)
+
+    @Provides
+    fun providesReviewService(
+        @Arabyte retrofit: Retrofit,
+    ): ReviewService =
+        retrofit.create(ReviewService::class.java)
+
+    @Provides
+    @Singleton
+    @Kakao
+    fun provideKakaoService(
+        @Kakao retrofit: Retrofit,
+    ): KakaoService =
+        retrofit.create(KakaoService::class.java)
 
     @Provides
     fun providesNoticeBoardService(

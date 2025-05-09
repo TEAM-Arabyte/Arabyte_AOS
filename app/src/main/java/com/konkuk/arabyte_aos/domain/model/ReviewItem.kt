@@ -7,5 +7,5 @@ data class ReviewItem(
     val star: Float,
     val content: String,
     val region: String,
-    val category: String,
+    val category: ArabyteJobCategory,
 )

@@ -104,7 +104,7 @@ fun ArabyteReviewItem(
         Row(verticalAlignment = Alignment.CenterVertically) {
             ArabyteLocationChip(locationText = reviewItem.region)
             Spacer(Modifier.width(4.dp))
-            ReviewCategoryChip(category = reviewItem.category)
+            ReviewCategoryChip(category = reviewItem.category.label)
         }
     }
 }

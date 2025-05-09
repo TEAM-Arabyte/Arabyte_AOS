@@ -1,9 +1,9 @@
 package com.konkuk.arabyte_aos.presentation.ui.onboarding
 
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.domain.model.UserOnboardingInfo
 import com.konkuk.arabyte_aos.domain.usecase.user.PostOnboardingUserInfoUseCase
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.type.view.OnboardingType
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState

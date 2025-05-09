@@ -1,10 +1,13 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewlist
 
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory.Companion.toCategoryNameList
 import com.konkuk.arabyte_aos.domain.model.LocationData
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetDongUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetGuUseCase
 import com.konkuk.arabyte_aos.domain.usecase.locations.GetSidoUseCase
+import com.konkuk.arabyte_aos.domain.usecase.reivew.GetFilteredReviewListUseCase
+import com.konkuk.arabyte_aos.domain.usecase.reivew.GetReviewListUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,12 +21,17 @@ class ReviewListViewModel
         private val getSidoUseCase: GetSidoUseCase,
         private val getGuUseCase: GetGuUseCase,
         private val getDongUseCase: GetDongUseCase,
+        private val getReviewListUseCase: GetReviewListUseCase,
+        private val getFilteredReviewListUseCase: GetFilteredReviewListUseCase,
     ) : BaseViewModel<ReviewListContract.ReviewListUiState, ReviewListContract.ReviewListSideEffect, ReviewListContract.ReviewListEvent>() {
         override fun createInitialState(): ReviewListContract.ReviewListUiState = ReviewListContract.ReviewListUiState()
 
         override suspend fun handleEvent(event: ReviewListContract.ReviewListEvent) {
             when (event) {
-                is ReviewListContract.ReviewListEvent.ClickCertifiedFilterButton -> clickCertifiedFilter()
+                is ReviewListContract.ReviewListEvent.ClickCertifiedFilterButton -> {
+                    getFilteredReviewList(isCertified = !currentState.certifiedFilterSelected)
+                    clickCertifiedFilter()
+                }
 
                 is ReviewListContract.ReviewListEvent.ChangeCategoryBottomSheetVisible -> {
                     setState { copy(categoryBottomSheetVisible = !currentState.categoryBottomSheetVisible) }
@@ -47,15 +55,23 @@ class ReviewListViewModel
 
                 is ReviewListContract.ReviewListEvent.SetRegionFilter -> setRegionFilter()
 
-                is ReviewListContract.ReviewListEvent.ResetRegionFilter -> resetRegionFilter()
+                is ReviewListContract.ReviewListEvent.ResetRegionFilter -> {
+                    resetRegionFilter()
+                    getFilteredReviewList(locationId = null)
+                }
 
                 is ReviewListContract.ReviewListEvent.ResetAllFilter -> resetAllFilter()
 
                 is ReviewListContract.ReviewListEvent.SelectJobCategory -> selectCategory(event.category)
 
-                is ReviewListContract.ReviewListEvent.ResetCategoryFilter -> resetCategoryFilter()
+                is ReviewListContract.ReviewListEvent.ResetCategoryFilter -> {
+                    resetCategoryFilter()
+                    getFilteredReviewList(categories = emptyList())
+                }
 
                 is ReviewListContract.ReviewListEvent.ClickCategoryBottomSheetCompleteButton -> clickCategoryBottomSheetCompleteButton()
+
+                is ReviewListContract.ReviewListEvent.LoadReviewList -> getReviewList()
             }
         }
 
@@ -75,7 +91,7 @@ class ReviewListViewModel
 
         private fun selectSido(sido: LocationData) {
             loadGuList(sidoCode = sido.sidoCode)
-            setState { copy(selectedSido = sido, dongList = emptyList(), selectedGu = null, selectedDong = null) }
+            setState { copy(selectedSido = sido, dongList = emptyList(), selectedGu = null, selectedDong = null, selectedLocationId = sido.id) }
         }
 
         private fun loadGuList(sidoCode: String) {
@@ -90,7 +106,14 @@ class ReviewListViewModel
 
         private fun selectGu(gu: LocationData) {
             loadDongList(sidoCode = gu.sidoCode, guCode = gu.guCode)
-            setState { copy(selectedGu = gu, dongList = emptyList(), selectedDong = null) }
+            setState {
+                copy(
+                    selectedGu = gu,
+                    dongList = emptyList(),
+                    selectedDong = null,
+                    selectedLocationId = gu.id,
+                )
+            }
         }
 
         private fun loadDongList(
@@ -107,7 +130,7 @@ class ReviewListViewModel
         }
 
         private fun selectDong(dong: LocationData) {
-            setState { copy(selectedDong = dong) }
+            setState { copy(selectedDong = dong, selectedLocationId = dong.id) }
         }
 
         private fun setRegionFilter() {
@@ -117,6 +140,7 @@ class ReviewListViewModel
                     regionBottomSheetVisible = false,
                 )
             }
+            getFilteredReviewList(locationId = currentState.selectedLocationId)
         }
 
         private fun resetRegionFilter() {
@@ -135,22 +159,18 @@ class ReviewListViewModel
             resetRegionFilter()
             resetCategoryFilter()
             setState { copy(certifiedFilterSelected = false) }
+            getReviewList()
         }
 
         private fun selectCategory(category: String) {
-            setState {
-                val currentList = currentState.selectedCategories
-
-                val updatedList =
-                    if (currentList.contains(category)) {
-                        currentList - category
-                    } else {
-                        if (currentList.size < 3) currentList + category else currentList
-                    }
-                copy(
-                    selectedCategories = updatedList,
-                )
-            }
+            val currentList = currentState.selectedCategories
+            val updatedList =
+                if (currentList.contains(category)) {
+                    currentList - category
+                } else {
+                    if (currentList.size < 3) currentList + category else currentList
+                }
+            setState { copy(selectedCategories = updatedList) }
         }
 
         private fun resetCategoryFilter() {
@@ -167,7 +187,38 @@ class ReviewListViewModel
             when (currentState.selectedCategories.size) {
                 1 -> setState { copy(selectedCategory = currentState.selectedCategories[0], categoryBottomSheetVisible = false) }
                 0 -> setState { copy(selectedCategory = "", categoryBottomSheetVisible = false) }
-                else -> setState { copy(selectedCategory = "${ currentState.selectedCategories[0]}+외 ${currentState.selectedCategories.size - 1}", categoryBottomSheetVisible = false) }
+                else -> setState { copy(selectedCategory = "${currentState.selectedCategories[0]}+외 ${currentState.selectedCategories.size - 1}", categoryBottomSheetVisible = false) }
+            }
+            getFilteredReviewList(categories = currentState.selectedCategories)
+        }
+
+        private fun getReviewList() {
+            viewModelScope.launch {
+                getReviewListUseCase(page = 0, size = 10).onSuccess { result ->
+                    setState { copy(reviewList = result.content) }
+                }.onFailure { e ->
+                    DebugLog.d("ReviewListViewModel", "Error message: ${e.message}")
+                }
+            }
+        }
+
+        private fun getFilteredReviewList(
+            locationId: Int? = currentState.selectedLocationId,
+            categories: List<String> = currentState.selectedCategories,
+            isCertified: Boolean = currentState.certifiedFilterSelected,
+        ) {
+            if (locationId == null && categories.isEmpty() && !isCertified) {
+                getReviewList()
+            } else {
+                viewModelScope.launch {
+                    getFilteredReviewListUseCase(
+                        locationId = locationId,
+                        categories = categories.toCategoryNameList(),
+                        isCertified = if (isCertified) true else null,
+                    ).onSuccess { filteredReviews ->
+                        setState { copy(reviewList = filteredReviews) }
+                    }
+                }
             }
         }
     }

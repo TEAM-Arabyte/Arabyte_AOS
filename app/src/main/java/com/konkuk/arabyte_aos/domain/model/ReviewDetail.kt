@@ -1,17 +1,21 @@
 package com.konkuk.arabyte_aos.domain.model
 
 import com.konkuk.arabyte_aos.domain.util.ReviewRatingTexts
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
 data class ReviewDetail(
     val reviewId: Int,
+    val userId: Int,
     val companyName: String,
     val isCertified: Boolean,
-    val star: Float,
+    val star: Int,
     val region: String,
     val category: ArabyteJobCategory,
     val reviewRating: ReviewRating,
     val reviewContent: String,
+    val badCount: Int,
+    val normalCount: Int,
+    val goodCount: Int,
+    val helpful: ReviewHelpfulType?,
 )
 
 data class ReviewRating(
@@ -22,6 +26,47 @@ data class ReviewRating(
     val overtime: Overtime,
     val workDifficulty: WorkDifficulty,
 )
+
+data class NullableReviewRating(
+    val workIntensity: WorkIntensity? = null,
+    val workAtmosphere: WorkAtmosphere? = null,
+    val salary: Salary? = null,
+    val salaryDate: SalaryDate? = null,
+    val overtime: Overtime? = null,
+    val workDifficulty: WorkDifficulty? = null,
+)
+
+fun NullableReviewRating.isNotNull(): Boolean {
+    return workIntensity != null &&
+        workAtmosphere != null &&
+        salary != null &&
+        salaryDate != null &&
+        overtime != null &&
+        workDifficulty != null
+}
+
+fun NullableReviewRating.toReviewRating(): ReviewRating {
+    return ReviewRating(
+        workIntensity =
+            this.workIntensity
+                ?: throw IllegalStateException("workIntensity is null"),
+        workAtmosphere =
+            this.workAtmosphere
+                ?: throw IllegalStateException("workAtmosphere is null"),
+        salary =
+            this.salary
+                ?: throw IllegalStateException("salary is null"),
+        salaryDate =
+            this.salaryDate
+                ?: throw IllegalStateException("salaryDate is null"),
+        overtime =
+            this.overtime
+                ?: throw IllegalStateException("overtime is null"),
+        workDifficulty =
+            this.workDifficulty
+                ?: throw IllegalStateException("workDifficulty is null"),
+    )
+}
 
 enum class WorkIntensity(val label: String) {
     LIGHT(ReviewRatingTexts.LABEL_WORK_INTENSITY_LIGHT),
@@ -84,6 +129,19 @@ enum class WorkDifficulty(val label: String) {
     val ask: String = ReviewRatingTexts.ASK_WORK_DIFFICULTY
 }
 
+interface ReviewRatingItem {
+    val label: String
+    val title: String
+    val ask: String
+}
+
+data class ReviewRatingItemWrapper<T : Enum<T>>(
+    val value: T,
+    override val label: String,
+    override val title: String,
+    override val ask: String,
+) : ReviewRatingItem
+
 fun ReviewRating.toTitleLabelList(): List<Pair<String, String>> {
     return listOf(
         salary.title to salary.label,
@@ -94,3 +152,51 @@ fun ReviewRating.toTitleLabelList(): List<Pair<String, String>> {
         workIntensity.title to workIntensity.label,
     )
 }
+
+fun WorkIntensity.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_WORK_INTENSITY,
+        ask = ReviewRatingTexts.ASK_WORK_INTENSITY,
+    )
+
+fun WorkAtmosphere.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_WORK_ATMOSPHERE,
+        ask = ReviewRatingTexts.ASK_WORK_ATMOSPHERE,
+    )
+
+fun Salary.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_SALARY,
+        ask = ReviewRatingTexts.ASK_SALARY,
+    )
+
+fun SalaryDate.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_SALARY_DATE,
+        ask = ReviewRatingTexts.ASK_SALARY_DATE,
+    )
+
+fun Overtime.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_OVERTIME,
+        ask = ReviewRatingTexts.ASK_OVERTIME,
+    )
+
+fun WorkDifficulty.toReviewItem() =
+    ReviewRatingItemWrapper(
+        value = this,
+        label = this.label,
+        title = ReviewRatingTexts.TITLE_WORK_DIFFICULTY,
+        ask = ReviewRatingTexts.ASK_WORK_DIFFICULTY,
+    )

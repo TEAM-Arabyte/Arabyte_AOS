@@ -36,6 +36,10 @@ fun ArabyteEvaluationButton(
     modifier: Modifier = Modifier,
     buttonClicked: (Boolean) -> Unit = {},
 ) {
+    fun Int.toDisplayCount(): String {
+        return if (this > 99) "99+" else this.toString()
+    }
+
     val (backgroundColor, textColor) =
         when (enabled) {
             true -> Pair(ArabyteTheme.colors.gray07, ArabyteTheme.colors.white)
@@ -58,7 +62,7 @@ fun ArabyteEvaluationButton(
     ) {
         Icon(imageVector = ImageVector.vectorResource(iconRes), tint = Color.Unspecified, contentDescription = null)
         Spacer(modifier = Modifier.width(5.dp))
-        Text(text = likeCount.toString(), color = textColor, style = ArabyteTheme.typography.bodySemi13)
+        Text(text = likeCount.toDisplayCount(), color = textColor, style = ArabyteTheme.typography.bodySemi13)
     }
 }
 
