@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.util
 
 import android.app.Activity
+import com.konkuk.arabyte_aos.R
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
 
 @Composable
 fun HandleDoubleBackToExit(modifier: Modifier = Modifier) {
@@ -22,7 +24,7 @@ fun HandleDoubleBackToExit(modifier: Modifier = Modifier) {
             (context as? Activity)?.finish()
         } else {
             backPressedTime = currentTime
-            Toast.makeText(context, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            context.arabyteToastMessage(messageResId = R.string.toast_message_nickname_back_handler)
         }
     }
 }
