@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,9 +28,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentItem
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
-import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.modifier.advancedImePadding
-import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import flattenCommentTree
 
@@ -44,7 +41,6 @@ fun NoticeBoardDetailRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId = articleId)) }
-    DebugLog.d("NoticeBoardDetailScreen", "ArticleId : $articleId")
     NoticeBoardDetailScreen(
         noticeBoardDetail = uiState.noticeBoardDetail,
         innerPaddingValues = innerPaddingValues,
@@ -60,13 +56,13 @@ fun NoticeBoardDetailRoute(
 @Composable
 fun NoticeBoardDetailScreen(
     noticeBoardDetail: NoticeBoardDetail,
-    modifier: Modifier = Modifier,
-    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
     onTextChange: (String) -> Unit,
     onAnonymousChanged: (Boolean) -> Unit,
     onSend: () -> Unit,
     text: String,
     isAnonymous: Boolean,
+    modifier: Modifier = Modifier,
+    innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val commentTree = remember(noticeBoardDetail.comments) { buildCommentTree(noticeBoardDetail.comments) }
     val flattenList = remember(noticeBoardDetail.comments) { flattenCommentTree(commentTree) }
@@ -154,13 +150,5 @@ fun NoticeBoardDetailScreen(
                 Modifier
                     .padding(horizontal = 16.dp, vertical = 10.dp),
         )
-    }
-}
-
-@Preview
-@Composable
-private fun NoticeBoardDetailScreenPreview() {
-    ArabyteAOSTheme {
-        // NoticeBoardDetailScreen()
     }
 }

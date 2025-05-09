@@ -41,6 +41,7 @@ fun flattenCommentTree(tree: List<NoticeBoardCommentNode>): List<FlattenComment>
             traverse(replyNode, isReply = true)
         }
     }
+
     tree.forEach { root ->
         traverse(root, isReply = false)
     }

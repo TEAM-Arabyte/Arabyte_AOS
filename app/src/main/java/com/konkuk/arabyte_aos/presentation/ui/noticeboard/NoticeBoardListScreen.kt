@@ -28,12 +28,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
-import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -47,21 +47,18 @@ fun NoticeBoardListRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(Unit) {
-        viewModel.setEvent(
-            NoticeBoardListContract.NoticeBoardListUiEvent.GetNoticeBoardList(
-                viewModel.uiState.value.selectedCategory,
-            ),
-        )
+    val selectedCategory = viewModel.uiState.collectAsStateWithLifecycle().value.selectedCategory
+
+    LaunchedEffect(selectedCategory) {
+        viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(selectedCategory))
+        viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.GetNoticeBoardList(selectedCategory))
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
                 when (sideEffect) {
-                    is NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail -> {
-                        navigateToNoticeBoardDetail(sideEffect.articleId)
-                    }
+                    is NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail -> navigateToNoticeBoardDetail(sideEffect.articleId)
                 }
             }
     }
@@ -80,12 +77,11 @@ fun NoticeBoardListRoute(
 fun NoticeBoardListScreen(
     categoryOnClick: (ArabyteNoticeBoardCategoryType) -> Unit,
     addNoticeBoardButtonClicked: () -> Unit,
-    navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     modifier: Modifier = Modifier,
+    navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     uiState: NoticeBoardListContract.NoticeBoardListUiState = NoticeBoardListContract.NoticeBoardListUiState(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
-    DebugLog.e("NoticeBoardList", "리스트 크기: ${uiState.noticeBoardList.size}")
     Box(
         modifier =
             modifier

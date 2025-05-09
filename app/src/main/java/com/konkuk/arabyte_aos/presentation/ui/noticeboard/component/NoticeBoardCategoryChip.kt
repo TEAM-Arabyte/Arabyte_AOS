@@ -21,8 +21,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardCategoryChip(
-    modifier: Modifier = Modifier,
     category: String,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier =

@@ -21,19 +21,15 @@ class NoticeBoardListViewModel
 
         override suspend fun handleEvent(event: NoticeBoardListContract.NoticeBoardListUiEvent) {
             when (event) {
-                is NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory -> selectCategory(event.noticeBoardCategoryType)
+                is NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory -> {
+                    setState { copy(selectedCategory = event.noticeBoardCategoryType) }
+                }
                 is NoticeBoardListContract.NoticeBoardListUiEvent.GetNoticeBoardList -> getNoticeBoardList(event.noticeBoardCategoryType)
             }
         }
 
         private fun getNoticeBoardList(noticeBoardCategoryType: ArabyteNoticeBoardCategoryType) {
             setState { copy(loadState = LoadState.Loading) }
-            setState {
-                copy(
-                    noticeBoardCount = noticeBoardList.size,
-                    noticeBoardList = noticeBoardList,
-                )
-            }
             viewModelScope.launch {
                 val result: Result<NoticeBoardList> =
                     getNoticeBoardListUseCase(
@@ -43,8 +39,6 @@ class NoticeBoardListViewModel
                         sort = "createdAt,desc",
                     )
                 result.onSuccess { articleList ->
-                    DebugLog.e("NoticeBoardList", "articleList.content.size: ${articleList.content.size}")
-                    DebugLog.e("NoticeBoardList", "articleList.size: ${articleList.size}")
                     setState {
                         copy(
                             loadState = LoadState.Success,
@@ -58,10 +52,5 @@ class NoticeBoardListViewModel
                         setState { copy(loadState = LoadState.Error) }
                     }
             }
-        }
-
-        private fun selectCategory(noticeBoardCategoryType: ArabyteNoticeBoardCategoryType) {
-            setState { copy(selectedCategory = noticeBoardCategoryType) }
-            setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.GetNoticeBoardList(noticeBoardCategoryType))
         }
     }
