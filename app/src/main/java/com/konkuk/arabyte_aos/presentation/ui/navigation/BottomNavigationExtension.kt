@@ -1,10 +1,11 @@
 package com.konkuk.arabyte_aos.presentation.ui.navigation
 
 import androidx.navigation.NavController
+import com.konkuk.arabyte_aos.presentation.ui.home.navigation.HomeRoute
 
 fun NavController.navigateBottomMain(route: String) {
     navigate(route) {
-        popUpTo(graph.startDestinationId) {
+        popUpTo(HomeRoute.ROUTE) {
             saveState = true
         }
         launchSingleTop = true
