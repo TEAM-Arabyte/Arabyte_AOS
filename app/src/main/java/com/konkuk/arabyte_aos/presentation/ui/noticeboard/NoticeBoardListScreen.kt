@@ -116,9 +116,10 @@ fun NoticeBoardListScreen(
                         .fillMaxWidth()
                         .padding(start = 17.dp, top = 15.dp, bottom = 8.dp),
             )
-            if (uiState.noticeBoardList.isEmpty()){
-                NoticeBoardEmptyView()
-            } else {
+            if (uiState.noticeBoardList.isEmpty())
+                {
+                    NoticeBoardEmptyView()
+                } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                 ) {
