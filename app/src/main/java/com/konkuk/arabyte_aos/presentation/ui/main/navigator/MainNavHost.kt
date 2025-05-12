@@ -85,7 +85,7 @@ fun MainNavHost(
             noticeBoardWrite(
                 paddingValues = paddingValues,
                 popBackStack = navigator::popBackStack,
-                navigateToReviewList = navigator::navigateToReviewList,
+                navigateToNoticeBoardList = navigator::navigateToNoticeBoard,
             )
         }
     }
