@@ -14,6 +14,7 @@ import com.konkuk.arabyte_aos.presentation.ui.login.navigation.navigationLogin
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.navigationNoticeBoardDetail
+import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.navigation.navigationNoticeBoardWrite
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.navigationOnboarding
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.navigation.navigationReviewDetail
 import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.navigationReviewList
@@ -82,6 +83,10 @@ class MainNavigator(
 
     fun navigateToReviewWrite() {
         navHostController.navigationReviewWrite()
+    }
+
+    fun navigateToNoticeBoardWrite() {
+        navHostController.navigationNoticeBoardWrite()
     }
 
     fun popBackStack() {
