@@ -19,7 +19,7 @@ import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
 fun LikeChip(
-    count: Int,
+    count: Long,
     isLiked: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -34,7 +34,7 @@ fun LikeChip(
 
 @Composable
 fun CommentChip(
-    count: Int,
+    count: Long,
     modifier: Modifier = Modifier,
 ) {
     ArabyteIconTextChip(
@@ -48,7 +48,7 @@ fun CommentChip(
 @Composable
 private fun ArabyteIconTextChip(
     icon: Int,
-    count: Int,
+    count: Long,
     iconTint: Color,
     modifier: Modifier = Modifier,
 ) {

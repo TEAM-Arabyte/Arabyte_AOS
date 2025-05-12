@@ -141,4 +141,11 @@
     <string name="notice_board_write_content_placeholder">내용을 입력해주세요</string>
 
 
+    <!-- NoticeBoardComment -->
+    <string name="notice_board_comment_reply">답글달기</string>
+    <string name="notice_board_comment_report">신고하기</string>
+
+    <string name="notice_board_comment_anonymous">익명</string>
+    <string name="notice_board_comment_text_field">댓글을 입력해주세요</string>
+
 </resources>

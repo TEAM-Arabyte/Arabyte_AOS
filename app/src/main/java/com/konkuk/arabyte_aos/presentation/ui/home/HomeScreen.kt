@@ -30,7 +30,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 @Composable
 fun HomeRoute(
     onNavigateToNoticeBoard: () -> Unit,
-    onNavigateToNoticeBoardDetail: (Int) -> Unit,
+    onNavigateToNoticeBoardDetail: (Long) -> Unit,
     onNavigateToReviewList: () -> Unit,
     onNavigateToReviewDetail: (Int) -> Unit,
     onNavigateToReviewCategory: (ArabyteCategoryType) -> Unit,
@@ -53,7 +53,7 @@ fun HomeRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is HomeContract.HomeSideEffect.NavigateToNoticeBoard -> onNavigateToNoticeBoard()
-                    is HomeContract.HomeSideEffect.NavigateToNoticeBoardDetail -> onNavigateToNoticeBoardDetail(sideEffect.noticeBoardId)
+                    is HomeContract.HomeSideEffect.NavigateToNoticeBoardDetail -> onNavigateToNoticeBoardDetail(sideEffect.articleId)
                     is HomeContract.HomeSideEffect.NavigateToReviewList -> onNavigateToReviewList()
                     is HomeContract.HomeSideEffect.NavigateToReviewCategory -> onNavigateToReviewCategory(sideEffect.categoryType)
                     is HomeContract.HomeSideEffect.NavigateToReviewDetail -> onNavigateToReviewDetail(sideEffect.reviewId)
@@ -79,7 +79,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     onNavigateToNoticeBoard: () -> Unit,
-    onNavigateToNoticeBoardDetail: (Int) -> Unit,
+    onNavigateToNoticeBoardDetail: (Long) -> Unit,
     onNavigateToReviewList: () -> Unit,
     onNavigateToReviewDetail: (Int) -> Unit,
     onNavigateToReviewCategory: (ArabyteCategoryType) -> Unit,

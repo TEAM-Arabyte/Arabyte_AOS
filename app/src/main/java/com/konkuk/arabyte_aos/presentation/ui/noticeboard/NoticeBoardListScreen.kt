@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,29 +25,49 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteNoticeBoardItem
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddFloatingButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
-import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardEmptyView
+import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardListRoute(
     navigateToNoticeBoardWrite: () -> Unit,
     modifier: Modifier = Modifier,
-    navigateToNoticeBoardDetail: () -> Unit = {},
+    navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     viewModel: NoticeBoardListViewModel = hiltViewModel(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    val selectedCategory = viewModel.uiState.collectAsStateWithLifecycle().value.selectedCategory
+
+    LaunchedEffect(selectedCategory) {
+        viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(selectedCategory))
+        viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.GetNoticeBoardList(selectedCategory))
+    }
+
+    LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
+        viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail -> navigateToNoticeBoardDetail(sideEffect.articleId)
+                }
+            }
+    }
 
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
         addNoticeBoardButtonClicked = navigateToNoticeBoardWrite,
-        navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
+        navigateToNoticeBoardDetail = { articleId -> viewModel.setSideEffect(NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail(articleId = articleId)) },
         modifier = modifier,
         uiState = uiState,
         innerPaddingValues = innerPaddingValues,
@@ -58,7 +79,7 @@ fun NoticeBoardListScreen(
     modifier: Modifier = Modifier,
     categoryOnClick: (ArabyteNoticeBoardCategoryType) -> Unit,
     addNoticeBoardButtonClicked: () -> Unit,
-    navigateToNoticeBoardDetail: () -> Unit = {},
+    navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     uiState: NoticeBoardListContract.NoticeBoardListUiState = NoticeBoardListContract.NoticeBoardListUiState(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -118,22 +139,20 @@ fun NoticeBoardListScreen(
                         .fillMaxWidth()
                         .padding(start = 17.dp, top = 15.dp, bottom = 8.dp),
             )
-
-            if (uiState.noticeBoardList.isEmpty()) {
-                NoticeBoardEmptyView()
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    items(
-                        items = uiState.noticeBoardList,
-                        key = { it.noticeBoardItemId },
-                    ) { noticeBoardItem ->
-                        ArabyteNoticeBoardItem(
-                            noticeBoardItem = noticeBoardItem,
-                            navigateToNoticeBoardDetail = navigateToNoticeBoardDetail,
-                        )
-                    }
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                items(
+                    items = uiState.noticeBoardList,
+                    key = { it.articleId },
+                ) { noticeBoardItem ->
+                    ArabyteNoticeBoardItem(
+                        noticeBoardItem = noticeBoardItem,
+                        modifier =
+                            Modifier.noRippleClickable {
+                                navigateToNoticeBoardDetail(noticeBoardItem.articleId)
+                            },
+                    )
                 }
             }
         }
@@ -141,8 +160,8 @@ fun NoticeBoardListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 21.dp, end = 16.dp),
-            buttonText = stringResource(R.string.button_add_notice_board),
+                    .padding(bottom = 82.dp, end = 16.dp),
+            buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addNoticeBoardButtonClicked,
         )
     }
