@@ -30,6 +30,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.chip.ArabyteInformationB
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteLargeTextField
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.component.NoticeBoardWriteRequiredLabel
+import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -50,6 +51,14 @@ fun NoticeBoardWriteRoute(
                 when (sideEffect) {
                     NoticeBoardWriteContract.NoticeBoardWriteSideEffect.NavigateToBack -> navigateToBack()
                     NoticeBoardWriteContract.NoticeBoardWriteSideEffect.NavigateToNoticeBoardList -> navigateToNoticeBoardList()
+                    NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowDataValidErrorToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.review_write_data_valid_error,
+                        )
+                    NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowServerErrorToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.all_toast_server_error,
+                        )
                 }
             }
     }

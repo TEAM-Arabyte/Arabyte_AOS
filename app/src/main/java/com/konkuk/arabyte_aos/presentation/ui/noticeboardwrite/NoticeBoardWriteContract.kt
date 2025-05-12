@@ -19,6 +19,10 @@ class NoticeBoardWriteContract {
         data object NavigateToBack : NoticeBoardWriteSideEffect
 
         data object NavigateToNoticeBoardList : NoticeBoardWriteSideEffect
+
+        data object ShowServerErrorToast : NoticeBoardWriteSideEffect
+
+        data object ShowDataValidErrorToast : NoticeBoardWriteSideEffect
     }
 
     sealed class NoticeBoardWriteEvent : UiEvent {

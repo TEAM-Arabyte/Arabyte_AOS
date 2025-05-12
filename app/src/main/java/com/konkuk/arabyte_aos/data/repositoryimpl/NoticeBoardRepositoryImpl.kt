@@ -1,9 +1,11 @@
 package com.konkuk.arabyte_aos.data.repositoryimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.NoticeBoardRemoteDataSource
+import com.konkuk.arabyte_aos.data.mapper.todata.toRequestDto
 import com.konkuk.arabyte_aos.data.mapper.todomain.toDomainModel
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardList
+import com.konkuk.arabyte_aos.domain.model.PostNoticeBoardWrite
 import com.konkuk.arabyte_aos.domain.repository.NoticeBoardRepository
 import javax.inject.Inject
 
@@ -34,5 +36,12 @@ class NoticeBoardRepositoryImpl
                     articleId = articleId,
                 ).body()?.toDomainModel()
                     ?: throw IllegalStateException("Response body is null")
+            }
+
+        override suspend fun postNoticeBoardWrite(postNoticeBoardWrite: PostNoticeBoardWrite): Result<Unit> =
+            runCatching {
+                noticeBoardListRemoteDataSource.postNoticeBoardWrite(
+                    postNoticeBoardWriteRequestDto = postNoticeBoardWrite.toRequestDto(),
+                )
             }
     }

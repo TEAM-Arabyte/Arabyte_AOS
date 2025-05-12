@@ -14,12 +14,12 @@ fun NavController.navigationNoticeBoardWrite() {
 fun NavGraphBuilder.noticeBoardWrite(
     paddingValues: PaddingValues,
     popBackStack: () -> Unit,
-    navigateToReviewList: () -> Unit,
+    navigateToNoticeBoardList: () -> Unit,
 ) {
     composable(route = NoticeBoardWriteRoute.ROUTE) {
         NoticeBoardWriteRoute(
             navigateToBack = popBackStack,
-            navigateToNoticeBoardList = navigateToReviewList,
+            navigateToNoticeBoardList = navigateToNoticeBoardList,
             paddingValues = paddingValues,
         )
     }

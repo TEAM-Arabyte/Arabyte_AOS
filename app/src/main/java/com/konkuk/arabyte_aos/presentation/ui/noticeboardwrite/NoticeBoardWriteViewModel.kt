@@ -1,13 +1,19 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite
 
+import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.PostNoticeBoardWrite
+import com.konkuk.arabyte_aos.domain.usecase.noticeboard.PostNoticeBoardWriteUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NoticeBoardWriteViewModel
     @Inject
-    constructor() : BaseViewModel<NoticeBoardWriteContract.NoticeBoardWriteUiState, NoticeBoardWriteContract.NoticeBoardWriteSideEffect, NoticeBoardWriteContract.NoticeBoardWriteEvent>() {
+    constructor(
+        private val postNoticeBoardWriteUseCase: PostNoticeBoardWriteUseCase,
+    ) : BaseViewModel<NoticeBoardWriteContract.NoticeBoardWriteUiState, NoticeBoardWriteContract.NoticeBoardWriteSideEffect, NoticeBoardWriteContract.NoticeBoardWriteEvent>() {
         override fun createInitialState(): NoticeBoardWriteContract.NoticeBoardWriteUiState = NoticeBoardWriteContract.NoticeBoardWriteUiState()
 
         override suspend fun handleEvent(event: NoticeBoardWriteContract.NoticeBoardWriteEvent) {
@@ -36,12 +42,30 @@ class NoticeBoardWriteViewModel
             if (isValid) {
                 postNoticeBoardWrite()
             } else {
-                // 사이드 이펙트
+                setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowDataValidErrorToast)
             }
         }
 
         private fun postNoticeBoardWrite() {
-            // 성공하면 네비게이션
-            // 실패하면 사이드 이펙트
+            viewModelScope.launch {
+                val result =
+                    postNoticeBoardWriteUseCase(
+                        postNoticeBoardWrite =
+                            PostNoticeBoardWrite(
+                                title = currentState.titleText,
+                                text = currentState.contentText,
+                                likeCount = 0,
+                                isAnonymous = currentState.selectIsAnonymous,
+                                articleKind = currentState.selectCategory?.name.toString(),
+                                articleImages = emptyList(),
+                                anonymous = currentState.selectIsAnonymous,
+                            ),
+                    )
+                if (result.isSuccess) {
+                    setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.NavigateToNoticeBoardList)
+                } else {
+                    setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowServerErrorToast)
+                }
+            }
         }
     }
