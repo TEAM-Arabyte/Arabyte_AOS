@@ -43,7 +43,9 @@ class ReviewDetailContract {
                 goodCount = 0,
                 helpful = null,
             ),
-        val dialogVisible: Boolean = false,
+        val mainDialogVisible: Boolean = false,
+        val reportReasonDialogVisible: Boolean = false,
+        val reviewReasonText: String = "",
     ) : UiState
 
     sealed interface ReviewDetailSideEffect : UiSideEffect {
@@ -63,10 +65,16 @@ class ReviewDetailContract {
 
         data object GetUserID : ReviewDetailEvent()
 
-        data object ChangeDialogVisible : ReviewDetailEvent()
+        data object ChangeMainDialogVisible : ReviewDetailEvent()
 
-        data class DialogCompleteButtonClicked(val isMyReview: Boolean) : ReviewDetailEvent()
+        data object ChangeReportReasonDialogVisible : ReviewDetailEvent()
+
+        data object DeleteMyReview : ReviewDetailEvent()
+
+        data object ReportReview : ReviewDetailEvent()
 
         data class ReviewHelpfulClicked(val isMyReview: Boolean, val reviewHelpful: ReviewHelpfulType) : ReviewDetailEvent()
+
+        data class ReportReasonValueChanged(val reportReason: String) : ReviewDetailEvent()
     }
 }

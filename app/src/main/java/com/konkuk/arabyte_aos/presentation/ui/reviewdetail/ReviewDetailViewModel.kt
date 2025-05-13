@@ -33,13 +33,21 @@ class ReviewDetailViewModel
 
                 is ReviewDetailContract.ReviewDetailEvent.GetUserID -> getUserId()
 
-                is ReviewDetailContract.ReviewDetailEvent.ChangeDialogVisible -> {
-                    setState { copy(dialogVisible = !currentState.dialogVisible) }
+                is ReviewDetailContract.ReviewDetailEvent.ChangeMainDialogVisible -> {
+                    setState { copy(mainDialogVisible = !currentState.mainDialogVisible) }
                 }
 
-                is ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked -> dialogCompleteButtonClicked(event.isMyReview)
+                is ReviewDetailContract.ReviewDetailEvent.ChangeReportReasonDialogVisible -> changeReportReasonDialogVisible()
 
                 is ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked -> helpfulClicked(event.isMyReview, event.reviewHelpful)
+
+                is ReviewDetailContract.ReviewDetailEvent.DeleteMyReview -> deleteReviewDetail()
+
+                is ReviewDetailContract.ReviewDetailEvent.ReportReview -> reportReviewDetail()
+
+                is ReviewDetailContract.ReviewDetailEvent.ReportReasonValueChanged -> {
+                    setState { copy(reviewReasonText = event.reportReason) }
+                }
             }
         }
 
@@ -53,17 +61,18 @@ class ReviewDetailViewModel
             }
         }
 
+        private fun changeReportReasonDialogVisible() {
+            if (currentState.reportReasonDialogVisible) clearReportReason()
+            setState { copy(reportReasonDialogVisible = !currentState.reportReasonDialogVisible) }
+        }
+
+        private fun clearReportReason() {
+            setState { copy(reviewReasonText = "") }
+        }
+
         private fun getUserId() {
             viewModelScope.launch {
                 setState { copy(currentUserId = getUserIdUseCase()) }
-            }
-        }
-
-        private fun dialogCompleteButtonClicked(isMyReview: Boolean) {
-            if (isMyReview) {
-                deleteReviewDetail()
-            } else {
-                reportReviewDetail()
             }
         }
 
@@ -85,7 +94,7 @@ class ReviewDetailViewModel
                         ReportData(
                             reportType = ReportType.REVIEW,
                             targetId = currentState.reviewDetail.reviewId.toLong(),
-                            reason = "몰라 이자식아",
+                            reason = currentState.reviewReasonText,
                         ),
                 ).onSuccess {
                     setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowReportToast)
