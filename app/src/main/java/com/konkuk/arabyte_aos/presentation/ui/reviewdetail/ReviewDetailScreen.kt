@@ -203,12 +203,13 @@ fun ReviewDetailScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 ArabyteReportReasonDialog(
+                    modifier = Modifier.padding(horizontal = 30.dp),
                     title = "신고 사유를 입력해주세요",
                     completeButtonText = "신고",
                     cancelButtonClicked = changeReportReasonDialogVisible,
                     completeButtonClicked = {
-                        changeReportReasonDialogVisible()
                         reportReview()
+                        changeReportReasonDialogVisible()
                     },
                     reasonText = uiState.reviewReasonText,
                     placeholder = "예) 욕설 또는 부적절한 언행",
