@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -68,7 +69,6 @@ fun NoticeBoardWriteRoute(
             viewModel.setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.NavigateToBack)
         },
         writeCompleteButtonClicked = {
-            // viewModel.setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.NavigateToNoticeBoardList)
             viewModel.setEvent(NoticeBoardWriteContract.NoticeBoardWriteEvent.WriteCompleteButtonClicked)
         },
         categoryChipClicked = { click ->
@@ -105,6 +105,7 @@ fun NoticeBoardWriteScreen(
         modifier =
             modifier
                 .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white)
                 .padding(paddingValues),
     ) {
         ArabyteTopAppBar(
