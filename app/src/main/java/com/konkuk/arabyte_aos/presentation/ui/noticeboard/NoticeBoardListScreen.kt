@@ -41,7 +41,6 @@ fun NoticeBoardListRoute(
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
         addNoticeBoardButtonClicked = {},
@@ -117,7 +116,6 @@ fun NoticeBoardListScreen(
                         .fillMaxWidth()
                         .padding(start = 17.dp, top = 15.dp, bottom = 8.dp),
             )
-
             if (uiState.noticeBoardList.isEmpty()) {
                 NoticeBoardEmptyView()
             } else {
@@ -140,8 +138,8 @@ fun NoticeBoardListScreen(
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 21.dp, end = 16.dp),
-            buttonText = stringResource(R.string.button_add_notice_board),
+                    .padding(bottom = 82.dp, end = 16.dp),
+            buttonText = stringResource(R.string.button_add_review),
             buttonClicked = addNoticeBoardButtonClicked,
         )
     }

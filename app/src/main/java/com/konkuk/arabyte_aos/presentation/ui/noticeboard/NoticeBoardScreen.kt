@@ -12,7 +12,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun NoticeBoardRoute(
     paddingValues: PaddingValues,
-    // navigateToMyInfoScreen : ()->Unit,
     navigateToNoticeBoardDetail: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: NoticeBoardViewModel = hiltViewModel(),
