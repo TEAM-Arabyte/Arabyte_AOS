@@ -29,7 +29,7 @@ import com.konkuk.arabyte_aos.presentation.ui.home.HomeContract
 fun HomeScreenContent(
     uiState: HomeContract.HomeUiState,
     onNavigateToNoticeBoard: () -> Unit,
-    onNavigateToNoticeBoardDetail: (Int) -> Unit,
+    onNavigateToNoticeBoardDetail: (Long) -> Unit,
     onNavigateToReviewList: () -> Unit,
     onNavigateToReviewDetail: (Int) -> Unit,
     onNavigateToReviewCategory: (ArabyteCategoryType) -> Unit,
@@ -105,7 +105,6 @@ fun HomeScreenContent(
         uiState.noticeBoardItem.forEachIndexed { index, item ->
             ArabyteNoticeBoardItem(
                 noticeBoardItem = item,
-                navigateToNoticeBoardDetail = {},
             )
         }
     }

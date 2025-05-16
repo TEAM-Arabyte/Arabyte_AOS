@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboard.component
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -8,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -23,8 +21,8 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardCategoryChip(
+    category: String,
     modifier: Modifier = Modifier,
-    @StringRes categoryResId: Int,
 ) {
     Row(
         modifier =
@@ -38,7 +36,7 @@ fun NoticeBoardCategoryChip(
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
-            text = stringResource(categoryResId),
+            text = category,
             style = ArabyteTheme.typography.capMed9,
             color = ArabyteTheme.colors.gray05,
         )

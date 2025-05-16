@@ -14,6 +14,12 @@ object ApiConstraints {
     // User
     const val USERS = "users"
 
+    // Notice Board
+    const val ARTICLES = "articles"
+
+    // Comment
+    const val COMMENTS = "comments"
+
     // Review
     const val REVIEWS = "reviews"
     const val REVIEW_ID = "reviewId"

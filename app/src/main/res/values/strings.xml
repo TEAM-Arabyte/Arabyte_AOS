@@ -131,4 +131,11 @@
     <string name="review_detail_alert_toast">내가 작성한 리뷰에는 도움여부를 남길 수 없어요 🥲</string>
 
 
+    <!-- NoticeBoardComment -->
+    <string name="notice_board_comment_reply">답글달기</string>
+    <string name="notice_board_comment_report">신고하기</string>
+
+    <string name="notice_board_comment_anonymous">익명</string>
+    <string name="notice_board_comment_text_field">댓글을 입력해주세요</string>
+
 </resources>
