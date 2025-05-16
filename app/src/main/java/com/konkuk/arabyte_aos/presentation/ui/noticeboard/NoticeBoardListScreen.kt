@@ -39,6 +39,7 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardListRoute(
+    navigateToNoticeBoardWrite: () -> Unit,
     modifier: Modifier = Modifier,
     navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     viewModel: NoticeBoardListViewModel = hiltViewModel(),
@@ -65,7 +66,7 @@ fun NoticeBoardListRoute(
 
     NoticeBoardListScreen(
         categoryOnClick = { viewModel.setEvent(NoticeBoardListContract.NoticeBoardListUiEvent.SelectCategory(it)) },
-        addNoticeBoardButtonClicked = {},
+        addNoticeBoardButtonClicked = navigateToNoticeBoardWrite,
         navigateToNoticeBoardDetail = { articleId -> viewModel.setSideEffect(NoticeBoardListContract.NoticeBoardListSideEffect.NavigateToNoticeBoardDetail(articleId = articleId)) },
         modifier = modifier,
         uiState = uiState,
@@ -75,9 +76,9 @@ fun NoticeBoardListRoute(
 
 @Composable
 fun NoticeBoardListScreen(
+    modifier: Modifier = Modifier,
     categoryOnClick: (ArabyteNoticeBoardCategoryType) -> Unit,
     addNoticeBoardButtonClicked: () -> Unit,
-    modifier: Modifier = Modifier,
     navigateToNoticeBoardDetail: (articleId: Long) -> Unit = {},
     uiState: NoticeBoardListContract.NoticeBoardListUiState = NoticeBoardListContract.NoticeBoardListUiState(),
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),

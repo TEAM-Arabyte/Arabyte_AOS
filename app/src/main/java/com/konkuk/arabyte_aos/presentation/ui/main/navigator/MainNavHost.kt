@@ -12,6 +12,7 @@ import com.konkuk.arabyte_aos.presentation.ui.login.navigation.loginNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.myPageNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.noticeboardNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.noticeBoarDetailNavGraph
+import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.navigation.noticeBoardWrite
 import com.konkuk.arabyte_aos.presentation.ui.onboarding.navigation.onboardingNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.navigation.reviewDetailNavGraph
 import com.konkuk.arabyte_aos.presentation.ui.reviewlist.navigation.reviewListNavGraph
@@ -58,6 +59,7 @@ fun MainNavHost(
             noticeboardNavGraph(
                 paddingValues = paddingValues,
                 navigateToNoticeBoardDetail = navigator::navigateToNoticeBoardDetail,
+                navigateToNoticeBoardWrite = navigator::navigateToNoticeBoardWrite,
             )
             noticeBoarDetailNavGraph(
                 paddingValues = paddingValues,
@@ -79,6 +81,11 @@ fun MainNavHost(
                 paddingValues = paddingValues,
                 popBackStack = navigator::popBackStack,
                 navigateToReviewList = navigator::navigateToReviewList,
+            )
+            noticeBoardWrite(
+                paddingValues = paddingValues,
+                popBackStack = navigator::popBackStack,
+                navigateToNoticeBoardList = navigator::navigateToNoticeBoard,
             )
         }
     }

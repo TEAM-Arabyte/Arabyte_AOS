@@ -31,11 +31,11 @@ import okhttp3.internal.immutableListOf
 
 @Composable
 fun ArabyteNormalTextField(
-    title: String,
-    errorMessageList: List<String> = immutableListOf("", "error message", "success message"),
     textMaxLength: Int,
     placeholder: String,
     modifier: Modifier = Modifier,
+    errorMessageList: List<String> = immutableListOf("", "error message", "success message"),
+    title: String = "",
     text: String = "",
     validationState: TextFieldValidationState = TextFieldValidationState.IDLE,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -51,8 +51,10 @@ fun ArabyteNormalTextField(
         }
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Text(text = title, style = ArabyteTheme.typography.bodySemi15, color = ArabyteTheme.colors.black)
-        Spacer(modifier = Modifier.height(4.dp))
+        if (title.isNotEmpty()) {
+            Text(text = title, style = ArabyteTheme.typography.bodySemi15, color = ArabyteTheme.colors.black)
+            Spacer(modifier = Modifier.height(4.dp))
+        }
         Row(
             modifier =
                 Modifier

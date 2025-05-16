@@ -14,6 +14,7 @@ fun NavController.navigationNoticeBoard() {
 fun NavGraphBuilder.noticeboardNavGraph(
     paddingValues: PaddingValues,
     navigateToNoticeBoardDetail: (articleId: Long) -> Unit,
+    navigateToNoticeBoardWrite: () -> Unit,
 ) {
     composable(route = NoticeBoardRoute.ROUTE) {
         NoticeBoardListRoute(
@@ -21,6 +22,7 @@ fun NavGraphBuilder.noticeboardNavGraph(
             navigateToNoticeBoardDetail = { articleId ->
                 navigateToNoticeBoardDetail(articleId)
             },
+            navigateToNoticeBoardWrite = navigateToNoticeBoardWrite,
         )
     }
 }

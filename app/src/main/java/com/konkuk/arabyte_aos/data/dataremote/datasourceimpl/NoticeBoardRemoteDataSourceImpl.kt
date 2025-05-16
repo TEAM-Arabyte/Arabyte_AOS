@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.data.dataremote.datasourceimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.NoticeBoardRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardWriteRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
@@ -29,4 +30,7 @@ class NoticeBoardRemoteDataSourceImpl
             service.getNoticeBoardDetail(
                 articleId = articleId,
             )
+
+        override suspend fun postNoticeBoardWrite(postNoticeBoardWriteRequestDto: PostNoticeBoardWriteRequestDto): Response<Unit> =
+            service.postNoticeBoardWrite(postNoticeBoardWriteRequestDto = postNoticeBoardWriteRequestDto)
     }
