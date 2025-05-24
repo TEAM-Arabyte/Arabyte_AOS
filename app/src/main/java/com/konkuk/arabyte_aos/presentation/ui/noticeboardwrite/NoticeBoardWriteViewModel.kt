@@ -1,9 +1,13 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite
 
+import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.konkuk.arabyte_aos.domain.model.PostNoticeBoardWrite
+import com.konkuk.arabyte_aos.domain.usecase.firebase.FirebaseImageUseCase
 import com.konkuk.arabyte_aos.domain.usecase.noticeboard.PostNoticeBoardWriteUseCase
+import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.NoticeBoardWriteContract.NoticeBoardWriteSideEffect
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
+import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,6 +17,7 @@ class NoticeBoardWriteViewModel
     @Inject
     constructor(
         private val postNoticeBoardWriteUseCase: PostNoticeBoardWriteUseCase,
+        private val firebaseImageUseCase: FirebaseImageUseCase,
     ) : BaseViewModel<NoticeBoardWriteContract.NoticeBoardWriteUiState, NoticeBoardWriteContract.NoticeBoardWriteSideEffect, NoticeBoardWriteContract.NoticeBoardWriteEvent>() {
         override fun createInitialState(): NoticeBoardWriteContract.NoticeBoardWriteUiState = NoticeBoardWriteContract.NoticeBoardWriteUiState()
 
@@ -23,6 +28,25 @@ class NoticeBoardWriteViewModel
                 is NoticeBoardWriteContract.NoticeBoardWriteEvent.WriteCompleteButtonClicked -> completeButtonClicked()
                 is NoticeBoardWriteContract.NoticeBoardWriteEvent.TitleTextChanged -> onTitleTextChanged(event.title)
                 is NoticeBoardWriteContract.NoticeBoardWriteEvent.CategoryClick -> setState { copy(selectCategory = event.clickedCategory) }
+                is NoticeBoardWriteContract.NoticeBoardWriteEvent.PhotoSelected -> {
+                    setState { copy(previewImageUri = event.uri) }
+                    uploadImage(event.uri)
+                }
+            }
+        }
+
+        private fun uploadImage(uri: Uri) {
+            viewModelScope.launch {
+                val result = firebaseImageUseCase(uri)
+                if (result.isSuccess) {
+                    val url = result.getOrNull() ?: return@launch
+                    DebugLog.d("FirebaseImage", "ViewModel 수신 URL: $url")
+                    setState {
+                        copy(uploadedImageUrls = uploadedImageUrls + url)
+                    }
+                } else {
+                    setSideEffect(NoticeBoardWriteSideEffect.ShowServerErrorToast)
+                }
             }
         }
 

@@ -140,6 +140,7 @@
     <string name="notice_board_write_content">내용</string>
     <string name="notice_board_write_title_placeholder">제목을 입력해주세요</string>
     <string name="notice_board_write_content_placeholder">내용을 입력해주세요</string>
+    <string name="notice_board_write_image_upload">사진을 첨부해주세요(선택)</string>
 
 
     <!-- NoticeBoardComment -->

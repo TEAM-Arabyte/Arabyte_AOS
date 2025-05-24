@@ -1,5 +1,8 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,21 +13,32 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
+import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddPhotoButton
+import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteAddPhotoSmallButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteNoticeBoardCategoryButton
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteToggleButton
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.ArabyteInformationBox
@@ -32,6 +46,7 @@ import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteLargeTe
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.component.NoticeBoardWriteRequiredLabel
 import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
+import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
@@ -46,6 +61,15 @@ fun NoticeBoardWriteRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
+    val imagePickerLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.GetContent(),
+        ) { uri: Uri? ->
+            uri?.let {
+                viewModel.setEvent(NoticeBoardWriteContract.NoticeBoardWriteEvent.PhotoSelected(it))
+            }
+        }
+
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
         viewModel.sideEffect.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
             .collect { sideEffect ->
@@ -56,6 +80,7 @@ fun NoticeBoardWriteRoute(
                         context.arabyteToastMessage(
                             messageResId = R.string.review_write_data_valid_error,
                         )
+
                     NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowServerErrorToast ->
                         context.arabyteToastMessage(
                             messageResId = R.string.all_toast_server_error,
@@ -83,6 +108,9 @@ fun NoticeBoardWriteRoute(
         onContentValueChanged = { content ->
             viewModel.setEvent(NoticeBoardWriteContract.NoticeBoardWriteEvent.ContentTextChanged(content))
         },
+        onPhotoAddClicked = {
+            imagePickerLauncher.launch("image/*")
+        },
         modifier = modifier,
         paddingValues = paddingValues,
         uiState = uiState,
@@ -97,6 +125,7 @@ fun NoticeBoardWriteScreen(
     anonymousChipClicked: (Boolean) -> Unit,
     onTitleValueChanged: (String) -> Unit,
     onContentValueChanged: (String) -> Unit,
+    onPhotoAddClicked: () -> Unit,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues = PaddingValues(0.dp),
     uiState: NoticeBoardWriteContract.NoticeBoardWriteUiState = NoticeBoardWriteContract.NoticeBoardWriteUiState(),
@@ -199,6 +228,53 @@ fun NoticeBoardWriteScreen(
                 text = uiState.contentText,
                 onValueChange = onContentValueChanged,
             )
+            Spacer(Modifier.height(14.dp))
+            Text(
+                text = stringResource(id = R.string.notice_board_write_image_upload),
+                style = ArabyteTheme.typography.bodySemi15,
+                color = ArabyteTheme.colors.black,
+            )
+            Spacer(Modifier.height(9.dp))
+
+            if (uiState.previewImageUri == null) {
+                ArabyteAddPhotoButton {
+                    onPhotoAddClicked()
+                }
+            } else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(9.dp),
+                ) {
+                    ArabyteAddPhotoSmallButton {
+                        onPhotoAddClicked()
+                    }
+                    AsyncImage(
+                        model = uiState.previewImageUri,
+                        contentDescription = null,
+                        modifier =
+                            Modifier
+                                .size(88.dp)
+                                .clip(RoundedCornerShape(7.dp)),
+                        contentScale = ContentScale.Crop,
+                    )
+                }
+            }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun NoticeBoardWriteScreenPrev() {
+    ArabyteAOSTheme {
+        NoticeBoardWriteScreen(
+            navigateToBack = {},
+            writeCompleteButtonClicked = {},
+            categoryChipClicked = {},
+            anonymousChipClicked = {},
+            onTitleValueChanged = {},
+            onContentValueChanged = {},
+            onPhotoAddClicked = {},
+        )
     }
 }
