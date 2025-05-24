@@ -6,6 +6,7 @@ import com.konkuk.arabyte_aos.domain.model.PostNoticeBoardWrite
 import com.konkuk.arabyte_aos.domain.usecase.firebase.FirebaseImageUseCase
 import com.konkuk.arabyte_aos.domain.usecase.noticeboard.PostNoticeBoardWriteUseCase
 import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.NoticeBoardWriteContract.NoticeBoardWriteSideEffect
+import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowImageLoadingToast
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
@@ -68,19 +69,15 @@ class NoticeBoardWriteViewModel
 
         private fun completeButtonClicked() {
             val state = currentState
-            when (currentState.imageLoadState) {
-                LoadState.Loading -> setSideEffect(NoticeBoardWriteSideEffect.ShowImageLoadingToast)
-                LoadState.Error -> setSideEffect(NoticeBoardWriteSideEffect.ShowImageErrorToast)
-                else -> Unit
-            }
 
-            if (currentState.uploadedImageUrls.isEmpty() && currentState.previewImageUri != null) {
-                setSideEffect(NoticeBoardWriteSideEffect.ShowImageLoadingToast)
+            if (currentState.imageLoadState == LoadState.Loading || (currentState.uploadedImageUrls.isEmpty() && currentState.previewImageUri != null)) {
+                setSideEffect(ShowImageLoadingToast)
                 return
             }
 
             val isValid = state.titleText.isNotEmpty() && state.contentText.isNotEmpty() && state.selectCategory != null
-            if (isValid) {
+            val isImageOk = state.imageLoadState == LoadState.Idle || state.imageLoadState == LoadState.Success
+            if (isValid && isImageOk) {
                 postNoticeBoardWrite()
             } else {
                 setSideEffect(NoticeBoardWriteSideEffect.ShowDataValidErrorToast)
