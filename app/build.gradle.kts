@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     id("org.jetbrains.kotlin.kapt")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
+    id("com.google.gms.google-services")
 }
 
 val properties =
@@ -105,6 +106,11 @@ dependencies {
 
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
+    implementation("com.google.firebase:firebase-storage-ktx")
+
 }
 ktlint {
     android = true
