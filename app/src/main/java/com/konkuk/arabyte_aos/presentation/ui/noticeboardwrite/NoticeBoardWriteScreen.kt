@@ -32,7 +32,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
@@ -84,6 +83,16 @@ fun NoticeBoardWriteRoute(
                     NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowServerErrorToast ->
                         context.arabyteToastMessage(
                             messageResId = R.string.all_toast_server_error,
+                        )
+
+                    NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowImageLoadingToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.notice_board_write_image_upload_loading,
+                        )
+
+                    NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowImageErrorToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.notice_board_write_image_upload_error,
                         )
                 }
             }
