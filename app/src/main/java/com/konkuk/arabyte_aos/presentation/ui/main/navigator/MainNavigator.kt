@@ -12,6 +12,7 @@ import com.konkuk.arabyte_aos.presentation.ui.home.navigation.navigationHome
 import com.konkuk.arabyte_aos.presentation.ui.login.navigation.LoginRoute
 import com.konkuk.arabyte_aos.presentation.ui.login.navigation.navigationLogin
 import com.konkuk.arabyte_aos.presentation.ui.mypage.navigation.navigationMyPage
+import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigateToNoticeBoardAndClear
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.navigation.navigationNoticeBoard
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.navigation.navigationNoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.navigation.navigationNoticeBoardWrite
@@ -55,6 +56,10 @@ class MainNavigator(
 
     fun navigateToNoticeBoard() {
         navHostController.navigationNoticeBoard()
+    }
+
+    fun navigateToNoticeBoardAndClear() {
+        navHostController.navigateToNoticeBoardAndClear()
     }
 
     fun navigateToHome() {
