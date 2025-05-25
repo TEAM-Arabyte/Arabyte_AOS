@@ -26,12 +26,12 @@ import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
+import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardEmptyView
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentItem
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
 import com.konkuk.arabyte_aos.presentation.util.modifier.advancedImePadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
-import flattenCommentTree
 
 @Composable
 fun NoticeBoardDetailRoute(
@@ -60,10 +60,14 @@ fun NoticeBoardDetailRoute(
         modifier = modifier,
         onTextChange = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText(it)) },
         onAnonymousChanged = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeAnonymous(it)) },
-        onSend = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment(articleId)) },
+        onSend = {
+            viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment(articleId))
+        },
         text = uiState.postComment.text,
         isAnonymous = uiState.postComment.isAnonymous,
+        replyTargetCommentId = uiState.replyTargetCommentId,
         navigateToBack = { viewModel.setSideEffect(NoticeBoardDetailContract.NoticeBoardDetailSideEffect.NavigateToBack) },
+        onReplyButtonClick = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickReplyButton(it)) },
     )
 }
 
@@ -77,7 +81,9 @@ fun NoticeBoardDetailScreen(
     text: String,
     isAnonymous: Boolean,
     navigateToBack: () -> Unit,
+    onReplyButtonClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
+    replyTargetCommentId: Long? = null,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     Column(
@@ -127,13 +133,15 @@ fun NoticeBoardDetailScreen(
 
             if (flattenCommentList.isEmpty()) {
                 item {
-                    // Todo: 엠티뷰 컴포넌트 부르기
+                    NoticeBoardEmptyView()
                 }
             } else {
                 itemsIndexed(
                     items = flattenCommentList,
                 ) { index, (comment, isReply) ->
                     val isWriter = comment.nickname == noticeBoardDetail.nickname
+                    val isReplyTarget = comment.commentId == replyTargetCommentId
+
                     if (index != 0 && !isReply) {
                         HorizontalDivider(
                             thickness = 1.dp,
@@ -143,6 +151,12 @@ fun NoticeBoardDetailScreen(
                     NoticeBoardDetailCommentItem(
                         comment = comment,
                         isWriter = isWriter,
+                        isSelected = isReplyTarget,
+                        onClickReply = {
+                            onReplyButtonClick(comment.commentId)
+                        },
+                        onClickReport = {
+                        },
                     )
                 }
             }

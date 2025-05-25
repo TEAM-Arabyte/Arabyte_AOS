@@ -29,6 +29,14 @@ class NoticeBoardDetailViewModel
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText -> setState { copy(postComment = postComment.copy(text = event.text)) }
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.SetReplyTarget -> setState { copy(postComment = postComment.copy(parentId = event.parentId)) }
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment -> postComment(event.articleId)
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickReplyButton -> {
+                    setState {
+                        copy(
+                            replyTargetCommentId = event.parentId,
+                            postComment = postComment.copy(parentId = event.parentId),
+                        )
+                    }
+                }
             }
         }
 
@@ -38,7 +46,12 @@ class NoticeBoardDetailViewModel
                 postCommentUseCase(comment)
                     .onSuccess {
                         setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId))
-                        setState { copy(postComment = postComment.copy(text = "")) }
+                        setState {
+                            copy(
+                                postComment = postComment.copy(text = "", parentId = null),
+                                replyTargetCommentId = null,
+                            )
+                        }
                     }
                     .onFailure { e ->
                         DebugLog.d("postComment", e.message)

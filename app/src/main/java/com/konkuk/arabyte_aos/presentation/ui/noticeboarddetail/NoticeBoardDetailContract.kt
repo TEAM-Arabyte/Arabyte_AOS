@@ -34,6 +34,7 @@ class NoticeBoardDetailContract {
             ),
         val commentTree: List<NoticeBoardCommentNode> = emptyList(),
         val flattenCommentTree: List<FlattenComment> = emptyList(),
+        val replyTargetCommentId: Long? = null,
     ) : UiState
 
     sealed interface NoticeBoardDetailSideEffect : UiSideEffect {
@@ -50,5 +51,7 @@ class NoticeBoardDetailContract {
         data class SubmitComment(val articleId: Long) : NoticeBoardDetailEvent()
 
         data class SetReplyTarget(val parentId: Long) : NoticeBoardDetailEvent()
+
+        data class ClickReplyButton(val parentId: Long) : NoticeBoardDetailEvent()
     }
 }
