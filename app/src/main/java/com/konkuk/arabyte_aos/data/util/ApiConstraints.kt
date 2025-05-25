@@ -23,4 +23,7 @@ object ApiConstraints {
     // Review
     const val REVIEWS = "reviews"
     const val REVIEW_ID = "reviewId"
+
+    // Report
+    const val REPORTS = "reports"
 }

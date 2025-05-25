@@ -25,12 +25,14 @@ import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
+import com.konkuk.arabyte_aos.presentation.ui.component.dialog.ArabyteReportReasonDialog
 import com.konkuk.arabyte_aos.presentation.ui.component.dialog.ArabyteTwoButtonDialog
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailContent
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHeader
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailHelpful
 import com.konkuk.arabyte_aos.presentation.ui.reviewdetail.component.ReviewDetailRating
 import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
+import com.konkuk.arabyte_aos.presentation.util.modifier.advancedImePadding
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
@@ -64,6 +66,8 @@ fun ReviewDetailRoute(
                     is ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast -> context.arabyteToastMessage(R.string.all_toast_server_error)
 
                     is ReviewDetailContract.ReviewDetailSideEffect.ShowAlertToast -> context.arabyteToastMessage(R.string.review_detail_alert_toast)
+
+                    is ReviewDetailContract.ReviewDetailSideEffect.ShowReportToast -> context.arabyteToastMessage(R.string.review_detail_report_toast)
                 }
             }
     }
@@ -75,23 +79,31 @@ fun ReviewDetailRoute(
         popBackStack = {
             viewModel.setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.PopBackStack)
         },
-        changeDialogVisible = {
-            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ChangeDialogVisible)
-        },
-        dialogCompleteButtonClicked = { isMyReview ->
-            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked(isMyReview))
+        changeMainDialogVisible = {
+            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ChangeMainDialogVisible)
         },
         helpfulClicked = { isMyReview, helpful ->
             viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked(isMyReview, helpful))
         },
+        changeReportReasonDialogVisible = {
+            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ChangeReportReasonDialogVisible)
+        },
+        deleteMyReview = { viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.DeleteMyReview) },
+        reportReasonValueChanged = { reportReason ->
+            viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReportReasonValueChanged(reportReason))
+        },
+        reportReview = { viewModel.setEvent(ReviewDetailContract.ReviewDetailEvent.ReportReview) },
     )
 }
 
 @Composable
 fun ReviewDetailScreen(
     popBackStack: () -> Unit,
-    changeDialogVisible: () -> Unit,
-    dialogCompleteButtonClicked: (isMyReview: Boolean) -> Unit,
+    changeMainDialogVisible: () -> Unit,
+    changeReportReasonDialogVisible: () -> Unit,
+    deleteMyReview: () -> Unit,
+    reportReview: () -> Unit,
+    reportReasonValueChanged: (String) -> Unit,
     helpfulClicked: (isMyReview: Boolean, ReviewHelpfulType) -> Unit,
     modifier: Modifier = Modifier,
     uiState: ReviewDetailContract.ReviewDetailUiState = ReviewDetailContract.ReviewDetailUiState(),
@@ -106,13 +118,14 @@ fun ReviewDetailScreen(
                 Modifier
                     .fillMaxSize()
                     .background(color = ArabyteTheme.colors.white)
-                    .padding(innerPaddingValues),
+                    .padding(innerPaddingValues)
+                    .advancedImePadding(),
         ) {
             ArabyteTopAppBar(
                 useBack = true,
                 onBackClick = popBackStack,
                 optionalIconRes = R.drawable.ic_all_optional_button_45,
-                onOptionalClick = changeDialogVisible,
+                onOptionalClick = changeMainDialogVisible,
             )
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 item {
@@ -154,23 +167,54 @@ fun ReviewDetailScreen(
             }
         }
 
-        if (uiState.dialogVisible) {
+        if (uiState.mainDialogVisible) {
             Box(
                 modifier =
                     Modifier
                         .fillMaxSize()
                         .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                        .noRippleClickable(changeDialogVisible),
+                        .noRippleClickable(changeMainDialogVisible),
                 contentAlignment = Alignment.Center,
             ) {
                 ArabyteTwoButtonDialog(
                     modifier = Modifier.padding(horizontal = 30.dp),
                     title = if (isMyReview) stringResource(R.string.review_detail_dialog_delete) else stringResource(R.string.review_detail_dialog_report),
                     completeButtonText = if (isMyReview) stringResource(R.string.review_detail_button_delete) else stringResource(R.string.review_detail_button_report),
-                    cancelButtonClicked = changeDialogVisible,
+                    cancelButtonClicked = changeMainDialogVisible,
                     completeButtonClicked = {
-                        changeDialogVisible()
-                        dialogCompleteButtonClicked(isMyReview)
+                        changeMainDialogVisible()
+                        if (isMyReview) {
+                            deleteMyReview()
+                        } else {
+                            changeReportReasonDialogVisible()
+                        }
+                    },
+                )
+            }
+        }
+
+        if (uiState.reportReasonDialogVisible) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable(changeReportReasonDialogVisible),
+                contentAlignment = Alignment.Center,
+            ) {
+                ArabyteReportReasonDialog(
+                    modifier = Modifier.padding(horizontal = 30.dp),
+                    title = "신고 사유를 입력해주세요",
+                    completeButtonText = "신고",
+                    cancelButtonClicked = changeReportReasonDialogVisible,
+                    completeButtonClicked = {
+                        reportReview()
+                        changeReportReasonDialogVisible()
+                    },
+                    reasonText = uiState.reviewReasonText,
+                    placeholder = "예) 욕설 또는 부적절한 언행",
+                    onValueChange = { reportReason ->
+                        reportReasonValueChanged(reportReason)
                     },
                 )
             }
@@ -184,9 +228,12 @@ private fun ReviewDetailScreenPreview() {
     ArabyteAOSTheme {
         ReviewDetailScreen(
             popBackStack = { },
-            changeDialogVisible = {},
-            dialogCompleteButtonClicked = { },
             helpfulClicked = { _, _ -> },
+            changeMainDialogVisible = {},
+            changeReportReasonDialogVisible = {},
+            deleteMyReview = {},
+            reportReasonValueChanged = {},
+            reportReview = {},
         )
     }
 }
