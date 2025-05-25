@@ -1,9 +1,15 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite
 
+import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.konkuk.arabyte_aos.domain.model.PostNoticeBoardWrite
+import com.konkuk.arabyte_aos.domain.usecase.firebase.FirebaseImageUseCase
 import com.konkuk.arabyte_aos.domain.usecase.noticeboard.PostNoticeBoardWriteUseCase
+import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.NoticeBoardWriteContract.NoticeBoardWriteSideEffect
+import com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite.NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowImageLoadingToast
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
+import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
+import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +19,8 @@ class NoticeBoardWriteViewModel
     @Inject
     constructor(
         private val postNoticeBoardWriteUseCase: PostNoticeBoardWriteUseCase,
-    ) : BaseViewModel<NoticeBoardWriteContract.NoticeBoardWriteUiState, NoticeBoardWriteContract.NoticeBoardWriteSideEffect, NoticeBoardWriteContract.NoticeBoardWriteEvent>() {
+        private val firebaseImageUseCase: FirebaseImageUseCase,
+    ) : BaseViewModel<NoticeBoardWriteContract.NoticeBoardWriteUiState, NoticeBoardWriteSideEffect, NoticeBoardWriteContract.NoticeBoardWriteEvent>() {
         override fun createInitialState(): NoticeBoardWriteContract.NoticeBoardWriteUiState = NoticeBoardWriteContract.NoticeBoardWriteUiState()
 
         override suspend fun handleEvent(event: NoticeBoardWriteContract.NoticeBoardWriteEvent) {
@@ -23,6 +30,30 @@ class NoticeBoardWriteViewModel
                 is NoticeBoardWriteContract.NoticeBoardWriteEvent.WriteCompleteButtonClicked -> completeButtonClicked()
                 is NoticeBoardWriteContract.NoticeBoardWriteEvent.TitleTextChanged -> onTitleTextChanged(event.title)
                 is NoticeBoardWriteContract.NoticeBoardWriteEvent.CategoryClick -> setState { copy(selectCategory = event.clickedCategory) }
+                is NoticeBoardWriteContract.NoticeBoardWriteEvent.PhotoSelected -> {
+                    setState { copy(previewImageUri = event.uri) }
+                    uploadImage(event.uri)
+                }
+            }
+        }
+
+        private fun uploadImage(uri: Uri) {
+            viewModelScope.launch {
+                setState { copy(imageLoadState = LoadState.Loading) }
+                val result = firebaseImageUseCase(uri)
+                if (result.isSuccess) {
+                    val url = result.getOrNull() ?: return@launch
+                    DebugLog.d("FirebaseImage", "ViewModel 수신 URL: $url")
+                    setState {
+                        copy(
+                            uploadedImageUrls = uploadedImageUrls + url,
+                            imageLoadState = LoadState.Success,
+                        )
+                    }
+                } else {
+                    setSideEffect(NoticeBoardWriteSideEffect.ShowServerErrorToast)
+                    setState { copy(imageLoadState = LoadState.Error) }
+                }
             }
         }
 
@@ -38,11 +69,18 @@ class NoticeBoardWriteViewModel
 
         private fun completeButtonClicked() {
             val state = currentState
+
+            if (currentState.imageLoadState == LoadState.Loading || (currentState.uploadedImageUrls.isEmpty() && currentState.previewImageUri != null)) {
+                setSideEffect(ShowImageLoadingToast)
+                return
+            }
+
             val isValid = state.titleText.isNotEmpty() && state.contentText.isNotEmpty() && state.selectCategory != null
-            if (isValid) {
+            val isImageOk = state.imageLoadState == LoadState.Idle || state.imageLoadState == LoadState.Success
+            if (isValid && isImageOk) {
                 postNoticeBoardWrite()
             } else {
-                setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowDataValidErrorToast)
+                setSideEffect(NoticeBoardWriteSideEffect.ShowDataValidErrorToast)
             }
         }
 
@@ -57,14 +95,14 @@ class NoticeBoardWriteViewModel
                                 likeCount = 0,
                                 isAnonymous = currentState.selectIsAnonymous,
                                 articleKind = currentState.selectCategory?.name.toString(),
-                                articleImages = emptyList(),
+                                articleImages = currentState.uploadedImageUrls,
                                 anonymous = currentState.selectIsAnonymous,
                             ),
                     )
                 if (result.isSuccess) {
-                    setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.NavigateToNoticeBoardList)
+                    setSideEffect(NoticeBoardWriteSideEffect.NavigateToNoticeBoardList)
                 } else {
-                    setSideEffect(NoticeBoardWriteContract.NoticeBoardWriteSideEffect.ShowServerErrorToast)
+                    setSideEffect(NoticeBoardWriteSideEffect.ShowServerErrorToast)
                 }
             }
         }

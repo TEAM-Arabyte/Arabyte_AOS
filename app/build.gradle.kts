@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     id("org.jetbrains.kotlin.kapt")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
+    id("com.google.gms.google-services")
 }
 
 val properties =
@@ -108,6 +109,12 @@ dependencies {
 
     // WebView
     implementation(libs.accompanist.webview)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.appcheck)
+    implementation(libs.firebase.appcheck.debug)
 }
 ktlint {
     android = true

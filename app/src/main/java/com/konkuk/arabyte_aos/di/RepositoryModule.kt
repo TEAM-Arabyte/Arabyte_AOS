@@ -2,6 +2,7 @@ package com.konkuk.arabyte_aos.di
 
 import com.konkuk.arabyte_aos.data.repositoryimpl.AuthRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.CommentRepositoryImpl
+import com.konkuk.arabyte_aos.data.repositoryimpl.FirebaseImageRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.KakaoRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.LocationsRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.MyPageRepositoryImpl
@@ -11,6 +12,7 @@ import com.konkuk.arabyte_aos.data.repositoryimpl.ReviewsRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.UserInfoRepositoryImpl
 import com.konkuk.arabyte_aos.domain.repository.AuthRepository
 import com.konkuk.arabyte_aos.domain.repository.CommentRepository
+import com.konkuk.arabyte_aos.domain.repository.FirebaseImageRepository
 import com.konkuk.arabyte_aos.domain.repository.KakaoRepository
 import com.konkuk.arabyte_aos.domain.repository.LocationsRepository
 import com.konkuk.arabyte_aos.domain.repository.MyPageRepository
@@ -62,4 +64,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindMyPageRepository(myPageRepositoryImpl: MyPageRepositoryImpl): MyPageRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFirebaseImageRepository(firebaseImageRepositoryImpl: FirebaseImageRepositoryImpl): FirebaseImageRepository
 }

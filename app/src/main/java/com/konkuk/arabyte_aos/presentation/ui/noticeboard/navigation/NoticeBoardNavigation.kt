@@ -4,11 +4,21 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.konkuk.arabyte_aos.presentation.ui.home.navigation.HomeRoute
 import com.konkuk.arabyte_aos.presentation.ui.navigation.navigateBottomMain
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.NoticeBoardListRoute
 
 fun NavController.navigationNoticeBoard() {
     navigateBottomMain(NoticeBoardRoute.ROUTE)
+}
+
+fun NavController.navigateToNoticeBoardAndClear() {
+    navigate(NoticeBoardRoute.ROUTE) {
+        popUpTo(HomeRoute.ROUTE) {
+            inclusive = true
+        }
+        launchSingleTop = true
+    }
 }
 
 fun NavGraphBuilder.noticeboardNavGraph(

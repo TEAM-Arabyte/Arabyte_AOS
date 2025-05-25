@@ -4,6 +4,7 @@ import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListR
 import com.konkuk.arabyte_aos.data.dataremote.model.response.NoticeBoardContentDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.NoticeBoardListPageableDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.NoticeBoardListSortDto
+import com.konkuk.arabyte_aos.data.util.toTimeFormat
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardContent
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardList
 import com.konkuk.arabyte_aos.domain.model.Pageable
@@ -32,9 +33,14 @@ fun NoticeBoardContentDto.toDomainModel(): NoticeBoardContent {
         text = this.text,
         likeCount = this.likeCount,
         commentCount = this.commentCount,
-        createdAt = this.createdAt,
+        createdAt = this.createdAt.toTimeFormat(),
         thumbnailImage = this.thumbnailImage,
-        articleKind = this.articleKind,
+        articleKind =
+            when (articleKind) {
+                "FREE" -> "자유게시판"
+                "INFO" -> "정보게시판"
+                else -> "기타"
+            },
         isLiked = this.isLiked,
     )
 }
