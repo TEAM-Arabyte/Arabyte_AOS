@@ -26,4 +26,7 @@ object ApiConstraints {
 
     // Report
     const val REPORTS = "reports"
+
+    // MyPage
+    const val MYPAGE = "mypage"
 }

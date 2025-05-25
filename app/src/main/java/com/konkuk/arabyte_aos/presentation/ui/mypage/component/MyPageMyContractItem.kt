@@ -12,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 /**
@@ -59,6 +61,17 @@ fun MyPageMyContractItem(
             imageVector = ImageVector.vectorResource(id = certificationIcon),
             contentDescription = null,
             tint = Color.Unspecified,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun MyPageMyContractItemPreview() {
+    ArabyteAOSTheme {
+        MyPageMyContractItem(
+            companyName = "알아봐이트",
+            isCertified = true,
         )
     }
 }

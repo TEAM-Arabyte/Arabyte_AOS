@@ -5,6 +5,7 @@ import com.konkuk.arabyte_aos.data.repositoryimpl.CommentRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.FirebaseImageRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.KakaoRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.LocationsRepositoryImpl
+import com.konkuk.arabyte_aos.data.repositoryimpl.MyPageRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.NoticeBoardRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.ReportRepositoryImpl
 import com.konkuk.arabyte_aos.data.repositoryimpl.ReviewsRepositoryImpl
@@ -14,6 +15,7 @@ import com.konkuk.arabyte_aos.domain.repository.CommentRepository
 import com.konkuk.arabyte_aos.domain.repository.FirebaseImageRepository
 import com.konkuk.arabyte_aos.domain.repository.KakaoRepository
 import com.konkuk.arabyte_aos.domain.repository.LocationsRepository
+import com.konkuk.arabyte_aos.domain.repository.MyPageRepository
 import com.konkuk.arabyte_aos.domain.repository.NoticeBoardRepository
 import com.konkuk.arabyte_aos.domain.repository.ReportRepository
 import com.konkuk.arabyte_aos.domain.repository.ReviewsRepository
@@ -58,6 +60,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindKakaoRepository(kakaoRepositoryImpl: KakaoRepositoryImpl): KakaoRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMyPageRepository(myPageRepositoryImpl: MyPageRepositoryImpl): MyPageRepository
 
     @Binds
     @Singleton

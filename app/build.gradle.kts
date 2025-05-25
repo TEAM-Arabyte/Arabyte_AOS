@@ -107,6 +107,9 @@ dependencies {
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)
 
+    // WebView
+    implementation(libs.accompanist.webview)
+
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.storage.ktx)

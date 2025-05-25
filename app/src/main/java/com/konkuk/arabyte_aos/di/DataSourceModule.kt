@@ -5,6 +5,7 @@ import com.konkuk.arabyte_aos.data.datalocal.datasourceimpl.UserInfoLocalDataSou
 import com.konkuk.arabyte_aos.data.dataremote.datasource.AuthRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.CommentDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.LocationsRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.datasource.MyPageRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.NoticeBoardRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.ReportRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasource.ReviewsRemoteDataSource
@@ -12,6 +13,7 @@ import com.konkuk.arabyte_aos.data.dataremote.datasource.UserRemoteDataSource
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.AuthRemoteDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.CommentDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.LocationsRemoteDataSourceImpl
+import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.MyPageRemoteDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.NoticeBoardRemoteDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.ReportRemoteDataSourceImpl
 import com.konkuk.arabyte_aos.data.dataremote.datasourceimpl.ReviewsRemoteDataSourceImpl
@@ -56,4 +58,8 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsReviewDataSource(reviewsRemoteDataSourceImpl: ReviewsRemoteDataSourceImpl): ReviewsRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsMyPageDataSource(myPageRemoteDataSourceImpl: MyPageRemoteDataSourceImpl): MyPageRemoteDataSource
 }
