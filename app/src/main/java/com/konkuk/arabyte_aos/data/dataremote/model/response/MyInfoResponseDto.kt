@@ -7,22 +7,16 @@ import kotlinx.serialization.Serializable
 data class MyInfoResponseDto(
     @SerialName("userName")
     val userName: String,
-
     @SerialName("location")
     val location: String,
-
     @SerialName("ageRange")
     val age: String,
-
     @SerialName("gender")
     val gender: String,
-
     @SerialName("experienceYears")
     val experienceYears: Int,
-
     @SerialName("experienceMonths")
     val experienceMonths: Int,
-
     @SerialName("jobInterests")
-    val jobInterests: List<String>
+    val jobInterests: List<String>,
 )

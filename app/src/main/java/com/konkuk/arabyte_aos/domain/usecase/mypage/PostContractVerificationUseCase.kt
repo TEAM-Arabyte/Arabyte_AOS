@@ -6,14 +6,17 @@ import javax.inject.Singleton
 
 @Singleton
 class PostContractVerificationUseCase
-@Inject
-constructor(
-    private val myPageRepository: MyPageRepository,
-) {
-    suspend operator fun invoke(companyName: String, imageUrl: String): Result<Boolean> {
-        return myPageRepository.postContractVerification(
-            companyName = companyName,
-            imageUrl = imageUrl
-        )
+    @Inject
+    constructor(
+        private val myPageRepository: MyPageRepository,
+    ) {
+        suspend operator fun invoke(
+            companyName: String,
+            imageUrl: String,
+        ): Result<Boolean> {
+            return myPageRepository.postContractVerification(
+                companyName = companyName,
+                imageUrl = imageUrl,
+            )
+        }
     }
-}

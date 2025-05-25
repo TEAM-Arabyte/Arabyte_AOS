@@ -11,6 +11,6 @@ fun MyInfoResponseDto.toDomainModel(): MyInfo {
         gender = this.gender,
         experienceYears = this.experienceYears,
         experienceMonths = this.experienceMonths,
-        jobInterests = this.jobInterests
+        jobInterests = this.jobInterests,
     )
 }

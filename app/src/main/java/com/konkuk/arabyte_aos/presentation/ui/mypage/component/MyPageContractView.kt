@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -30,7 +29,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,11 +70,11 @@ fun MyPageContractView(
     }
 
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = ArabyteTheme.colors.white),
-
-        ) {
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white),
+    ) {
         if (addContractViewVisible) {
             Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 ArabyteTopAppBar(
@@ -92,53 +90,54 @@ fun MyPageContractView(
                     placeholder = "근무지명을 입력해주세요",
                     text = companyName,
                     title = "근무지명",
-                    onValueChange = onCompanyNameValueChanged
+                    onValueChange = onCompanyNameValueChanged,
                 )
                 Spacer(modifier = Modifier.height(14.dp))
                 if (contractImageUri.isEmpty()) {
                     MyPageAddContractButton(
                         modifier = Modifier.padding(horizontal = 16.dp),
-                        buttonClicked = galleryPickButtonClicked
+                        buttonClicked = galleryPickButtonClicked,
                     )
                 } else {
                     AsyncImage(
                         model = contractImageUri,
                         contentDescription = null,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(horizontal = 16.dp)
-                            .border(
-                                width = 1.dp,
-                                color = ArabyteTheme.colors.mainBlue,
-                                shape = RoundedCornerShape(7.dp)
-                            )
-                            .clip(shape = RoundedCornerShape(7.dp))
-                            .noRippleClickable { galleryPickButtonClicked() },
-                        contentScale = ContentScale.Crop
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .padding(horizontal = 16.dp)
+                                .border(
+                                    width = 1.dp,
+                                    color = ArabyteTheme.colors.mainBlue,
+                                    shape = RoundedCornerShape(7.dp),
+                                )
+                                .clip(shape = RoundedCornerShape(7.dp))
+                                .noRippleClickable { galleryPickButtonClicked() },
+                        contentScale = ContentScale.Crop,
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     textAlign = TextAlign.Center,
                     text = "등록하기",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .roundedBackgroundWithPadding(
-                            cornerRadius = 7.dp,
-                            backgroundColor = if (enrollButtonEnabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray01,
-                            padding = PaddingValues(vertical = 16.dp)
-                        )
-                        .noRippleClickable {
-                            if (enrollButtonEnabled) {
-                                enrollButtonClicked()
-                            }
-                        },
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .roundedBackgroundWithPadding(
+                                cornerRadius = 7.dp,
+                                backgroundColor = if (enrollButtonEnabled) ArabyteTheme.colors.mainBlue else ArabyteTheme.colors.gray01,
+                                padding = PaddingValues(vertical = 16.dp),
+                            )
+                            .noRippleClickable {
+                                if (enrollButtonEnabled) {
+                                    enrollButtonClicked()
+                                }
+                            },
                     style = ArabyteTheme.typography.bodySemi15,
-                    color = if (enrollButtonEnabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray05
+                    color = if (enrollButtonEnabled) ArabyteTheme.colors.white else ArabyteTheme.colors.gray05,
                 )
                 Spacer(modifier = Modifier.height(18.dp))
-
             }
         } else {
             Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -149,22 +148,24 @@ fun MyPageContractView(
                     onBackClick = backButtonClicked,
                 )
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = ArabyteTheme.colors.lightBlue)
-                        .padding(horizontal = 16.dp, vertical = 10.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(color = ArabyteTheme.colors.lightBlue)
+                            .padding(horizontal = 16.dp, vertical = 10.dp),
                 ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_all_information_14),
                         contentDescription = null,
-                        tint = Color.Unspecified
+                        tint = Color.Unspecified,
                     )
                     Spacer(modifier = Modifier.width(7.dp))
                     Text(
-                        text = "근로계약서 인증시, 해당 근무지의 인증 뱃지를 받을 수 있어요\n" +
+                        text =
+                            "근로계약서 인증시, 해당 근무지의 인증 뱃지를 받을 수 있어요\n" +
                                 "사진으로 간편하게 인증하고 신뢰도를 높여보세요! ",
                         style = ArabyteTheme.typography.capMed11,
-                        color = ArabyteTheme.colors.mainBlue
+                        color = ArabyteTheme.colors.mainBlue,
                     )
                 }
                 Spacer(modifier = Modifier.height(14.dp))
@@ -173,28 +174,30 @@ fun MyPageContractView(
                     color = ArabyteTheme.colors.black,
                     style = ArabyteTheme.typography.bodySemi15,
                     textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
                 )
                 LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(11.dp)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(11.dp),
                 ) {
                     item {}
                     items(contractList) {
                         MyPageMyContractItem(
                             companyName = it.companyName,
-                            isCertified = it.valid
+                            isCertified = it.valid,
                         )
                     }
                 }
                 Spacer(modifier = Modifier.height(11.dp))
                 ArabyteCheckButton(
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    buttonClicked = changeAddContractViewVisible
+                    buttonClicked = changeAddContractViewVisible,
                 )
             }
         }
@@ -206,12 +209,14 @@ fun MyPageContractView(
 private fun MyPageContractViewPreview() {
     ArabyteAOSTheme {
         MyPageContractView(
-            contractList = listOf(
-                MyContract(companyName = "스타벅스", valid = true), MyContract(
-                    companyName = "컴포즈 커피",
-                    valid = false
-                )
-            ),
+            contractList =
+                listOf(
+                    MyContract(companyName = "스타벅스", valid = true),
+                    MyContract(
+                        companyName = "컴포즈 커피",
+                        valid = false,
+                    ),
+                ),
             backButtonClicked = {},
             changeAddContractViewVisible = {},
             galleryPickButtonClicked = {},

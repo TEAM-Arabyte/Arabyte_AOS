@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ContractVerificationResponseDto(
-    val verifyResult: Boolean
+    val verifyResult: Boolean,
 )

@@ -28,9 +28,9 @@ class MyPageContract {
         val webViewVisible: Boolean = false,
         val myContractViewVisible: Boolean = false,
         val addContractViewVisible: Boolean = false,
-        val myContractList:List<MyContract> = emptyList(),
-        val companyName:String = "",
-        val contractImageUri:String = "",
+        val myContractList: List<MyContract> = emptyList(),
+        val companyName: String = "",
+        val contractImageUri: String = "",
         val wevViewUrl: String = SERVICE_RULES_URL,
     ) : UiState
 

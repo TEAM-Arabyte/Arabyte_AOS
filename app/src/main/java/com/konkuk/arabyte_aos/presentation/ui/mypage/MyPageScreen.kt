@@ -57,11 +57,12 @@ fun MyPageRoute(
 
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            myPageViewModel.setEvent(MyPageContract.MyPageEvent.SetContractImageUrl(it.toString()))
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                myPageViewModel.setEvent(MyPageContract.MyPageEvent.SetContractImageUrl(it.toString()))
+            }
         }
-    }
 
     LaunchedEffect(Unit) {
         myPageViewModel.setEvent(MyPageContract.MyPageEvent.GetMyInfo)
@@ -89,7 +90,7 @@ fun MyPageRoute(
         changeAddContractViewVisible = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.ChangeAddContractViewVisible) },
         onCompanyNameValueChanged = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.CompanyNameValueChanged(it)) },
         galleryPickButtonClicked = { launcher.launch("image/*") },
-        enrollButtonClicked = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.EnrollContract) }
+        enrollButtonClicked = { myPageViewModel.setEvent(MyPageContract.MyPageEvent.EnrollContract) },
     )
 }
 
@@ -119,15 +120,15 @@ fun MyPageScreen(
 
     Box(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(color = ArabyteTheme.colors.white)
-            .padding(paddingValues),
+            modifier
+                .fillMaxSize()
+                .background(color = ArabyteTheme.colors.white)
+                .padding(paddingValues),
     ) {
         Column(
             modifier =
-            Modifier
-                .fillMaxSize(),
+                Modifier
+                    .fillMaxSize(),
         ) {
             Spacer(modifier = Modifier.height(26.dp))
             MyPageProfileRow(
@@ -137,18 +138,19 @@ fun MyPageScreen(
                 onClick = changeUserProfileVisible,
             )
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .roundedBackgroundWithPadding(
-                        backgroundColor = ArabyteTheme.colors.lightBlue,
-                        cornerRadius = 7.dp,
-                        padding = PaddingValues(horizontal = 11.dp, vertical = 15.dp)
-                    ).noRippleClickable {
-                        changeMyContractViewVisible()
-                    }, verticalAlignment = Alignment.CenterVertically
-            )
-            {
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .roundedBackgroundWithPadding(
+                            backgroundColor = ArabyteTheme.colors.lightBlue,
+                            cornerRadius = 7.dp,
+                            padding = PaddingValues(horizontal = 11.dp, vertical = 15.dp),
+                        ).noRippleClickable {
+                            changeMyContractViewVisible()
+                        },
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_all_auth_check_16), tint = Color.Unspecified, contentDescription = null)
                 Spacer(modifier = Modifier.width(7.dp))
                 Text(text = "나의 근로계약서", style = ArabyteTheme.typography.bodySemi13, color = ArabyteTheme.colors.mainBlue)
@@ -162,9 +164,9 @@ fun MyPageScreen(
             HorizontalDivider(thickness = 8.dp, color = ArabyteTheme.colors.gray01)
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 20.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 20.dp),
             ) {
                 Text(text = "서비스 버전", style = ArabyteTheme.typography.bodyMed15, color = ArabyteTheme.colors.black)
                 Spacer(modifier = Modifier.weight(1f))
@@ -187,19 +189,19 @@ fun MyPageScreen(
                 style = ArabyteTheme.typography.capSemi11,
                 color = ArabyteTheme.colors.gray05,
                 modifier =
-                Modifier
-                    .padding(16.dp)
-                    .noRippleClickable(withDrawClicked)
-                    .align(Alignment.End),
+                    Modifier
+                        .padding(16.dp)
+                        .noRippleClickable(withDrawClicked)
+                        .align(Alignment.End),
             )
         }
         if (uiState.dialogVisible) {
             Box(
                 modifier =
-                Modifier
-                    .fillMaxSize()
-                    .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
-                    .noRippleClickable(changeDialogVisible),
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.3f))
+                        .noRippleClickable(changeDialogVisible),
                 contentAlignment = Alignment.Center,
             ) {
                 ArabyteTwoButtonDialog(
@@ -237,7 +239,7 @@ fun MyPageScreen(
                 companyName = uiState.companyName,
                 contractImageUri = uiState.contractImageUri,
                 addContractViewVisible = uiState.addContractViewVisible,
-                enrollButtonClicked = enrollButtonClicked
+                enrollButtonClicked = enrollButtonClicked,
             )
         }
     }
