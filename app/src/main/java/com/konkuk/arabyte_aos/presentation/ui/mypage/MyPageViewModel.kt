@@ -119,6 +119,7 @@ class MyPageViewModel
                     setState { copy(companyName = "", addContractViewVisible = valid, contractImageUri = "", contractUploadState = LoadState.Success) }
                     if (valid) {
                         setSideEffect(MyPageContract.MyPageSideEffect.ShowImageValidToast)
+                        setState { copy(addContractViewVisible = false, myContractViewVisible = true) }
                     } else {
                         setSideEffect(MyPageContract.MyPageSideEffect.ShowImageInvalidToast)
                     }
