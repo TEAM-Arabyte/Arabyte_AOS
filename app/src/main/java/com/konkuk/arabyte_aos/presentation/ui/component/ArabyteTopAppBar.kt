@@ -27,9 +27,9 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun ArabyteTopAppBar(
+    modifier: Modifier = Modifier,
     useBack: Boolean = true,
     title: String? = null,
-    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
 ) {
     ArabyteTopAppBarInternal(

@@ -9,6 +9,7 @@
 
     <!--  Toast Message  -->
     <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>
+    <string name="toast_message_nickname_back_handler">뒤로가기를 한 번 더 누르면 종료됩니다.</string>
 
     <!--  Category  -->
     <string name="all_category_food">외식/음료</string>
@@ -128,6 +129,25 @@
     <string name="review_detail_button_delete">삭제</string>
     <string name="review_detail_button_report">신고</string>
     <string name="review_detail_alert_toast">내가 작성한 리뷰에는 도움여부를 남길 수 없어요 🥲</string>
+
+    <!-- NoticeBoardWrite -->
+    <string name="notice_board_write_nav_title">게시글 작성</string>
+    <string name="notice_board_write_nav_option">완료</string>
+    <string name="notice_board_write_category">카테고리</string>
+    <string name="notice_board_write_is_anonymous">익명 여부</string>
+    <string name="notice_board_write_anonymous_description">익명 여부를 비활성화하면, 가입 시 입력한 닉네임으로 표시됩니다.</string>
+    <string name="notice_board_write_title">제목</string>
+    <string name="notice_board_write_content">내용</string>
+    <string name="notice_board_write_title_placeholder">제목을 입력해주세요</string>
+    <string name="notice_board_write_content_placeholder">내용을 입력해주세요</string>
+
+
+    <!-- NoticeBoardComment -->
+    <string name="notice_board_comment_reply">답글달기</string>
+    <string name="notice_board_comment_report">신고하기</string>
+
+    <string name="notice_board_comment_anonymous">익명</string>
+    <string name="notice_board_comment_text_field">댓글을 입력해주세요</string>
     <string name="review_detail_report_toast">해당 리뷰에 대한 신고가 완료되었습니다.</string>
 
 </resources>
