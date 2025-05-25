@@ -22,6 +22,9 @@ enum class ArabyteJobCategory(val label: String) {
             return categoryList.find { it.label == label }
         }
 
+        fun fromName(name: String): ArabyteJobCategory? =
+            entries.find { it.name == name }
+
         private fun String.toArabyteJobCategory(): ArabyteJobCategory? =
             ArabyteJobCategory.entries.find { it.label == this }
 

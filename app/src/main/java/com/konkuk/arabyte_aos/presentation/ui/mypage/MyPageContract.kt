@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.mypage
 
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
+import com.konkuk.arabyte_aos.domain.model.MyContract
 import com.konkuk.arabyte_aos.presentation.model.Gender
 import com.konkuk.arabyte_aos.presentation.model.UserProfile
 import com.konkuk.arabyte_aos.presentation.util.WebViewUrl.SERVICE_RULES_URL
@@ -25,6 +26,11 @@ class MyPageContract {
                 jobInterests = listOf(ArabyteJobCategory.DELIVERY, ArabyteJobCategory.FOOD_BEVERAGE),
             ),
         val webViewVisible: Boolean = false,
+        val myContractViewVisible: Boolean = false,
+        val addContractViewVisible: Boolean = false,
+        val myContractList:List<MyContract> = emptyList(),
+        val companyName:String = "",
+        val contractImageUri:String = "",
         val wevViewUrl: String = SERVICE_RULES_URL,
     ) : UiState
 
@@ -43,6 +49,20 @@ class MyPageContract {
 
         data object ChangeWebViewVisible : MyPageEvent()
 
+        data object ChangeMyContractViewVisible : MyPageEvent()
+
+        data object ChangeAddContractViewVisible : MyPageEvent()
+
         data class SetWebViewUrl(val url: String) : MyPageEvent()
+
+        data object GetMyInfo : MyPageEvent()
+
+        data class CompanyNameValueChanged(val companyName: String) : MyPageEvent()
+
+        data object EnrollContract : MyPageEvent()
+
+        data class SetContractImageUrl(val url: String) : MyPageEvent()
+
+        data object GalleryPickButtonClicked : MyPageEvent()
     }
 }

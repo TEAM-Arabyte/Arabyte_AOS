@@ -4,6 +4,7 @@ import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import com.konkuk.arabyte_aos.data.dataremote.service.CommentService
 import com.konkuk.arabyte_aos.data.dataremote.service.KakaoService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
+import com.konkuk.arabyte_aos.data.dataremote.service.MyPageService
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
 import com.konkuk.arabyte_aos.data.dataremote.service.ReportService
 import com.konkuk.arabyte_aos.data.dataremote.service.ReviewService
@@ -49,6 +50,12 @@ object ServiceModule {
         @Arabyte retrofit: Retrofit,
     ): ReviewService =
         retrofit.create(ReviewService::class.java)
+
+    @Provides
+    fun providesMyPageService(
+        @Arabyte retrofit: Retrofit,
+    ): MyPageService =
+        retrofit.create(MyPageService::class.java)
 
     @Provides
     @Singleton

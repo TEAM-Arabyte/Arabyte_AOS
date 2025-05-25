@@ -1,5 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.model
 
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
+
 data class UserProfile(
     val userName: String = "",
     val location: String = "",

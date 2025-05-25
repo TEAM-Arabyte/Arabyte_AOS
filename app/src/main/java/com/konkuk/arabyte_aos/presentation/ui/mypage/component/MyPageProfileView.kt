@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.presentation.model.Gender
 import com.konkuk.arabyte_aos.presentation.model.UserProfile
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
@@ -106,7 +106,7 @@ fun MyPageProfileView(
             data = "${userProfile.experienceYears}년 ${userProfile.experienceMonths}개월",
         )
         MyPageProfileDataText(
-            title = "관심 직정",
+            title = "관심 직종",
             data = "${userProfile.jobInterests}",
         )
     }
