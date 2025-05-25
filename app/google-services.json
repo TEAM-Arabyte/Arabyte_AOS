@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "866243364838",
+    "project_id": "arabyte-1876b",
+    "storage_bucket": "arabyte-1876b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866243364838:android:cce07ba2dde6714c277827",
+        "android_client_info": {
+          "package_name": "com.konkuk.arabyte_aos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIAKTnqH5ubXiwYMJPrVLgWjFDL6GpTx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
