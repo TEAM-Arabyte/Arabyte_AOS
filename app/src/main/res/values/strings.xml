@@ -3,6 +3,7 @@
 
     <!--  All  -->
     <string name="all_next_button">다음</string>
+    <string name="all_complete_button">확인</string>
     <string name="all_toast_server_error">서버 에러가 발생했습니다.</string>
     <string name="all_cancel_button">취소</string>
 
@@ -10,6 +11,10 @@
     <!--  Toast Message  -->
     <string name="toast_message_nickname_duplicated">중복된 닉네임이 존재합니다.</string>
     <string name="toast_message_nickname_back_handler">뒤로가기를 한 번 더 누르면 종료됩니다.</string>
+    <string name="toast_message_upload_image_valid">근로계약서 검중이 완료되었습니다!</string>
+    <string name="toast_message_upload_image_invalid">근로계약서가 추후 검토 될 예정입니다.</string>
+
+
 
     <!--  Category  -->
     <string name="all_category_food">외식/음료</string>
