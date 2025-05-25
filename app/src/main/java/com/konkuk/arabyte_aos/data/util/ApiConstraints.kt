@@ -16,6 +16,7 @@ object ApiConstraints {
 
     // Notice Board
     const val ARTICLES = "articles"
+    const val LIKE = "like"
 
     // Comment
     const val COMMENTS = "comments"

@@ -1,9 +1,12 @@
 package com.konkuk.arabyte_aos.data.dataremote.service
 
+import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardLikeRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardWriteRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListResponseDto
+import com.konkuk.arabyte_aos.data.dataremote.model.response.PostNoticeBoardLikeResponseDto
 import com.konkuk.arabyte_aos.data.util.ApiConstraints.ARTICLES
+import com.konkuk.arabyte_aos.data.util.ApiConstraints.LIKE
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,4 +32,9 @@ interface NoticeBoardService {
     suspend fun postNoticeBoardWrite(
         @Body postNoticeBoardWriteRequestDto: PostNoticeBoardWriteRequestDto,
     ): Response<Unit>
+
+    @POST("/$ARTICLES/$LIKE")
+    suspend fun postNoticeBoardLike(
+        @Body postNoticeBoardLikeRequestDto: PostNoticeBoardLikeRequestDto,
+    ): Response<PostNoticeBoardLikeResponseDto>
 }
