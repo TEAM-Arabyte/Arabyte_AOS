@@ -79,7 +79,13 @@ fun MyPageContractView(
                 .background(color = ArabyteTheme.colors.white),
     ) {
         if (addContractViewVisible) {
-            Column(modifier = Modifier.fillMaxSize().noRippleClickable(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .noRippleClickable(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 ArabyteTopAppBar(
                     modifier = modifier,
                     useBack = true,
@@ -143,7 +149,13 @@ fun MyPageContractView(
                 Spacer(modifier = Modifier.height(18.dp))
             }
         } else {
-            Column(modifier = Modifier.fillMaxSize().noRippleClickable(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .noRippleClickable(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 ArabyteTopAppBar(
                     modifier = modifier,
                     useBack = true,
@@ -205,23 +217,22 @@ fun MyPageContractView(
             }
         }
 
-        if (imageUploadState == LoadState.Loading)
-            {
-                Box(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .background(ArabyteTheme.colors.black.copy(alpha = 0.5f))
-                            .noRippleClickable(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    ArabyteLoadingAnimation(
-                        modifier = Modifier.padding(horizontal = 36.dp),
-                        isLoading = imageUploadState == LoadState.Loading,
-                        loadingText = "이미지 업로드 중",
-                    )
-                }
+        if (imageUploadState == LoadState.Loading) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(ArabyteTheme.colors.black.copy(alpha = 0.5f))
+                        .noRippleClickable(),
+                contentAlignment = Alignment.Center,
+            ) {
+                ArabyteLoadingAnimation(
+                    modifier = Modifier.padding(horizontal = 36.dp),
+                    isLoading = imageUploadState == LoadState.Loading,
+                    loadingText = "이미지 업로드 중",
+                )
             }
+        }
     }
 }
 
