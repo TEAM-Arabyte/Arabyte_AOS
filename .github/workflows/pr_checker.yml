@@ -44,6 +44,9 @@ jobs:
       - name: Create google-services.json from secret
         run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
 
+      - name: Create google-services.json from secret
+        run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > app/google-services.json
+
       - name: Access local properties
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
