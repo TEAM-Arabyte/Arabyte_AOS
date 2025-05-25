@@ -5,6 +5,10 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Base64
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.google.firebase.appcheck.ktx.appCheck
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
 import com.kakao.sdk.common.KakaoSdk
 import com.konkuk.arabyte_aos.BuildConfig.KAKAO_NATIVE_APP_KEY
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
@@ -18,6 +22,16 @@ class ArabyteApp : Application() {
         super.onCreate()
         setDarkMode()
         setKakao()
+        initializeFirebase()
+    }
+
+    private fun initializeFirebase() {
+        Firebase.initialize(this)
+        val firebaseAppCheck = Firebase.appCheck
+        firebaseAppCheck.installAppCheckProviderFactory(
+            DebugAppCheckProviderFactory.getInstance(),
+            true,
+        )
     }
 
     private fun setDarkMode() {

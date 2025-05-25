@@ -1,5 +1,6 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboardwrite
 
+import android.net.Uri
 import com.konkuk.arabyte_aos.presentation.type.component.ArabyteNoticeBoardCategoryType
 import com.konkuk.arabyte_aos.presentation.util.base.UiEvent
 import com.konkuk.arabyte_aos.presentation.util.base.UiSideEffect
@@ -8,11 +9,13 @@ import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 
 class NoticeBoardWriteContract {
     data class NoticeBoardWriteUiState(
-        val loadState: LoadState = LoadState.Idle,
+        val imageLoadState: LoadState = LoadState.Idle,
         val selectCategory: ArabyteNoticeBoardCategoryType? = null,
         val selectIsAnonymous: Boolean = true,
         val titleText: String = "",
         val contentText: String = "",
+        val uploadedImageUrls: List<String> = emptyList(),
+        val previewImageUri: Uri? = null,
     ) : UiState
 
     sealed interface NoticeBoardWriteSideEffect : UiSideEffect {
@@ -23,6 +26,10 @@ class NoticeBoardWriteContract {
         data object ShowServerErrorToast : NoticeBoardWriteSideEffect
 
         data object ShowDataValidErrorToast : NoticeBoardWriteSideEffect
+
+        data object ShowImageLoadingToast : NoticeBoardWriteSideEffect
+
+        data object ShowImageErrorToast : NoticeBoardWriteSideEffect
     }
 
     sealed class NoticeBoardWriteEvent : UiEvent {
@@ -35,5 +42,7 @@ class NoticeBoardWriteContract {
         data class ContentTextChanged(val content: String) : NoticeBoardWriteEvent()
 
         data object WriteCompleteButtonClicked : NoticeBoardWriteEvent()
+
+        data class PhotoSelected(val uri: Uri) : NoticeBoardWriteEvent()
     }
 }
