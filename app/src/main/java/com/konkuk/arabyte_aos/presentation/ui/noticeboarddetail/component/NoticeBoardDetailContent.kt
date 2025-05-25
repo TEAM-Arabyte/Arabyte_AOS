@@ -30,7 +30,7 @@ fun NoticeBoardDetailContent(
     title: String,
     content: String,
     isLiked: Boolean,
-    onClickLiked: (Boolean) -> Unit,
+    onClickLiked: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -68,6 +68,6 @@ fun NoticeBoardDetailContent(
         Spacer(modifier = Modifier.height(9.dp))
         Text(text = content, style = ArabyteTheme.typography.bodyMed13, color = ArabyteTheme.colors.gray06)
         Spacer(modifier = Modifier.height(12.dp))
-        ArabyteLikeButton(modifier = Modifier.align(Alignment.End), enabled = isLiked)
+        ArabyteLikeButton(modifier = Modifier.align(Alignment.End), enabled = isLiked, buttonClicked = onClickLiked)
     }
 }

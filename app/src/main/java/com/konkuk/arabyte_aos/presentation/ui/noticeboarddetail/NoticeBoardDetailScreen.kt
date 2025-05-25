@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,7 +25,7 @@ import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
-import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardEmptyView
+import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentEmptyView
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentItem
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
@@ -68,7 +67,7 @@ fun NoticeBoardDetailRoute(
         replyTargetCommentId = uiState.replyTargetCommentId,
         navigateToBack = { viewModel.setSideEffect(NoticeBoardDetailContract.NoticeBoardDetailSideEffect.NavigateToBack) },
         onReplyButtonClick = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickReplyButton(it)) },
-        onClickLicked = { }
+        onClickLiked = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickLikeButton(articleId)) },
     )
 }
 
@@ -83,7 +82,7 @@ fun NoticeBoardDetailScreen(
     isAnonymous: Boolean,
     navigateToBack: () -> Unit,
     onReplyButtonClick: (Long) -> Unit,
-    onClickLicked: (Boolean)->Unit,
+    onClickLiked: () -> Unit,
     modifier: Modifier = Modifier,
     replyTargetCommentId: Long? = null,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
@@ -117,7 +116,7 @@ fun NoticeBoardDetailScreen(
                     title = noticeBoardDetail.title,
                     content = noticeBoardDetail.text,
                     isLiked = noticeBoardDetail.isLiked,
-                    onClickLiked = {  }
+                    onClickLiked = onClickLiked,
                 )
             }
             item {
@@ -136,7 +135,7 @@ fun NoticeBoardDetailScreen(
 
             if (flattenCommentList.isEmpty()) {
                 item {
-                    NoticeBoardEmptyView()
+                    NoticeBoardDetailCommentEmptyView()
                 }
             } else {
                 itemsIndexed(
@@ -162,12 +161,12 @@ fun NoticeBoardDetailScreen(
                         },
                     )
                 }
-            }
-            item {
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = ArabyteTheme.colors.gray01,
-                )
+                item {
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = ArabyteTheme.colors.gray01,
+                    )
+                }
             }
         }
         NoticeBoardDetailCommentTextField(

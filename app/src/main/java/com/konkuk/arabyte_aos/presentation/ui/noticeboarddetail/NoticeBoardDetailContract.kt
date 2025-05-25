@@ -54,6 +54,6 @@ class NoticeBoardDetailContract {
 
         data class ClickReplyButton(val parentId: Long) : NoticeBoardDetailEvent()
 
-        data class ClickLikeButton (val isClicked: Boolean): NoticeBoardDetailEvent()
+        data class ClickLikeButton(val articleId: Long) : NoticeBoardDetailEvent()
     }
 }

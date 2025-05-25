@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import buildCommentTree
 import com.konkuk.arabyte_aos.domain.usecase.comment.PostCommentUseCase
 import com.konkuk.arabyte_aos.domain.usecase.noticeboard.GetNoticeBoardDetailUseCase
+import com.konkuk.arabyte_aos.domain.usecase.noticeboard.PostNoticeBoardLikeUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
@@ -18,6 +19,7 @@ class NoticeBoardDetailViewModel
     constructor(
         private val getNoticeBoardDetailUseCase: GetNoticeBoardDetailUseCase,
         private val postCommentUseCase: PostCommentUseCase,
+        private val postNoticeBoardLikeUseCase: PostNoticeBoardLikeUseCase,
     ) : BaseViewModel<NoticeBoardDetailContract.NoticeBoardDetailUiState, NoticeBoardDetailContract.NoticeBoardDetailSideEffect, NoticeBoardDetailContract.NoticeBoardDetailEvent>() {
         override fun createInitialState(): NoticeBoardDetailContract.NoticeBoardDetailUiState = NoticeBoardDetailContract.NoticeBoardDetailUiState()
 
@@ -36,8 +38,27 @@ class NoticeBoardDetailViewModel
                         )
                     }
                 }
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickLikeButton -> {
+                    postLike(event.articleId)
+                }
+            }
+        }
 
-                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickLikeButton -> { }
+        private fun postLike(articleId: Long) {
+            viewModelScope.launch {
+                postNoticeBoardLikeUseCase(articleId = articleId)
+                    .onSuccess { likeResult ->
+                        setState {
+                            copy(
+                                noticeBoardDetail =
+                                    noticeBoardDetail.copy(
+                                        isLiked = likeResult.liked,
+                                    ),
+                            )
+                        }
+                    }
+                    .onFailure {
+                    }
             }
         }
 
