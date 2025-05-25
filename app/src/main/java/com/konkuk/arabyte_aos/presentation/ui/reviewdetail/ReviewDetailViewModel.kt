@@ -1,10 +1,13 @@
 package com.konkuk.arabyte_aos.presentation.ui.reviewdetail
 
 import androidx.lifecycle.viewModelScope
+import com.konkuk.arabyte_aos.domain.model.ReportData
+import com.konkuk.arabyte_aos.domain.model.ReportType
 import com.konkuk.arabyte_aos.domain.model.ReviewHelpfulType
 import com.konkuk.arabyte_aos.domain.usecase.reivew.DeleteReviewDetailUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.GetReviewDetailUseCase
 import com.konkuk.arabyte_aos.domain.usecase.reivew.PostReviewHelpfulUseCase
+import com.konkuk.arabyte_aos.domain.usecase.report.PostReportUseCase
 import com.konkuk.arabyte_aos.domain.usecase.user.GetUserIdUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
@@ -20,6 +23,7 @@ class ReviewDetailViewModel
         private val getUserIdUseCase: GetUserIdUseCase,
         private val deleteReviewDetailUseCase: DeleteReviewDetailUseCase,
         private val postReviewHelpfulUseCase: PostReviewHelpfulUseCase,
+        private val postReportUseCase: PostReportUseCase,
     ) : BaseViewModel<ReviewDetailContract.ReviewDetailUiState, ReviewDetailContract.ReviewDetailSideEffect, ReviewDetailContract.ReviewDetailEvent>() {
         override fun createInitialState(): ReviewDetailContract.ReviewDetailUiState = ReviewDetailContract.ReviewDetailUiState()
 
@@ -29,13 +33,21 @@ class ReviewDetailViewModel
 
                 is ReviewDetailContract.ReviewDetailEvent.GetUserID -> getUserId()
 
-                is ReviewDetailContract.ReviewDetailEvent.ChangeDialogVisible -> {
-                    setState { copy(dialogVisible = !currentState.dialogVisible) }
+                is ReviewDetailContract.ReviewDetailEvent.ChangeMainDialogVisible -> {
+                    setState { copy(mainDialogVisible = !currentState.mainDialogVisible) }
                 }
 
-                is ReviewDetailContract.ReviewDetailEvent.DialogCompleteButtonClicked -> dialogCompleteButtonClicked(event.isMyReview)
+                is ReviewDetailContract.ReviewDetailEvent.ChangeReportReasonDialogVisible -> changeReportReasonDialogVisible()
 
                 is ReviewDetailContract.ReviewDetailEvent.ReviewHelpfulClicked -> helpfulClicked(event.isMyReview, event.reviewHelpful)
+
+                is ReviewDetailContract.ReviewDetailEvent.DeleteMyReview -> deleteReviewDetail()
+
+                is ReviewDetailContract.ReviewDetailEvent.ReportReview -> reportReviewDetail()
+
+                is ReviewDetailContract.ReviewDetailEvent.ReportReasonValueChanged -> {
+                    setState { copy(reviewReasonText = event.reportReason) }
+                }
             }
         }
 
@@ -49,16 +61,18 @@ class ReviewDetailViewModel
             }
         }
 
+        private fun changeReportReasonDialogVisible() {
+            if (currentState.reportReasonDialogVisible) clearReportReason()
+            setState { copy(reportReasonDialogVisible = !currentState.reportReasonDialogVisible) }
+        }
+
+        private fun clearReportReason() {
+            setState { copy(reviewReasonText = "") }
+        }
+
         private fun getUserId() {
             viewModelScope.launch {
                 setState { copy(currentUserId = getUserIdUseCase()) }
-            }
-        }
-
-        private fun dialogCompleteButtonClicked(isMyReview: Boolean) {
-            if (isMyReview) {
-                deleteReviewDetail()
-            } else {
             }
         }
 
@@ -69,6 +83,23 @@ class ReviewDetailViewModel
                 }.onFailure {
                     setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast)
                     setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.NavigateToReviewList)
+                }
+            }
+        }
+
+        private fun reportReviewDetail() {
+            viewModelScope.launch {
+                postReportUseCase(
+                    reportData =
+                        ReportData(
+                            reportType = ReportType.REVIEW,
+                            targetId = currentState.reviewDetail.reviewId.toLong(),
+                            reason = currentState.reviewReasonText,
+                        ),
+                ).onSuccess {
+                    setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowReportToast)
+                }.onFailure {
+                    setSideEffect(ReviewDetailContract.ReviewDetailSideEffect.ShowServerErrorToast)
                 }
             }
         }

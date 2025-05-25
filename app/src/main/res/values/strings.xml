@@ -151,5 +151,6 @@
 
     <string name="notice_board_comment_anonymous">익명</string>
     <string name="notice_board_comment_text_field">댓글을 입력해주세요</string>
+    <string name="review_detail_report_toast">해당 리뷰에 대한 신고가 완료되었습니다.</string>
 
 </resources>
