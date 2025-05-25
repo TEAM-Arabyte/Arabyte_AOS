@@ -108,10 +108,10 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
-    implementation("com.google.firebase:firebase-storage-ktx")
-    implementation("com.google.firebase:firebase-appcheck")
-    implementation("com.google.firebase:firebase-appcheck-debug")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.appcheck)
+    implementation(libs.firebase.appcheck.debug)
 }
 ktlint {
     android = true
