@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +43,7 @@ import com.konkuk.arabyte_aos.presentation.ui.mypage.component.MyPageProfileRow
 import com.konkuk.arabyte_aos.presentation.ui.mypage.component.MyPageProfileView
 import com.konkuk.arabyte_aos.presentation.util.WebViewUrl.PRIVACY_POLICY_URL
 import com.konkuk.arabyte_aos.presentation.util.WebViewUrl.SERVICE_RULES_URL
+import com.konkuk.arabyte_aos.presentation.util.context.arabyteToastMessage
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
@@ -56,6 +58,8 @@ fun MyPageRoute(
     val uiState by myPageViewModel.uiState.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    val context = LocalContext.current
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -73,6 +77,10 @@ fun MyPageRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
+                    is MyPageContract.MyPageSideEffect.ShowImageErrorToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.notice_board_write_image_upload_error,
+                        )
                 }
             }
     }
@@ -217,6 +225,7 @@ fun MyPageScreen(
         }
         if (uiState.userProfileVisible) {
             MyPageProfileView(
+                modifier = Modifier.noRippleClickable(),
                 profileImageRes = "",
                 defaultProfileRes = defaultProfileRes,
                 userProfile = uiState.userProfile,
@@ -231,6 +240,7 @@ fun MyPageScreen(
         }
         if (uiState.myContractViewVisible) {
             MyPageContractView(
+                modifier = Modifier.noRippleClickable(),
                 backButtonClicked = changeMyContractViewVisible,
                 changeAddContractViewVisible = changeAddContractViewVisible,
                 onCompanyNameValueChanged = onCompanyNameValueChanged,
@@ -240,6 +250,7 @@ fun MyPageScreen(
                 contractImageUri = uiState.contractImageUri,
                 addContractViewVisible = uiState.addContractViewVisible,
                 enrollButtonClicked = enrollButtonClicked,
+                imageUploadState = uiState.contractUploadState
             )
         }
     }

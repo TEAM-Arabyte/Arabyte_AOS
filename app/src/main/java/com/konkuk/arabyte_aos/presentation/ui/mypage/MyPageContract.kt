@@ -32,10 +32,13 @@ class MyPageContract {
         val companyName: String = "",
         val contractImageUri: String = "",
         val wevViewUrl: String = SERVICE_RULES_URL,
+        val contractUploadState: LoadState = LoadState.Idle
     ) : UiState
 
     sealed interface MyPageSideEffect : UiSideEffect {
         data object NavigateToLogin : MyPageSideEffect
+
+        data object ShowImageErrorToast : MyPageSideEffect
     }
 
     sealed class MyPageEvent : UiEvent {
@@ -62,7 +65,5 @@ class MyPageContract {
         data object EnrollContract : MyPageEvent()
 
         data class SetContractImageUrl(val url: String) : MyPageEvent()
-
-        data object GalleryPickButtonClicked : MyPageEvent()
     }
 }

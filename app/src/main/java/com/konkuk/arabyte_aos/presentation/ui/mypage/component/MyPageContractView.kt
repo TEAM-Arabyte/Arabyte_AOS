@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,9 +39,12 @@ import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.MyContract
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
 import com.konkuk.arabyte_aos.presentation.ui.component.button.ArabyteCheckButton
+import com.konkuk.arabyte_aos.presentation.ui.component.dialog.ArabyteTwoButtonDialog
+import com.konkuk.arabyte_aos.presentation.ui.component.loading.ArabyteLoadingAnimation
 import com.konkuk.arabyte_aos.presentation.ui.component.textfield.ArabyteNormalTextField
 import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.presentation.util.modifier.roundedBackgroundWithPadding
+import com.konkuk.arabyte_aos.presentation.util.view.LoadState
 import com.konkuk.arabyte_aos.ui.theme.ArabyteAOSTheme
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
@@ -55,6 +59,7 @@ fun MyPageContractView(
     contractList: List<MyContract> = emptyList(),
     companyName: String = "",
     contractImageUri: String = "",
+    imageUploadState:LoadState,
     addContractViewVisible: Boolean = true,
 ) {
     val enrollButtonEnabled by remember(companyName, contractImageUri) {
@@ -76,7 +81,7 @@ fun MyPageContractView(
                 .background(color = ArabyteTheme.colors.white),
     ) {
         if (addContractViewVisible) {
-            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.fillMaxSize().noRippleClickable(), horizontalAlignment = Alignment.CenterHorizontally) {
                 ArabyteTopAppBar(
                     modifier = modifier,
                     useBack = true,
@@ -113,10 +118,10 @@ fun MyPageContractView(
                                 )
                                 .clip(shape = RoundedCornerShape(7.dp))
                                 .noRippleClickable { galleryPickButtonClicked() },
-                        contentScale = ContentScale.Crop,
+                        contentScale = ContentScale.Fit,
                     )
                 }
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(0.2f))
                 Text(
                     textAlign = TextAlign.Center,
                     text = "등록하기",
@@ -140,7 +145,7 @@ fun MyPageContractView(
                 Spacer(modifier = Modifier.height(18.dp))
             }
         } else {
-            Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.fillMaxSize().noRippleClickable(), horizontalAlignment = Alignment.CenterHorizontally) {
                 ArabyteTopAppBar(
                     modifier = modifier,
                     useBack = true,
@@ -201,6 +206,23 @@ fun MyPageContractView(
                 )
             }
         }
+
+        if (imageUploadState == LoadState.Loading){
+            Box(
+                modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(ArabyteTheme.colors.black.copy(alpha = 0.5f))
+                    .noRippleClickable(),
+                contentAlignment = Alignment.Center,
+            ) {
+                ArabyteLoadingAnimation(
+                    modifier = Modifier.padding(horizontal = 36.dp),
+                    isLoading = imageUploadState == LoadState.Loading,
+                    loadingText = "이미지 업로드 중",
+                )
+            }
+        }
     }
 }
 
@@ -210,18 +232,19 @@ private fun MyPageContractViewPreview() {
     ArabyteAOSTheme {
         MyPageContractView(
             contractList =
-                listOf(
-                    MyContract(companyName = "스타벅스", valid = true),
-                    MyContract(
-                        companyName = "컴포즈 커피",
-                        valid = false,
-                    ),
+            listOf(
+                MyContract(companyName = "스타벅스", valid = true),
+                MyContract(
+                    companyName = "컴포즈 커피",
+                    valid = false,
                 ),
+            ),
             backButtonClicked = {},
             changeAddContractViewVisible = {},
             galleryPickButtonClicked = {},
             onCompanyNameValueChanged = {},
             enrollButtonClicked = {},
+            imageUploadState = LoadState.Idle,
         )
     }
 }
