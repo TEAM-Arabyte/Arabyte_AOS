@@ -35,7 +35,7 @@ class NoticeBoardListViewModel
                     getNoticeBoardListUseCase(
                         articleKind = noticeBoardCategoryType.toApiValue(),
                         page = 0,
-                        size = 10,
+                        size = 20,
                         sort = "createdAt,desc",
                     )
                 result.onSuccess { articleList ->
