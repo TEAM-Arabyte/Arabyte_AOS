@@ -4,8 +4,8 @@ import com.konkuk.arabyte_aos.data.dataremote.service.AuthService
 import com.konkuk.arabyte_aos.data.dataremote.service.CommentService
 import com.konkuk.arabyte_aos.data.dataremote.service.KakaoService
 import com.konkuk.arabyte_aos.data.dataremote.service.LocationsService
-import com.konkuk.arabyte_aos.data.dataremote.service.ReportService
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
+import com.konkuk.arabyte_aos.data.dataremote.service.ReportService
 import com.konkuk.arabyte_aos.data.dataremote.service.ReviewService
 import com.konkuk.arabyte_aos.data.dataremote.service.UserService
 import com.konkuk.arabyte_aos.di.qualifier.Arabyte
@@ -16,7 +16,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
-import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)
