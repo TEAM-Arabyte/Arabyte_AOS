@@ -27,9 +27,9 @@ import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun ArabyteTopAppBar(
+    modifier: Modifier = Modifier,
     useBack: Boolean = true,
     title: String? = null,
-    modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
 ) {
     ArabyteTopAppBarInternal(
@@ -48,6 +48,7 @@ fun ArabyteTopAppBar(
     optionalText: String,
     onBackClick: () -> Unit = {},
     onOptionalClick: () -> Unit = {},
+    optionalTextColor: Color = ArabyteTheme.colors.gray03,
 ) {
     ArabyteTopAppBarInternal(
         modifier = modifier,
@@ -58,7 +59,7 @@ fun ArabyteTopAppBar(
             Text(
                 text = optionalText,
                 style = ArabyteTheme.typography.bodySemi15,
-                color = ArabyteTheme.colors.gray03,
+                color = optionalTextColor,
                 modifier =
                     Modifier
                         .padding(end = 16.dp)
@@ -110,7 +111,7 @@ private fun ArabyteTopAppBarInternal(
                         .align(Alignment.CenterStart),
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_all_back_button_45),
                 contentDescription = null,
-                tint = Color.Unspecified,
+                tint = ArabyteTheme.colors.gray07,
             )
         }
 

@@ -12,6 +12,7 @@ class ReviewListContract {
         val loadState: LoadState = LoadState.Idle,
         val certifiedFilterSelected: Boolean = false,
         val selectedRegion: String = "",
+        val selectedLocationId: Int? = null,
         val selectedCategory: String = "",
         val reviewList: List<ReviewItem> = emptyList(),
         val regionBottomSheetVisible: Boolean = false,
@@ -27,6 +28,8 @@ class ReviewListContract {
 
     sealed interface ReviewListSideEffect : UiSideEffect {
         data class NavigateToReviewDetail(val reviewId: Int) : ReviewListSideEffect
+
+        data object NavigateToReviewWrite : ReviewListSideEffect
     }
 
     sealed class ReviewListEvent : UiEvent {

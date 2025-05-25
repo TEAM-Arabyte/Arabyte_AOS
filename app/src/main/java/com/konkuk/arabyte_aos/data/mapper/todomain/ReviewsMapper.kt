@@ -4,11 +4,11 @@ import com.konkuk.arabyte_aos.data.dataremote.model.response.GetReviewsResponseD
 import com.konkuk.arabyte_aos.data.dataremote.model.response.PageableDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.ReviewContentDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.SortDto
+import com.konkuk.arabyte_aos.domain.model.ArabyteJobCategory
 import com.konkuk.arabyte_aos.domain.model.ReviewItem
 import com.konkuk.arabyte_aos.domain.model.ReviewList
 import com.konkuk.arabyte_aos.domain.model.ReviewPageable
 import com.konkuk.arabyte_aos.domain.model.ReviewSort
-import com.konkuk.arabyte_aos.presentation.model.ArabyteJobCategory
 
 fun GetReviewsResponseDto.toDomainModel(): ReviewList {
     return ReviewList(
@@ -34,7 +34,7 @@ fun ReviewContentDto.toDomainModel(): ReviewItem {
         content = this.text,
         region = this.location,
         category = ArabyteJobCategory.valueOf(this.category),
-        companyName = "나중에 준대",
+        companyName = this.companyName,
     )
 }
 

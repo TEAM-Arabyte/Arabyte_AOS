@@ -22,25 +22,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.konkuk.arabyte_aos.R
-import com.konkuk.arabyte_aos.domain.model.NoticeBoardItem
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardContent
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.CommentChip
 import com.konkuk.arabyte_aos.presentation.ui.component.chip.LikeChip
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardCategoryChip
-import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 import com.konkuk.arabyte_aos.ui.theme.arabyteColors
 
 @Composable
 fun ArabyteNoticeBoardItem(
-    noticeBoardItem: NoticeBoardItem,
+    noticeBoardItem: NoticeBoardContent,
     modifier: Modifier = Modifier,
-    navigateToNoticeBoardDetail: () -> Unit = {},
 ) {
     Column(
         modifier =
             modifier
-                .fillMaxWidth()
-                .noRippleClickable(navigateToNoticeBoardDetail),
+                .fillMaxWidth(),
     ) {
         Column(
             modifier =
@@ -49,7 +46,7 @@ fun ArabyteNoticeBoardItem(
                     .padding(horizontal = 16.dp, vertical = 11.dp),
         ) {
             NoticeBoardCategoryChip(
-                categoryResId = noticeBoardItem.noticeBoardCategoryType.stringRes,
+                category = noticeBoardItem.articleKind,
             )
             Spacer(Modifier.height(5.dp))
             Row(
@@ -76,7 +73,7 @@ fun ArabyteNoticeBoardItem(
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
-                if (noticeBoardItem.thumbnailImage.isNotBlank()) {
+                if (!noticeBoardItem.thumbnailImage.isNullOrBlank()) {
                     Spacer(Modifier.width(8.dp))
                     AsyncImage(
                         model = noticeBoardItem.thumbnailImage,
@@ -96,7 +93,7 @@ fun ArabyteNoticeBoardItem(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 Text(
-                    text = noticeBoardItem.uploadAt,
+                    text = noticeBoardItem.createdAt,
                     style = ArabyteTheme.typography.capMed9,
                     color = arabyteColors.gray05,
                 )

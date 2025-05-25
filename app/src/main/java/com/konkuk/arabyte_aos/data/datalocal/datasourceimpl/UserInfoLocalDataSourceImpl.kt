@@ -45,6 +45,10 @@ class UserInfoLocalDataSourceImpl
             get() = getValue(REFRESH_TOKEN)
             set(value) = setValue(REFRESH_TOKEN, value)
 
+        override var userId: String
+            get() = getValue(USER_ID)
+            set(value) = setValue(USER_ID, value)
+
         override fun clear() {
             sharedPreferences.edit { clear() }
         }
@@ -61,5 +65,6 @@ class UserInfoLocalDataSourceImpl
         companion object {
             private const val FILE_NAME = "ArabyteLocalDataSource"
             private const val INITIAL_VALUE = ""
+            private const val USER_ID = "userId"
         }
     }

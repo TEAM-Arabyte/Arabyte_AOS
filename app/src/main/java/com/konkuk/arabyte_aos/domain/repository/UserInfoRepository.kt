@@ -12,6 +12,10 @@ interface UserInfoRepository {
 
     fun getRefreshToken(): String
 
+    fun setUserId(userId: Int)
+
+    fun getUserId(): Int
+
     suspend fun postOnboarding(userOnboardingInfo: UserOnboardingInfo): Result<Unit>
 
     suspend fun deleteUser(): Result<Unit>
