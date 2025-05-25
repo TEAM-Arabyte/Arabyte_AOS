@@ -53,5 +53,7 @@ class NoticeBoardDetailContract {
         data class SetReplyTarget(val parentId: Long) : NoticeBoardDetailEvent()
 
         data class ClickReplyButton(val parentId: Long) : NoticeBoardDetailEvent()
+
+        data class ClickLikeButton (val isClicked: Boolean): NoticeBoardDetailEvent()
     }
 }

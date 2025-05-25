@@ -1,6 +1,5 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
-import android.R.attr.text
 import androidx.lifecycle.viewModelScope
 import buildCommentTree
 import com.konkuk.arabyte_aos.domain.usecase.comment.PostCommentUseCase
@@ -37,6 +36,8 @@ class NoticeBoardDetailViewModel
                         )
                     }
                 }
+
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickLikeButton -> { }
             }
         }
 

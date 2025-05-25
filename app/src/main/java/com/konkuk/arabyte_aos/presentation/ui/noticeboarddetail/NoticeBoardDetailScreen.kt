@@ -68,6 +68,7 @@ fun NoticeBoardDetailRoute(
         replyTargetCommentId = uiState.replyTargetCommentId,
         navigateToBack = { viewModel.setSideEffect(NoticeBoardDetailContract.NoticeBoardDetailSideEffect.NavigateToBack) },
         onReplyButtonClick = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickReplyButton(it)) },
+        onClickLicked = { }
     )
 }
 
@@ -82,6 +83,7 @@ fun NoticeBoardDetailScreen(
     isAnonymous: Boolean,
     navigateToBack: () -> Unit,
     onReplyButtonClick: (Long) -> Unit,
+    onClickLicked: (Boolean)->Unit,
     modifier: Modifier = Modifier,
     replyTargetCommentId: Long? = null,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
@@ -115,6 +117,7 @@ fun NoticeBoardDetailScreen(
                     title = noticeBoardDetail.title,
                     content = noticeBoardDetail.text,
                     isLiked = noticeBoardDetail.isLiked,
+                    onClickLiked = {  }
                 )
             }
             item {

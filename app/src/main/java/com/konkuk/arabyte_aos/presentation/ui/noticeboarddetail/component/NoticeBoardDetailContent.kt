@@ -30,6 +30,7 @@ fun NoticeBoardDetailContent(
     title: String,
     content: String,
     isLiked: Boolean,
+    onClickLiked: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
