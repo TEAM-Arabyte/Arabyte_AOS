@@ -77,9 +77,20 @@ fun MyPageRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is MyPageContract.MyPageSideEffect.NavigateToLogin -> navigateToLogin()
+
                     is MyPageContract.MyPageSideEffect.ShowImageErrorToast ->
                         context.arabyteToastMessage(
                             messageResId = R.string.notice_board_write_image_upload_error,
+                        )
+
+                    is MyPageContract.MyPageSideEffect.ShowImageInvalidToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.toast_message_upload_image_invalid,
+                        )
+
+                    is MyPageContract.MyPageSideEffect.ShowImageValidToast ->
+                        context.arabyteToastMessage(
+                            messageResId = R.string.toast_message_upload_image_valid,
                         )
                 }
             }
@@ -250,7 +261,7 @@ fun MyPageScreen(
                 contractImageUri = uiState.contractImageUri,
                 addContractViewVisible = uiState.addContractViewVisible,
                 enrollButtonClicked = enrollButtonClicked,
-                imageUploadState = uiState.contractUploadState
+                imageUploadState = uiState.contractUploadState,
             )
         }
     }
