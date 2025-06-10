@@ -1,6 +1,7 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,18 +25,24 @@ import androidx.compose.ui.unit.dp
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetailComment
 import com.konkuk.arabyte_aos.presentation.ui.noticeboard.component.NoticeBoardWriterChip
+import com.konkuk.arabyte_aos.presentation.util.modifier.noRippleClickable
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
 
 @Composable
 fun NoticeBoardDetailCommentItem(
     comment: NoticeBoardDetailComment,
     isWriter: Boolean,
+    isSelected: Boolean,
+    onClickReply: () -> Unit,
+    onClickReport: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val backgroundColor = if (isSelected) ArabyteTheme.colors.lightBlue.copy(alpha = 0.5f) else Color.Unspecified
     Row(
         modifier =
             modifier
                 .fillMaxWidth()
+                .background(backgroundColor)
                 .padding(horizontal = 16.dp, vertical = 9.dp),
     ) {
         Row(
@@ -87,12 +94,14 @@ fun NoticeBoardDetailCommentItem(
                     text = stringResource(R.string.notice_board_comment_reply),
                     style = ArabyteTheme.typography.capMed11,
                     color = ArabyteTheme.colors.gray04,
+                    modifier = Modifier.noRippleClickable { onClickReply() },
                 )
                 Spacer(Modifier.width(14.dp))
                 Text(
                     text = stringResource(R.string.notice_board_comment_report),
                     style = ArabyteTheme.typography.capMed11,
                     color = ArabyteTheme.colors.gray04,
+                    modifier = Modifier.noRippleClickable { onClickReport() },
                 )
             }
         }

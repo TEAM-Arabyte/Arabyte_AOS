@@ -80,14 +80,16 @@ fun HomeScreenContent(
             modifier = Modifier.padding(horizontal = 20.dp),
         )
         Spacer(Modifier.height(11.dp))
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
-        ) { page ->
-            ArabyteReviewItem(
-                reviewItem = uiState.reviewList[page],
-                modifier = Modifier.padding(horizontal = 20.dp),
-            )
+        if (uiState.reviewList.isNotEmpty()) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally),
+            ) { page ->
+                ArabyteReviewItem(
+                    reviewItem = uiState.reviewList[page],
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                )
+            }
         }
         Spacer(Modifier.height(11.dp))
         HomePagerIndicator(

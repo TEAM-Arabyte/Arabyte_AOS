@@ -1,10 +1,10 @@
 package com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail
 
-import android.R.attr.text
 import androidx.lifecycle.viewModelScope
 import buildCommentTree
 import com.konkuk.arabyte_aos.domain.usecase.comment.PostCommentUseCase
 import com.konkuk.arabyte_aos.domain.usecase.noticeboard.GetNoticeBoardDetailUseCase
+import com.konkuk.arabyte_aos.domain.usecase.noticeboard.PostNoticeBoardLikeUseCase
 import com.konkuk.arabyte_aos.presentation.util.base.BaseViewModel
 import com.konkuk.arabyte_aos.presentation.util.log.DebugLog
 import com.konkuk.arabyte_aos.presentation.util.view.LoadState
@@ -19,6 +19,7 @@ class NoticeBoardDetailViewModel
     constructor(
         private val getNoticeBoardDetailUseCase: GetNoticeBoardDetailUseCase,
         private val postCommentUseCase: PostCommentUseCase,
+        private val postNoticeBoardLikeUseCase: PostNoticeBoardLikeUseCase,
     ) : BaseViewModel<NoticeBoardDetailContract.NoticeBoardDetailUiState, NoticeBoardDetailContract.NoticeBoardDetailSideEffect, NoticeBoardDetailContract.NoticeBoardDetailEvent>() {
         override fun createInitialState(): NoticeBoardDetailContract.NoticeBoardDetailUiState = NoticeBoardDetailContract.NoticeBoardDetailUiState()
 
@@ -29,6 +30,35 @@ class NoticeBoardDetailViewModel
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText -> setState { copy(postComment = postComment.copy(text = event.text)) }
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.SetReplyTarget -> setState { copy(postComment = postComment.copy(parentId = event.parentId)) }
                 is NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment -> postComment(event.articleId)
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickReplyButton -> {
+                    setState {
+                        copy(
+                            replyTargetCommentId = event.parentId,
+                            postComment = postComment.copy(parentId = event.parentId),
+                        )
+                    }
+                }
+                is NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickLikeButton -> {
+                    postLike(event.articleId)
+                }
+            }
+        }
+
+        private fun postLike(articleId: Long) {
+            viewModelScope.launch {
+                postNoticeBoardLikeUseCase(articleId = articleId)
+                    .onSuccess { likeResult ->
+                        setState {
+                            copy(
+                                noticeBoardDetail =
+                                    noticeBoardDetail.copy(
+                                        isLiked = likeResult.liked,
+                                    ),
+                            )
+                        }
+                    }
+                    .onFailure {
+                    }
             }
         }
 
@@ -38,7 +68,12 @@ class NoticeBoardDetailViewModel
                 postCommentUseCase(comment)
                     .onSuccess {
                         setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.GetNoticeBoardDetail(articleId))
-                        setState { copy(postComment = postComment.copy(text = "")) }
+                        setState {
+                            copy(
+                                postComment = postComment.copy(text = "", parentId = null),
+                                replyTargetCommentId = null,
+                            )
+                        }
                     }
                     .onFailure { e ->
                         DebugLog.d("postComment", e.message)

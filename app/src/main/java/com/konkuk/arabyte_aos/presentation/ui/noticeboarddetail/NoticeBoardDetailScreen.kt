@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,12 +25,12 @@ import androidx.lifecycle.flowWithLifecycle
 import com.konkuk.arabyte_aos.R
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
 import com.konkuk.arabyte_aos.presentation.ui.component.ArabyteTopAppBar
+import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentEmptyView
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentItem
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailCommentTextField
 import com.konkuk.arabyte_aos.presentation.ui.noticeboarddetail.component.NoticeBoardDetailContent
 import com.konkuk.arabyte_aos.presentation.util.modifier.advancedImePadding
 import com.konkuk.arabyte_aos.ui.theme.ArabyteTheme
-import flattenCommentTree
 
 @Composable
 fun NoticeBoardDetailRoute(
@@ -60,10 +59,15 @@ fun NoticeBoardDetailRoute(
         modifier = modifier,
         onTextChange = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeCommentText(it)) },
         onAnonymousChanged = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ChangeAnonymous(it)) },
-        onSend = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment(articleId)) },
+        onSend = {
+            viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.SubmitComment(articleId))
+        },
         text = uiState.postComment.text,
         isAnonymous = uiState.postComment.isAnonymous,
+        replyTargetCommentId = uiState.replyTargetCommentId,
         navigateToBack = { viewModel.setSideEffect(NoticeBoardDetailContract.NoticeBoardDetailSideEffect.NavigateToBack) },
+        onReplyButtonClick = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickReplyButton(it)) },
+        onClickLiked = { viewModel.setEvent(NoticeBoardDetailContract.NoticeBoardDetailEvent.ClickLikeButton(articleId)) },
     )
 }
 
@@ -77,7 +81,10 @@ fun NoticeBoardDetailScreen(
     text: String,
     isAnonymous: Boolean,
     navigateToBack: () -> Unit,
+    onReplyButtonClick: (Long) -> Unit,
+    onClickLiked: () -> Unit,
     modifier: Modifier = Modifier,
+    replyTargetCommentId: Long? = null,
     innerPaddingValues: PaddingValues = PaddingValues(0.dp),
 ) {
     Column(
@@ -109,6 +116,7 @@ fun NoticeBoardDetailScreen(
                     title = noticeBoardDetail.title,
                     content = noticeBoardDetail.text,
                     isLiked = noticeBoardDetail.isLiked,
+                    onClickLiked = onClickLiked,
                 )
             }
             item {
@@ -127,13 +135,15 @@ fun NoticeBoardDetailScreen(
 
             if (flattenCommentList.isEmpty()) {
                 item {
-                    // Todo: 엠티뷰 컴포넌트 부르기
+                    NoticeBoardDetailCommentEmptyView()
                 }
             } else {
                 itemsIndexed(
                     items = flattenCommentList,
                 ) { index, (comment, isReply) ->
                     val isWriter = comment.nickname == noticeBoardDetail.nickname
+                    val isReplyTarget = comment.commentId == replyTargetCommentId
+
                     if (index != 0 && !isReply) {
                         HorizontalDivider(
                             thickness = 1.dp,
@@ -143,14 +153,20 @@ fun NoticeBoardDetailScreen(
                     NoticeBoardDetailCommentItem(
                         comment = comment,
                         isWriter = isWriter,
+                        isSelected = isReplyTarget,
+                        onClickReply = {
+                            onReplyButtonClick(comment.commentId)
+                        },
+                        onClickReport = {
+                        },
                     )
                 }
-            }
-            item {
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = ArabyteTheme.colors.gray01,
-                )
+                item {
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = ArabyteTheme.colors.gray01,
+                    )
+                }
             }
         }
         NoticeBoardDetailCommentTextField(

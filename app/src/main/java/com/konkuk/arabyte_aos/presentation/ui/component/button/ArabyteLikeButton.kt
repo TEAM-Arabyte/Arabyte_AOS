@@ -39,9 +39,9 @@ fun ArabyteLikeButton(
     Row(
         modifier =
             modifier
+                .noRippleClickable { buttonClicked() }
                 .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(30.dp))
-                .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = ArabyteTheme.colors.gray01, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp))
-                .noRippleClickable { buttonClicked() },
+                .roundedBackgroundWithPadding(cornerRadius = 30.dp, backgroundColor = ArabyteTheme.colors.gray01, padding = PaddingValues(vertical = 5.dp, horizontal = 11.dp)),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {

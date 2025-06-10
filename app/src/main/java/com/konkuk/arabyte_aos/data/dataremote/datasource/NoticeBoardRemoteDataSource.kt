@@ -1,8 +1,10 @@
 package com.konkuk.arabyte_aos.data.dataremote.datasource
 
+import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardLikeRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardWriteRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListResponseDto
+import com.konkuk.arabyte_aos.data.dataremote.model.response.PostNoticeBoardLikeResponseDto
 import retrofit2.Response
 
 interface NoticeBoardRemoteDataSource {
@@ -20,4 +22,8 @@ interface NoticeBoardRemoteDataSource {
     suspend fun postNoticeBoardWrite(
         postNoticeBoardWriteRequestDto: PostNoticeBoardWriteRequestDto,
     ): Response<Unit>
+
+    suspend fun postNoticeBoardLike(
+        postNoticeBoardLikeRequestDto: PostNoticeBoardLikeRequestDto,
+    ): Response<PostNoticeBoardLikeResponseDto>
 }

@@ -1,9 +1,11 @@
 package com.konkuk.arabyte_aos.data.dataremote.datasourceimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.NoticeBoardRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardLikeRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardWriteRequestDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardDetailResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.model.response.GetNoticeBoardListResponseDto
+import com.konkuk.arabyte_aos.data.dataremote.model.response.PostNoticeBoardLikeResponseDto
 import com.konkuk.arabyte_aos.data.dataremote.service.NoticeBoardService
 import retrofit2.Response
 import javax.inject.Inject
@@ -33,4 +35,7 @@ class NoticeBoardRemoteDataSourceImpl
 
         override suspend fun postNoticeBoardWrite(postNoticeBoardWriteRequestDto: PostNoticeBoardWriteRequestDto): Response<Unit> =
             service.postNoticeBoardWrite(postNoticeBoardWriteRequestDto = postNoticeBoardWriteRequestDto)
+
+        override suspend fun postNoticeBoardLike(postNoticeBoardLikeRequestDto: PostNoticeBoardLikeRequestDto): Response<PostNoticeBoardLikeResponseDto> =
+            service.postNoticeBoardLike(postNoticeBoardLikeRequestDto = postNoticeBoardLikeRequestDto)
     }

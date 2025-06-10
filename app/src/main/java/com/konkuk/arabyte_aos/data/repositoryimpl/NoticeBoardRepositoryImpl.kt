@@ -1,9 +1,12 @@
 package com.konkuk.arabyte_aos.data.repositoryimpl
 
 import com.konkuk.arabyte_aos.data.dataremote.datasource.NoticeBoardRemoteDataSource
+import com.konkuk.arabyte_aos.data.dataremote.model.request.PostNoticeBoardLikeRequestDto
 import com.konkuk.arabyte_aos.data.mapper.todata.toRequestDto
+import com.konkuk.arabyte_aos.data.mapper.todomain.toDomain
 import com.konkuk.arabyte_aos.data.mapper.todomain.toDomainModel
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardDetail
+import com.konkuk.arabyte_aos.domain.model.NoticeBoardLike
 import com.konkuk.arabyte_aos.domain.model.NoticeBoardList
 import com.konkuk.arabyte_aos.domain.model.PostNoticeBoardWrite
 import com.konkuk.arabyte_aos.domain.repository.NoticeBoardRepository
@@ -43,5 +46,13 @@ class NoticeBoardRepositoryImpl
                 noticeBoardListRemoteDataSource.postNoticeBoardWrite(
                     postNoticeBoardWriteRequestDto = postNoticeBoardWrite.toRequestDto(),
                 )
+            }
+
+        override suspend fun postNoticeBoardLike(articleId: Long): Result<NoticeBoardLike> =
+            runCatching {
+                val request = PostNoticeBoardLikeRequestDto(articleId = articleId)
+                noticeBoardListRemoteDataSource.postNoticeBoardLike(request)
+                    .body()?.toDomain()
+                    ?: throw IllegalStateException("Response body is null")
             }
     }
