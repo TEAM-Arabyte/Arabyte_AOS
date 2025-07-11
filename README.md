@@ -1,5 +1,16 @@
 # Arabyte_AOS
-건국대학교 컴퓨터공학부 2024-2025 졸업 프로젝트 8팀 안드로이드 레포입니다.
-### 다들 내 말 잘들어라!! -조휘원-
-
-<img width="506" alt="hwi" src="https://github.com/user-attachments/assets/7d0bc572-8341-4de5-85da-a93726ebfb50" />
+![8팀  시스템 설계 및 개발 통합_1](https://github.com/user-attachments/assets/d8773a7f-c980-45a3-a9bf-0e5c9a901f5a)
+![8팀  시스템 설계 및 개발 통합_2](https://github.com/user-attachments/assets/0984a7a5-2307-49e5-932d-bc03eea21761)
+![8팀  시스템 설계 및 개발 통합_3](https://github.com/user-attachments/assets/05b6b28b-bf0b-43ef-abfc-93b35ae6a459)
+![8팀  시스템 설계 및 개발 통합_4](https://github.com/user-attachments/assets/0cdc13f2-9ece-46bd-a021-b8970eb35487)
+![8팀  시스템 설계 및 개발 통합_5](https://github.com/user-attachments/assets/074bde14-23e0-463f-98e4-6abe6b4f5255)
+![8팀  시스템 설계 및 개발 통합_6](https://github.com/user-attachments/assets/d4c79ace-1119-4b2a-b078-34e87237bd45)
+![8팀  시스템 설계 및 개발 통합_7](https://github.com/user-attachments/assets/60af72e6-98a3-4d7c-a8d4-09eaeef4ec3d)
+![8팀  시스템 설계 및 개발 통합_8](https://github.com/user-attachments/assets/d446f085-9a06-471c-9d4f-2fc5781383b4)
+![8팀  시스템 설계 및 개발 통합_9](https://github.com/user-attachments/assets/dc75bef0-9915-48c5-ad57-c0e838bab100)
+![8팀  시스템 설계 및 개발 통합_10](https://github.com/user-attachments/assets/c0366d17-96e7-4b93-b80a-45da8ac9843b)
+![8팀  시스템 설계 및 개발 통합_11](https://github.com/user-attachments/assets/ae120413-3b2a-44c7-b867-265cb0bb5574)
+![8팀  시스템 설계 및 개발 통합_12](https://github.com/user-attachments/assets/655f6904-c0e7-43f9-a7a7-5f373cb6bd5b)
+![8팀  시스템 설계 및 개발 통합_13](https://github.com/user-attachments/assets/54c59eb1-1050-4732-a8a3-9cb23b9799d0)
+![8팀  시스템 설계 및 개발 통합_14](https://github.com/user-attachments/assets/84c98e9a-9b05-4b90-b20f-af9a430bc406)
+![8팀  시스템 설계 및 개발 통합_15](https://github.com/user-attachments/assets/29dd33e8-81a9-4f14-9c85-da0bc46f3893)
